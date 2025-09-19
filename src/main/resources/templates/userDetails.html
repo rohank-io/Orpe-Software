@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Orpe Consultants</title>
+	<!-- HTML5 Shim and Respond.js IE9 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+      <![endif]-->
+	<!-- Meta -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="description" content="Phoenixcoded">
+	<meta name="keywords"
+		content=", Flat ui, Admin , Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app">
+	<meta name="author" content="Phoenixcoded">
+	<!-- Favicon icon -->
+
+	<link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
+	<!-- Google font-->
+	<link href="https://fonts.googleapis.com/css?family=Mada:300,400,500,600,700" rel="stylesheet">
+	<!-- Required Fremwork -->
+	<link rel="stylesheet" type="text/css" href="/assets/plugins/bootstrap/dist/css/bootstrap.min.css">
+	<!-- Date-time picker css -->
+	<link rel="stylesheet" type="text/css" href="/assets/pages/advance-elements/css/bootstrap-datetimepicker.css">
+	<!-- themify-icons line icon -->
+	<link rel="stylesheet" type="text/css" href="/assets/icon/themify-icons/themify-icons.css">
+	<!-- ico font -->
+	<link rel="stylesheet" type="text/css" href="/assets/icon/icofont/css/icofont.css">
+	<!-- flag icon framework css -->
+	<link rel="stylesheet" type="text/css" href="/assets/pages/flag-icon/flag-icon.min.css">
+	<!-- Menu-Search css -->
+	<link rel="stylesheet" type="text/css" href="/assets/pages/menu-search/css/component.css">
+	<!-- Style.css -->
+	<link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+
+	<link rel="stylesheet" type="text/css" href="/assets/css/linearicons.css">
+	<link rel="stylesheet" type="text/css" href="/assets/css/simple-line-icons.css">
+	<link rel="stylesheet" type="text/css" href="/assets/css/ionicons.css">
+	<link rel="stylesheet" type="text/css" href="/assets/css/jquery.mCustomScrollbar.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+</head>
+
+<body>
+	<!-- Pre-loader start -->
+	<div class="theme-loader">
+		<div class="ball-scale">
+			<div></div>
+		</div>
+	</div>
+	<!-- Pre-loader end -->
+
+	<div id="pcoded" class="pcoded">
+		<div class="pcoded-overlay-box"></div>
+		<div class="pcoded-container navbar-wrapper">
+
+			<nav class="navbar header-navbar pcoded-header">
+				<div class="navbar-wrapper">
+					<div class="navbar-logo" navbar-theme="theme4">
+						<a class="mobile-menu" id="mobile-collapse" href="#!">
+							<i class="ti-menu"></i>
+						</a>
+						<a href="#!">
+							<img class="img-fluid" src="/assets/images/logo.png" alt="Theme-Logo" />
+						</a>
+						<a class="mobile-options">
+							<i class="ti-more"></i>
+						</a>
+					</div>
+					<div class="navbar-container container-fluid">
+						<div>
+							<ul class="nav-left">
+								<li>
+									<div class="sidebar_toggle"><a href="javascript:void(0)"><i class="ti-menu"></i></a>
+									</div>
+								</li>
+								<li>
+									<a class="main-search morphsearch-search" href="#">
+										<!-- themify icon -->
+										<i class="ti-search"></i>
+									</a>
+								</li>
+								<li>
+									<a href="#!" onclick="javascript:toggleFullScreen()">
+										<i class="ti-fullscreen"></i>
+									</a>
+								</li>
+
+							</ul>
+
+
+							<ul class="nav-right">
+								<!--<li>-->
+								<!--<a href="#" class="btn btn-primary">Upgrade To Pro</a>-->
+								<!--</li>-->
+
+
+
+								<li class="user-profile header-notification" th:if="${session.loggedInUser != null}">
+									<a href="#!">
+										<img th:src="@{/assets/images/user.png}" alt="User-Profile-Image">
+										<span th:text="${session.loggedInUser.username}">Username</span>
+										<i class="ti-angle-down"></i>
+									</a>
+									<ul class="show-notification profile-notification">
+										<li>
+											<a href="#!">
+												<i class="ti-settings"></i> Settings
+											</a>
+										</li>
+										<li>
+											<a th:href="@{/user-profile}">
+												<i class="ti-user"></i> Profile
+											</a>
+										</li>
+										<li>
+											<a href="#!">
+												<i class="ti-email"></i> My Messages
+											</a>
+										</li>
+										<li>
+											<a th:href="@{/auth-lock-screen}">
+												<i class="ti-lock"></i> Lock Screen
+											</a>
+										</li>
+										<li>
+											<a th:href="@{/logout}">
+												<i class="ti-layout-sidebar-left"></i> Logout
+											</a>
+										</li>
+									</ul>
+								</li>
+
+								<!-- Show login/register buttons when user is not logged in -->
+
+
+							</ul>
+
+						</div>
+					</div>
+				</div>
+			</nav>
+
+
+			<div class="pcoded-main-container">
+				<div class="pcoded-wrapper">
+					<nav class="pcoded-navbar">
+											<div class="sidebar_toggle"><a href="#"><i class="icon-close icons"></i></a></div>
+											<div class="pcoded-inner-navbar main-menu">
+
+												<div class="pcoded-navigatio-lavel">Main</div>
+												<ul class="pcoded-item pcoded-left-item">
+													<li class="pcoded-trigger ">
+														<a th:href="@{/index}">
+															<span class="pcoded-micon"><i class="ti-comments"></i></span>
+															<span class="pcoded-mtext">Dashboard</span>
+															<span class="pcoded-mcaret"></span>
+														</a>
+													</li>
+												</ul>
+												<ul class="pcoded-item pcoded-left-item">
+													<li class="pcoded-hasmenu">
+														<a href="javascript:void(0)">
+															<span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i></span>
+															<span class="pcoded-mtext">All Data</span>
+															<span class="pcoded-mcaret"></span>
+														</a>
+														<ul class="pcoded-submenu">
+															<li class=" ">
+																<a th:href="@{/importdata/list}">
+																	<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+																	<span class="pcoded-mtext">Import</span>
+																	<span class="pcoded-mcaret"></span>
+																</a>
+															</li>
+															<li class=" ">
+																<a href="breadcrumb.html">
+																	<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+																	<span class="pcoded-mtext">Export</span>
+																	<span class="pcoded-mcaret"></span>
+																</a>
+															</li>
+															<li class=" ">
+																<a href="button.html">
+																	<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+																	<span class="pcoded-mtext">BOM</span>
+																	<span class="pcoded-mcaret"></span>
+																</a>
+															</li>
+																								
+
+
+															
+
+														</ul>
+													</li>
+													<li class="pcoded-hasmenu">
+														<a href="javascript:void(0)">
+															<span class="pcoded-micon"><i class="ti-crown"></i></span>
+															<span class="pcoded-mtext">Advance Calculations</span>
+															<span class="pcoded-mcaret"></span>
+														</a>
+														<ul class="pcoded-submenu">
+															<li class=" ">
+																<a href="bs-grid.html">
+																	<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+																	<span class="pcoded-mtext">Worksheet</span>
+																	<span class="pcoded-mcaret"></span>
+																</a>
+															</li>
+															<li class=" ">
+																<a href="light-box.html">
+																	<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+																	<span class="pcoded-mtext">SB wise Qty Consumption</span>
+																	<span class="pcoded-mcaret"></span>
+																</a>
+															</li>
+															<li class=" ">
+																<a href="notification.html">
+																	<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+																	<span class="pcoded-mtext">SB wise DBK Calculation</span>
+																	<span class="pcoded-mcaret"></span>
+																</a>
+															</li>
+														</ul>
+													</li>
+													
+												</ul>
+												<div class="pcoded-navigatio-lavel">Data Import </div>
+
+												
+
+												<ul class="pcoded-item pcoded-left-item">
+													<li>
+														<a th:href="@{/exceldataimport}">
+															<span class="pcoded-micon"><i class="ti-receipt"></i></span>
+															<span class="pcoded-mtext">Excel</span>
+															<span class="pcoded-mcaret"></span>
+														</a>
+													</li>
+												</ul>
+												<div class="pcoded-navigatio-lavel">Chart And Reports</div>
+												<ul class="pcoded-item pcoded-left-item">
+													<li>
+														<a href="chart.html">
+															<span class="pcoded-micon"><i class="ti-bar-chart-alt"></i></span>
+															<span class="pcoded-mtext">Chart</span>
+															<span class="pcoded-mcaret"></span>
+														</a>
+													</li>
+												</ul>
+
+
+												<ul class="pcoded-item pcoded-left-item">
+													<li class="pcoded-hasmenu ">
+														<a href="javascript:void(0)">
+															<span class="pcoded-micon"><i class="icofont icofont-cloud-download"></i></span>
+															<span class="pcoded-mtext">Reports</span>
+															<span class="pcoded-mcaret"></span>
+														</a>
+														<ul class="pcoded-submenu">
+
+															<li class="">
+																<a href="auth-sign-in-social.html" target="_blank">
+																	<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+																	<span class="pcoded-mtext">Report 1</span>
+																	<span class="pcoded-mcaret"></span>
+																</a>
+															</li>
+
+															<li class="">
+																<a href="auth-sign-up-social.html" target="_blank">
+																	<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+																	<span class="pcoded-mtext">Report 2</span>
+																	<span class="pcoded-mcaret"></span>
+																</a>
+															</li>
+															<li class="">
+																<a href="auth-reset-password.html" target="_blank">
+																	<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+																	<span class="pcoded-mtext">Report 3</span>
+																	<span class="pcoded-mcaret"></span>
+																</a>
+															</li>
+
+
+														</ul>
+													</li>
+												</ul>
+												<div class="pcoded-navigatio-lavel">Other</div>
+												<ul class="pcoded-item pcoded-left-item">
+													<li class="pcoded-hasmenu active ">
+														<a href="javascript:void(0)">
+															<span class="pcoded-micon"><i class="icofont icofont-businessman"></i></span>
+															<span class="pcoded-mtext">User</span>
+															<span class="pcoded-mcaret"></span>
+														</a>
+														<ul class="pcoded-submenu">
+															<li class="">
+																<a th:href="@{/register}">
+																	<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+																	<span class="pcoded-mtext">Add User</span>
+																	<span class="pcoded-mcaret"></span>
+																</a>
+															</li>
+															<li class="">
+																<a th:href="@{/users}">
+																	<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+																	<span class="pcoded-mtext">User List</span>
+																	<span class="pcoded-mcaret"></span>
+																</a>
+
+															</li>
+
+
+														</ul>
+													</li>
+												</ul>
+
+											</div>
+										</nav>
+					<div class="pcoded-content">
+						<div class="pcoded-inner-content">
+
+							<!-- Main body start -->
+							<div class="main-body user-profile">
+								<div class="page-wrapper">
+									<!-- Page-header start -->
+									<div class="page-header">
+										<div class="page-header-title">
+											<h4>User Profile</h4>
+										</div>
+										<div class="page-header-breadcrumb">
+											<ul class="breadcrumb-title">
+												<li class="breadcrumb-item">
+													<a href="index.html">
+														<i class="icofont icofont-home"></i>
+													</a>
+												</li>
+												<li class="breadcrumb-item"><a href="#!">User</a>
+												</li>
+												<li class="breadcrumb-item"><a href="#!">User Profile</a>
+												</li>
+											</ul>
+										</div>
+									</div>
+									<!-- Page-header end -->
+									<!-- Page-body start -->
+									<div class="page-body">
+										<!--profile cover start-->
+										<div class="row">
+											<div class="col-lg-12">
+												<div class="cover-profile">
+													<div class="profile-bg-img">
+														<img class="profile-bg-img img-fluid"
+															src="/assets/images/user-profile/bg-img1.jpg" alt="bg-img">
+														<div class="card-block user-info">
+															<div class="col-md-12">
+																<div class="media-left">
+																	<a href="#" class="profile-image">
+																		<img class="user-img img-circle"
+																			src="/assets/images/user-profile/user-img.jpg"
+																			alt="user-img">
+																	</a>
+																</div>
+																<div class="media-body row">
+																	<div class="col-lg-12">
+																		<div class="user-title">
+																			<h2 th:text="${user.fullName}">Josephin
+																				Villa</h2>
+																			<span class="text-white"
+																				th:text="${user.role}">Web
+																				designer</span>
+																		</div>
+																	</div>
+																	<div>
+																		<div class="pull-right cover-btn">
+
+																			<a th:href="@{/register}"
+																				class="btn btn-primary m-r-10 m-b-5"><i
+																					class="icofont icofont-ui-edit"></i>
+																				Edit User</a>
+																			<button type="button"
+																				onclick="window.history.back()"
+																				class="btn btn-primary m-b-5"><i
+																					class="icofont icofont-reply"></i>
+																				Back</button>
+
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<!--profile cover end-->
+										<div class="row">
+											<div class="col-lg-12">
+
+												<div class="tab-content">
+													<!-- tab panel personal start -->
+													<div class="tab-pane active" id="personal" role="tabpanel">
+														<!-- personal card start -->
+														<div class="card button-page">
+															<!-- Success Message -->
+															<div th:if="${successMessage}" class="alert alert-success">
+																<i class="fas fa-check-circle"></i> User Updated
+																Successfully
+															</div>
+
+															<!-- Error Message -->
+															<div th:if="${errorMessage}" class="alert alert-danger">
+																<i class="fas fa-exclamation-triangle"></i> <span
+																	th:text="${errorMessage}"></span>
+															</div>
+															<div class="card-header">
+																<h5 class="card-header-text">About User</h5>
+																<button id="edit-btn" type="button"
+																	class="btn btn-sm btn-primary waves-effect waves-light f-right"
+																	data-toggle="tooltip" data-placement="left"
+																	title="edit user details">
+																	<i class="icofont icofont-edit"></i>
+																</button>
+
+
+															</div>
+															<div class="card-block">
+																<!-- VIEW MODE -->
+																<div class="view-info">
+																	<div class="row">
+																		<div class="col-lg-12">
+																			<div class="general-info">
+																				<div class="row">
+																					<div class="col-lg-12 col-xl-6">
+																						<table
+																							class="table m-0 table-responsive">
+																							<tbody>
+																								<tr>
+																									<th scope="row">Full
+																										Name</th>
+																									<td
+																										th:text="${user.fullName}">
+																										Sample Name</td>
+																								</tr>
+																								<tr>
+																									<th scope="row">
+																										Username</th>
+																									<td
+																										th:text="${user.username}">
+																										username</td>
+																								</tr>
+																								<tr>
+																									<th scope="row">Role
+																									</th>
+																									<td>
+																										<span
+																											class="badge"
+																											th:class="${user.role.name() == 'ADMIN' ? 'badge bg-danger' : 
+														                                                                  user.role.name() == 'MANAGER' ? 'badge bg-warning text-dark' : 
+														                                                                  'badge bg-primary'}" th:text="${user.role.displayName}">Role</span>
+																									</td>
+																								</tr>
+																								<tr>
+																									<th scope="row">
+																										Status</th>
+																									<td>
+																										<span
+																											class="badge"
+																											th:class="${user.status.name() == 'ACTIVE' ? 'badge bg-success' : 
+														                                                                  user.status.name() == 'INACTIVE' ? 'badge bg-secondary' : 
+														                                                                  'badge bg-warning text-dark'}"
+																											th:text="${user.status.displayName}">Status</span>
+																									</td>
+																								</tr>
+																								<tr>
+																									<th scope="row">User
+																										ID</th>
+																									<td
+																										th:text="${user.id}">
+																										1</td>
+																								</tr>
+																							</tbody>
+																						</table>
+																					</div>
+																					<!-- end of table col-lg-6 -->
+
+																					<div class="col-lg-12 col-xl-6">
+																						<table
+																							class="table table-responsive">
+																							<tbody>
+																								<tr>
+																									<th scope="row">
+																										Email</th>
+																									<td>
+																										<a href="#!"
+																											th:text="${user.email}">Demo@phenix.com</a>
+																									</td>
+																								</tr>
+																								<tr>
+																									<th scope="row">
+																										Mobile Number
+																									</th>
+																									<td
+																										th:text="${user.phoneNumber ?: 'N/A'}">
+																										(0123) - 4567891
+																									</td>
+																								</tr>
+																								<tr>
+																									<th scope="row">Last
+																										Login</th>
+																									<td
+																										th:text="${user.lastLoginDate != null ? #temporals.format(user.lastLoginDate, 'dd-MM-yyyy HH:mm') : 'Never'}">
+																										Never</td>
+																								</tr>
+																								<tr>
+																									<th scope="row">
+																										Account Created
+																									</th>
+																									<td
+																										th:text="${user.createdAt != null ? #temporals.format(user.createdAt, 'dd-MM-yyyy') : 'N/A'}">
+																										N/A</td>
+																								</tr>
+																								<tr>
+																									<th scope="row">Last
+																										Updated</th>
+																									<td
+																										th:text="${user.updatedAt != null ? #temporals.format(user.updatedAt, 'dd-MM-yyyy') : 'N/A'}">
+																										N/A</td>
+																								</tr>
+																							</tbody>
+																						</table>
+																					</div>
+																					<!-- end of table col-lg-6 -->
+																				</div>
+																				<!-- end of row -->
+																			</div>
+																			<!-- end of general info -->
+																		</div>
+																		<!-- end of col-lg-12 -->
+																	</div>
+																	<!-- end of row -->
+																</div>
+																<!-- end of view-info -->
+
+																<!-- EDIT MODE -->
+																<div class="edit-info">
+																	<form
+																		th:action="@{/users/{id}/update(id=${user.id})}"
+																		method="post">
+																		<div class="row">
+																			<div class="col-lg-12">
+																				<div class="general-info">
+																					<div class="row">
+																						<div class="col-lg-6">
+																							<table class="table">
+																								<tbody>
+																									<tr>
+																										<td>
+																											<div
+																												class="input-group">
+																												<span
+																													class="input-group-addon">
+																													<i
+																														class="icofont icofont-user"></i>
+																												</span>
+																												<input
+																													type="text"
+																													class="form-control"
+																													name="fullName"
+																													th:value="${user.fullName}"
+																													placeholder="Full Name">
+																											</div>
+																											<small
+																												class="text-muted">Full
+																												Name</small>
+																										</td>
+																									</tr>
+																									<tr>
+																										<td>
+																											<div
+																												class="input-group">
+																												<span
+																													class="input-group-addon">
+																													<i
+																														class="icofont icofont-ui-user"></i>
+																												</span>
+																												<input
+																													type="text"
+																													class="form-control"
+																													name="username"
+																													th:value="${user.username}"
+																													placeholder="Username">
+																											</div>
+																											<small
+																												class="text-muted">Username</small>
+																										</td>
+																									</tr>
+																									<tr>
+																										<td>
+																											<select
+																												class="form-control"
+																												name="role">
+																												<option
+																													value="">
+																													----
+																													Select
+																													Role
+																													----
+																												</option>
+																												<option
+																													value="ADMIN"
+																													th:selected="${user.role.name() == 'ADMIN'}">
+																													Admin
+																												</option>
+																												<option
+																													value="MANAGER"
+																													th:selected="${user.role.name() == 'MANAGER'}">
+																													Manager
+																												</option>
+																												<option
+																													value="USER"
+																													th:selected="${user.role.name() == 'USER'}">
+																													User
+																												</option>
+																											</select>
+																											<small
+																												class="text-muted">Role</small>
+																										</td>
+																									</tr>
+																									<tr>
+																										<td>
+																											<select
+																												class="form-control"
+																												name="status">
+																												<option
+																													value="">
+																													----
+																													Select
+																													Status
+																													----
+																												</option>
+																												<option
+																													value="ACTIVE"
+																													th:selected="${user.status.name() == 'ACTIVE'}">
+																													Active
+																												</option>
+																												<option
+																													value="INACTIVE"
+																													th:selected="${user.status.name() == 'INACTIVE'}">
+																													Inactive
+																												</option>
+																												<option
+																													value="SUSPENDED"
+																													th:selected="${user.status.name() == 'SUSPENDED'}">
+																													Suspended
+																												</option>
+																											</select>
+																											<small
+																												class="text-muted">Status</small>
+																										</td>
+																									</tr>
+																								</tbody>
+																							</table>
+																						</div>
+																						<!-- end of table col-lg-6 -->
+
+																						<div class="col-lg-6">
+																							<table class="table">
+																								<tbody>
+																									<tr>
+																										<td>
+																											<div
+																												class="input-group">
+																												<span
+																													class="input-group-addon">
+																													<i
+																														class="icofont icofont-email"></i>
+																												</span>
+																												<input
+																													type="email"
+																													class="form-control"
+																													name="email"
+																													th:value="${user.email}"
+																													placeholder="Email Address">
+																											</div>
+																											<small
+																												class="text-muted">Email
+																												Address</small>
+																										</td>
+																									</tr>
+																									<tr>
+																										<td>
+																											<div
+																												class="input-group">
+																												<span
+																													class="input-group-addon">
+																													<i
+																														class="icofont icofont-mobile-phone"></i>
+																												</span>
+																												<input
+																													type="text"
+																													class="form-control"
+																													name="phoneNumber"
+																													th:value="${user.phoneNumber}"
+																													placeholder="Mobile Number">
+																											</div>
+																											<small
+																												class="text-muted">Mobile
+																												Number</small>
+																										</td>
+																									</tr>
+																									<tr>
+																										<td>
+																											<div
+																												class="form-group">
+																												<label
+																													class="text-muted">Last
+																													Login
+																													(Read
+																													Only)</label>
+																												<input
+																													type="text"
+																													class="form-control"
+																													th:value="${user.lastLoginDate != null ? #temporals.format(user.lastLoginDate, 'dd-MM-yyyy HH:mm') : 'Never'}"
+																													readonly>
+																											</div>
+																										</td>
+																									</tr>
+																									<tr>
+																										<td>
+																											<div
+																												class="form-group">
+																												<label
+																													class="text-muted">Account
+																													Created
+																													(Read
+																													Only)</label>
+																												<input
+																													type="text"
+																													class="form-control"
+																													th:value="${user.createdAt != null ? #temporals.format(user.createdAt, 'dd-MM-yyyy') : 'N/A'}"
+																													readonly>
+																											</div>
+																										</td>
+																									</tr>
+																								</tbody>
+																							</table>
+																						</div>
+																						<!-- end of table col-lg-6 -->
+																					</div>
+																					<!-- end of row -->
+
+																					<div class="text-center">
+																						<button type="submit"
+																							class="btn btn-primary waves-effect waves-light m-r-20">
+																							<i
+																								class="icofont icofont-save"></i>
+																							Save Changes
+																						</button>
+																						<a href="#!"
+																							id="edit-user-cancel"
+																							class="btn btn-default waves-effect">
+																							<i
+																								class="icofont icofont-close"></i>
+																							Cancel
+																						</a>
+																					</div>
+																				</div>
+																				<!-- end of general info -->
+																			</div>
+																			<!-- end of col-lg-12 -->
+																		</div>
+																		<!-- end of row -->
+																	</form>
+																</div>
+																<!-- end of edit-info -->
+															</div>
+															<!-- end of card-block -->
+														</div>
+
+														<div class="row">
+															<div class="col-lg-12">
+																<div class="card">
+																	<div class="card-header">
+																		<h5 class="card-header-text">Notes</h5>
+
+																	</div>
+																	<div class="card-block user-desc">
+																		<div class="view-desc">
+																			<p th:text="${user.notes}">Samples
+																			</p>
+																		</div>
+																		<div class="edit-desc">
+																			<div class="col-md-12">
+																				<textarea id="description">
+                                                            <p>But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure?" "On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrinking from toil and pain. These cases are perfectly simple and easy to distinguish. In a free hour, when our power of choice is untrammelled and when nothing prevents our being able To Do what we like best, every pleasure is to be welcomed and every pain avoided. But in certain circumstances and owing to the claims of duty or the obligations of business it will frequently occur that pleasures have to be repudiated and annoyances accepted. The wise man therefore always holds in these matters to this principle of selection: he rejects pleasures to secure other greater pleasures, or else he endures pains to avoid worse pain.</p>
+                                                        </textarea>
+																			</div>
+																			<div class="text-center">
+																				<a href="#!"
+																					class="btn btn-primary waves-effect waves-light m-r-20 m-t-20">Save</a>
+																				<a href="#!" id="edit-cancel-btn"
+																					class="btn btn-default waves-effect m-t-20">Cancel</a>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+														<!-- personal card end-->
+													</div>
+
+												</div>
+												<!-- tab content end -->
+											</div>
+										</div>
+									</div>
+									<!-- Page-body end -->
+								</div>
+							</div>
+							<!-- Main body end -->
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="fixed-button">
+			<a th:href="@{/register}" class="btn btn-primary" aria-hidden="true">Home</a>
+		</div>
+	</div>
+
+
+
+
+	<script type="text/javascript" src="/assets/plugins/jquery/dist/jquery.min.js"></script>
+	<script type="text/javascript" src="/assets/plugins/jquery-ui/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="/assets/plugins/tether/dist/js/tether.min.js"></script>
+	<script type="text/javascript" src="/assets/plugins/bootstrap/dist/js/bootstrap.min.js"></script>
+	<!-- jquery slimscroll js -->
+	<script type="text/javascript" src="/assets/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
+	<!-- modernizr js -->
+	<script type="text/javascript" src="/assets/plugins/modernizr/modernizr.js"></script>
+	<script type="text/javascript" src="/assets/plugins/modernizr/feature-detects/css-scrollbars.js"></script>
+	<!-- Bootstrap date-time-picker js -->
+	<script type="text/javascript" src="/assets/pages/advance-elements/moment-with-locales.min.js"></script>
+	<!--<script type="text/javascript" src="assets/pages/advance-elements/bootstrap-datetimepicker.min.js"></script>-->
+	<!-- Custom js -->
+	<script type="text/javascript" src="/assets/js/script.js"></script>
+	<script src="/assets/pages/user-profile.js"></script>
+	<script src="/assets/js/pcoded.min.js"></script>
+	<script src="/assets/js/demo-12.js"></script>
+	<script src="/assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
+	<script src="/assets/js/jquery.mousewheel.min.js"></script>
+
+
+</body>
+
+</html>

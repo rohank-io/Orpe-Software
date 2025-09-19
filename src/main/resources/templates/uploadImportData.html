@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Orpe Consultants</title>
+	<!-- HTML5 Shim and Respond.js IE9 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+      <![endif]-->
+	<!-- Meta -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="description" content="Phoenixcoded">
+	<meta name="keywords"
+		content=", Flat ui, Admin , Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app">
+	<meta name="author" content="Phoenixcoded">
+	<!-- Favicon icon -->
+
+	<link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
+	<!-- Google font-->
+	<link href="https://fonts.googleapis.com/css?family=Mada:300,400,500,600,700" rel="stylesheet">
+	<!-- Required Fremwork -->
+	<link rel="stylesheet" type="text/css" href="/assets/plugins/bootstrap/dist/css/bootstrap.min.css">
+	<!-- Date-time picker css -->
+	<link rel="stylesheet" type="text/css" href="/assets/pages/advance-elements/css/bootstrap-datetimepicker.css">
+	<!-- themify-icons line icon -->
+	<link rel="stylesheet" type="text/css" href="/assets/icon/themify-icons/themify-icons.css">
+	<!-- ico font -->
+	<link rel="stylesheet" type="text/css" href="/assets/icon/icofont/css/icofont.css">
+	<!-- flag icon framework css -->
+	<link rel="stylesheet" type="text/css" href="/assets/pages/flag-icon/flag-icon.min.css">
+	<!-- Menu-Search css -->
+	<link rel="stylesheet" type="text/css" href="/assets/pages/menu-search/css/component.css">
+	<!-- Style.css -->
+	<link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+
+	<link rel="stylesheet" type="text/css" href="/assets/css/linearicons.css">
+	<link rel="stylesheet" type="text/css" href="/assets/css/simple-line-icons.css">
+	<link rel="stylesheet" type="text/css" href="/assets/css/ionicons.css">
+	<link rel="stylesheet" type="text/css" href="/assets/css/jquery.mCustomScrollbar.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+</head>
+
+<body>
+	<!-- Pre-loader start -->
+	<div class="theme-loader">
+		<div class="ball-scale">
+			<div></div>
+		</div>
+	</div>
+	<!-- Pre-loader end -->
+
+	<div id="pcoded" class="pcoded">
+		<div class="pcoded-overlay-box"></div>
+		<div class="pcoded-container navbar-wrapper">
+
+			<nav class="navbar header-navbar pcoded-header">
+				<div class="navbar-wrapper">
+					<div class="navbar-logo" navbar-theme="theme4">
+						<a class="mobile-menu" id="mobile-collapse" href="#!">
+							<i class="ti-menu"></i>
+						</a>
+						<a href="#!">
+							<img class="img-fluid" src="/assets/images/logo.png" alt="Theme-Logo" />
+						</a>
+						<a class="mobile-options">
+							<i class="ti-more"></i>
+						</a>
+					</div>
+					<div class="navbar-container container-fluid">
+						<div>
+							<ul class="nav-left">
+								<li>
+									<div class="sidebar_toggle"><a href="javascript:void(0)"><i class="ti-menu"></i></a>
+									</div>
+								</li>
+								<li>
+									<a class="main-search morphsearch-search" href="#">
+										<!-- themify icon -->
+										<i class="ti-search"></i>
+									</a>
+								</li>
+								<li>
+									<a href="#!" onclick="javascript:toggleFullScreen()">
+										<i class="ti-fullscreen"></i>
+									</a>
+								</li>
+
+							</ul>
+
+
+							<ul class="nav-right">
+								<!--<li>-->
+								<!--<a href="#" class="btn btn-primary">Upgrade To Pro</a>-->
+								<!--</li>-->
+
+
+
+								<li class="user-profile header-notification" th:if="${session.loggedInUser != null}">
+									<a href="#!">
+										<img th:src="@{/assets/images/user.png}" alt="User-Profile-Image">
+										<span th:text="${session.loggedInUser.username}">Username</span>
+										<i class="ti-angle-down"></i>
+									</a>
+									<ul class="show-notification profile-notification">
+										<li>
+											<a href="#!">
+												<i class="ti-settings"></i> Settings
+											</a>
+										</li>
+										<li>
+											<a th:href="@{/user-profile}">
+												<i class="ti-user"></i> Profile
+											</a>
+										</li>
+										<li>
+											<a href="#!">
+												<i class="ti-email"></i> My Messages
+											</a>
+										</li>
+										<li>
+											<a th:href="@{/auth-lock-screen}">
+												<i class="ti-lock"></i> Lock Screen
+											</a>
+										</li>
+										<li>
+											<a th:href="@{/logout}">
+												<i class="ti-layout-sidebar-left"></i> Logout
+											</a>
+										</li>
+									</ul>
+								</li>
+
+								<!-- Show login/register buttons when user is not logged in -->
+
+
+							</ul>
+
+						</div>
+					</div>
+				</div>
+			</nav>
+
+
+			<div class="pcoded-main-container">
+				<div class="pcoded-wrapper">
+					<nav class="pcoded-navbar">
+											<div class="sidebar_toggle"><a href="#"><i class="icon-close icons"></i></a></div>
+											<div class="pcoded-inner-navbar main-menu">
+
+												<div class="pcoded-navigatio-lavel">Main</div>
+												<ul class="pcoded-item pcoded-left-item">
+													<li class="pcoded-trigger ">
+														<a th:href="@{/index}">
+															<span class="pcoded-micon"><i class="ti-comments"></i></span>
+															<span class="pcoded-mtext">Dashboard</span>
+															<span class="pcoded-mcaret"></span>
+														</a>
+													</li>
+												</ul>
+												<ul class="pcoded-item pcoded-left-item">
+													<li class="pcoded-hasmenu">
+														<a href="javascript:void(0)">
+															<span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i></span>
+															<span class="pcoded-mtext">All Data</span>
+															<span class="pcoded-mcaret"></span>
+														</a>
+														<ul class="pcoded-submenu">
+															<li class=" ">
+																<a th:href="@{/importdata/list}">
+																	<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+																	<span class="pcoded-mtext">Import</span>
+																	<span class="pcoded-mcaret"></span>
+																</a>
+															</li>
+															<li class=" ">
+																<a href="breadcrumb.html">
+																	<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+																	<span class="pcoded-mtext">Export</span>
+																	<span class="pcoded-mcaret"></span>
+																</a>
+															</li>
+															<li class=" ">
+																<a href="button.html">
+																	<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+																	<span class="pcoded-mtext">BOM</span>
+																	<span class="pcoded-mcaret"></span>
+																</a>
+															</li>
+																								
+
+
+															
+
+														</ul>
+													</li>
+													<li class="pcoded-hasmenu">
+														<a href="javascript:void(0)">
+															<span class="pcoded-micon"><i class="ti-crown"></i></span>
+															<span class="pcoded-mtext">Advance Calculations</span>
+															<span class="pcoded-mcaret"></span>
+														</a>
+														<ul class="pcoded-submenu">
+															<li class=" ">
+																<a href="bs-grid.html">
+																	<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+																	<span class="pcoded-mtext">Worksheet</span>
+																	<span class="pcoded-mcaret"></span>
+																</a>
+															</li>
+															<li class=" ">
+																<a href="light-box.html">
+																	<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+																	<span class="pcoded-mtext">SB wise Qty Consumption</span>
+																	<span class="pcoded-mcaret"></span>
+																</a>
+															</li>
+															<li class=" ">
+																<a href="notification.html">
+																	<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+																	<span class="pcoded-mtext">SB wise DBK Calculation</span>
+																	<span class="pcoded-mcaret"></span>
+																</a>
+															</li>
+														</ul>
+													</li>
+													
+												</ul>
+												<div class="pcoded-navigatio-lavel">Data Import </div>
+
+												
+
+												<ul class="pcoded-item pcoded-left-item">
+													<li class="active">
+														<a th:href="@{/exceldataimport}">
+															<span class="pcoded-micon"><i class="ti-receipt"></i></span>
+															<span class="pcoded-mtext">Excel</span>
+															<span class="pcoded-mcaret"></span>
+														</a>
+													</li>
+												</ul>
+												<div class="pcoded-navigatio-lavel">Chart And Reports</div>
+												<ul class="pcoded-item pcoded-left-item">
+													<li>
+														<a href="chart.html">
+															<span class="pcoded-micon"><i class="ti-bar-chart-alt"></i></span>
+															<span class="pcoded-mtext">Chart</span>
+															<span class="pcoded-mcaret"></span>
+														</a>
+													</li>
+												</ul>
+
+
+												<ul class="pcoded-item pcoded-left-item">
+													<li class="pcoded-hasmenu ">
+														<a href="javascript:void(0)">
+															<span class="pcoded-micon"><i class="icofont icofont-cloud-download"></i></span>
+															<span class="pcoded-mtext">Reports</span>
+															<span class="pcoded-mcaret"></span>
+														</a>
+														<ul class="pcoded-submenu">
+
+															<li class="">
+																<a href="auth-sign-in-social.html" target="_blank">
+																	<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+																	<span class="pcoded-mtext">Report 1</span>
+																	<span class="pcoded-mcaret"></span>
+																</a>
+															</li>
+
+															<li class="">
+																<a href="auth-sign-up-social.html" target="_blank">
+																	<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+																	<span class="pcoded-mtext">Report 2</span>
+																	<span class="pcoded-mcaret"></span>
+																</a>
+															</li>
+															<li class="">
+																<a href="auth-reset-password.html" target="_blank">
+																	<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+																	<span class="pcoded-mtext">Report 3</span>
+																	<span class="pcoded-mcaret"></span>
+																</a>
+															</li>
+
+
+														</ul>
+													</li>
+												</ul>
+												<div class="pcoded-navigatio-lavel">Other</div>
+												<ul class="pcoded-item pcoded-left-item">
+													<li class="pcoded-hasmenu  ">
+														<a href="javascript:void(0)">
+															<span class="pcoded-micon"><i class="icofont icofont-businessman"></i></span>
+															<span class="pcoded-mtext">User</span>
+															<span class="pcoded-mcaret"></span>
+														</a>
+														<ul class="pcoded-submenu">
+															<li class="">
+																<a th:href="@{/register}">
+																	<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+																	<span class="pcoded-mtext">Add User</span>
+																	<span class="pcoded-mcaret"></span>
+																</a>
+															</li>
+															<li class="">
+																<a th:href="@{/users}">
+																	<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+																	<span class="pcoded-mtext">User List</span>
+																	<span class="pcoded-mcaret"></span>
+																</a>
+
+															</li>
+
+
+														</ul>
+													</li>
+												</ul>
+
+											</div>
+										</nav>
+					<div class="pcoded-content">
+						<div class="pcoded-inner-content">
+
+							<div class="main-body">
+								<div class="page-wrapper">
+									<div class="page-header">
+										<div class="page-header-title">
+											<h3>Import Data Upload</h3>
+											<span>Extract your Excel Documents</span>
+										</div>
+										<div class="page-header-breadcrumb">
+											<ul class="breadcrumb-title">
+												<li class="breadcrumb-item">
+													<a th:href="@{/index}">
+														<i class="icofont icofont-home"></i>
+													</a>
+												</li>
+												<li class="breadcrumb-item"><a th:href="@{/pdfimport}">Excel</a>
+												</li>
+												<li class="breadcrumb-item"><a href="#!">Import Data</a>
+												</li>
+
+											</ul>
+										</div>
+									</div>
+									<div class="page-body">
+										<!-- Profile Header Section (unchanged) -->
+
+										<div class="row">
+											<div class="col-lg-12">
+
+												<!-- tab header end -->
+												<!-- tab content start -->
+												<div class="tab-content">
+													<!-- tab panel personal start -->
+													<div class="tab-pane active" id="personal" role="tabpanel">
+														<!-- personal card start -->
+														<div class="card">
+															<div class="card-header">
+																<h5>File Upload</h5>
+																<span>Choose Import Excel file</span>
+																<div class="card-header-right">
+																	<i class="icofont icofont-rounded-down"></i>
+																	<a href=""><i
+																			class="icofont icofont-refresh"></i></a>
+																</div>
+															</div>
+															<div class="card-body">
+																<form id="fileUploadForm" enctype="multipart/form-data"
+																	method="post" action="/importdata/importExcel">
+																	<!-- Drop zone and hidden file input -->
+																	<div class="file-drop-zone"
+																		style="border: 2px dashed #0d6efd; border-radius: 10px; padding: 40px 0; text-align: center; background: #fafbfc; margin: 24px; font-size: 1.1rem; color: #555; cursor: pointer;"
+																		id="file-drop-zone"
+																		onclick="document.getElementById('fileInput').click();"
+																		ondragover="event.preventDefault(); this.style.borderColor='#007bff';"
+																		ondragleave="event.preventDefault(); this.style.borderColor='#e2e2e2';"
+																		ondrop="handleFileDrop(event);">
+																		Drop Excel files here to upload
+																	</div>
+																	<input type="file" id="fileInput" name="file"
+																		style="display: none;" accept=".xlsx,.xls"
+																		onchange="handleFileSelect(event)" />
+
+																	<div class="text-center">
+																		<button type="submit"
+																			class="btn btn-primary waves-effect waves-light m-b-5"
+																			style="width: 150px;">
+																			Extract Excel
+																		</button>
+																	</div>
+																</form>
+															</div>
+														</div>
+
+														<div class="card mt-4"
+															th:if="${importRows != null or error != null}">
+															<div class="card-header">
+																<h5>Import Details</h5>
+																<small th:if="${importFileName != null}"><span
+																		th:text="${importFileName}"></span></small>
+																<span class="text-info" th:if="${rowCount != null}">
+																		    Parsed <span th:text="${rowCount}"></span> rows
+																		</span>
+
+																<small class="text-danger" th:if="${error != null}"
+																	th:text="${error}"></small>
+															</div>
+															<div class="card-body">
+																<div th:if="${importRows == null}">
+																	<em>No data loaded yet. Upload an Excel file and
+																		click Import Excel.</em>
+																</div>
+
+																<div th:if="${importRows != null}"
+																	class="table-responsive"
+																	style="max-height: 520px; overflow:auto;">
+																	<table id="importTable"
+																		class="table table-sm table-striped table-bordered align-middle">
+																		<thead class="table-light sticky-top">
+																			<tr>
+																				<th class="text-center">
+																					<input type="checkbox"
+																						id="selectAll"
+																						onclick="toggleAll(this)">
+																					<span class="ms-1">Sr No</span>
+																				</th>
+																				<!-- Core Header Fields -->
+																				<th>BE No</th>
+																				<th>BE Date</th>
+																				<th>Month</th>
+																				<th>Year</th>
+																				<th>Claim Ref No</th>
+																				<th>Claim Year</th>
+																				<th>Port Code</th>
+																				<th>Country of Origin</th>
+																				<th>Supplier</th>
+																				<th>ITCHS</th>
+																				<th>Item Description</th>
+																				<th>BOM Part</th>
+																				<th>Alt BOE Part</th>
+																				<th>DBK Part</th>
+
+																				<!-- Quantity + Value -->
+																				<th class="text-end">Qty</th>
+																				<th>UOM</th>
+																				<th class="text-end">Assessable</th>
+
+																				<!-- Duties -->
+																				<th class="text-end">BCD Rate(%)</th>
+																				<th class="text-end">BCD</th>
+																				<th class="text-end">SWS Rate(%)</th>
+																				<th class="text-end">SWS</th>
+																				<th class="text-end">Add Rate(%)</th>
+																				<th class="text-end">Add Duty</th>
+																				<th class="text-end">IGST Rate(%)</th>
+																				<th class="text-end">IGST</th>
+																				<th class="text-end">Total Duty</th>
+
+																				<!-- Notifications -->
+																				<th>Notn No</th>
+																				<th>Eligibility</th>
+
+																				<!-- Stock -->
+																				<th class="text-end">Opening</th>
+																				<th class="text-end">Used</th>
+																				<th class="text-end">Closing</th>
+																				<th>Stock Eligibility</th>
+
+																				<!-- Claims -->
+																				<th class="text-end">Duty Claimed</th>
+
+																				<!-- Action -->
+																				<th class="text-center">Action</th>
+																			</tr>
+																		</thead>
+																		<tbody>
+																			<tr th:each="r, rowStat : ${importRows}">
+																				<!-- Select + Sr No -->
+																				<td class="text-center">
+																					<input type="checkbox"
+																						class="row-select"
+																						th:value="${rowStat.index}">
+																					<span class="sr-no ms-1"
+																						th:text="${rowStat.index + 1}"></span>
+																				</td>
+
+																				<!-- Core -->
+																				<td  contenteditable="true" th:text="${r.beNo}"></td>
+																				<td  contenteditable="true" th:text="${r.beDate}"></td>
+																				<td  contenteditable="true" th:text="${r.beMonth}"></td>
+																				<td  contenteditable="true" th:text="${r.beYear}"></td>
+																				<td  contenteditable="true" th:text="${r.claimRefNo}"></td>
+																				<td  contenteditable="true" th:text="${r.claimYear}"></td>
+																				<td  contenteditable="true" th:text="${r.portCode}"></td>
+																				<td  contenteditable="true" th:text="${r.countryOfOrigin}"></td>
+																				<td  contenteditable="true"
+																					th:text="${r.supplierNameAddress}">
+																				</td>
+																				<td  contenteditable="true" th:text="${r.itchsCode}"></td>
+																				<td  contenteditable="true" th:text="${r.itemDescription}"></td>
+																				<td  contenteditable="true" th:text="${r.bomPartNo}"></td>
+																				<td  contenteditable="true" th:text="${r.altBoePartNo}"></td>
+																				<td  contenteditable="true" th:text="${r.dbkPartNo}"></td>
+
+																				<!-- Quantity + Value -->
+																				<td  contenteditable="true" class="text-end"
+																					th:text="${#numbers.formatDecimal(r.quantity, 0, 'COMMA', 2, 'POINT')}">
+																				</td>
+																				<td  contenteditable="true" th:text="${r.uom}"></td>
+																				<td  contenteditable="true" class="text-end"
+																					th:text="${#numbers.formatDecimal(r.assessableValue, 0, 'COMMA', 2, 'POINT')}">
+																				</td>
+
+																				<!-- Duties -->
+																				<td  contenteditable="true" class="text-end"
+																					th:text="${#numbers.formatDecimal(r.bcdRate, 0, 'COMMA', 2, 'POINT')}">
+																				</td>
+																				<td  contenteditable="true" class="text-end"
+																					th:text="${#numbers.formatDecimal(r.bcd, 0, 'COMMA', 2, 'POINT')}">
+																				</td>
+																				<td  contenteditable="true" class="text-end"
+																					th:text="${#numbers.formatDecimal(r.swsRate, 0, 'COMMA', 2, 'POINT')}">
+																				</td>
+																				<td  contenteditable="true" class="text-end"
+																					th:text="${#numbers.formatDecimal(r.sws, 0, 'COMMA', 2, 'POINT')}">
+																				</td>
+																				<td  contenteditable="true" class="text-end"
+																					th:text="${#numbers.formatDecimal(r.addRate, 0, 'COMMA', 2, 'POINT')}">
+																				</td>
+																				<td  contenteditable="true" class="text-end"
+																					th:text="${#numbers.formatDecimal(r.addDuty, 0, 'COMMA', 2, 'POINT')}">
+																				</td>
+																				<td  contenteditable="true" class="text-end"
+																					th:text="${#numbers.formatDecimal(r.igstRate, 0, 'COMMA', 2, 'POINT')}">
+																				</td>
+																				<td  contenteditable="true" class="text-end"
+																					th:text="${#numbers.formatDecimal(r.igst, 0, 'COMMA', 2, 'POINT')}">
+																				</td>
+																				<td  contenteditable="true" class="text-end"
+																					th:text="${#numbers.formatDecimal(r.totalDuty, 0, 'COMMA', 2, 'POINT')}">
+																				</td>
+
+																				<!-- Notifications -->
+																				<td  contenteditable="true" th:text="${r.notnNo}"></td>
+																				<td  contenteditable="true" th:text="${r.notnEligibility}"></td>
+
+																				<!-- Stock -->
+																				<td  contenteditable="true" class="text-end"
+																					th:text="${#numbers.formatDecimal(r.qtyOpeningBalance, 0, 'COMMA', 2, 'POINT')}">
+																				</td>
+																				<td  contenteditable="true" class="text-end"
+																					th:text="${#numbers.formatDecimal(r.qtyUsed, 0, 'COMMA', 2, 'POINT')}">
+																				</td>
+																				<td  contenteditable="true" class="text-end"
+																					th:text="${#numbers.formatDecimal(r.closingBalance, 0, 'COMMA', 2, 'POINT')}">
+																				</td>
+																				<td  contenteditable="true" th:text="${r.stockWiseEligibility}">
+																				</td>
+
+																				<!-- Claims -->
+																				<td  contenteditable="true" class="text-end"
+																					th:text="${#numbers.formatDecimal(r.dutyClaimedAmt, 0, 'COMMA', 2, 'POINT')}">
+																				</td>
+
+																				<!-- Action -->
+																				<td class="text-center">
+																					<button type="button"
+																						class="btn btn-sm btn-outline-danger"
+																						onclick="removeRow(this)">
+																						Remove
+																					</button>
+																				</td>
+																			</tr>
+																		</tbody>
+																	</table>
+
+																</div>
+																<div class="text-center">
+																	<button id="saveBtn" type="button"
+																		class="btn btn-primary waves-effect waves-light m-b-5"
+																		style="width: 150px;">
+																		Save
+																	</button>
+																</div>
+															</div>
+														</div>
+														
+														
+														
+														<script>
+														  function parseDecimal(txt) {
+														    if (txt == null) return null;
+														    const n = txt.replace(/,/g, '').trim();
+														    return n === '' || isNaN(n) ? null : n; // leave as string to preserve precision; Jackson maps to BigDecimal
+														  }
+														  function parseIntSafe(txt) {
+														    const n = (txt || '').trim();
+														    return n === '' || isNaN(n) ? null : parseInt(n, 10);
+														  }
+														  function toIsoLocalDate(txt) {
+														    const t = (txt || '').trim();
+														    if (!t) return null;
+														    if (/^\d{4}-\d{2}-\d{2}$/.test(t)) return t;             // yyyy-MM-dd
+														    const m = t.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);         // dd/MM/yyyy
+														    if (m) return `${m[3]}-${m[2]}-${m[1]}`;
+														    return t; // last-resort; backend may reject
+														  }
+														  function nth(tr, idx) {
+														    return tr.querySelector(`td:nth-child(${idx})`)?.innerText?.trim() || '';
+														  }
+
+														  async function collectSelectedAsDTO() {
+														    const out = [];
+														    const rows = document.querySelectorAll('#importTable tbody tr');
+														    rows.forEach(tr => {
+														      const cb = tr.querySelector('input.row-select');
+														      if (!cb || !cb.checked) return;
+
+														      const dto = {
+														        // Core
+														        beNo: nth(tr, 2),
+														        beDate: toIsoLocalDate(nth(tr, 3)),      // ImportDataDTO.LocalDate on backend
+														        beMonth: nth(tr, 4),                     // keep as String (DTO already String)
+														        beYear: parseIntSafe(nth(tr, 5)),
+														        claimRefNo: nth(tr, 6),
+														        claimYear: nth(tr, 7),
+														        portCode: nth(tr, 8),
+														        countryOfOrigin: nth(tr, 9),
+														        supplierNameAddress: nth(tr, 10),
+
+														        // Item
+														        itchsCode: nth(tr, 11),
+														        itemDescription: nth(tr, 12),
+														        bomPartNo: nth(tr, 13),
+														        altBoePartNo: nth(tr, 14),
+														        dbkPartNo: nth(tr, 15),
+
+														        // Quantity + Value
+														        quantity: parseDecimal(nth(tr, 16)),
+														        uom: nth(tr, 17),
+														        assessableValue: parseDecimal(nth(tr, 18)),
+
+														        // Duties
+														        bcdRate: parseDecimal(nth(tr, 19)),
+														        bcd: parseDecimal(nth(tr, 20)),
+														        swsRate: parseDecimal(nth(tr, 21)),
+														        sws: parseDecimal(nth(tr, 22)),
+														        addRate: parseDecimal(nth(tr, 23)),
+														        addDuty: parseDecimal(nth(tr, 24)),
+														        igstRate: parseDecimal(nth(tr, 25)),
+														        igst: parseDecimal(nth(tr, 26)),
+														        totalDuty: parseDecimal(nth(tr, 27)),
+
+														        // Notifications
+														        notnNo: nth(tr, 28),
+														        notnEligibility: nth(tr, 29),
+
+														        // Stock
+														        qtyOpeningBalance: parseDecimal(nth(tr, 30)),
+														        qtyUsed: parseDecimal(nth(tr, 31)),
+														        closingBalance: parseDecimal(nth(tr, 32)),
+														        stockWiseEligibility: nth(tr, 33), // OPEN/CLOSED
+
+														        // Claims
+														        dutyClaimedAmt: parseDecimal(nth(tr, 34))
+														      };
+														      out.push(dto);
+														    });
+														    return out;
+														  }
+
+														  async function saveSelected() {
+														    const btn = document.getElementById('saveBtn');
+														    const loader = document.querySelector('.theme-loader');
+														    // Hide the Save button instantly and show loader
+														    btn.style.display = 'none';
+														    if (loader) loader.style.display = 'block';
+
+														    const rows = await collectSelectedAsDTO();
+														    if (!rows.length) {
+														      alert('Please select at least one row.');
+														      btn.style.display = '';
+														      if (loader) loader.style.display = 'none';
+														      return;
+														    }
+														    try {
+														      const resp = await fetch('/importdata/bulk-save', {
+														        method: 'POST',
+														        headers: { 'Content-Type': 'application/json' },
+														        body: JSON.stringify(rows)
+														      });
+														      if (!resp.ok) throw new Error(await resp.text());
+														      const res = await resp.json();
+														      alert(`Saved ${res.savedCount} rows.`);
+														      window.location.href = '/importdata/list';
+														    } catch (e) {
+														      console.error(e);
+														      alert('Save failed: ' + e.message);
+														      btn.style.display = '';
+														      if (loader) loader.style.display = 'none';
+														    }
+														  }
+
+
+														  document.addEventListener('DOMContentLoaded', function () {
+														    const btn = document.getElementById('saveBtn');
+														    if (btn) {
+														      btn.addEventListener('click', saveSelected);
+														    }
+														  });
+
+
+														  
+														</script>
+
+														
+														<script>
+															function toggleAll(master) {
+																const checks = document.querySelectorAll('#importTable .row-select');
+																checks.forEach(cb => cb.checked = master.checked);
+															}
+
+															function removeRow(btn) {
+																const tr = btn.closest('tr');
+																if (!tr) return;
+																tr.remove();
+																renumberRows();
+															}
+
+															function renumberRows() {
+																const rows = document.querySelectorAll('#importTable tbody tr');
+																rows.forEach((tr, idx) => {
+																	const sr = tr.querySelector('.sr-no');
+																	if (sr) sr.textContent = idx + 1;
+																	const cb = tr.querySelector('.row-select');
+																	if (cb) cb.value = idx;
+																});
+															}
+														</script>
+
+														<script>
+															function handleFileSelect(event) {
+																const file = event.target.files[0];
+																if (file) {
+																	document.getElementById('file-drop-zone').textContent = `Selected file: ${file.name}`;
+																}
+															}
+
+															function handleFileDrop(event) {
+																event.preventDefault();
+																const dt = event.dataTransfer;
+																const files = dt.files;
+																if (files.length > 0) {
+																	document.getElementById('fileInput').files = files;
+																	document.getElementById('file-drop-zone').textContent = `Selected file: ${files[0].name}`;
+																}
+																event.target.style.borderColor = '#e2e2e2';
+															}
+
+															function dashboardEcharts() {
+																console.log("dashboardEcharts called");
+															}
+														</script>
+
+													</div>
+												</div>
+												<!-- tab content end -->
+											</div>
+										</div>
+									</div>
+
+
+								</div>
+							</div>
+							<!--<div id="styleSelector">-->
+
+							<!--</div>-->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="fixed-button">
+			<a th:href="@{/index}" class="btn btn-primary" aria-hidden="true">Home</a>
+		</div>
+	</div>
+
+
+
+
+	<script type="text/javascript" src="/assets/plugins/jquery/dist/jquery.min.js"></script>
+	<script type="text/javascript" src="/assets/plugins/jquery-ui/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="/assets/plugins/tether/dist/js/tether.min.js"></script>
+	<script type="text/javascript" src="/assets/plugins/bootstrap/dist/js/bootstrap.min.js"></script>
+	<!-- jquery slimscroll js -->
+	<script type="text/javascript" src="/assets/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
+	<!-- modernizr js -->
+	<script type="text/javascript" src="/assets/plugins/modernizr/modernizr.js"></script>
+	<script type="text/javascript" src="/assets/plugins/modernizr/feature-detects/css-scrollbars.js"></script>
+	<!-- Bootstrap date-time-picker js -->
+	<script type="text/javascript" src="/assets/pages/advance-elements/moment-with-locales.min.js"></script>
+	<!--<script type="text/javascript" src="assets/pages/advance-elements/bootstrap-datetimepicker.min.js"></script>-->
+	<!-- Custom js -->
+	<script type="text/javascript" src="/assets/js/script.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+	<script src="/assets/pages/user-profile.js"></script>
+	<script src="/assets/js/pcoded.min.js"></script>
+	<script src="/assets/js/demo-12.js"></script>
+	<script src="/assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
+	<script src="/assets/js/jquery.mousewheel.min.js"></script>
+
+
+</body>
+
+</html>

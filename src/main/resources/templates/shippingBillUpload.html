@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Orpe Consultants</title>
+	<!-- HTML5 Shim and Respond.js IE9 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+      <![endif]-->
+	<!-- Meta -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="description" content="Phoenixcoded">
+	<meta name="keywords"
+		content=", Flat ui, Admin , Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app">
+	<meta name="author" content="Phoenixcoded">
+	<!-- Favicon icon -->
+
+	<link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
+	<!-- Google font-->
+	<link href="https://fonts.googleapis.com/css?family=Mada:300,400,500,600,700" rel="stylesheet">
+	<!-- Required Fremwork -->
+	<link rel="stylesheet" type="text/css" href="/assets/plugins/bootstrap/dist/css/bootstrap.min.css">
+	<!-- Date-time picker css -->
+	<link rel="stylesheet" type="text/css" href="/assets/pages/advance-elements/css/bootstrap-datetimepicker.css">
+	<!-- themify-icons line icon -->
+	<link rel="stylesheet" type="text/css" href="/assets/icon/themify-icons/themify-icons.css">
+	<!-- ico font -->
+	<link rel="stylesheet" type="text/css" href="/assets/icon/icofont/css/icofont.css">
+	<!-- flag icon framework css -->
+	<link rel="stylesheet" type="text/css" href="/assets/pages/flag-icon/flag-icon.min.css">
+	<!-- Menu-Search css -->
+	<link rel="stylesheet" type="text/css" href="/assets/pages/menu-search/css/component.css">
+	<!-- Style.css -->
+	<link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+
+	<link rel="stylesheet" type="text/css" href="/assets/css/linearicons.css">
+	<link rel="stylesheet" type="text/css" href="/assets/css/simple-line-icons.css">
+	<link rel="stylesheet" type="text/css" href="/assets/css/ionicons.css">
+	<link rel="stylesheet" type="text/css" href="/assets/css/jquery.mCustomScrollbar.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+</head>
+
+<body>
+	<!-- Pre-loader start -->
+	<div class="theme-loader">
+		<div class="ball-scale">
+			<div></div>
+		</div>
+	</div>
+	<!-- Pre-loader end -->
+
+	<div id="pcoded" class="pcoded">
+		<div class="pcoded-overlay-box"></div>
+		<div class="pcoded-container navbar-wrapper">
+
+			<nav class="navbar header-navbar pcoded-header">
+				<div class="navbar-wrapper">
+					<div class="navbar-logo" navbar-theme="theme4">
+						<a class="mobile-menu" id="mobile-collapse" href="#!">
+							<i class="ti-menu"></i>
+						</a>
+						<a href="#!">
+							<img class="img-fluid" src="/assets/images/logo.png" alt="Theme-Logo" />
+						</a>
+						<a class="mobile-options">
+							<i class="ti-more"></i>
+						</a>
+					</div>
+					<div class="navbar-container container-fluid">
+						<div>
+							<ul class="nav-left">
+								<li>
+									<div class="sidebar_toggle"><a href="javascript:void(0)"><i class="ti-menu"></i></a>
+									</div>
+								</li>
+								<li>
+									<a class="main-search morphsearch-search" href="#">
+										<!-- themify icon -->
+										<i class="ti-search"></i>
+									</a>
+								</li>
+								<li>
+									<a href="#!" onclick="javascript:toggleFullScreen()">
+										<i class="ti-fullscreen"></i>
+									</a>
+								</li>
+
+							</ul>
+
+
+							<ul class="nav-right">
+								<!--<li>-->
+								<!--<a href="#" class="btn btn-primary">Upgrade To Pro</a>-->
+								<!--</li>-->
+
+
+
+								<li class="user-profile header-notification" th:if="${session.loggedInUser != null}">
+									<a href="#!">
+										<img th:src="@{/assets/images/user.png}" alt="User-Profile-Image">
+										<span th:text="${session.loggedInUser.username}">Username</span>
+										<i class="ti-angle-down"></i>
+									</a>
+									<ul class="show-notification profile-notification">
+										<li>
+											<a href="#!">
+												<i class="ti-settings"></i> Settings
+											</a>
+										</li>
+										<li>
+											<a th:href="@{/user-profile}">
+												<i class="ti-user"></i> Profile
+											</a>
+										</li>
+										<li>
+											<a href="#!">
+												<i class="ti-email"></i> My Messages
+											</a>
+										</li>
+										<li>
+											<a th:href="@{/auth-lock-screen}">
+												<i class="ti-lock"></i> Lock Screen
+											</a>
+										</li>
+										<li>
+											<a th:href="@{/logout}">
+												<i class="ti-layout-sidebar-left"></i> Logout
+											</a>
+										</li>
+									</ul>
+								</li>
+
+								<!-- Show login/register buttons when user is not logged in -->
+
+
+							</ul>
+
+						</div>
+					</div>
+				</div>
+			</nav>
+
+
+			<div class="pcoded-main-container">
+				<div class="pcoded-wrapper">
+					<nav class="pcoded-navbar">
+											<div class="sidebar_toggle"><a href="#"><i class="icon-close icons"></i></a></div>
+											<div class="pcoded-inner-navbar main-menu">
+
+												<div class="pcoded-navigatio-lavel">Main</div>
+												<ul class="pcoded-item pcoded-left-item">
+													<li class="active pcoded-trigger ">
+														<a href="index.html ">
+															<span class="pcoded-micon"><i class="ti-comments"></i></span>
+															<span class="pcoded-mtext">Dashboard</span>
+															<span class="pcoded-mcaret"></span>
+														</a>
+													</li>
+												</ul>
+												<ul class="pcoded-item pcoded-left-item">
+													<li class="pcoded-hasmenu">
+														<a href="javascript:void(0)">
+															<span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i></span>
+															<span class="pcoded-mtext">All Data</span>
+															<span class="pcoded-mcaret"></span>
+														</a>
+														<ul class="pcoded-submenu">
+															<li class=" ">
+																<a href="accordion.html">
+																	<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+																	<span class="pcoded-mtext">Import</span>
+																	<span class="pcoded-mcaret"></span>
+																</a>
+															</li>
+															<li class=" ">
+																<a href="breadcrumb.html">
+																	<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+																	<span class="pcoded-mtext">Export</span>
+																	<span class="pcoded-mcaret"></span>
+																</a>
+															</li>
+															<li class=" ">
+																<a href="button.html">
+																	<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+																	<span class="pcoded-mtext">BOM</span>
+																	<span class="pcoded-mcaret"></span>
+																</a>
+															</li>
+																								
+
+
+															
+
+														</ul>
+													</li>
+													<li class="pcoded-hasmenu">
+														<a href="javascript:void(0)">
+															<span class="pcoded-micon"><i class="ti-crown"></i></span>
+															<span class="pcoded-mtext">Advance Calculations</span>
+															<span class="pcoded-mcaret"></span>
+														</a>
+														<ul class="pcoded-submenu">
+															<li class=" ">
+																<a href="bs-grid.html">
+																	<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+																	<span class="pcoded-mtext">Worksheet</span>
+																	<span class="pcoded-mcaret"></span>
+																</a>
+															</li>
+															<li class=" ">
+																<a href="light-box.html">
+																	<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+																	<span class="pcoded-mtext">SB wise Qty Consumption</span>
+																	<span class="pcoded-mcaret"></span>
+																</a>
+															</li>
+															<li class=" ">
+																<a href="notification.html">
+																	<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+																	<span class="pcoded-mtext">SB wise DBK Calculation</span>
+																	<span class="pcoded-mcaret"></span>
+																</a>
+															</li>
+														</ul>
+													</li>
+													
+												</ul>
+												<div class="pcoded-navigatio-lavel">Data Import </div>
+
+												
+
+												<ul class="pcoded-item pcoded-left-item">
+													<li>
+														<a th:href="@{/exceldataimport}">
+															<span class="pcoded-micon"><i class="ti-receipt"></i></span>
+															<span class="pcoded-mtext">Excel</span>
+															<span class="pcoded-mcaret"></span>
+														</a>
+													</li>
+												</ul>
+												<div class="pcoded-navigatio-lavel">Chart And Reports</div>
+												<ul class="pcoded-item pcoded-left-item">
+													<li>
+														<a href="chart.html">
+															<span class="pcoded-micon"><i class="ti-bar-chart-alt"></i></span>
+															<span class="pcoded-mtext">Chart</span>
+															<span class="pcoded-mcaret"></span>
+														</a>
+													</li>
+												</ul>
+
+
+												<ul class="pcoded-item pcoded-left-item">
+													<li class="pcoded-hasmenu ">
+														<a href="javascript:void(0)">
+															<span class="pcoded-micon"><i class="icofont icofont-cloud-download"></i></span>
+															<span class="pcoded-mtext">Reports</span>
+															<span class="pcoded-mcaret"></span>
+														</a>
+														<ul class="pcoded-submenu">
+
+															<li class="">
+																<a href="auth-sign-in-social.html" target="_blank">
+																	<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+																	<span class="pcoded-mtext">Report 1</span>
+																	<span class="pcoded-mcaret"></span>
+																</a>
+															</li>
+
+															<li class="">
+																<a href="auth-sign-up-social.html" target="_blank">
+																	<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+																	<span class="pcoded-mtext">Report 2</span>
+																	<span class="pcoded-mcaret"></span>
+																</a>
+															</li>
+															<li class="">
+																<a href="auth-reset-password.html" target="_blank">
+																	<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+																	<span class="pcoded-mtext">Report 3</span>
+																	<span class="pcoded-mcaret"></span>
+																</a>
+															</li>
+
+
+														</ul>
+													</li>
+												</ul>
+												<div class="pcoded-navigatio-lavel">Other</div>
+												<ul class="pcoded-item pcoded-left-item">
+													<li class="pcoded-hasmenu ">
+														<a href="javascript:void(0)">
+															<span class="pcoded-micon"><i class="icofont icofont-businessman"></i></span>
+															<span class="pcoded-mtext">User</span>
+															<span class="pcoded-mcaret"></span>
+														</a>
+														<ul class="pcoded-submenu">
+															<li class="">
+																<a th:href="@{/register}">
+																	<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+																	<span class="pcoded-mtext">Add User</span>
+																	<span class="pcoded-mcaret"></span>
+																</a>
+															</li>
+															<li class="">
+																<a th:href="@{/users}">
+																	<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+																	<span class="pcoded-mtext">User List</span>
+																	<span class="pcoded-mcaret"></span>
+																</a>
+
+															</li>
+
+
+														</ul>
+													</li>
+												</ul>
+
+											</div>
+										</nav>
+					<div class="pcoded-content">
+						<div class="pcoded-inner-content">
+
+							<div class="main-body">
+								<div class="page-wrapper">
+									<div class="page-header">
+										<div class="page-header-title">
+											<h3>Shippig Bill Upload</h3>
+											<span>Extract your PDF Documents</span>
+										</div>
+										<div class="page-header-breadcrumb">
+											<ul class="breadcrumb-title">
+												<li class="breadcrumb-item">
+													<a th:href="@{/index}">
+														<i class="icofont icofont-home"></i>
+													</a>
+												</li>
+												<li class="breadcrumb-item"><a th:href="@{/pdfimport}">PDF</a>
+												</li>
+												<li class="breadcrumb-item"><a href="#!">Shipping Bill</a>
+												</li>
+
+											</ul>
+										</div>
+									</div>
+									<div class="page-body">
+									<!-- Profile Header Section (unchanged) -->
+
+									<div class="row">
+									<div class="col-lg-12">
+
+									<!-- tab header end -->
+									<!-- tab content start -->
+									<div class="tab-content">
+									<!-- tab panel personal start -->
+									<div class="tab-pane active" id="personal" role="tabpanel">
+									<!-- personal card start -->
+									<div class="card">
+									<div class="card-header">
+									<h5>File Upload</h5>
+									<span>Choose SB Invoice Excel file</span>
+									<div class="card-header-right">
+									<i class="icofont icofont-rounded-down"></i>
+									<a href=""><i class="icofont icofont-refresh"></i></a>
+									</div>
+									</div>
+									<div class="card-body">
+									<form id="fileUploadForm" enctype="multipart/form-data" 
+									      method="post" action="/shippingbill/importExcel">
+									<!-- Drop zone and hidden file input -->
+									<div class="file-drop-zone"
+									style="border: 2px dashed #0d6efd; border-radius: 10px; padding: 40px 0; text-align: center; background: #fafbfc; margin: 24px; font-size: 1.1rem; color: #555; cursor: pointer;"
+									id="file-drop-zone"
+									onclick="document.getElementById('fileInput').click();"
+									ondragover="event.preventDefault(); this.style.borderColor='#007bff';"
+									ondragleave="event.preventDefault(); this.style.borderColor='#e2e2e2';"
+									ondrop="handleFileDrop(event);">
+									Drop Excel files here to upload
+									</div>
+									<input type="file" id="fileInput" name="file"
+									       style="display: none;" accept=".xlsx,.xls"
+									       onchange="handleFileSelect(event)" />
+
+									<div class="text-center">
+									<button type="submit"
+									class="btn btn-primary waves-effect waves-light m-b-5"
+									style="width: 150px;">
+									Import Excel
+									</button>
+									</div>
+									</form>
+									</div>
+									</div>
+
+									<div class="card mt-4">
+									<div class="card-header">
+									<h5>Shipping Bill Details</h5>
+									</div>
+									<div class="card-body">
+									<form th:object="${shippingBill}" id="shippingBillFormFields">
+									<div class="row mb-3">
+									<label for="sbNo" class="col-sm-3 col-form-label">SB No</label>
+									<div class="col-sm-9">
+									<input type="text" class="form-control" th:field="*{sbNo}" />
+									</div>
+									</div>
+									<div class="row mb-3">
+									<label for="sbDate" class="col-sm-3 col-form-label">SB Date</label>
+									<div class="col-sm-9">
+										<input type="date" class="form-control" th:field="*{sbDate}" 
+										       th:value="${shippingBill.sbDate != null ? #temporals.format(shippingBill.sbDate, 'yyyy-MM-dd') : ''}" />
+									</div>
+									</div>
+									<div class="row mb-3">
+									<label for="portCode" class="col-sm-3 col-form-label">Port Code</label>
+									<div class="col-sm-9">
+									<input type="text" class="form-control" th:field="*{portCode}" />
+									</div>
+									</div>
+									<div class="row mb-3">
+									<label for="leoDate" class="col-sm-3 col-form-label">LEO Date</label>
+									<div class="col-sm-9">
+										<input type="date" class="form-control" th:field="*{leoDate}"
+										       th:value="${shippingBill.leoDate != null ? #temporals.format(shippingBill.leoDate, 'yyyy-MM-dd') : ''}" />
+									</div>
+									</div>
+									<div class="row mb-3">
+									<label for="brcRealisationDate" class="col-sm-3 col-form-label">BRC Realisation Date</label>
+									<div class="col-sm-9">
+										<input type="date" class="form-control" th:field="*{brcRealisationDate}"
+										       th:value="${shippingBill.brcRealisationDate != null ? #temporals.format(shippingBill.brcRealisationDate, 'yyyy-MM-dd') : ''}" />
+									</div>
+									</div>
+									<div class="row mb-3">
+									<label for="invoiceNoDate" class="col-sm-3`		`1		`1	`1	`1	`1kjjjjjjjjjjjjjjij                         col-form-label">Invoice No. & Dt.</label>
+									<div class="col-sm-9">
+									<input type="text" class="form-control" th:field="*{invoiceNoDate}" />
+									</div>
+									</div>
+									<div class="row mb-3">
+									<label for="buyerDetails" class="col-sm-3 col-form-label">Buyer's Name & Address</label>
+									<div class="col-sm-9">
+									<textarea class="form-control" th:field="*{buyerDetails}" rows="3"></textarea>
+									</div>
+									</div>
+									<div class="row mb-3">
+									<label for="exchangeRate" class="col-sm-3 col-form-label">Exchange Rate</label>
+									<div class="col-sm-9">
+									<input type="number" step="0.0001" class="form-control" th:field="*{exchangeRate}" />
+									</div>
+									</div>
+									<div class="row mb-3">
+									<label for="invoiceValue" class="col-sm-3 col-form-label">Invoice Value</label>
+									<div class="col-sm-9">
+									<input type="number" step="0.01" class="form-control" th:field="*{invoiceValue}" />
+									</div>
+									</div>
+									<div class="row mb-3">
+									<label for="currency" class="col-sm-3 col-form-label">Currency</label>
+									<div class="col-sm-9">
+									<input type="text" class="form-control" th:field="*{currency}" maxlength="3" />
+									</div>
+									</div>
+									<div class="row mb-3">
+									<label for="hsCd" class="col-sm-3 col-form-label">HS CD</label>
+									<div class="col-sm-9">
+									<input type="text" class="form-control" th:field="*{hsCd}" />
+									</div>
+									</div>
+									<div class="row mb-3">
+									<label for="description" class="col-sm-3 col-form-label">Description</label>
+									<div class="col-sm-9">
+									<textarea class="form-control" th:field="*{description}" rows="3"></textarea>
+									</div>
+									</div>
+									<div class="row mb-3">
+									<label for="modelNo" class="col-sm-3 col-form-label">Model No.</label>
+									<div class="col-sm-9">
+									<input type="text" class="form-control" th:field="*{modelNo}" />
+									</div>
+									</div>
+									<div class="row mb-3">
+									<label for="quantity" class="col-sm-3 col-form-label">Quantity</label>
+									<div class="col-sm-9">
+									<input type="number" step="0.001" class="form-control" th:field="*{quantity}" />
+									</div>
+									</div>
+									<div class="row mb-3">
+									<label for="unit" class="col-sm-3 col-form-label">Unit</label>
+									<div class="col-sm-9">
+									<input type="text" class="form-control" th:field="*{unit}" />
+									</div>
+									</div>
+									<div class="row mb-3">
+									<label for="fob" class="col-sm-3 col-form-label">FOB (INR)</label>
+									<div class="col-sm-9">
+									<input type="number" step="0.01" class="form-control" th:field="*{fob}" />
+									</div>
+									</div>
+									<div class="row mb-3">
+									<label for="pmvPerUnit" class="col-sm-3 col-form-label">PMV (per qty)</label>
+									<div class="col-sm-9">
+									<input type="number" step="0.01" class="form-control" th:field="*{pmvPerUnit}" />
+									</div>
+									</div>
+									<div class="row mb-3">
+									<label for="schemeDescription" class="col-sm-3 col-form-label">Scheme Description</label>
+									<div class="col-sm-9">
+									<textarea class="form-control" th:field="*{schemeDescription}" rows="3"></textarea>
+									</div>
+									</div>
+									<div class="row mb-3">
+									<label for="dbkSno" class="col-sm-3 col-form-label">DBK SNO.</label>
+									<div class="col-sm-9">
+									<input type="text" class="form-control" th:field="*{dbkSno}" />
+									</div>
+									</div>
+									<div class="row mb-3">
+									<label for="rate" class="col-sm-3 col-form-label">Rate</label>
+									<div class="col-sm-9">
+									<input type="number" step="0.0001" class="form-control" th:field="*{rate}" />
+									</div>
+									</div>
+									<div class="row mb-3">
+									<label for="dbkAmtSb" class="col-sm-3 col-form-label">DBK Amt (Air) Given in SB</label>
+									<div class="col-sm-9">
+									<input type="number" step="0.01" class="form-control" th:field="*{dbkAmtSb}" />
+									</div>
+									</div>
+
+									<div class="text-end">
+									<button type="button" class="btn btn-secondary">Save </button>
+									</div>
+									</form>
+									</div>
+									</div>
+
+									<script>
+									function handleFileSelect(event) {
+									const file = event.target.files[0];
+									if (file) {
+									document.getElementById('file-drop-zone').textContent = `Selected file: ${file.name}`;
+									}
+									}
+
+									function handleFileDrop(event) {
+									event.preventDefault();
+									const dt = event.dataTransfer;
+									const files = dt.files;
+									if (files.length > 0) {
+									document.getElementById('fileInput').files = files;
+									document.getElementById('file-drop-zone').textContent = `Selected file: ${files[0].name}`;
+									}
+									event.target.style.borderColor = '#e2e2e2';
+									}
+
+									function dashboardEcharts() {
+									console.log("dashboardEcharts called");
+									}
+									</script>
+
+									</div>
+									</div>
+									<!-- tab content end -->
+									</div>
+									</div>
+									</div>
+
+
+								</div>
+							</div>
+							<!--<div id="styleSelector">-->
+
+							<!--</div>-->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="fixed-button">
+			<a th:href="@{/register}" class="btn btn-primary" aria-hidden="true">Home</a>
+		</div>
+	</div>
+
+
+
+
+	<script type="text/javascript" src="/assets/plugins/jquery/dist/jquery.min.js"></script>
+	<script type="text/javascript" src="/assets/plugins/jquery-ui/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="/assets/plugins/tether/dist/js/tether.min.js"></script>
+	<script type="text/javascript" src="/assets/plugins/bootstrap/dist/js/bootstrap.min.js"></script>
+	<!-- jquery slimscroll js -->
+	<script type="text/javascript" src="/assets/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
+	<!-- modernizr js -->
+	<script type="text/javascript" src="/assets/plugins/modernizr/modernizr.js"></script>
+	<script type="text/javascript" src="/assets/plugins/modernizr/feature-detects/css-scrollbars.js"></script>
+	<!-- Bootstrap date-time-picker js -->
+	<script type="text/javascript" src="/assets/pages/advance-elements/moment-with-locales.min.js"></script>
+	<!--<script type="text/javascript" src="assets/pages/advance-elements/bootstrap-datetimepicker.min.js"></script>-->
+	<!-- Custom js -->
+	<script type="text/javascript" src="/assets/js/script.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+	<script src="/assets/pages/user-profile.js"></script>
+	<script src="/assets/js/pcoded.min.js"></script>
+	<script src="/assets/js/demo-12.js"></script>
+	<script src="/assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
+	<script src="/assets/js/jquery.mousewheel.min.js"></script>
+
+
+</body>
+
+</html>

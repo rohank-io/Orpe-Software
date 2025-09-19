@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Orpe Consultants</title>
+	<!-- HTML5 Shim and Respond.js IE9 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+      <![endif]-->
+	<!-- Meta -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="description" content="Codedthemes">
+	<meta name="keywords"
+		content="flat ui, admin flat ui, Admin , Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app">
+	<meta name="author" content="Codedthemes">
+	<!-- Favicon icon -->
+	<link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+	<!-- Google font-->
+	<link href="https://fonts.googleapis.com/css?family=Mada:300,400,600,700,800" rel="stylesheet">
+	<!-- Required Fremwork -->
+	<link rel="stylesheet" type="text/css" href="assets/plugins/bootstrap/dist/css/bootstrap.min.css">
+	<!-- themify-icons line icon -->
+	<link rel="stylesheet" type="text/css" href="assets/icon/themify-icons/themify-icons.css">
+	<!-- ico font -->
+	<link rel="stylesheet" type="text/css" href="assets/icon/icofont/css/icofont.css">
+	<!-- flag icon framework css -->
+	<link rel="stylesheet" type="text/css" href="assets/pages/flag-icon/flag-icon.min.css">
+	<!-- Menu-Search css -->
+	<link rel="stylesheet" type="text/css" href="assets/pages/menu-search/css/component.css">
+	<!-- Style.css -->
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+	<!--color css-->
+	<link rel="stylesheet" type="text/css" href="assets/css/linearicons.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/simple-line-icons.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/jquery.mCustomScrollbar.css">
+</head>
+
+<body>
+	<!-- Pre-loader start -->
+	<div class="theme-loader">
+		<div class="ball-scale">
+			<div></div>
+		</div>
+	</div>
+	<!-- Pre-loader end -->
+
+	<div id="pcoded" class="pcoded">
+		<div class="pcoded-overlay-box"></div>
+		<div class="pcoded-container navbar-wrapper">
+
+			<nav class="navbar header-navbar pcoded-header">
+				<div class="navbar-wrapper">
+					<div class="navbar-logo" navbar-theme="theme4">
+						<a class="mobile-menu" id="mobile-collapse" href="#!">
+							<i class="ti-menu"></i>
+						</a>
+						<a href="#!">
+							<img class="img-fluid" src="assets/images/logo.png" alt="Theme-Logo" />
+						</a>
+						<a class="mobile-options">
+							<i class="ti-more"></i>
+						</a>
+					</div>
+					<div class="navbar-container container-fluid">
+						<div>
+							<ul class="nav-left">
+								<li>
+									<div class="sidebar_toggle"><a href="javascript:void(0)"><i class="ti-menu"></i></a>
+									</div>
+								</li>
+								<li>
+									<a class="main-search morphsearch-search" href="#">
+										<!-- themify icon -->
+										<i class="ti-search"></i>
+									</a>
+								</li>
+								<li>
+									<a href="#!" onclick="javascript:toggleFullScreen()">
+										<i class="ti-fullscreen"></i>
+									</a>
+								</li>
+
+							</ul>
+
+
+							<ul class="nav-right">
+								<!--<li>-->
+								<!--<a href="#" class="btn btn-primary">Upgrade To Pro</a>-->
+								<!--</li>-->
+
+
+
+								<li class="user-profile header-notification" th:if="${session.loggedInUser != null}">
+									<a href="#!">
+										<img th:src="@{/assets/images/user.png}" alt="User-Profile-Image">
+										<span th:text="${session.loggedInUser.username}">Username</span>
+										<i class="ti-angle-down"></i>
+									</a>
+									<ul class="show-notification profile-notification">
+										<li>
+											<a href="#!">
+												<i class="ti-settings"></i> Settings
+											</a>
+										</li>
+										<li>
+											<a th:href="@{/user-profile}">
+												<i class="ti-user"></i> Profile
+											</a>
+										</li>
+										<li>
+											<a href="#!">
+												<i class="ti-email"></i> My Messages
+											</a>
+										</li>
+										<li>
+											<a th:href="@{/auth-lock-screen}">
+												<i class="ti-lock"></i> Lock Screen
+											</a>
+										</li>
+										<li>
+											<a th:href="@{/logout}">
+												<i class="ti-layout-sidebar-left"></i> Logout
+											</a>
+										</li>
+									</ul>
+								</li>
+
+								<!-- Show login/register buttons when user is not logged in -->
+
+
+							</ul>
+
+						</div>
+					</div>
+				</div>
+			</nav>
+			<div class="pcoded-main-container">
+				<div class="pcoded-wrapper">
+					<nav class="pcoded-navbar">
+											<div class="sidebar_toggle"><a href="#"><i class="icon-close icons"></i></a></div>
+											<div class="pcoded-inner-navbar main-menu">
+
+												<div class="pcoded-navigatio-lavel">Main</div>
+												<ul class="pcoded-item pcoded-left-item">
+													<li class=" pcoded-trigger ">
+														<a th:href="@{/index}">
+															<span class="pcoded-micon"><i class="ti-comments"></i></span>
+															<span class="pcoded-mtext">Dashboard</span>
+															<span class="pcoded-mcaret"></span>
+														</a>
+													</li>
+												</ul>
+												<ul class="pcoded-item pcoded-left-item">
+													<li class="pcoded-hasmenu">
+														<a href="javascript:void(0)">
+															<span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i></span>
+															<span class="pcoded-mtext">All Data</span>
+															<span class="pcoded-mcaret"></span>
+														</a>
+														<ul class="pcoded-submenu">
+															<li class=" ">
+																<a th:href="@{/importdata/list}">
+																	<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+																	<span class="pcoded-mtext">Import</span>
+																	<span class="pcoded-mcaret"></span>
+																</a>
+															</li>
+															<li class=" ">
+																<a href="breadcrumb.html">
+																	<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+																	<span class="pcoded-mtext">Export</span>
+																	<span class="pcoded-mcaret"></span>
+																</a>
+															</li>
+															<li class=" ">
+																<a href="button.html">
+																	<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+																	<span class="pcoded-mtext">BOM</span>
+																	<span class="pcoded-mcaret"></span>
+																</a>
+															</li>
+																								
+
+
+															
+
+														</ul>
+													</li>
+													<li class="pcoded-hasmenu">
+														<a href="javascript:void(0)">
+															<span class="pcoded-micon"><i class="ti-crown"></i></span>
+															<span class="pcoded-mtext">Advance Calculations</span>
+															<span class="pcoded-mcaret"></span>
+														</a>
+														<ul class="pcoded-submenu">
+															<li class=" ">
+																<a href="bs-grid.html">
+																	<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+																	<span class="pcoded-mtext">Worksheet</span>
+																	<span class="pcoded-mcaret"></span>
+																</a>
+															</li>
+															<li class=" ">
+																<a href="light-box.html">
+																	<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+																	<span class="pcoded-mtext">SB wise Qty Consumption</span>
+																	<span class="pcoded-mcaret"></span>
+																</a>
+															</li>
+															<li class=" ">
+																<a href="notification.html">
+																	<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+																	<span class="pcoded-mtext">SB wise DBK Calculation</span>
+																	<span class="pcoded-mcaret"></span>
+																</a>
+															</li>
+														</ul>
+													</li>
+													
+												</ul>
+												<div class="pcoded-navigatio-lavel">Data Import </div>
+
+												
+
+												<ul class="pcoded-item pcoded-left-item">
+													<li>
+														<a th:href="@{/exceldataimport}">
+															<span class="pcoded-micon"><i class="ti-receipt"></i></span>
+															<span class="pcoded-mtext">Excel</span>
+															<span class="pcoded-mcaret"></span>
+														</a>
+													</li>
+												</ul>
+												<div class="pcoded-navigatio-lavel">Chart And Reports</div>
+												<ul class="pcoded-item pcoded-left-item">
+													<li>
+														<a href="chart.html">
+															<span class="pcoded-micon"><i class="ti-bar-chart-alt"></i></span>
+															<span class="pcoded-mtext">Chart</span>
+															<span class="pcoded-mcaret"></span>
+														</a>
+													</li>
+												</ul>
+
+
+												<ul class="pcoded-item pcoded-left-item">
+													<li class="pcoded-hasmenu ">
+														<a href="javascript:void(0)">
+															<span class="pcoded-micon"><i class="icofont icofont-cloud-download"></i></span>
+															<span class="pcoded-mtext">Reports</span>
+															<span class="pcoded-mcaret"></span>
+														</a>
+														<ul class="pcoded-submenu">
+
+															<li class="">
+																<a href="auth-sign-in-social.html" target="_blank">
+																	<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+																	<span class="pcoded-mtext">Report 1</span>
+																	<span class="pcoded-mcaret"></span>
+																</a>
+															</li>
+
+															<li class="">
+																<a href="auth-sign-up-social.html" target="_blank">
+																	<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+																	<span class="pcoded-mtext">Report 2</span>
+																	<span class="pcoded-mcaret"></span>
+																</a>
+															</li>
+															<li class="">
+																<a href="auth-reset-password.html" target="_blank">
+																	<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+																	<span class="pcoded-mtext">Report 3</span>
+																	<span class="pcoded-mcaret"></span>
+																</a>
+															</li>
+
+
+														</ul>
+													</li>
+												</ul>
+												<div class="pcoded-navigatio-lavel">Other</div>
+												<ul class="pcoded-item pcoded-left-item">
+													<li class="pcoded-hasmenu active ">
+														<a href="javascript:void(0)">
+															<span class="pcoded-micon"><i class="icofont icofont-businessman"></i></span>
+															<span class="pcoded-mtext">User</span>
+															<span class="pcoded-mcaret"></span>
+														</a>
+														<ul class="pcoded-submenu">
+															<li class="">
+																<a th:href="@{/register}">
+																	<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+																	<span class="pcoded-mtext">Add User</span>
+																	<span class="pcoded-mcaret"></span>
+																</a>
+															</li>
+															<li class="">
+																<a th:href="@{/users}">
+																	<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+																	<span class="pcoded-mtext">User List</span>
+																	<span class="pcoded-mcaret"></span>
+																</a>
+
+															</li>
+
+
+														</ul>
+													</li>
+												</ul>
+
+											</div>
+										</nav>
+					<div class="pcoded-content">
+						<div class="pcoded-inner-content">
+							<!-- Main body start -->
+							<div class="main-body user-profile">
+								<div class="page-wrapper">
+									<!-- Page-header start -->
+									<div class="page-header">
+										<div class="page-header-title">
+											<h4>Users List</h4>
+										</div>
+										<div class="page-header-breadcrumb">
+											<ul class="breadcrumb-title">
+												<li class="breadcrumb-item">
+													<a href="#!">
+														<i class="icofont icofont-home"></i>
+													</a>
+												</li>
+												<li class="breadcrumb-item"><a href="#!">User</a>
+												</li>
+												<li class="breadcrumb-item"><a href="#!">List</a>
+												</li>
+											</ul>
+										</div>
+									</div>
+									<!-- Page-header end -->
+									<!-- Page-body start -->
+									<div class="page-body">
+										<!--profile cover start-->
+										<div class="row">
+											<div class="col-lg-12">
+												<div class="cover-profile">
+													<div class="profile-bg-img">
+														<img class="profile-bg-img img-fluid"
+															src="assets/images/user-profile/bg-img1.jpg" alt="bg-img">
+														<div class="card-block user-info">
+															<div class="col-md-12">
+																<div class="media-left">
+																	<a href="#" class="profile-image">
+																		<img class="user-img img-circle"
+																			src="assets/images/user-profile/user-img.jpg"
+																			alt="user-img">
+																	</a>
+																</div>
+																<div class="media-body row">
+																	<div class="col-lg-12">
+																		<div class="user-title">
+																			<h2></h2>
+
+																		</div>
+																	</div>
+																	<div>
+																		<div class="pull-right cover-btn">
+																			<a th:href="@{/register}"
+																				class="btn btn-primary m-r-10 m-b-5"><i
+																					class="icofont icofont-plus"></i>
+																				Add User</a>
+																			<button type="button"
+																				onclick="window.history.back()"
+																				class="btn btn-primary m-b-5"><i
+																					class="icofont icofont-reply"></i>
+																				Back</button>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<!--profile cover end-->
+										<div class="row">
+											<div class="col-lg-12">
+
+												<!-- tab header end -->
+												<!-- tab content start -->
+												<div class="tab-content">
+													<!-- tab panel personal start -->
+													<div class="tab-pane active" id="personal" role="tabpanel">
+														<!-- personal card start -->
+														<div class="card">
+															<div class="card-header">
+																<h5>Users List</h5>
+																<span>List of all users</span>
+																<div class="card-header-right">
+																	<i class="icofont icofont-rounded-down"></i>
+																	<a th:href="@{/users}"><i
+																			class="icofont icofont-refresh"></i></a>
+
+																</div>
+															</div>
+															<div class="card-block table-border-style">
+																<div class="table-responsive">
+																	<table class="table table-hover">
+																		<thead>
+																			<tr class="text-uppercase">
+																				<th>ID</th>
+																				<th>Username</th>
+																				<th>Full Name</th>
+																				<th>Email</th>
+																				<th>Phone</th>
+																				<th>Role</th>
+																				<th>Status</th>
+																				<th>Last Login</th>
+
+																				<th>Actions</th>
+																			</tr>
+																		</thead>
+																		<tbody>
+																			<tr th:each="user : ${users}">
+																				<td th:text="${user.id}">1</td>
+																				<td th:text="${user.username}">username
+																				</td>
+																				<td th:text="${user.fullName}">Full Name
+																				</td>
+																				<td th:text="${user.email}">
+																					email@example.com</td>
+																				<td
+																					th:text="${user.phoneNumber ?: 'N/A'}">
+																					Phone</td>
+																				<td>
+																					<span class="badge" th:class="${user.role.name() == 'ADMIN' ? 'badge bg-danger' : 
+																	                                                    user.role.name() == 'MANAGER' ? 'badge bg-warning text-dark' : 
+																	                                                    'badge bg-primary'}"
+																						th:text="${user.role.displayName}">Role</span>
+																				</td>
+																				<td>
+																					<span class="badge" th:class="${user.status.name() == 'ACTIVE' ? 'badge bg-success' : 
+																	                                                    user.status.name() == 'INACTIVE' ? 'badge bg-secondary' : 
+																	                                                    'badge bg-warning text-dark'}"
+																						th:text="${user.status.displayName}">Status</span>
+																				</td>
+																				<td
+																					th:text="${user.lastLoginDate != null ? #temporals.format(user.lastLoginDate, 'dd-MM-yyyy HH:mm') : 'Never'}">
+																					Never</td>
+
+																				<td>
+																					<a th:href="@{/users/{id}(id=${user.id})}"
+																						class="btn btn-primary btn-sm btn-round btn-outline-primary">View</a>
+
+																					<a onclick="return confirm('Are you sure you want to delete this user?')"
+																						th:href="@{/users/delete/{id}(id=${user.id})}"
+																						class="btn btn-danger btn-sm btn-round btn-outline-danger">Delete</a>
+																				</td>
+																			</tr>
+																		</tbody>
+																	</table>
+																</div>
+															</div>
+														</div>
+														<!-- Hover table card end -->
+
+													</div>
+
+												</div>
+												<!-- tab content end -->
+											</div>
+										</div>
+									</div>
+									<!-- Page-body end -->
+								</div>
+							</div>
+							<!-- Main body end -->
+							<!--<div id="styleSelector">-->
+
+							<!--</div>-->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="fixed-button">
+			<a th:href="@{/register}" class="btn btn-primary" aria-hidden="true">Home</a>
+		</div>
+	</div>
+
+
+
+
+	<script type="text/javascript" src="assets/plugins/jquery/dist/jquery.min.js"></script>
+	<script type="text/javascript" src="assets/plugins/jquery-ui/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="assets/plugins/tether/dist/js/tether.min.js"></script>
+	<script type="text/javascript" src="assets/plugins/bootstrap/dist/js/bootstrap.min.js"></script>
+	<!-- jquery slimscroll js -->
+	<script type="text/javascript" src="assets/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
+	<!-- modernizr js -->
+	<script type="text/javascript" src="assets/plugins/modernizr/modernizr.js"></script>
+	<script type="text/javascript" src="assets/plugins/modernizr/feature-detects/css-scrollbars.js"></script>
+	<!-- Bootstrap date-time-picker js -->
+	<script type="text/javascript" src="assets/pages/advance-elements/moment-with-locales.min.js"></script>
+	<!--<script type="text/javascript" src="assets/pages/advance-elements/bootstrap-datetimepicker.min.js"></script>-->
+	<!-- Custom js -->
+	<script type="text/javascript" src="assets/js/script.js"></script>
+	<script src="assets/pages/user-profile.js"></script>
+	<script src="assets/js/pcoded.min.js"></script>
+	<script src="assets/js/demo-12.js"></script>
+	<script src="assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
+	<script src="assets/js/jquery.mousewheel.min.js"></script>
+
+</body>
+
+</html>
