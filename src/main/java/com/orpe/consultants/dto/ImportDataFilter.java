@@ -71,7 +71,7 @@ public class ImportDataFilter {
     /**
      * BE Date range end (inclusive).
      */
-    private LocalDate beDate;
+    private LocalDate beDateTo;
 
     /**
      * Claim reference number filter.

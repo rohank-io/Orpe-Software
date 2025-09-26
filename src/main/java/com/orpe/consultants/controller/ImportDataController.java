@@ -92,15 +92,25 @@ public class ImportDataController {
 	          filterBuilder.beNo(filterValue);
 	          break;
 
-	        case "beDate":
+	        case "beDateFrom":
 	          try {
 	            LocalDate dateValue = LocalDate.parse(filterValue, DateTimeFormatter.ISO_DATE);
-	            filterBuilder.beDate(dateValue);
+	            filterBuilder.beDateFrom(dateValue);
 	          } catch (DateTimeParseException e) {
 	            // Log or handle invalid date format gracefully
 	            log.warn("Invalid beDate format: " + filterValue);
 	          }
 	          break;
+	          
+	        case "beDateTo":
+		          try {
+		            LocalDate dateValue = LocalDate.parse(filterValue, DateTimeFormatter.ISO_DATE);
+		            filterBuilder.beDateTo(dateValue);
+		          } catch (DateTimeParseException e) {
+		            // Log or handle invalid date format gracefully
+		            log.warn("Invalid beDate format: " + filterValue);
+		          }
+		          break;
 	        // Add more supported filters here
 	      }
 	    }

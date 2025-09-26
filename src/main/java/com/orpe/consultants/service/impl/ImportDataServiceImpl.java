@@ -165,8 +165,8 @@ public class ImportDataServiceImpl implements ImportDataService {
       if (filter.getBeDateFrom() != null) {
         predicates.add(cb.greaterThanOrEqualTo(root.get("beDate"), filter.getBeDateFrom()));
       }
-      if (filter.getBeDate() != null) {
-    	  predicates.add(cb.equal(root.get("beDate"), filter.getBeDate()));
+      if (filter.getBeDateTo() != null) {
+    	  predicates.add(cb.lessThanOrEqualTo(root.get("beDate"), filter.getBeDateTo()));
       }
       if (StringUtils.hasText(filter.getBomPartNo())) {
         predicates.add(cb.like(cb.lower(root.get("bomPartNo")), "%" + filter.getBomPartNo().toLowerCase() + "%"));
@@ -192,6 +192,7 @@ public class ImportDataServiceImpl implements ImportDataService {
   }
 
   private static String trim(String s) { return s == null ? null : s.trim(); }
+  
   private static String req(String s) {
     if (s == null || s.trim().isEmpty()) throw new IllegalArgumentException("Required field missing");
     return s.trim();
