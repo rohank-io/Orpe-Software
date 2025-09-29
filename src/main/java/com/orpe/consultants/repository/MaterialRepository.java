@@ -11,4 +11,5 @@ import com.orpe.consultants.model.Material;
 @Repository
 public interface MaterialRepository extends JpaRepository<Material, String> {
 	List<Material> findAllByBomPartNoIn(Collection<String> bomPartNos);
+	boolean existsByBomPartNo(String bomPartNo);
 }

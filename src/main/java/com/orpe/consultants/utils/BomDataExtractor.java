@@ -1,7 +1,7 @@
 package com.orpe.consultants.utils;
 
 import com.orpe.consultants.dto.BomDataDTO;
-import com.orpe.consultants.dto.ExportModelQuantityDTO;
+import com.orpe.consultants.dto.BomExportModelQuantityDTO;
 import org.apache.poi.ss.usermodel.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -91,7 +91,7 @@ public class BomDataExtractor {
                             col(idx, "NET WEIGHT OF THE MATERIAL IN KGS", "NET WEIGHT KG", "NET WEIGHT"), fmt,
                             eval));
 
-            List<ExportModelQuantityDTO> exportModels = new ArrayList<>();
+            List<BomExportModelQuantityDTO> exportModels = new ArrayList<>();
 
             for (Map.Entry<String, Integer> colEntry : idx.entrySet()) {
                 String normalizedHeader = colEntry.getKey();
@@ -110,7 +110,7 @@ public class BomDataExtractor {
 
                     BigDecimal qty = getDecimal(row, colIndex, fmt, eval);
                     if (qty != null && qty.compareTo(BigDecimal.ZERO) > 0) {
-                        exportModels.add(ExportModelQuantityDTO.builder().modelNo(modelNo).quantity(qty).build());
+                        exportModels.add(BomExportModelQuantityDTO.builder().modelNo(modelNo).quantity(qty).build());
                     }
                 }
             }

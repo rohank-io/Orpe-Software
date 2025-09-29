@@ -9,8 +9,9 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ExportModelQuantityDTO {
-
+public class BomExportModelQuantityDTO {
+	
+	private Long id;
     private String modelNo;
     private BigDecimal quantity;
 }

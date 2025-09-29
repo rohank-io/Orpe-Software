@@ -186,7 +186,7 @@
 											</a>
 										</li>
 										<li class=" ">
-											<a href="button.html">
+											<a th:href="@{/bomdata/list}">
 												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
 												<span class="pcoded-mtext">BOM</span>
 												<span class="pcoded-mcaret"></span>
@@ -373,7 +373,7 @@
 																<span>Choose Import Excel file</span>
 																<div class="card-header-right">
 																	<i class="icofont icofont-rounded-down"></i>
-																	<a href=""><i
+																	<a th:href="@{/uploadbom}"><i
 																			class="icofont icofont-refresh"></i></a>
 																</div>
 															</div>
@@ -434,6 +434,9 @@
 																				<th>Claim Ref No</th>
 																				<th>Claim Year</th>
 																				<th>BOM Part No</th>
+																				<th>Alternate BOE Part No</th>
+																				<th>DBK Part No.</th>
+																				<th>Imported\Indigenous</th>
 																				<th>Grand Total</th>
 																				<th>Net Weight (Kg)</th>
 																				<th>Material Description</th>
@@ -457,6 +460,9 @@
 																					<td th:text="${r.claimRefNo}"></td>
 																					<td th:text="${r.claimYear}"></td>
 																					<td th:text="${r.bomPartNo}"></td>
+																					<td th:text="${r.alternateBoePartNo}"></td>
+																					<td th:text="${r.dbkPartNo}"></td>
+																					<td th:text="${r.importedIndigenous}"></td>
 																					<td
 																						th:text="${#numbers.formatDecimal(r.grandTotal, 0, 'COMMA', 6, 'POINT')}">
 																					</td>
@@ -469,7 +475,7 @@
 																					<td class="text-center">
 																						<button type="button"
 																							class="btn btn-sm btn-outline-danger"
-																							onclick="removeRow(this)">Remove</button>
+																							th:data-index="${rowStat.index}" onclick="removeRow(this)">Remove</button>
 																					</td>
 																				</tr>
 																				<tr th:id="'exportModelsRow' + ${rowStat.index}"
@@ -517,28 +523,7 @@
 
 																	</table>
 
-																	<script>
-																		function toggleExportModels(rowIndex) {
-																			console.log('Toggle called for', rowIndex);
-																			var row = document.getElementById('exportModelsRow' + rowIndex);
-																			var icon = document.getElementById('toggleIcon' + rowIndex);
-																			console.log('row:', row, 'icon:', icon);
-																			if (!row || !icon) {
-																				console.warn('Elements not found for index', rowIndex);
-																				return;
-																			}
-																			if (row.style.display === 'none') {
-																				row.style.display = '';
-																				icon.classList.remove('bi-caret-right');
-																				icon.classList.add('bi-caret-down');
-																			} else {
-																				row.style.display = 'none';
-																				icon.classList.remove('bi-caret-down');
-																				icon.classList.add('bi-caret-right');
-																			}
-																		}
 
-																	</script>
 
 
 
@@ -557,20 +542,114 @@
 
 
 
-
-
 														<script>
-															
-
-															function removeRow(btn) {
-																const tr = btn.closest('tr');
-																if (!tr) return;
-																tr.remove();
-																
+															function toggleExportModels(rowIndex) {
+																console.log('Toggle called for', rowIndex);
+																var row = document.getElementById('exportModelsRow' + rowIndex);
+																var icon = document.getElementById('toggleIcon' + rowIndex);
+																console.log('row:', row, 'icon:', icon);
+																if (!row || !icon) {
+																	console.warn('Elements not found for index', rowIndex);
+																	return;
+																}
+																if (row.style.display === 'none') {
+																	row.style.display = '';
+																	icon.classList.remove('bi-caret-right');
+																	icon.classList.add('bi-caret-down');
+																} else {
+																	row.style.display = 'none';
+																	icon.classList.remove('bi-caret-down');
+																	icon.classList.add('bi-caret-right');
+																}
 															}
 
-															
 														</script>
+														
+														<script th:inline="javascript">
+														/*<![CDATA[*/
+														    var bomRows = /*[[${bomRows}]]*/ null;
+														/*]]>*/
+														</script>
+
+														<script>
+															// Declare bomRows globally (already done by Thymeleaf)
+
+															// Remove row handler
+															function removeRow(btn) {
+															    const tr = btn.closest('tr');
+															    if (!tr) return;
+
+															    // Get current index
+															    const indexAttr = btn.getAttribute('data-index');
+															    const index = indexAttr !== null ? parseInt(indexAttr) : -1;
+
+															    if (index >= 0 && Array.isArray(bomRows)) {
+															        bomRows.splice(index, 1); // Remove from data
+															        updateRowIndices();       // Update indices in DOM and buttons
+															    }
+
+															    tr.remove(); // Remove from DOM
+															}
+
+															// Update rows and button indices
+															function updateRowIndices() {
+															    const tbody = document.querySelector('#bomTable tbody');
+															    if (!tbody) return;
+
+															    const rows = tbody.querySelectorAll('tr[id^="bomRow"]');
+															    rows.forEach((row, idx) => {
+															        row.id = 'bomRow' + idx;
+															        const exportRow = document.getElementById('exportModelsRow' + row.id.replace('bomRow', ''));
+															        if (exportRow) {
+															            exportRow.id = 'exportModelsRow' + idx;
+															        }
+
+															        const toggleBtn = row.querySelector('button.btn-link');
+															        if (toggleBtn) {
+															            toggleBtn.setAttribute('data-index', idx);
+															        }
+
+															        const toggleIcon = row.querySelector('i[id^="toggleIcon"]');
+															        if (toggleIcon) {
+															            toggleIcon.id = 'toggleIcon' + idx;
+															        }
+
+															        const removeBtn = row.querySelector('button.btn-outline-danger');
+															        if (removeBtn) {
+															            removeBtn.setAttribute('data-index', idx);
+															        }
+															    });
+															}
+
+															// Save button handler (unchanged except you'll now send updated bomRows)
+															document.getElementById('saveBtn').addEventListener('click', function() {
+															    if (!bomRows || bomRows.length === 0) {
+															        alert('No BOM rows to save!');
+															        return;
+															    }
+
+															    fetch('/bomdata/saveBulk', {
+															        method: 'POST',
+															        headers: { 'Content-Type': 'application/json' },
+															        body: JSON.stringify(bomRows)
+															    })
+															    .then(response => {
+															        if (!response.ok) throw new Error('Failed to save BOM data');
+															        return response.text();
+															    })
+															    .then(msg => {
+															        alert(msg);
+															        // Optionally reload page here
+															    })
+															    .catch(err => {
+															        console.error('Error saving BOM data:', err);
+															        alert('Failed to save BOM data. Please try again.');
+															    });
+															});
+
+														</script>
+
+
 
 														<script>
 															function handleFileSelect(event) {

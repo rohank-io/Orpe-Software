@@ -14,7 +14,7 @@ import com.orpe.consultants.model.BomData;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ExportModelQuantity {
+public class BomExportModelQuantity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

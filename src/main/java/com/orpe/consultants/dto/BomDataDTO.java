@@ -3,6 +3,7 @@ package com.orpe.consultants.dto;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +25,7 @@ public class BomDataDTO {
     private String unit;
     private BigDecimal grandTotal;
     private BigDecimal netWeightKg;
-    private List<ExportModelQuantityDTO> exportModels = new ArrayList<>();
+    private LocalDateTime createdAt;
+    private List<BomExportModelQuantityDTO> exportModels = new ArrayList<>();
 
 }
