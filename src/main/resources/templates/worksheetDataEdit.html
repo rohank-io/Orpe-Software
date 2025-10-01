@@ -510,29 +510,7 @@
 
 
 													<!-- Pagination controls -->
-													<nav aria-label="Page navigation" class="mt-3 ml-3">
-														<ul class="pagination justify-content-center">
-
-															<!-- Previous button -->
-															<li class="page-item"
-																th:classappend="${bomDataPage.first} ? 'disabled'">
-																<a class="page-link"
-																	th:href="@{/bomdata/list(page=${bomDataPage.number - 1}, size=${bomDataPage.size})}">Previous</a>
-															</li>
-															<li class="page-item"
-																th:each="i : ${#numbers.sequence(0, bomDataPage.totalPages - 1)}"
-																th:classappend="${i == bomDataPage.number} ? 'active'">
-																<a class="page-link"
-																	th:href="@{/bomdata/list(page=${i}, size=${bomDataPage.size})}"
-																	th:text="${i + 1}">1</a>
-															</li>
-															<li class="page-item"
-																th:classappend="${bomDataPage.last} ? 'disabled'">
-																<a class="page-link"
-																	th:href="@{/bomdata/list(page=${bomDataPage.number + 1}, size=${bomDataPage.size})}">Next</a>
-															</li>
-														</ul>
-													</nav>
+													
 
 
 

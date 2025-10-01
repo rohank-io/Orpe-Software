@@ -120,6 +120,10 @@ public class BomDataServiceImpl implements BomDataService {
             if (StringUtils.hasText(filter.getClaimRefNo())) {
                 predicates.add(cb.like(cb.lower(root.get("claimRefNo")), "%" + filter.getClaimRefNo().toLowerCase() + "%"));
             }
+            
+            if (StringUtils.hasText(filter.getClaimYear())) {
+        	    predicates.add(cb.like(cb.lower(root.get("claimYear")), "%" + filter.getClaimYear().toLowerCase() + "%"));
+            }
             // Add more predicates for other filter fields
 
             return cb.and(predicates.toArray(new Predicate[0]));
