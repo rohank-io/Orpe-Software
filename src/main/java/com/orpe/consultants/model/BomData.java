@@ -2,7 +2,7 @@ package com.orpe.consultants.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-import com.orpe.consultants.model.BomExportModelQuantity;
+
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

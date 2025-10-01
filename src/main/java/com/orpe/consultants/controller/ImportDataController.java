@@ -91,6 +91,10 @@ public class ImportDataController {
 	        case "beNo":
 	          filterBuilder.beNo(filterValue);
 	          break;
+	          
+	        case "claimYear":
+		          filterBuilder.claimYear(filterValue);
+		          break;
 
 	        case "beDateFrom":
 	          try {

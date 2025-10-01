@@ -5,7 +5,7 @@ import lombok.*;
 
 import java.math.BigDecimal;
 
-import com.orpe.consultants.model.BomData;
+
 
 @Entity
 @Table(name = "tbl_bom_export_model")

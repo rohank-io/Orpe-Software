@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Orpe Consultants</title>
+	<!-- HTML5 Shim and Respond.js IE9 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+      <![endif]-->
+	<!-- Meta -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="description" content="Phoenixcoded">
+	<meta name="keywords"
+		content=", Flat ui, Admin , Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app">
+	<meta name="author" content="Phoenixcoded">
+	<!-- Favicon icon -->
+
+	<link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
+	<!-- Google font-->
+	<link href="https://fonts.googleapis.com/css?family=Mada:300,400,500,600,700" rel="stylesheet">
+	<!-- Required Fremwork -->
+	<link rel="stylesheet" type="text/css" href="/assets/plugins/bootstrap/dist/css/bootstrap.min.css">
+	<!-- Date-time picker css -->
+	<link rel="stylesheet" type="text/css" href="/assets/pages/advance-elements/css/bootstrap-datetimepicker.css">
+	<!-- themify-icons line icon -->
+	<link rel="stylesheet" type="text/css" href="/assets/icon/themify-icons/themify-icons.css">
+	<!-- ico font -->
+	<link rel="stylesheet" type="text/css" href="/assets/icon/icofont/css/icofont.css">
+	<!-- flag icon framework css -->
+	<link rel="stylesheet" type="text/css" href="/assets/pages/flag-icon/flag-icon.min.css">
+	<!-- Menu-Search css -->
+	<link rel="stylesheet" type="text/css" href="/assets/pages/menu-search/css/component.css">
+	<!-- Style.css -->
+	<link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+
+	<link rel="stylesheet" type="text/css" href="/assets/css/linearicons.css">
+	<link rel="stylesheet" type="text/css" href="/assets/css/simple-line-icons.css">
+	<link rel="stylesheet" type="text/css" href="/assets/css/ionicons.css">
+	<link rel="stylesheet" type="text/css" href="/assets/css/jquery.mCustomScrollbar.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+</head>
+
+<body>
+	<!-- Pre-loader start -->
+	<div class="theme-loader">
+		<div class="ball-scale">
+			<div></div>
+		</div>
+	</div>
+	<!-- Pre-loader end -->
+
+	<div id="pcoded" class="pcoded">
+		<div class="pcoded-overlay-box"></div>
+		<div class="pcoded-container navbar-wrapper">
+
+			<nav class="navbar header-navbar pcoded-header">
+				<div class="navbar-wrapper">
+					<div class="navbar-logo" navbar-theme="theme4">
+						<a class="mobile-menu" id="mobile-collapse" href="#!">
+							<i class="ti-menu"></i>
+						</a>
+						<a href="#!">
+							<img class="img-fluid" src="/assets/images/logo.png" alt="Theme-Logo" />
+						</a>
+						<a class="mobile-options">
+							<i class="ti-more"></i>
+						</a>
+					</div>
+					<div class="navbar-container container-fluid">
+						<div>
+							<ul class="nav-left">
+								<li>
+									<div class="sidebar_toggle"><a href="javascript:void(0)"><i class="ti-menu"></i></a>
+									</div>
+								</li>
+								<li>
+									<a class="main-search morphsearch-search" href="#">
+										<!-- themify icon -->
+										<i class="ti-search"></i>
+									</a>
+								</li>
+								<li>
+									<a href="#!" onclick="javascript:toggleFullScreen()">
+										<i class="ti-fullscreen"></i>
+									</a>
+								</li>
+
+							</ul>
+
+
+							<ul class="nav-right">
+								<!--<li>-->
+								<!--<a href="#" class="btn btn-primary">Upgrade To Pro</a>-->
+								<!--</li>-->
+
+
+
+								<li class="user-profile header-notification" th:if="${session.loggedInUser != null}">
+									<a href="#!">
+										<img th:src="@{/assets/images/user.png}" alt="User-Profile-Image">
+										<span th:text="${session.loggedInUser.username}">Username</span>
+										<i class="ti-angle-down"></i>
+									</a>
+									<ul class="show-notification profile-notification">
+										<li>
+											<a href="#!">
+												<i class="ti-settings"></i> Settings
+											</a>
+										</li>
+										<li>
+											<a th:href="@{/user-profile}">
+												<i class="ti-user"></i> Profile
+											</a>
+										</li>
+										<li>
+											<a href="#!">
+												<i class="ti-email"></i> My Messages
+											</a>
+										</li>
+										<li>
+											<a th:href="@{/auth-lock-screen}">
+												<i class="ti-lock"></i> Lock Screen
+											</a>
+										</li>
+										<li>
+											<a th:href="@{/logout}">
+												<i class="ti-layout-sidebar-left"></i> Logout
+											</a>
+										</li>
+									</ul>
+								</li>
+
+								<!-- Show login/register buttons when user is not logged in -->
+
+
+							</ul>
+
+						</div>
+					</div>
+				</div>
+			</nav>
+
+
+			<div class="pcoded-main-container">
+				<div class="pcoded-wrapper">
+					<nav class="pcoded-navbar">
+						<div class="sidebar_toggle"><a href="#"><i class="icon-close icons"></i></a></div>
+						<div class="pcoded-inner-navbar main-menu">
+
+							<div class="pcoded-navigatio-lavel">Main</div>
+							<ul class="pcoded-item pcoded-left-item">
+								<li class="pcoded-trigger ">
+									<a th:href="@{/index}">
+										<span class="pcoded-micon"><i class="ti-comments"></i></span>
+										<span class="pcoded-mtext">Dashboard</span>
+										<span class="pcoded-mcaret"></span>
+									</a>
+								</li>
+							</ul>
+							<ul class="pcoded-item pcoded-left-item">
+								<li class="pcoded-hasmenu active">
+									<a href="javascript:void(0)">
+										<span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i></span>
+										<span class="pcoded-mtext">All Data</span>
+										<span class="pcoded-mcaret"></span>
+									</a>
+									<ul class="pcoded-submenu">
+										<li class="  ">
+											<a th:href="@{/importdata/list}">
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">Import</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+										</li>
+										<li class=" ">
+											<a th:href="@{/exportdata/list}">
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">Export</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+										</li>
+										<li class=" ">
+											<a th:href="@{/bomdata/list}">
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">BOM</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+										</li>
+
+
+
+
+
+									</ul>
+								</li>
+								<li class="pcoded-hasmenu">
+									<a href="javascript:void(0)">
+										<span class="pcoded-micon"><i class="ti-crown"></i></span>
+										<span class="pcoded-mtext">Advance Calculations</span>
+										<span class="pcoded-mcaret"></span>
+									</a>
+									<ul class="pcoded-submenu">
+										<li class=" ">
+											<a href="bs-grid.html">
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">Worksheet</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+										</li>
+										<li class=" ">
+											<a href="light-box.html">
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">SB wise Qty Consumption</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+										</li>
+										<li class=" ">
+											<a href="notification.html">
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">SB wise DBK Calculation</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+										</li>
+									</ul>
+								</li>
+
+							</ul>
+							<div class="pcoded-navigatio-lavel">Data Import </div>
+
+
+
+							<ul class="pcoded-item pcoded-left-item">
+								<li>
+									<a th:href="@{/exceldataimport}">
+										<span class="pcoded-micon"><i class="ti-receipt"></i></span>
+										<span class="pcoded-mtext">Excel</span>
+										<span class="pcoded-mcaret"></span>
+									</a>
+								</li>
+							</ul>
+							<div class="pcoded-navigatio-lavel">Chart And Reports</div>
+							<ul class="pcoded-item pcoded-left-item">
+								<li>
+									<a href="chart.html">
+										<span class="pcoded-micon"><i class="ti-bar-chart-alt"></i></span>
+										<span class="pcoded-mtext">Chart</span>
+										<span class="pcoded-mcaret"></span>
+									</a>
+								</li>
+							</ul>
+
+
+							<ul class="pcoded-item pcoded-left-item">
+								<li class="pcoded-hasmenu ">
+									<a href="javascript:void(0)">
+										<span class="pcoded-micon"><i class="icofont icofont-cloud-download"></i></span>
+										<span class="pcoded-mtext">Reports</span>
+										<span class="pcoded-mcaret"></span>
+									</a>
+									<ul class="pcoded-submenu">
+
+										<li class="">
+											<a href="auth-sign-in-social.html" target="_blank">
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">Report 1</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+										</li>
+
+										<li class="">
+											<a href="auth-sign-up-social.html" target="_blank">
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">Report 2</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+										</li>
+										<li class="">
+											<a href="auth-reset-password.html" target="_blank">
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">Report 3</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+										</li>
+
+
+									</ul>
+								</li>
+							</ul>
+							<div class="pcoded-navigatio-lavel">Other</div>
+							<ul class="pcoded-item pcoded-left-item">
+								<li class="pcoded-hasmenu ">
+									<a href="javascript:void(0)">
+										<span class="pcoded-micon"><i class="icofont icofont-businessman"></i></span>
+										<span class="pcoded-mtext">User</span>
+										<span class="pcoded-mcaret"></span>
+									</a>
+									<ul class="pcoded-submenu">
+										<li class="">
+											<a th:href="@{/register}">
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">Add User</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+										</li>
+										<li class="">
+											<a th:href="@{/users}">
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">User List</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+
+										</li>
+
+
+									</ul>
+								</li>
+							</ul>
+
+						</div>
+					</nav>
+					<div class="pcoded-content">
+						<div class="pcoded-inner-content">
+
+							<div class="main-body">
+								<div class="page-wrapper">
+									<div class="page-header">
+										<div class="page-header-title">
+											<h3>BOE Data</h3>
+											<span>Select BOE data to create worksheet</span>
+										</div>
+										<div class="page-header-breadcrumb">
+											<ul class="breadcrumb-title">
+												<li class="breadcrumb-item">
+													<a th:href="@{/index}">
+														<i class="icofont icofont-home"></i>
+													</a>
+												</li>
+												<li class="breadcrumb-item"><a
+														th:href="@{/worksheetdata/list}">Worksheet</a>
+												</li>
+												<li class="breadcrumb-item"><a href="#!">Select</a>
+												</li>
+
+											</ul>
+										</div>
+									</div>
+									<div class="page-body">
+										<!-- Profile Header Section (unchanged) -->
+
+										<div class="row">
+											<div class="col-xs-12 col-sm-12 col-lg-12">
+
+
+												<div class="card">
+													<!-- personal card start -->
+													<div class="card-header">
+														<h5>Import Data List</h5>
+														<span>List of all boe material</span>
+														<div class="card-header-right">
+															<i class="icofont icofont-rounded-down"></i>
+															<a th:href="@{/worksheet/importdata/select}">
+																<i class="icofont icofont-refresh"></i>
+															</a>
+														</div>
+													</div>
+													<div class="card-block table-border-style">
+														<div class="d-flex justify-content-end">
+															<form th:action="@{/worksheet/importdata/select}"
+																method="get"
+																class="d-flex align-items-center gap-2 m-3 flex-nowrap"
+																style="max-width:400px;">
+																<select name="filterField" id="filterField"
+																	class="form-control form-control-sm mr-2"
+																	style="width:110px; min-width:90px;" required
+																	onchange="updateInputType();">
+																	<option th:selected="${filterField == null}"
+																		value="" disabled>Sort By</option>
+																	<option th:selected="${filterField == 'beNo'}"
+																		value="beNo">BE No</option>
+
+																	<option th:selected="${filterField == 'claimYear'}"
+																		value="claimYear">Claim Year</option>
+
+																	<option th:selected="${filterField == 'beDateFrom'}"
+																		value="beDateFrom">From Date</option>
+
+																	<option th:selected="${filterField == 'beDateTo'}"
+																		value="beDateTo">To Date</option>
+																	<!-- add more fields as needed -->
+																</select>
+
+																<input type="text" name="filterValue" id="filterValue"
+																	th:value="${filterValue}" placeholder="Value"
+																	class="form-control form-control-sm mr-2"
+																	style="width:140px; min-width:120px;" required />
+
+																<button type="submit"
+																	class="btn btn-sm btn-primary waves-effect waves-light f-right"
+																	title="Filter" style="height:32px;">
+																	<i class="icofont icofont-search"
+																		style="font-size: 1.2rem;"></i>
+																</button>
+															</form>
+														</div>
+
+
+
+
+
+														<!-- Data Table style="max-height: 520px; overflow:auto;" -->
+														<form th:action="@{/worksheet/importdata/edit}" method="post" id="selectRowsForm">
+
+														<div class="table-responsive"
+															style="max-height: 520px; overflow:auto;">
+															<table class="table table-hover" id="importTable">
+																<thead class="table-light sticky-top"
+																	style="background-color: #fff; z-index: 1020;">
+																	<tr>
+
+																		<th class="text-center">
+																			<input type="checkbox" id="selectAll"
+																				onclick="toggleAll(this)">
+																			<span class="ms-1">Sr No</span>
+																		</th>
+																		<th>BE No</th>
+																		<th>BE Date</th>
+
+																		<th>Claim Ref No</th>
+																		<th>Claim Year</th>
+
+																		<th>Item Description</th>
+
+																		<th>DBK Part</th>
+																		<th class="text-end">Qty</th>
+																		<th>UOM</th>
+																		<th class="text-end">Assessable</th>
+
+																		<th class="text-end">BCD</th>
+
+																		<th class="text-end">SWS</th>
+
+																		<th class="text-end">Add Duty</th>
+
+																		<th class="text-end">Opening</th>
+																		<th class="text-end">Used</th>
+																		<th class="text-end">Closing</th>
+
+																	</tr>
+																</thead>
+																<tbody>
+																	<tr th:if="${importDataPage.content.isEmpty()}">
+																		<td colspan="33" class="text-center text-muted">
+																			No
+																			records found.</td>
+																	</tr>
+
+																	<tr th:each="row, stat : ${importDataPage.content}">
+
+																		<td class="text-center">
+																			 <input type="checkbox" class="row-select" name="selectedRows" th:value="${row.importId}">
+																			<span class="sr-no ms-1"
+																				th:text="${stat.index + 1 + importDataPage.number * importDataPage.size}"></span>
+																		</td>
+
+
+																		<td th:text="${row.beNo}">BE No</td>
+																		<td
+																			th:text="${#temporals.format(row.beDate, 'dd-MM-yyyy')}">
+																		</td>
+																		<td th:text="${row.claimRefNo}">Claim
+																			Ref No</td>
+																		<td th:text="${row.claimYear}">Claim
+																			Year</td>
+
+																		<td th:text="${row.itemDescription}">
+																			Item Description</td>
+
+																		<td th:text="${row.dbkPartNo}">DBK Part No.
+																		</td>
+																		<td class="text-end"
+																			th:text="${#numbers.formatDecimal(row.quantity,1,'COMMA',2,'POINT')}">
+																			Qty</td>
+																		<td th:text="${row.uom}">UOM</td>
+																		<td class="text-end"
+																			th:text="${#numbers.formatDecimal(row.assessableValue,1,'COMMA',2,'POINT')}">
+																			Assessable</td>
+
+																		<td class="text-end"
+																			th:text="${#numbers.formatDecimal(row.bcd,1,'COMMA',2,'POINT')}">
+																			BCD</td>
+
+																		<td class="text-end"
+																			th:text="${#numbers.formatDecimal(row.sws,1,'COMMA',2,'POINT')}">
+																			SWS</td>
+
+																		<td class="text-end"
+																			th:text="${#numbers.formatDecimal(row.addDuty,1,'COMMA',2,'POINT')}">
+																			Add Duty</td>
+
+																		<td class="text-end"
+																			th:text="${#numbers.formatDecimal(row.totalDuty,1,'COMMA',2,'POINT')}">
+																			Total Duty</td>
+
+																		<td class="text-end"
+																			th:text="${#numbers.formatDecimal(row.qtyOpeningBalance,1,'COMMA',2,'POINT')}">
+																			Opening</td>
+																		<td class="text-end"
+																			th:text="${#numbers.formatDecimal(row.qtyUsed,1,'COMMA',2,'POINT')}">
+																			Used</td>
+																		<td class="text-end"
+																			th:text="${#numbers.formatDecimal(row.closingBalance,1,'COMMA',2,'POINT')}">
+																			Closing</td>
+
+
+																	</tr>
+																</tbody>
+															</table>
+														</div>
+														
+														
+
+														<!-- Pagination controls -->
+														<div class="d-flex align-items-center justify-content-center mt-3 ml-3">
+														  <nav aria-label="Page navigation">
+														    <ul class="pagination mb-0">
+														      <!-- Previous button -->
+														      <li class="page-item" th:classappend="${importDataPage.first} ? 'disabled'">
+														        <a class="page-link" th:href="@{/worksheet/importdata/select(
+														                            page=${importDataPage.number - 1},
+														                            size=${importDataPage.size},
+														                            filterField=${filterField},
+														                            filterValue=${filterValue})}" tabindex="-1">Previous</a>
+														      </li>
+
+														      <!-- Page numbers -->
+														      <li class="page-item" th:each="pageNum : ${#numbers.sequence(0, importDataPage.totalPages - 1)}" th:classappend="${pageNum == importDataPage.number} ? 'active'">
+														        <a class="page-link" th:href="@{/worksheet/importdata/select(
+														                               page=${pageNum},
+														                               size=${importDataPage.size},
+														                               filterField=${filterField},
+														                               filterValue=${filterValue})}" th:text="${pageNum + 1}">1</a>
+														        <span class="sr-only" th:if="${pageNum == importDataPage.number}">(current)</span>
+														      </li>
+
+														      <!-- Next button -->
+														      <li class="page-item" th:classappend="${importDataPage.last} ? 'disabled'">
+														        <a class="page-link" th:href="@{/worksheet/importdata/select(
+														                            page=${importDataPage.number + 1},
+														                            size=${importDataPage.size},
+														                            filterField=${filterField},
+														                            filterValue=${filterValue})}">Next</a>
+														      </li>
+														    </ul>
+														  </nav>
+
+														  <button id="calculateBtn" type="button" class="btn btn-primary waves-effect waves-light m-b-5 ml-3" style="width: 150px;">
+														    Calculate
+														  </button>
+														</div>
+														</form>
+
+
+													</div>
+
+												</div>
+											</div>
+											<!-- tab content end -->
+
+										</div>
+									</div>
+
+								</div>
+
+
+							</div>
+						</div>
+						<!--<div id="styleSelector">-->
+
+						<!--</div>-->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="fixed-button">
+		<a th:href="@{/index}" class="btn btn-primary" aria-hidden="true">Home</a>
+	</div>
+	</div>
+
+	<script>
+		function toggleAll(master) {
+			const checks = document.querySelectorAll('#importTable .row-select');
+			checks.forEach(cb => cb.checked = master.checked);
+		}
+
+
+	</script>
+
+	<script>
+		function updateInputType() {
+			var field = document.getElementById('filterField').value;
+			var input = document.getElementById('filterValue');
+			if (field === 'beDateFrom' || field === 'beDateTo') {
+				input.type = 'date';
+				input.placeholder = '';
+			} else {
+				input.type = 'text';
+				input.placeholder = 'Value';
+			}
+		}
+		// Optionally, call on page load if preselected
+		document.addEventListener("DOMContentLoaded", function () {
+			updateInputType();
+		});
+	</script>
+
+
+
+	<script type="text/javascript" src="/assets/plugins/jquery/dist/jquery.min.js"></script>
+	<script type="text/javascript" src="/assets/plugins/jquery-ui/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="/assets/plugins/tether/dist/js/tether.min.js"></script>
+	<script type="text/javascript" src="/assets/plugins/bootstrap/dist/js/bootstrap.min.js"></script>
+	<!-- jquery slimscroll js -->
+	<script type="text/javascript" src="/assets/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
+	<!-- modernizr js -->
+	<script type="text/javascript" src="/assets/plugins/modernizr/modernizr.js"></script>
+	<script type="text/javascript" src="/assets/plugins/modernizr/feature-detects/css-scrollbars.js"></script>
+	<!-- Bootstrap date-time-picker js -->
+	<script type="text/javascript" src="/assets/pages/advance-elements/moment-with-locales.min.js"></script>
+	<!--<script type="text/javascript" src="assets/pages/advance-elements/bootstrap-datetimepicker.min.js"></script>-->
+	<!-- Custom js -->
+	<script type="text/javascript" src="/assets/js/script.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+	<script src="/assets/pages/user-profile.js"></script>
+	<script src="/assets/js/pcoded.min.js"></script>
+	<script src="/assets/js/demo-12.js"></script>
+	<script src="/assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
+	<script src="/assets/js/jquery.mousewheel.min.js"></script>
+
+
+</body>
+
+</html>

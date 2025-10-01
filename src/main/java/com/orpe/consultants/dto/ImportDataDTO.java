@@ -4,6 +4,11 @@ package com.orpe.consultants.dto;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
+
+import com.orpe.consultants.model.BomExportModelQuantity;
+import com.orpe.consultants.model.ImportData;
+
 import lombok.*;
 
 @Getter
@@ -12,6 +17,7 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class ImportDataDTO {
+	private ImportData importData;
     // Existing fields:
 	private Long importId;
     private String beNo;
@@ -54,7 +60,7 @@ public class ImportDataDTO {
    
     
     
-    
+    private List<BomExportModelQuantity> exportModels;
     
      // To match Entity type or convert accordingly
         // To match Entity type or convert accordingly

@@ -74,5 +74,8 @@ public interface ImportDataService {
      * @return count of matching rows
      */
     long count(ImportDataFilter filter);
+    
+    
+    List<ImportDataDTO> fetchImportDataWithExportModels(List<Long> importIds);
 
 }

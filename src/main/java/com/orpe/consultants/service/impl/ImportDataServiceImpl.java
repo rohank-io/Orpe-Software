@@ -2,8 +2,11 @@ package com.orpe.consultants.service.impl;
 
 import com.orpe.consultants.dto.ImportDataDTO;
 import com.orpe.consultants.dto.ImportDataFilter;
+import com.orpe.consultants.model.BomData;
+import com.orpe.consultants.model.BomExportModelQuantity;
 import com.orpe.consultants.model.ImportData;
 import com.orpe.consultants.model.Material;
+import com.orpe.consultants.repository.BomDataRepository;
 import com.orpe.consultants.repository.ImportDataRepository;
 import com.orpe.consultants.repository.MaterialRepository;
 import com.orpe.consultants.service.ImportDataService;
@@ -29,6 +32,7 @@ public class ImportDataServiceImpl implements ImportDataService {
 
   private final MaterialRepository materialRepo;
   private final ImportDataRepository importRepo;
+  private final BomDataRepository bomDataRepository;
   private final ModelMapper modelMapper;
 
   @Override
@@ -154,8 +158,9 @@ public class ImportDataServiceImpl implements ImportDataService {
         predicates.add(cb.like(cb.lower(root.get("beNo")), "%" + filter.getBeNo().toLowerCase() + "%"));
       }
       if (StringUtils.hasText(filter.getClaimYear())) {
-        predicates.add(cb.equal(root.get("claimYear"), filter.getClaimYear()));
-      }
+    	    predicates.add(cb.like(cb.lower(root.get("claimYear")), "%" + filter.getClaimYear().toLowerCase() + "%"));
+     }
+
       if (StringUtils.hasText(filter.getSupplierNameAddress())) {
         predicates.add(cb.like(cb.lower(root.get("supplierNameAddress")), "%" + filter.getSupplierNameAddress().toLowerCase() + "%"));
       }
@@ -205,5 +210,37 @@ public class ImportDataServiceImpl implements ImportDataService {
   private static LocalDate reqDate(LocalDate d) {
     if (d == null) throw new IllegalArgumentException("beDate required");
     return d;
+  }
+  
+  
+  
+  @Override
+  @Transactional
+  public List<ImportDataDTO> fetchImportDataWithExportModels(List<Long> importIds) {
+      List<ImportData> imports = importRepo.findAllById(importIds);
+      Set<String> partNos = imports.stream()
+          .map(i -> (i.getMaterial() != null) ? i.getMaterial().getBomPartNo() : null)
+          .filter(Objects::nonNull)
+          .collect(Collectors.toSet());
+
+      List<BomData> bomList = bomDataRepository.findAllByMaterial_BomPartNoIn(partNos);
+
+      Map<String, List<BomExportModelQuantity>> exportModelsByPartNo =
+          bomList.stream().collect(Collectors.toMap(
+              bom -> bom.getMaterial().getBomPartNo(),
+              BomData::getExportModels
+          ));
+
+      List<ImportDataDTO> details = new ArrayList<>();
+      for (ImportData imp : imports) {
+          String partNo = (imp.getMaterial() != null) ? imp.getMaterial().getBomPartNo() : null;
+          List<BomExportModelQuantity> exModels = partNo != null ? exportModelsByPartNo.getOrDefault(partNo, Collections.emptyList()) : Collections.emptyList();
+
+          ImportDataDTO dto = new ImportDataDTO();
+          dto.setImportData(imp);
+          dto.setExportModels(exModels);
+          details.add(dto);
+      }
+      return details;
   }
 }
