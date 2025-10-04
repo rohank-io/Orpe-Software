@@ -39,9 +39,16 @@ public class Worksheet {
     private String claimYear;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "import_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(
+        name = "import_id",
+        referencedColumnName = "import_id",
+        nullable = false,
+        foreignKey = @ForeignKey(name = "fk_worksheet_importdata")
+    )
     private ImportData importData;
+
+
 
     @Column(name = "be_no", length = 32, nullable = false)
     @NotBlank

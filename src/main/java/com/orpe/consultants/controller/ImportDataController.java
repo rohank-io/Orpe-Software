@@ -2,6 +2,7 @@ package com.orpe.consultants.controller;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -69,12 +70,14 @@ public class ImportDataController {
 	  
 	  @GetMapping("/importdata/list")
 	  public String showImportDataList(
-	      @RequestParam(required = false) String filterField,
-	      @RequestParam(required = false) String filterValue,
-	      @RequestParam(defaultValue = "0") int page,
-	      @RequestParam(defaultValue = "100") int size,
-	      HttpSession session,
-	      Model model) {
+			  @RequestParam(required = false) String filterField,
+			    @RequestParam(required = false) String filterValue,
+			    @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fromDate,
+			    @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate toDate,
+			    @RequestParam(defaultValue = "0") int page,
+			    @RequestParam(defaultValue = "200") int size,
+			    HttpSession session,
+			    Model model) {
 
 	    User loggedInUser = (User) session.getAttribute("loggedInUser");
 	    if (loggedInUser == null) {
@@ -84,42 +87,11 @@ public class ImportDataController {
 
 	    model.addAttribute("user", loggedInUser);
 
-	    ImportDataFilter.ImportDataFilterBuilder filterBuilder = ImportDataFilter.builder();
-
-	    if (filterField != null && filterValue != null && !filterValue.isBlank()) {
-	      switch (filterField) {
-	        case "beNo":
-	          filterBuilder.beNo(filterValue);
-	          break;
-	          
-	        case "claimYear":
-		          filterBuilder.claimYear(filterValue);
-		          break;
-
-	        case "beDateFrom":
-	          try {
-	            LocalDate dateValue = LocalDate.parse(filterValue, DateTimeFormatter.ISO_DATE);
-	            filterBuilder.beDateFrom(dateValue);
-	          } catch (DateTimeParseException e) {
-	            // Log or handle invalid date format gracefully
-	            log.warn("Invalid beDate format: " + filterValue);
-	          }
-	          break;
-	          
-	        case "beDateTo":
-		          try {
-		            LocalDate dateValue = LocalDate.parse(filterValue, DateTimeFormatter.ISO_DATE);
-		            filterBuilder.beDateTo(dateValue);
-		          } catch (DateTimeParseException e) {
-		            // Log or handle invalid date format gracefully
-		            log.warn("Invalid beDate format: " + filterValue);
-		          }
-		          break;
-	        // Add more supported filters here
-	      }
-	    }
-
-	    ImportDataFilter filter = filterBuilder.build();
+	    ImportDataFilter filter = new ImportDataFilter();
+	    filter.setFilterField(filterField);
+	    filter.setFilterValue(filterValue);
+	    filter.setFromDate(fromDate);
+	    filter.setToDate(toDate);
 
 	    Pageable pageable = PageRequest.of(page, size, Sort.by("beDate").descending());
 	    Page<ImportDataDTO> resultPage = importDataService.search(filter, pageable);
@@ -127,8 +99,11 @@ public class ImportDataController {
 	    model.addAttribute("importDataPage", resultPage);
 	    model.addAttribute("filterField", filterField);
 	    model.addAttribute("filterValue", filterValue);
+	    model.addAttribute("fromDate", fromDate);
+	    model.addAttribute("toDate", toDate);
 	    model.addAttribute("currentPage", page);
 	    model.addAttribute("pageSize", size);
+
 
 	    return "importDataList";
 	  }

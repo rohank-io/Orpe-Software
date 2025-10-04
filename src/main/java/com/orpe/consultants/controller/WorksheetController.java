@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,69 +34,44 @@ public class WorksheetController {
 	private final ImportDataService importDataService;
 	
 	
-	@GetMapping({"/worksheet/importdata/select"})
-    public String worksheetdataSelect( @RequestParam(required = false) String filterField,
-  	      @RequestParam(required = false) String filterValue,
-  	      @RequestParam(defaultValue = "0") int page,
-  	      @RequestParam(defaultValue = "200") int size,
-  	      HttpSession session,
-  	      Model model) {
+	@GetMapping("/worksheet/importdata/select")
+	public String worksheetdataSelect(
+	    @RequestParam(required = false) String filterField,
+	    @RequestParam(required = false) String filterValue,
+	    @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fromDate,
+	    @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate toDate,
+	    @RequestParam(defaultValue = "0") int page,
+	    @RequestParam(defaultValue = "200") int size,
+	    HttpSession session,
+	    Model model) {
 
-  	    User loggedInUser = (User) session.getAttribute("loggedInUser");
-  	    if (loggedInUser == null) {
-  	      log.info("User not authenticated, redirecting to login page");
-  	      return "redirect:/login";
-  	    }
+	    // Authentication check omitted for brevity
+		User loggedInUser = (User) session.getAttribute("loggedInUser");
+        if (loggedInUser == null) {
+            return "redirect:/login";
+        }
+        model.addAttribute("user", loggedInUser);
 
-  	    model.addAttribute("user", loggedInUser);
+	    ImportDataFilter filter = new ImportDataFilter();
+	    filter.setFilterField(filterField);
+	    filter.setFilterValue(filterValue);
+	    filter.setFromDate(fromDate);
+	    filter.setToDate(toDate);
 
-  	    ImportDataFilter.ImportDataFilterBuilder filterBuilder = ImportDataFilter.builder();
+	    Pageable pageable = PageRequest.of(page, size, Sort.by("beDate").descending());
+	    Page<ImportDataDTO> resultPage = importDataService.search(filter, pageable);
 
-  	    if (filterField != null && filterValue != null && !filterValue.isBlank()) {
-  	      switch (filterField) {
-  	        case "beNo":
-  	          filterBuilder.beNo(filterValue);
-  	          break;
-  	          
-  	      case "claimYear":
-	          filterBuilder.claimYear(filterValue);
-	          break;  
+	    model.addAttribute("importDataPage", resultPage);
+	    model.addAttribute("filterField", filterField);
+	    model.addAttribute("filterValue", filterValue);
+	    model.addAttribute("fromDate", fromDate);
+	    model.addAttribute("toDate", toDate);
+	    model.addAttribute("currentPage", page);
+	    model.addAttribute("pageSize", size);
 
-  	        case "beDateFrom":
-  	          try {
-  	            LocalDate dateValue = LocalDate.parse(filterValue, DateTimeFormatter.ISO_DATE);
-  	            filterBuilder.beDateFrom(dateValue);
-  	          } catch (DateTimeParseException e) {
-  	            // Log or handle invalid date format gracefully
-  	            log.warn("Invalid beDate format: " + filterValue);
-  	          }
-  	          break;
-  	          
-  	        case "beDateTo":
-  		          try {
-  		            LocalDate dateValue = LocalDate.parse(filterValue, DateTimeFormatter.ISO_DATE);
-  		            filterBuilder.beDateTo(dateValue);
-  		          } catch (DateTimeParseException e) {
-  		            // Log or handle invalid date format gracefully
-  		            log.warn("Invalid beDate format: " + filterValue);
-  		          }
-  		          break;
-  	        // Add more supported filters here
-  	      }
-  	    }
+	    return "worksheetDataSelect";
+	}
 
-  	    ImportDataFilter filter = filterBuilder.build();
-
-  	    Pageable pageable = PageRequest.of(page, size, Sort.by("beDate").descending());
-  	    Page<ImportDataDTO> resultPage = importDataService.search(filter, pageable);
-
-  	    model.addAttribute("importDataPage", resultPage);
-  	    model.addAttribute("filterField", filterField);
-  	    model.addAttribute("filterValue", filterValue);
-  	    model.addAttribute("currentPage", page);
-  	    model.addAttribute("pageSize", size);
-        return "worksheetDataSelect";
-    }
 	
 	
 	@PostMapping("/worksheet/importdata/edit")

@@ -205,7 +205,7 @@
 									</a>
 									<ul class="pcoded-submenu">
 										<li class=" ">
-											<a href="bs-grid.html">
+											<a th:href="@{/worksheet/importdata/select}">
 												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
 												<span class="pcoded-mtext">Worksheet</span>
 												<span class="pcoded-mcaret"></span>
@@ -419,6 +419,7 @@
 																		<th>SB Date</th>
 																		<th>Month</th>
 																		<th>YEAR</th>
+																		<th>Client Name</th>
 																		<th>INVOICE No</th>
 																		<th>Invoice Date</th>
 																		<th>Claim Ref No</th>
@@ -477,6 +478,9 @@
 																		<td
 																			th:text="${row.sbDate != null ? #temporals.format(row.sbDate, 'yyyy') : ''}">
 																			Year</td>
+
+																		<td th:text="${row.clientName}">Client Name
+																		</td>
 
 																		<td th:text="${row.invoiceNo}">Invoice No</td>
 																		<td
@@ -544,7 +548,7 @@
 																			Currency</td>
 																		<td th:text="${row.sbUtilization}">SB
 																			Utilization</td>
-																		<td th:text="${row.username}">Username</td>
+																		
 																		<td>
 
 																			<a th:href="@{/exportdata/delete/{id}(id=${row.exportId}, filterField=${filterField}, filterValue=${filterValue}, page=${currentPage}, size=${pageSize})}"

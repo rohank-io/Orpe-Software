@@ -173,4 +173,11 @@ public class ImportData {
  @UpdateTimestamp
  @Column(name = "updated_at", nullable = false)
  private LocalDateTime updatedAt;
+ 
+ 
+
+ @Column(name = "clientname", length = 100)
+ @Size(max = 100)
+ private String clientName;
+ 
 }

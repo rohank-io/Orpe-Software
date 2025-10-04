@@ -207,7 +207,7 @@
 									</a>
 									<ul class="pcoded-submenu">
 										<li class=" ">
-											<a href="bs-grid.html">
+											<a th:href="@{/worksheet/importdata/select}">
 												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
 												<span class="pcoded-mtext">Worksheet</span>
 												<span class="pcoded-mcaret"></span>
@@ -460,9 +460,13 @@
 																					<td th:text="${r.claimRefNo}"></td>
 																					<td th:text="${r.claimYear}"></td>
 																					<td th:text="${r.bomPartNo}"></td>
-																					<td th:text="${r.alternateBoePartNo}"></td>
+																					<td
+																						th:text="${r.alternateBoePartNo}">
+																					</td>
 																					<td th:text="${r.dbkPartNo}"></td>
-																					<td th:text="${r.importedIndigenous}"></td>
+																					<td
+																						th:text="${r.importedIndigenous}">
+																					</td>
 																					<td
 																						th:text="${#numbers.formatDecimal(r.grandTotal, 0, 'COMMA', 6, 'POINT')}">
 																					</td>
@@ -475,7 +479,8 @@
 																					<td class="text-center">
 																						<button type="button"
 																							class="btn btn-sm btn-outline-danger"
-																							th:data-index="${rowStat.index}" onclick="removeRow(this)">Remove</button>
+																							th:data-index="${rowStat.index}"
+																							onclick="removeRow(this)">Remove</button>
 																					</td>
 																				</tr>
 																				<tr th:id="'exportModelsRow' + ${rowStat.index}"
@@ -564,11 +569,11 @@
 															}
 
 														</script>
-														
+
 														<script th:inline="javascript">
-														/*<![CDATA[*/
-														    var bomRows = /*[[${bomRows}]]*/ null;
-														/*]]>*/
+															/*<![CDATA[*/
+															var bomRows = /*[[${bomRows}]]*/ null;
+															/*]]>*/
 														</script>
 
 														<script>
@@ -576,75 +581,80 @@
 
 															// Remove row handler
 															function removeRow(btn) {
-															    const tr = btn.closest('tr');
-															    if (!tr) return;
+																const tr = btn.closest('tr');
+																if (!tr) return;
 
-															    // Get current index
-															    const indexAttr = btn.getAttribute('data-index');
-															    const index = indexAttr !== null ? parseInt(indexAttr) : -1;
+																// Get current index
+																const indexAttr = btn.getAttribute('data-index');
+																const index = indexAttr !== null ? parseInt(indexAttr) : -1;
 
-															    if (index >= 0 && Array.isArray(bomRows)) {
-															        bomRows.splice(index, 1); // Remove from data
-															        updateRowIndices();       // Update indices in DOM and buttons
-															    }
+																if (index >= 0 && Array.isArray(bomRows)) {
+																	bomRows.splice(index, 1); // Remove from data
+																	updateRowIndices();       // Update indices in DOM and buttons
+																}
 
-															    tr.remove(); // Remove from DOM
+																tr.remove(); // Remove from DOM
 															}
 
 															// Update rows and button indices
 															function updateRowIndices() {
-															    const tbody = document.querySelector('#bomTable tbody');
-															    if (!tbody) return;
+																const tbody = document.querySelector('#bomTable tbody');
+																if (!tbody) return;
 
-															    const rows = tbody.querySelectorAll('tr[id^="bomRow"]');
-															    rows.forEach((row, idx) => {
-															        row.id = 'bomRow' + idx;
-															        const exportRow = document.getElementById('exportModelsRow' + row.id.replace('bomRow', ''));
-															        if (exportRow) {
-															            exportRow.id = 'exportModelsRow' + idx;
-															        }
+																const rows = tbody.querySelectorAll('tr[id^="bomRow"]');
+																rows.forEach((row, idx) => {
+																	row.id = 'bomRow' + idx;
+																	const exportRow = document.getElementById('exportModelsRow' + row.id.replace('bomRow', ''));
+																	if (exportRow) {
+																		exportRow.id = 'exportModelsRow' + idx;
+																	}
 
-															        const toggleBtn = row.querySelector('button.btn-link');
-															        if (toggleBtn) {
-															            toggleBtn.setAttribute('data-index', idx);
-															        }
+																	const toggleBtn = row.querySelector('button.btn-link');
+																	if (toggleBtn) {
+																		toggleBtn.setAttribute('data-index', idx);
+																	}
 
-															        const toggleIcon = row.querySelector('i[id^="toggleIcon"]');
-															        if (toggleIcon) {
-															            toggleIcon.id = 'toggleIcon' + idx;
-															        }
+																	const toggleIcon = row.querySelector('i[id^="toggleIcon"]');
+																	if (toggleIcon) {
+																		toggleIcon.id = 'toggleIcon' + idx;
+																	}
 
-															        const removeBtn = row.querySelector('button.btn-outline-danger');
-															        if (removeBtn) {
-															            removeBtn.setAttribute('data-index', idx);
-															        }
-															    });
+																	const removeBtn = row.querySelector('button.btn-outline-danger');
+																	if (removeBtn) {
+																		removeBtn.setAttribute('data-index', idx);
+																	}
+																});
 															}
 
 															// Save button handler (unchanged except you'll now send updated bomRows)
-															document.getElementById('saveBtn').addEventListener('click', function() {
-															    if (!bomRows || bomRows.length === 0) {
-															        alert('No BOM rows to save!');
-															        return;
-															    }
+															document.getElementById('saveBtn').addEventListener('click', function () {
+																if (!bomRows || bomRows.length === 0) {
+																	alert('No BOM rows to save!');
+																	return;
+																}
 
-															    fetch('/bomdata/saveBulk', {
-															        method: 'POST',
-															        headers: { 'Content-Type': 'application/json' },
-															        body: JSON.stringify(bomRows)
-															    })
-															    .then(response => {
-															        if (!response.ok) throw new Error('Failed to save BOM data');
-															        return response.text();
-															    })
-															    .then(msg => {
-															        alert(msg);
-															        // Optionally reload page here
-															    })
-															    .catch(err => {
-															        console.error('Error saving BOM data:', err);
-															        alert('Failed to save BOM data. Please try again.');
-															    });
+																fetch('/bomdata/saveBulk', {
+																	method: 'POST',
+																	headers: {'Content-Type': 'application/json'},
+																	body: JSON.stringify(bomRows)
+																})
+																	.then(response => {
+																		if (!response.ok) throw new Error('Failed to save BOM data');
+																		return response.text();
+																	})
+																	.then(msg => {
+																		alert(msg);
+																		// Redirect to /bomdata/list page dynamically based on hostname
+																		const protocol = window.location.protocol;
+																		const host = window.location.host;
+																		const baseUrl = `${protocol}//${host}`;
+
+																		window.location.href = baseUrl + '/bomdata/list';
+																	})
+																	.catch(err => {
+																		console.error('Error saving BOM data:', err);
+																		alert('Failed to save BOM data. Please try again.');
+																	});
 															});
 
 														</script>

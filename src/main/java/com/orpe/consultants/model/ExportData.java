@@ -1,6 +1,7 @@
 package com.orpe.consultants.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -194,6 +195,9 @@ public class ExportData {
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
-    @Column(name = "username", nullable = false, length = 50)
-    private String username;
+    
+    
+    @Column(name = "clientname", length = 100)
+    @Size(max = 100)
+    private String clientName;
 }

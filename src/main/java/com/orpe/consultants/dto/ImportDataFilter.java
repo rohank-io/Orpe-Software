@@ -77,11 +77,19 @@ public class ImportDataFilter {
      * Claim reference number filter.
      */
     private String claimRefNo;
+    
+    private String clientName;
 
     /**
      * Stock wise eligibility filter, e.g. OPEN or CLOSED.
      */
     private String stockWiseEligibility;
+    
+    
+    private String filterField;      // e.g., beNo, claimYear, beDate, etc.
+    private String filterValue;      // Value to filter on filterField (for non-date)
+    private LocalDate fromDate;      // From date (optional)
+    private LocalDate toDate; 
 
     
 

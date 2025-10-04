@@ -9,7 +9,6 @@ import lombok.*;
 
 @Entity
 @Table(name = "tbl_worksheet_model_split",
-       uniqueConstraints = @UniqueConstraint(columnNames = {"worksheet_id", "model_no", "usage_type"}),
        indexes = {@Index(name = "idx_ws_col", columnList = "worksheet_id, col_no")})
 @Getter
 @Setter

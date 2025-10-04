@@ -57,6 +57,8 @@ public class ImportDataDTO {
     private BigDecimal dutyClaimedAmt;
     // TODO new fields for full extraction:
     
+    private String clientName;
+    
    
     
     

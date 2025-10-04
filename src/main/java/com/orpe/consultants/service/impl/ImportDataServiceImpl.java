@@ -151,50 +151,47 @@ public class ImportDataServiceImpl implements ImportDataService {
   }
 
   private Specification<ImportData> buildSpecification(ImportDataFilter filter) {
-    return (root, query, cb) -> {
-      List<Predicate> predicates = new ArrayList<>();
+	    return (root, query, cb) -> {
+	        List<Predicate> predicates = new ArrayList<>();
 
-      if (StringUtils.hasText(filter.getBeNo())) {
-        predicates.add(cb.like(cb.lower(root.get("beNo")), "%" + filter.getBeNo().toLowerCase() + "%"));
-      }
-      if (StringUtils.hasText(filter.getClaimYear())) {
-    	    predicates.add(cb.like(cb.lower(root.get("claimYear")), "%" + filter.getClaimYear().toLowerCase() + "%"));
-     }
+	        String field = filter.getFilterField();
+	        String value = filter.getFilterValue();
 
-      if (StringUtils.hasText(filter.getSupplierNameAddress())) {
-        predicates.add(cb.like(cb.lower(root.get("supplierNameAddress")), "%" + filter.getSupplierNameAddress().toLowerCase() + "%"));
-      }
-      if (StringUtils.hasText(filter.getCountryOfOrigin())) {
-        predicates.add(cb.like(cb.lower(root.get("countryOfOrigin")), "%" + filter.getCountryOfOrigin().toLowerCase() + "%"));
-      }
-      if (filter.getBeDateFrom() != null) {
-        predicates.add(cb.greaterThanOrEqualTo(root.get("beDate"), filter.getBeDateFrom()));
-      }
-      if (filter.getBeDateTo() != null) {
-    	  predicates.add(cb.lessThanOrEqualTo(root.get("beDate"), filter.getBeDateTo()));
-      }
-      if (StringUtils.hasText(filter.getBomPartNo())) {
-        predicates.add(cb.like(cb.lower(root.get("bomPartNo")), "%" + filter.getBomPartNo().toLowerCase() + "%"));
-      }
-      if (StringUtils.hasText(filter.getDbkPartNo())) {
-        predicates.add(cb.like(cb.lower(root.get("dbkPartNo")), "%" + filter.getDbkPartNo().toLowerCase() + "%"));
-      }
-      if (StringUtils.hasText(filter.getItchsCode())) {
-        predicates.add(cb.like(cb.lower(root.get("itchsCode")), "%" + filter.getItchsCode().toLowerCase() + "%"));
-      }
-      if (StringUtils.hasText(filter.getPortCode())) {
-        predicates.add(cb.like(cb.lower(root.get("portCode")), "%" + filter.getPortCode().toLowerCase() + "%"));
-      }
-      if (StringUtils.hasText(filter.getClaimRefNo())) {
-        predicates.add(cb.like(cb.lower(root.get("claimRefNo")), "%" + filter.getClaimRefNo().toLowerCase() + "%"));
-      }
-      if (StringUtils.hasText(filter.getStockWiseEligibility())) {
-        predicates.add(cb.equal(root.get("stockWiseEligibility"), filter.getStockWiseEligibility()));
-      }
+	        if (field != null && !field.isBlank() && value != null && !value.isBlank()) {
+	            List<String> stringFields = List.of(
+	                "beNo",
+	                "claimYear",
+	                "clientName",
+	                "supplierNameAddress",
+	                "countryOfOrigin",
+	                "bomPartNo",
+	                "dbkPartNo",
+	                "itchsCode",
+	                "portCode",
+	                "claimRefNo"
+	            );
 
-      return cb.and(predicates.toArray(new Predicate[0]));
-    };
-  }
+	            if (stringFields.contains(field)) {
+	                predicates.add(cb.like(cb.lower(root.get(field)), "%" + value.toLowerCase() + "%"));
+	            } else if ("stockWiseEligibility".equals(field)) {
+	                predicates.add(cb.equal(root.get(field), value));
+	            }
+	        }
+
+	     // Apply date range filtering on beDate independently regardless of filterField
+	        if (filter.getFromDate() != null) {
+	            predicates.add(cb.greaterThanOrEqualTo(root.get("beDate"), filter.getFromDate()));
+	        }
+	        if (filter.getToDate() != null) {
+	            predicates.add(cb.lessThanOrEqualTo(root.get("beDate"), filter.getToDate()));
+	        }
+	        
+
+	        return cb.and(predicates.toArray(new Predicate[0]));
+	    };
+	}
+
+
 
   private static String trim(String s) { return s == null ? null : s.trim(); }
   
@@ -225,10 +222,18 @@ public class ImportDataServiceImpl implements ImportDataService {
 
       List<BomData> bomList = bomDataRepository.findAllByMaterial_BomPartNoIn(partNos);
 
-      Map<String, List<BomExportModelQuantity>> exportModelsByPartNo =
-          bomList.stream().collect(Collectors.toMap(
+      // Group BomData by bomPartNo, then flatten aggregated export model lists per bomPartNo
+      Map<String, List<BomExportModelQuantity>> exportModelsByPartNo = bomList.stream()
+          .collect(Collectors.groupingBy(
               bom -> bom.getMaterial().getBomPartNo(),
-              BomData::getExportModels
+              Collectors.mapping(BomData::getExportModels, Collectors.toList())
+          ))
+          .entrySet().stream()
+          .collect(Collectors.toMap(
+              Map.Entry::getKey,
+              e -> e.getValue().stream()
+                    .flatMap(List::stream)
+                    .collect(Collectors.toList())
           ));
 
       List<ImportDataDTO> details = new ArrayList<>();
@@ -243,4 +248,5 @@ public class ImportDataServiceImpl implements ImportDataService {
       }
       return details;
   }
+
 }

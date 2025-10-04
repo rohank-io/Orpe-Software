@@ -205,7 +205,7 @@
 									</a>
 									<ul class="pcoded-submenu">
 										<li class=" ">
-											<a href="bs-grid.html">
+											<a th:href="@{/worksheet/importdata/select}">
 												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
 												<span class="pcoded-mtext">Worksheet</span>
 												<span class="pcoded-mcaret"></span>
@@ -370,7 +370,7 @@
 														<div class="d-flex justify-content-end">
 															<form th:action="@{/importdata/list}" method="get"
 																class="d-flex align-items-center gap-2 m-3 flex-nowrap"
-																style="max-width:400px;">
+																style="max-width:700px;">
 																<select name="filterField" id="filterField"
 																	class="form-control form-control-sm mr-2"
 																	style="width:110px; min-width:90px;" required
@@ -379,12 +379,10 @@
 																		value="" disabled>Sort By</option>
 																	<option th:selected="${filterField == 'beNo'}"
 																		value="beNo">BE No</option>
-
-																	<option th:selected="${filterField == 'beDateFrom'}"
-																		value="beDateFrom">From Date</option>
-
-																	<option th:selected="${filterField == 'beDateTo'}"
-																		value="beDateTo">To Date</option>
+																	<option th:selected="${filterField == 'claimYear'}"
+																		value="claimYear">Claim Year</option>
+																	<option th:selected="${filterField == 'clientName'}"
+																		value="clientName">Client Name</option>
 																	<!-- add more fields as needed -->
 																</select>
 
@@ -392,6 +390,16 @@
 																	th:value="${filterValue}" placeholder="Value"
 																	class="form-control form-control-sm mr-2"
 																	style="width:140px; min-width:120px;" required />
+
+																<input type="date" name="fromDate" id="fromDate"
+																	th:value="${fromDate}" placeholder="From Date"
+																	class="form-control form-control-sm mr-2"
+																	style="width:120px; min-width:110px; display:none;" />
+
+																<input type="date" name="toDate" id="toDate"
+																	th:value="${toDate}" placeholder="To Date"
+																	class="form-control form-control-sm mr-2"
+																	style="width:120px; min-width:110px; display:none;" />
 
 																<button type="submit"
 																	class="btn btn-sm btn-primary waves-effect waves-light f-right"
@@ -419,6 +427,7 @@
 																		<th>BE Date</th>
 																		<th>Month</th>
 																		<th>Year</th>
+																		<th>Client Name</th>
 																		<th>Claim Ref No</th>
 																		<th>Claim Year</th>
 																		<th>Port Code</th>
@@ -469,10 +478,13 @@
 																		</td>
 																		<td th:text="${row.beMonth}">Month</td>
 																		<td th:text="${row.beYear}">Year</td>
+																		<td th:text="${row.clientName}">Client Name
+																		</td>
 																		<td th:text="${row.claimRefNo}">Claim
 																			Ref No</td>
 																		<td th:text="${row.claimYear}">Claim
 																			Year</td>
+
 																		<td th:text="${row.portCode}">Port Code
 																		</td>
 																		<td th:text="${row.countryOfOrigin}">
@@ -557,90 +569,117 @@
 														</div>
 
 														<!-- Pagination controls -->
-														<nav aria-label="Page navigation" class="mt-3 ml-3">
-															<ul class="pagination justify-content-center">
+														<div
+															class="d-flex align-items-center justify-content-center mt-3 ml-3">
+															<nav aria-label="Page navigation">
+																<ul class="pagination mb-0">
+																	<!-- Previous button -->
+																	<li class="page-item"
+																		th:classappend="${importDataPage.first} ? 'disabled'">
+																		<a class="page-link" th:href="@{/importdata/list(
+																													                                  page=${importDataPage.number - 1},
+																													                                  size=${importDataPage.size},
+																													                                  filterField=${filterField},
+																													                                  filterValue=${filterValue},
+																													                                  fromDate=${fromDate},
+																													                                  toDate=${toDate})}" tabindex="-1">Previous</a>
+																	</li>
 
-																<!-- Previous button -->
-																<li class="page-item"
-																	th:classappend="${importDataPage.first} ? 'disabled'">
-																	<a class="page-link" th:href="@{/importdata/list(
-														                    page=${importDataPage.number - 1},
-														                    size=${importDataPage.size},
-														                    filterField=${filterField},
-														                    filterValue=${filterValue})}" tabindex="-1">Previous</a>
-																</li>
+																	<!-- Page numbers -->
+																	<li class="page-item"
+																		th:each="pageNum : ${#numbers.sequence(0, importDataPage.totalPages - 1)}"
+																		th:classappend="${pageNum == importDataPage.number} ? 'active'">
+																		<a class="page-link" th:href="@{/importdata/list(
+																													                                         page=${pageNum},
+																													                                         size=${importDataPage.size},
+																													                                         filterField=${filterField},
+																													                                         filterValue=${filterValue},
+																													                                         fromDate=${fromDate},
+																													                                         toDate=${toDate})}"
+																			th:text="${pageNum + 1}">1</a>
+																		<span class="sr-only"
+																			th:if="${pageNum == importDataPage.number}">(current)</span>
+																	</li>
 
-																<!-- Page numbers -->
-																<li class="page-item"
-																	th:each="pageNum : ${#numbers.sequence(0, importDataPage.totalPages - 1)}"
-																	th:classappend="${pageNum == importDataPage.number} ? 'active'">
-																	<a class="page-link" th:href="@{/importdata/list(
-														                           page=${pageNum},
-														                           size=${importDataPage.size},
-														                           filterField=${filterField},
-														                           filterValue=${filterValue})}" th:text="${pageNum + 1}">1</a>
-																	<span class="sr-only"
-																		th:if="${pageNum == importDataPage.number}">(current)</span>
-																</li>
-
-																<!-- Next button -->
-																<li class="page-item"
-																	th:classappend="${importDataPage.last} ? 'disabled'">
-																	<a class="page-link" th:href="@{/importdata/list(
-														                    page=${importDataPage.number + 1},
-														                    size=${importDataPage.size},
-														                    filterField=${filterField},
-														                    filterValue=${filterValue})}">Next</a>
-																</li>
-
-															</ul>
-														</nav>
+																	<!-- Next button -->
+																	<li class="page-item"
+																		th:classappend="${importDataPage.last} ? 'disabled'">
+																		<a class="page-link" th:href="@{/importdata/list(
+																													                                  page=${importDataPage.number + 1},
+																													                                  size=${importDataPage.size},
+																													                                  filterField=${filterField},
+																													                                  filterValue=${filterValue},
+																													                                  fromDate=${fromDate},
+																													                                  toDate=${toDate})}">Next</a>
+																	</li>
+																</ul>
+															</nav>
+															</di>
 
 
+
+														</div>
 
 													</div>
-
 												</div>
-											</div>
-											<!-- tab content end -->
+												<!-- tab content end -->
 
+											</div>
 										</div>
+
 									</div>
 
+
 								</div>
-
-
 							</div>
-						</div>
-						<!--<div id="styleSelector">-->
+							<!--<div id="styleSelector">-->
 
-						<!--</div>-->
+							<!--</div>-->
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class="fixed-button">
-		<a th:href="@{/index}" class="btn btn-primary" aria-hidden="true">Home</a>
-	</div>
+		<div class="fixed-button">
+			<a th:href="@{/index}" class="btn btn-primary" aria-hidden="true">Home</a>
+		</div>
 	</div>
 
 	<script>
 		function updateInputType() {
-			var field = document.getElementById('filterField').value;
-			var input = document.getElementById('filterValue');
-			if (field === 'beDateFrom' || field === 'beDateTo') {
-				input.type = 'date';
-				input.placeholder = '';
-			} else {
-				input.type = 'text';
-				input.placeholder = 'Value';
-			}
-		}
-		// Optionally, call on page load if preselected
-		document.addEventListener("DOMContentLoaded", function () {
-			updateInputType();
-		});
+				  const filterField = document.getElementById('filterField').value;
+				  const filterValueInput = document.getElementById('filterValue');
+				  const fromDateInput = document.getElementById('fromDate');
+				  const toDateInput = document.getElementById('toDate');
+
+				  if (!filterField) {
+				    // Hide all inputs if no filterField selected
+				    filterValueInput.style.display = 'none';
+				    filterValueInput.required = false;
+
+				    fromDateInput.style.display = 'none';
+				    fromDateInput.required = false;
+
+				    toDateInput.style.display = 'none';
+				    toDateInput.required = false;
+				  } else {
+				    // Show all inputs when a filterField is selected
+				    filterValueInput.style.display = 'inline-block';
+				    filterValueInput.required = true;
+
+				    fromDateInput.style.display = 'inline-block';
+				    fromDateInput.required = false;
+
+				    toDateInput.style.display = 'inline-block';
+				    toDateInput.required = false;
+				  }
+				}
+
+				// Initialize on page load
+				document.addEventListener('DOMContentLoaded', () => {
+				  updateInputType();
+				});
+
 	</script>
 
 

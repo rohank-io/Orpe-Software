@@ -205,7 +205,7 @@
 									</a>
 									<ul class="pcoded-submenu">
 										<li class=" ">
-											<a href="bs-grid.html">
+											<a th:href="@{/worksheet/importdata/select}">
 												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
 												<span class="pcoded-mtext">Worksheet</span>
 												<span class="pcoded-mcaret"></span>
@@ -440,6 +440,7 @@
 																				<th>BE Date</th>
 																				<th>Month</th>
 																				<th>Year</th>
+
 																				<th>Claim Ref No</th>
 																				<th>Claim Year</th>
 																				<th>Port Code</th>
@@ -479,6 +480,8 @@
 
 																				<!-- Claims -->
 																				<th class="text-end">Duty Claimed</th>
+
+																				<th>Client Name</th>
 
 																				<!-- Action -->
 																				<th class="text-center">Action</th>
@@ -605,6 +608,11 @@
 																					th:text="${#numbers.formatDecimal(r.dutyClaimedAmt, 0, 'COMMA', 2, 'POINT')}">
 																				</td>
 
+																				<td contenteditable="true"
+																					th:text="${importFileName.contains('.') ? importFileName.substring(0, importFileName.lastIndexOf('.')) : importFileName}">
+																				</td>
+
+
 																				<!-- Action -->
 																				<td class="text-center">
 																					<button type="button"
@@ -705,7 +713,8 @@
 																		stockWiseEligibility: nth(tr, 33), // OPEN/CLOSED
 
 																		// Claims
-																		dutyClaimedAmt: parseDecimal(nth(tr, 34))
+																		dutyClaimedAmt: parseDecimal(nth(tr, 34)),
+																		clientName: nth(tr, 35)
 																	};
 																	out.push(dto);
 																});

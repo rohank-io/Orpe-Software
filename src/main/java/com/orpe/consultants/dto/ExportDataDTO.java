@@ -131,6 +131,5 @@ public class ExportDataDTO {
     // Updated At
     private LocalDateTime updatedAt;
     
-    private String username;
-
+    private String clientName;
 }
