@@ -441,6 +441,8 @@
 																				<th>Net Weight (Kg)</th>
 																				<th>Material Description</th>
 																				<th>Unit</th>
+																				<th>Client Name</th>
+
 																				<th class="text-center">Action</th>
 																			</tr>
 																		</thead>
@@ -476,6 +478,10 @@
 																					<td th:text="${r.materialDesc}">
 																					</td>
 																					<td th:text="${r.unit}"></td>
+																					<td contenteditable="true"
+																						th:text="${r.clientName}">
+																					</td>
+
 																					<td class="text-center">
 																						<button type="button"
 																							class="btn btn-sm btn-outline-danger"
@@ -497,6 +503,10 @@
 																									<th
 																										class="text-end">
 																										Quantity</th>
+
+																									<th
+																										class="text-end">
+																										Status</th>
 																								</tr>
 																							</thead>
 																							<tbody>
@@ -505,8 +515,12 @@
 																									<td
 																										th:text="${em.modelNo}">
 																									</td>
-																									<td class="text-end"
+																									<td
 																										th:text="${#numbers.formatDecimal(em.quantity, 0, 'COMMA', 3, 'POINT')}">
+																									</td>
+
+																									<td
+																										th:text="${em.status}">
 																									</td>
 																								</tr>
 																								<tr

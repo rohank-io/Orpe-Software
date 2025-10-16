@@ -20,5 +20,7 @@ public class BomDataFilter {
     private String claimYear;
     private String materialDesc;
     private String bomPartNo;
+    private String clientName;
+    private String status;
 
 }

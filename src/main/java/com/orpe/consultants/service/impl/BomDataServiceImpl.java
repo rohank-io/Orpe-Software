@@ -124,6 +124,13 @@ public class BomDataServiceImpl implements BomDataService {
             if (StringUtils.hasText(filter.getClaimYear())) {
         	    predicates.add(cb.like(cb.lower(root.get("claimYear")), "%" + filter.getClaimYear().toLowerCase() + "%"));
             }
+            
+            if (StringUtils.hasText(filter.getClientName())) {
+                predicates.add(cb.like(cb.lower(root.get("clientName")), "%" + filter.getClientName().toLowerCase() + "%"));
+            }
+            if (StringUtils.hasText(filter.getStatus())) {
+                predicates.add(cb.like(cb.lower(root.get("status")), "%" + filter.getStatus().toLowerCase() + "%"));
+            }
             // Add more predicates for other filter fields
 
             return cb.and(predicates.toArray(new Predicate[0]));
@@ -180,6 +187,7 @@ public class BomDataServiceImpl implements BomDataService {
             .dbkPartNo(dto.getDbkPartNo())  // String as is
             .importedIndigenous(dto.getImportedIndigenous())
             .unit(dto.getUnit())
+            .clientName(dto.getClientName())
             .grandTotal(dto.getGrandTotal())
             .netWeightKg(dto.getNetWeightKg())
             .build();
@@ -191,6 +199,7 @@ public class BomDataServiceImpl implements BomDataService {
                     .id(em.getId())
                     .modelNo(em.getModelNo())
                     .quantity(em.getQuantity())
+                    .status(em.getStatus())
                     .bomData(entity)
                     .build();
                 children.add(child);
@@ -224,6 +233,7 @@ public class BomDataServiceImpl implements BomDataService {
             .dbkPartNo(entity.getDbkPartNo())    // simple string field
             .importedIndigenous(entity.getImportedIndigenous())
             .unit(entity.getUnit())
+            .clientName(entity.getClientName())
             .grandTotal(entity.getGrandTotal())
             .netWeightKg(entity.getNetWeightKg())
             .exportModels(childDtos)

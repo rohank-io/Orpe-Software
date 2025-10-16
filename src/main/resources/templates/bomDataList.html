@@ -385,8 +385,8 @@
 																	onchange="updateInputType();">
 																	<option th:selected="${filterField == null}"
 																		value="" disabled selected>Sort By</option>
-																	<option th:selected="${filterField == 'bomPartNo'}"
-																		value="bomPartNo">BOM Part No</option>
+																	<option th:selected="${filterField == 'bomPartNo'}" value="bomPartNo">BOM Part No</option>
+																	<option th:selected="${filterField == 'clientName'}" value="clientName">Client Name</option>	
 
 																	
 																	<!-- add more fields as needed -->
@@ -431,6 +431,9 @@
 																		<th>Net Weight (Kg)</th>
 																		
 																		<th>Unit</th>
+																		<th>Client Name</th>
+																		<th>Status</th>
+																		
 																	</tr>
 																</thead>
 																<tbody>
@@ -469,6 +472,8 @@
 
 																			
 																			<td th:text="${bom.unit}"></td>
+																			<td th:text="${bom.clientName}"></td>
+																			<td th:text="${bom.status}"></td>
 																		</tr>
 																		<tr th:id="'exportModelsRow' + ${stat.index}"
 																			class="export-models-row"

@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Repository
@@ -50,4 +51,6 @@ public interface ImportDataRepository extends JpaRepository<ImportData, Long>, J
         order by i.beDate desc
     """)
     Page<ImportData> searchAllOrderByBeDateDesc(String q, Pageable pageable);
+    
+    Page<ImportData> findByClosingBalanceGreaterThan(BigDecimal value, Pageable pageable);
 }

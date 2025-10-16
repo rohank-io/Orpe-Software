@@ -455,6 +455,7 @@
 																			<th class="text-end">Opening</th>
 																			<th class="text-end">Used</th>
 																			<th class="text-end">Closing</th>
+																			<th>Import ID</th>
 
 																		</tr>
 																	</thead>
@@ -514,10 +515,7 @@
 																				th:text="${#numbers.formatDecimal(row.addDuty,1,'COMMA',2,'POINT')}">
 																				Add Duty</td>
 
-																			<td class="text-end"
-																				th:text="${#numbers.formatDecimal(row.totalDuty,1,'COMMA',2,'POINT')}">
-																				Total Duty</td>
-
+																			
 																			<td class="text-end"
 																				th:text="${#numbers.formatDecimal(row.qtyOpeningBalance,1,'COMMA',2,'POINT')}">
 																				Opening</td>
@@ -527,6 +525,8 @@
 																			<td class="text-end"
 																				th:text="${#numbers.formatDecimal(row.closingBalance,1,'COMMA',2,'POINT')}">
 																				Closing</td>
+																				
+																				<td th:text="${row.importId}">ImportId</td>
 
 
 																		</tr>

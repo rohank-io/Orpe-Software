@@ -1,6 +1,7 @@
 package com.orpe.consultants.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 
 
@@ -59,7 +60,12 @@ public class BomData {
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
-
+    
+    @Column(name = "clientname", length = 100)
+    @Size(max = 100)
+    private String clientName;
+    
+    
     @OneToMany(mappedBy = "bomData", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<BomExportModelQuantity> exportModels;
 }

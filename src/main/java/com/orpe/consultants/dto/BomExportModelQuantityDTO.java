@@ -12,6 +12,8 @@ import java.math.BigDecimal;
 public class BomExportModelQuantityDTO {
 	
 	private Long id;
+	private Long bomId;
     private String modelNo;
     private BigDecimal quantity;
+    private String status;
 }

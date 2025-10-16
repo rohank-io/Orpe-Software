@@ -1,24 +1,24 @@
-2025-10-04 09:39:12 [restartedMain] INFO  c.o.c.OrpeConsultantsApplication - Starting OrpeConsultantsApplication using Java 21.0.5 with PID 17448 (F:\Orpe Softwares\Project\OrpeConsultants\target\classes started by Lenovo in F:\Orpe Softwares\Project\OrpeConsultants)
-2025-10-04 09:39:12 [restartedMain] DEBUG c.o.c.OrpeConsultantsApplication - Running with Spring Boot v3.5.5, Spring v6.2.10
-2025-10-04 09:39:12 [restartedMain] INFO  c.o.c.OrpeConsultantsApplication - No active profile set, falling back to 1 default profile: "default"
-2025-10-04 09:39:12 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-2025-10-04 09:39:12 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-2025-10-04 09:39:16 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-10-04 09:39:16 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 277 ms. Found 8 JPA repository interfaces.
-2025-10-04 09:39:21 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8083 (http)
-2025-10-04 09:39:21 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2025-10-04 09:39:21 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.44]
-2025-10-04 09:39:21 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2025-10-04 09:39:21 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 9116 ms
-2025-10-04 09:39:22 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2025-10-04 09:39:25 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@3f921218
-2025-10-04 09:39:25 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2025-10-04 09:39:29 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-10-04 09:39:29 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.26.Final
-2025-10-04 09:39:29 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2025-10-04 09:39:31 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-10-04 09:39:31 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2025-10-04 09:39:31 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+2025-10-16 11:03:16 [restartedMain] INFO  c.o.c.OrpeConsultantsApplication - Starting OrpeConsultantsApplication using Java 21.0.5 with PID 14124 (F:\Orpe Softwares\Project\OrpeConsultants\target\classes started by Lenovo in F:\Orpe Softwares\Project\OrpeConsultants)
+2025-10-16 11:03:16 [restartedMain] DEBUG c.o.c.OrpeConsultantsApplication - Running with Spring Boot v3.5.5, Spring v6.2.10
+2025-10-16 11:03:16 [restartedMain] INFO  c.o.c.OrpeConsultantsApplication - No active profile set, falling back to 1 default profile: "default"
+2025-10-16 11:03:16 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-10-16 11:03:16 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-10-16 11:03:18 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-10-16 11:03:18 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 222 ms. Found 10 JPA repository interfaces.
+2025-10-16 11:03:22 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8083 (http)
+2025-10-16 11:03:23 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-10-16 11:03:23 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.44]
+2025-10-16 11:03:23 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-10-16 11:03:23 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 6429 ms
+2025-10-16 11:03:23 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-10-16 11:03:25 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@2ad63a34
+2025-10-16 11:03:25 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-10-16 11:03:26 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-10-16 11:03:27 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.26.Final
+2025-10-16 11:03:27 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-10-16 11:03:28 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-10-16 11:03:28 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-10-16 11:03:28 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
 	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
 	Database driver: undefined/unknown
 	Database version: 8.0.39
@@ -26,21 +26,1824 @@
 	Isolation level: undefined/unknown
 	Minimum pool size: undefined/unknown
 	Maximum pool size: undefined/unknown
-2025-10-04 09:39:37 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-10-04 09:39:38 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-10-04 09:39:40 [restartedMain] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
-2025-10-04 09:39:50 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2025-10-04 09:39:50 [restartedMain] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page template: index
-2025-10-04 09:39:51 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 34 mappings in 'requestMappingHandlerMapping'
-2025-10-04 09:39:51 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
-2025-10-04 09:39:51 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
-2025-10-04 09:39:52 [restartedMain] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
-2025-10-04 09:39:57 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
-2025-10-04 09:39:57 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8083 (http) with context path '/'
-2025-10-04 09:39:57 [restartedMain] INFO  c.o.c.OrpeConsultantsApplication - Started OrpeConsultantsApplication in 46.599 seconds (process running for 49.936)
-2025-10-04 09:41:27 [RMI TCP Connection(12)-127.0.0.1] INFO  o.s.b.a.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin - Application shutdown requested.
-2025-10-04 09:41:27 [RMI TCP Connection(12)-127.0.0.1] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
-2025-10-04 09:41:27 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
-2025-10-04 09:41:28 [RMI TCP Connection(12)-127.0.0.1] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2025-10-04 09:41:28 [RMI TCP Connection(12)-127.0.0.1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2025-10-04 09:41:28 [RMI TCP Connection(12)-127.0.0.1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-10-16 11:03:32 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-10-16 11:03:33 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-10-16 11:03:33 [restartedMain] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-10-16 11:03:39 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-10-16 11:03:40 [restartedMain] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page template: index
+2025-10-16 11:03:40 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 35 mappings in 'requestMappingHandlerMapping'
+2025-10-16 11:03:40 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2025-10-16 11:03:40 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-10-16 11:03:41 [restartedMain] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-10-16 11:03:45 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-10-16 11:03:45 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8083 (http) with context path '/'
+2025-10-16 11:03:45 [restartedMain] INFO  c.o.c.OrpeConsultantsApplication - Started OrpeConsultantsApplication in 30.564 seconds (process running for 33.66)
+2025-10-16 11:09:41 [RMI TCP Connection(11)-127.0.0.1] INFO  o.s.b.a.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin - Application shutdown requested.
+2025-10-16 11:09:41 [RMI TCP Connection(11)-127.0.0.1] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-10-16 11:09:41 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-10-16 11:09:41 [RMI TCP Connection(11)-127.0.0.1] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-10-16 11:09:42 [RMI TCP Connection(11)-127.0.0.1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-10-16 11:09:42 [RMI TCP Connection(11)-127.0.0.1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-10-16 11:10:23 [restartedMain] INFO  c.o.c.OrpeConsultantsApplication - Starting OrpeConsultantsApplication using Java 21.0.5 with PID 6736 (F:\Orpe Softwares\Project\OrpeConsultants\target\classes started by Lenovo in F:\Orpe Softwares\Project\OrpeConsultants)
+2025-10-16 11:10:23 [restartedMain] DEBUG c.o.c.OrpeConsultantsApplication - Running with Spring Boot v3.5.5, Spring v6.2.10
+2025-10-16 11:10:23 [restartedMain] INFO  c.o.c.OrpeConsultantsApplication - No active profile set, falling back to 1 default profile: "default"
+2025-10-16 11:10:23 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-10-16 11:10:23 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-10-16 11:10:25 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-10-16 11:10:26 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 217 ms. Found 10 JPA repository interfaces.
+2025-10-16 11:10:29 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8083 (http)
+2025-10-16 11:10:29 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-10-16 11:10:29 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.44]
+2025-10-16 11:10:29 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-10-16 11:10:29 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 5579 ms
+2025-10-16 11:10:29 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-10-16 11:10:30 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5c5c288e
+2025-10-16 11:10:30 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-10-16 11:10:32 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-10-16 11:10:32 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.26.Final
+2025-10-16 11:10:32 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-10-16 11:10:33 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-10-16 11:10:33 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-10-16 11:10:33 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 8.0.39
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-10-16 11:10:38 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-10-16 11:10:38 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-10-16 11:10:39 [restartedMain] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-10-16 11:10:48 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-10-16 11:10:48 [restartedMain] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page template: index
+2025-10-16 11:10:48 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 35 mappings in 'requestMappingHandlerMapping'
+2025-10-16 11:10:49 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2025-10-16 11:10:49 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-10-16 11:10:49 [restartedMain] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-10-16 11:10:51 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-10-16 11:10:51 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8083 (http) with context path '/'
+2025-10-16 11:10:51 [restartedMain] INFO  c.o.c.OrpeConsultantsApplication - Started OrpeConsultantsApplication in 29.579 seconds (process running for 31.997)
+2025-10-16 11:11:57 [http-nio-8083-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-10-16 11:11:57 [http-nio-8083-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-10-16 11:11:57 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected StandardServletMultipartResolver
+2025-10-16 11:11:57 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected AcceptHeaderLocaleResolver
+2025-10-16 11:11:57 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected FixedThemeResolver
+2025-10-16 11:11:57 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@28bb47e5
+2025-10-16 11:11:57 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.support.SessionFlashMapManager@252e934e
+2025-10-16 11:11:57 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2025-10-16 11:11:57 [http-nio-8083-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 10 ms
+2025-10-16 11:11:57 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/", parameters={}
+2025-10-16 11:11:57 [http-nio-8083-exec-1] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.orpe.consultants.controller.AuthController#index(HttpSession, Model)
+2025-10-16 11:11:57 [http-nio-8083-exec-1] INFO  c.o.c.controller.AuthController - User not authenticated, redirecting to login page
+2025-10-16 11:11:57 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.view.RedirectView - View name [redirect:], model {}
+2025-10-16 11:11:57 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 302 FOUND
+2025-10-16 11:11:57 [http-nio-8083-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/login", parameters={}
+2025-10-16 11:11:57 [http-nio-8083-exec-2] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.orpe.consultants.controller.AuthController#showLoginPage(Model, String, String, String)
+2025-10-16 11:11:57 [http-nio-8083-exec-2] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-10-16 11:11:59 [http-nio-8083-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:12:00 [http-nio-8083-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/bootstrap/dist/css/bootstrap.min.css", parameters={}
+2025-10-16 11:12:00 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/icon/icofont/css/icofont.css", parameters={}
+2025-10-16 11:12:00 [http-nio-8083-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/css/style.css", parameters={}
+2025-10-16 11:12:00 [http-nio-8083-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/images/logo.png", parameters={}
+2025-10-16 11:12:00 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/jquery/dist/jquery.min.js", parameters={}
+2025-10-16 11:12:00 [http-nio-8083-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/icon/themify-icons/themify-icons.css", parameters={}
+2025-10-16 11:12:00 [http-nio-8083-exec-4] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:12:00 [http-nio-8083-exec-7] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:12:00 [http-nio-8083-exec-9] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:12:00 [http-nio-8083-exec-8] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:12:00 [http-nio-8083-exec-6] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:12:00 [http-nio-8083-exec-5] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:12:00 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:12:00 [http-nio-8083-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/jquery-ui/jquery-ui.min.js", parameters={}
+2025-10-16 11:12:00 [http-nio-8083-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:12:00 [http-nio-8083-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/tether/dist/js/tether.min.js", parameters={}
+2025-10-16 11:12:00 [http-nio-8083-exec-10] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:12:00 [http-nio-8083-exec-8] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:12:00 [http-nio-8083-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:12:00 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/bootstrap/dist/js/bootstrap.min.js", parameters={}
+2025-10-16 11:12:00 [http-nio-8083-exec-1] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:12:00 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:12:00 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/jquery-slimscroll/jquery.slimscroll.js", parameters={}
+2025-10-16 11:12:00 [http-nio-8083-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:12:00 [http-nio-8083-exec-3] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:12:00 [http-nio-8083-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/modernizr/modernizr.js", parameters={}
+2025-10-16 11:12:00 [http-nio-8083-exec-2] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:12:00 [http-nio-8083-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:12:00 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/modernizr/feature-detects/css-scrollbars.js", parameters={}
+2025-10-16 11:12:00 [http-nio-8083-exec-9] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:12:00 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:12:00 [http-nio-8083-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/js/script.js", parameters={}
+2025-10-16 11:12:00 [http-nio-8083-exec-5] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:12:00 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:12:00 [http-nio-8083-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:12:00 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:12:00 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/js/common-pages.js", parameters={}
+2025-10-16 11:12:00 [http-nio-8083-exec-9] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:12:00 [http-nio-8083-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:12:00 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:12:00 [http-nio-8083-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:12:00 [http-nio-8083-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:12:00 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/images/bg.jpg", parameters={}
+2025-10-16 11:12:00 [http-nio-8083-exec-6] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:12:00 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:12:11 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - POST "/login", parameters={masked}
+2025-10-16 11:12:11 [http-nio-8083-exec-9] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.orpe.consultants.controller.AuthController#processLogin(LoginRequest, BindingResult, Model, HttpSession)
+2025-10-16 11:12:12 [http-nio-8083-exec-9] INFO  c.o.c.service.impl.UserServiceImpl - Authenticating user: rohank
+2025-10-16 11:12:12 [http-nio-8083-exec-9] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.full_name,
+        u1_0.last_login_date,
+        u1_0.notes,
+        u1_0.password,
+        u1_0.phone_number,
+        u1_0.role,
+        u1_0.status,
+        u1_0.updated_at,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.username=? 
+        or u1_0.email=?
+2025-10-16 11:12:12 [http-nio-8083-exec-9] DEBUG c.o.c.service.impl.UserServiceImpl - Last login updated for user ID: 1
+2025-10-16 11:12:12 [http-nio-8083-exec-9] INFO  c.o.c.service.impl.UserServiceImpl - User authenticated successfully: rohank
+2025-10-16 11:12:13 [http-nio-8083-exec-9] DEBUG org.hibernate.SQL - 
+    update
+        users 
+    set
+        email=?,
+        full_name=?,
+        last_login_date=?,
+        notes=?,
+        password=?,
+        phone_number=?,
+        role=?,
+        status=?,
+        updated_at=?,
+        username=? 
+    where
+        id=?
+2025-10-16 11:12:13 [http-nio-8083-exec-9] INFO  c.o.c.controller.AuthController - User logged in successfully: rohank
+2025-10-16 11:12:13 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.view.RedirectView - View name [redirect:], model {}
+2025-10-16 11:12:13 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 302 FOUND
+2025-10-16 11:12:13 [http-nio-8083-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - GET "/index", parameters={}
+2025-10-16 11:12:13 [http-nio-8083-exec-7] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.orpe.consultants.controller.AuthController#index(HttpSession, Model)
+2025-10-16 11:12:13 [http-nio-8083-exec-7] DEBUG c.o.c.controller.AuthController - User rohank accessing index page
+2025-10-16 11:12:13 [http-nio-8083-exec-7] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-10-16 11:12:13 [http-nio-8083-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:12:13 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/icon/themify-icons/themify-icons.css", parameters={}
+2025-10-16 11:12:13 [http-nio-8083-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/bootstrap/dist/css/bootstrap.min.css", parameters={}
+2025-10-16 11:12:13 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/icon/icofont/css/icofont.css", parameters={}
+2025-10-16 11:12:13 [http-nio-8083-exec-6] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:12:13 [http-nio-8083-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/css/style.css", parameters={}
+2025-10-16 11:12:13 [http-nio-8083-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/pages/menu-search/css/component.css", parameters={}
+2025-10-16 11:12:13 [http-nio-8083-exec-5] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:12:13 [http-nio-8083-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/pages/flag-icon/flag-icon.min.css", parameters={}
+2025-10-16 11:12:13 [http-nio-8083-exec-2] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:12:13 [http-nio-8083-exec-3] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:12:13 [http-nio-8083-exec-4] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:12:13 [http-nio-8083-exec-8] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:12:13 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:12:13 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/css/linearicons.css", parameters={}
+2025-10-16 11:12:13 [http-nio-8083-exec-1] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:12:13 [http-nio-8083-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:12:13 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:12:13 [http-nio-8083-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/css/simple-line-icons.css", parameters={}
+2025-10-16 11:12:13 [http-nio-8083-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:12:13 [http-nio-8083-exec-10] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:12:13 [http-nio-8083-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/jquery/dist/jquery.min.js", parameters={}
+2025-10-16 11:12:13 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/css/jquery.mCustomScrollbar.css", parameters={}
+2025-10-16 11:12:13 [http-nio-8083-exec-9] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:12:13 [http-nio-8083-exec-8] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:12:13 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:12:13 [http-nio-8083-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:12:13 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/images/logo.png", parameters={}
+2025-10-16 11:12:13 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/images/user.png", parameters={}
+2025-10-16 11:12:13 [http-nio-8083-exec-6] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:12:13 [http-nio-8083-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:12:13 [http-nio-8083-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/jquery-ui/jquery-ui.min.js", parameters={}
+2025-10-16 11:12:13 [http-nio-8083-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:12:13 [http-nio-8083-exec-1] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:12:13 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:12:13 [http-nio-8083-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:12:13 [http-nio-8083-exec-5] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:12:13 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/tether/dist/js/tether.min.js", parameters={}
+2025-10-16 11:12:13 [http-nio-8083-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/bootstrap/dist/js/bootstrap.min.js", parameters={}
+2025-10-16 11:12:13 [http-nio-8083-exec-3] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:12:13 [http-nio-8083-exec-7] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:12:13 [http-nio-8083-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/jquery-slimscroll/jquery.slimscroll.js", parameters={}
+2025-10-16 11:12:13 [http-nio-8083-exec-2] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:12:13 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:12:13 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/modernizr/modernizr.js", parameters={}
+2025-10-16 11:12:13 [http-nio-8083-exec-6] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:12:14 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:12:14 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/modernizr/feature-detects/css-scrollbars.js", parameters={}
+2025-10-16 11:12:14 [http-nio-8083-exec-1] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:12:14 [http-nio-8083-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:12:14 [http-nio-8083-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/raphael/raphael.min.js", parameters={}
+2025-10-16 11:12:14 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:12:14 [http-nio-8083-exec-10] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:12:14 [http-nio-8083-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/morris.js/morris.js", parameters={}
+2025-10-16 11:12:14 [http-nio-8083-exec-8] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:12:14 [http-nio-8083-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:12:14 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/pages/chart/echarts/js/echarts-all.js", parameters={}
+2025-10-16 11:12:14 [http-nio-8083-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:12:14 [http-nio-8083-exec-9] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:12:14 [http-nio-8083-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/pages/dashboard/project-dashboard.js", parameters={}
+2025-10-16 11:12:14 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:12:14 [http-nio-8083-exec-4] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:12:14 [http-nio-8083-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/js/script.js", parameters={}
+2025-10-16 11:12:14 [http-nio-8083-exec-5] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:12:14 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:12:14 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/js/pcoded.min.js", parameters={}
+2025-10-16 11:12:14 [http-nio-8083-exec-1] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:12:14 [http-nio-8083-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:12:14 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/js/demo-12.js", parameters={}
+2025-10-16 11:12:14 [http-nio-8083-exec-3] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:12:14 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:12:14 [http-nio-8083-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/js/jquery.mCustomScrollbar.concat.min.js", parameters={}
+2025-10-16 11:12:14 [http-nio-8083-exec-7] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:12:14 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:12:14 [http-nio-8083-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/icon/themify-icons/fonts/themify.woff?-fvbane", parameters={masked}
+2025-10-16 11:12:14 [http-nio-8083-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:12:14 [http-nio-8083-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/fonts/Simple-Line-Icons.woff2?v=2.3.2", parameters={masked}
+2025-10-16 11:12:14 [http-nio-8083-exec-2] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:12:14 [http-nio-8083-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:12:14 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/icon/icofont/fonts/icofont.ttf?v=1.0.0-beta", parameters={masked}
+2025-10-16 11:12:14 [http-nio-8083-exec-7] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:12:14 [http-nio-8083-exec-6] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:12:14 [http-nio-8083-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:12:14 [http-nio-8083-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:12:14 [http-nio-8083-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:12:14 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:12:14 [http-nio-8083-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:12:15 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:12:15 [http-nio-8083-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/images/pattern2.png", parameters={}
+2025-10-16 11:12:15 [http-nio-8083-exec-5] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:12:15 [http-nio-8083-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:13:17 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - GET "/worksheet/importdata/select", parameters={}
+2025-10-16 11:13:17 [http-nio-8083-exec-6] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.orpe.consultants.controller.WorksheetController#worksheetdataSelect(String, String, LocalDate, LocalDate, int, int, HttpSession, Model)
+2025-10-16 11:13:17 [http-nio-8083-exec-6] DEBUG org.hibernate.SQL - 
+    select
+        id1_0.import_id,
+        id1_0.add_duty,
+        id1_0.add_rate,
+        id1_0.alt_boe_part_no,
+        id1_0.assessable_value,
+        id1_0.bcd,
+        id1_0.bcd_rate,
+        id1_0.be_date,
+        id1_0.be_month,
+        id1_0.be_no,
+        id1_0.be_year,
+        id1_0.claim_ref_no,
+        id1_0.claim_year,
+        id1_0.clientname,
+        id1_0.closing_balance,
+        id1_0.country_of_origin,
+        id1_0.created_at,
+        id1_0.dbk_part_no,
+        id1_0.duty_claimed_amt,
+        id1_0.igst,
+        id1_0.igst_rate,
+        id1_0.itchs_code,
+        id1_0.item_description,
+        id1_0.bom_part_no,
+        id1_0.notn_eligibility,
+        id1_0.notn_no,
+        id1_0.port_code,
+        id1_0.qty_opening_balance,
+        id1_0.qty_used,
+        id1_0.quantity,
+        id1_0.stock_wise_eligibility,
+        id1_0.supplier_name_address,
+        id1_0.sws,
+        id1_0.sws_rate,
+        id1_0.total_duty,
+        id1_0.uom,
+        id1_0.updated_at 
+    from
+        tbl_import_data id1_0 
+    where
+        1=1 
+        and id1_0.closing_balance>? 
+    order by
+        id1_0.be_date desc 
+    limit
+        ?, ?
+2025-10-16 11:13:17 [http-nio-8083-exec-6] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-10-16 11:13:18 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:13:18 [http-nio-8083-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/bootstrap/dist/css/bootstrap.min.css", parameters={}
+2025-10-16 11:13:18 [http-nio-8083-exec-10] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:13:18 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/pages/advance-elements/css/bootstrap-datetimepicker.css", parameters={}
+2025-10-16 11:13:18 [http-nio-8083-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/icon/icofont/css/icofont.css", parameters={}
+2025-10-16 11:13:18 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/pages/menu-search/css/component.css", parameters={}
+2025-10-16 11:13:18 [http-nio-8083-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/icon/themify-icons/themify-icons.css", parameters={}
+2025-10-16 11:13:18 [http-nio-8083-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/pages/flag-icon/flag-icon.min.css", parameters={}
+2025-10-16 11:13:18 [http-nio-8083-exec-9] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:13:18 [http-nio-8083-exec-3] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:13:18 [http-nio-8083-exec-7] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:13:18 [http-nio-8083-exec-5] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:13:18 [http-nio-8083-exec-4] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:13:18 [http-nio-8083-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:13:18 [http-nio-8083-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/css/style.css", parameters={}
+2025-10-16 11:13:18 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:13:18 [http-nio-8083-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/css/linearicons.css", parameters={}
+2025-10-16 11:13:18 [http-nio-8083-exec-8] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:13:18 [http-nio-8083-exec-2] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:13:18 [http-nio-8083-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:13:18 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:13:18 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/css/ionicons.css", parameters={}
+2025-10-16 11:13:18 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/css/simple-line-icons.css", parameters={}
+2025-10-16 11:13:18 [http-nio-8083-exec-6] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:13:18 [http-nio-8083-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:13:18 [http-nio-8083-exec-1] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:13:18 [http-nio-8083-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/css/jquery.mCustomScrollbar.css", parameters={}
+2025-10-16 11:13:18 [http-nio-8083-exec-10] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:13:18 [http-nio-8083-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:13:18 [http-nio-8083-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:13:18 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/images/logo.png", parameters={}
+2025-10-16 11:13:18 [http-nio-8083-exec-3] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:13:18 [http-nio-8083-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/images/user.png", parameters={}
+2025-10-16 11:13:18 [http-nio-8083-exec-7] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:13:18 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:13:18 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/jquery/dist/jquery.min.js", parameters={}
+2025-10-16 11:13:18 [http-nio-8083-exec-3] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:13:18 [http-nio-8083-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:13:18 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/jquery-ui/jquery-ui.min.js", parameters={}
+2025-10-16 11:13:18 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:13:18 [http-nio-8083-exec-9] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:13:18 [http-nio-8083-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:13:18 [http-nio-8083-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/tether/dist/js/tether.min.js", parameters={}
+2025-10-16 11:13:18 [http-nio-8083-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/bootstrap/dist/js/bootstrap.min.js", parameters={}
+2025-10-16 11:13:18 [http-nio-8083-exec-7] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:13:18 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:13:18 [http-nio-8083-exec-5] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:13:18 [http-nio-8083-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:13:18 [http-nio-8083-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/jquery-slimscroll/jquery.slimscroll.js", parameters={}
+2025-10-16 11:13:18 [http-nio-8083-exec-4] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:13:18 [http-nio-8083-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/modernizr/modernizr.js", parameters={}
+2025-10-16 11:13:18 [http-nio-8083-exec-2] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:13:18 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:13:18 [http-nio-8083-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/modernizr/feature-detects/css-scrollbars.js", parameters={}
+2025-10-16 11:13:18 [http-nio-8083-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:13:18 [http-nio-8083-exec-10] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:13:18 [http-nio-8083-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:13:18 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/pages/advance-elements/moment-with-locales.min.js", parameters={}
+2025-10-16 11:13:18 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/js/script.js", parameters={}
+2025-10-16 11:13:18 [http-nio-8083-exec-1] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:13:18 [http-nio-8083-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:13:18 [http-nio-8083-exec-6] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:13:18 [http-nio-8083-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/pages/user-profile.js", parameters={}
+2025-10-16 11:13:18 [http-nio-8083-exec-8] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:13:18 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:13:18 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/js/pcoded.min.js", parameters={}
+2025-10-16 11:13:18 [http-nio-8083-exec-3] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:13:18 [http-nio-8083-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:13:18 [http-nio-8083-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:13:18 [http-nio-8083-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/js/demo-12.js", parameters={}
+2025-10-16 11:13:18 [http-nio-8083-exec-10] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:13:18 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:13:18 [http-nio-8083-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/js/jquery.mCustomScrollbar.concat.min.js", parameters={}
+2025-10-16 11:13:18 [http-nio-8083-exec-7] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:13:18 [http-nio-8083-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/js/jquery.mousewheel.min.js", parameters={}
+2025-10-16 11:13:18 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:13:18 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:13:18 [http-nio-8083-exec-4] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:13:18 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/fonts/Simple-Line-Icons.woff2?v=2.3.2", parameters={masked}
+2025-10-16 11:13:18 [http-nio-8083-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:13:18 [http-nio-8083-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/icon/themify-icons/fonts/themify.woff?-fvbane", parameters={masked}
+2025-10-16 11:13:18 [http-nio-8083-exec-2] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:13:18 [http-nio-8083-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:13:18 [http-nio-8083-exec-9] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:13:18 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/icon/icofont/fonts/icofont.ttf?v=1.0.0-beta", parameters={masked}
+2025-10-16 11:13:18 [http-nio-8083-exec-6] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:13:18 [http-nio-8083-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:13:18 [http-nio-8083-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:13:18 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:13:18 [http-nio-8083-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:13:19 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:13:19 [http-nio-8083-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/images/pattern2.png", parameters={}
+2025-10-16 11:13:19 [http-nio-8083-exec-5] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:13:19 [http-nio-8083-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:13:31 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - POST "/worksheet/importdata/edit", parameters={masked}
+2025-10-16 11:13:31 [http-nio-8083-exec-9] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.orpe.consultants.controller.WorksheetController#editSelectedImportData(List, Model, HttpSession)
+2025-10-16 11:13:31 [http-nio-8083-exec-9] DEBUG org.hibernate.SQL - 
+    select
+        id1_0.import_id,
+        id1_0.add_duty,
+        id1_0.add_rate,
+        id1_0.alt_boe_part_no,
+        id1_0.assessable_value,
+        id1_0.bcd,
+        id1_0.bcd_rate,
+        id1_0.be_date,
+        id1_0.be_month,
+        id1_0.be_no,
+        id1_0.be_year,
+        id1_0.claim_ref_no,
+        id1_0.claim_year,
+        id1_0.clientname,
+        id1_0.closing_balance,
+        id1_0.country_of_origin,
+        id1_0.created_at,
+        id1_0.dbk_part_no,
+        id1_0.duty_claimed_amt,
+        id1_0.igst,
+        id1_0.igst_rate,
+        id1_0.itchs_code,
+        id1_0.item_description,
+        id1_0.bom_part_no,
+        id1_0.notn_eligibility,
+        id1_0.notn_no,
+        id1_0.port_code,
+        id1_0.qty_opening_balance,
+        id1_0.qty_used,
+        id1_0.quantity,
+        id1_0.stock_wise_eligibility,
+        id1_0.supplier_name_address,
+        id1_0.sws,
+        id1_0.sws_rate,
+        id1_0.total_duty,
+        id1_0.uom,
+        id1_0.updated_at 
+    from
+        tbl_import_data id1_0 
+    where
+        id1_0.import_id in (?, ?, ?, ?)
+2025-10-16 11:13:31 [http-nio-8083-exec-9] DEBUG org.hibernate.SQL - 
+    select
+        bd1_0.bom_id,
+        bd1_0.alternate_boe_part_no,
+        bd1_0.claim_ref_no,
+        bd1_0.claim_year,
+        bd1_0.clientname,
+        bd1_0.created_at,
+        bd1_0.dbk_part_no,
+        bd1_0.grand_total,
+        bd1_0.imported_indigenous,
+        bd1_0.bom_part_no,
+        bd1_0.material_desc,
+        bd1_0.net_weight_kg,
+        bd1_0.unit 
+    from
+        tbl_bom bd1_0 
+    left join
+        materials m1_0 
+            on m1_0.bom_part_no=bd1_0.bom_part_no 
+    where
+        m1_0.bom_part_no in (?, ?, ?, ?)
+2025-10-16 11:13:31 [http-nio-8083-exec-9] DEBUG org.hibernate.SQL - 
+    select
+        em1_0.bom_id,
+        em1_0.id,
+        em1_0.model_no,
+        em1_0.quantity,
+        em1_0.status 
+    from
+        tbl_bom_export_model em1_0 
+    where
+        em1_0.bom_id=?
+2025-10-16 11:13:31 [http-nio-8083-exec-9] DEBUG org.hibernate.SQL - 
+    select
+        em1_0.bom_id,
+        em1_0.id,
+        em1_0.model_no,
+        em1_0.quantity,
+        em1_0.status 
+    from
+        tbl_bom_export_model em1_0 
+    where
+        em1_0.bom_id=?
+2025-10-16 11:13:31 [http-nio-8083-exec-9] DEBUG org.hibernate.SQL - 
+    select
+        em1_0.bom_id,
+        em1_0.id,
+        em1_0.model_no,
+        em1_0.quantity,
+        em1_0.status 
+    from
+        tbl_bom_export_model em1_0 
+    where
+        em1_0.bom_id=?
+2025-10-16 11:13:31 [http-nio-8083-exec-9] DEBUG org.hibernate.SQL - 
+    select
+        em1_0.bom_id,
+        em1_0.id,
+        em1_0.model_no,
+        em1_0.quantity,
+        em1_0.status 
+    from
+        tbl_bom_export_model em1_0 
+    where
+        em1_0.bom_id=?
+2025-10-16 11:13:31 [http-nio-8083-exec-9] DEBUG org.hibernate.SQL - 
+    select
+        em1_0.bom_id,
+        em1_0.id,
+        em1_0.model_no,
+        em1_0.quantity,
+        em1_0.status 
+    from
+        tbl_bom_export_model em1_0 
+    where
+        em1_0.bom_id=?
+2025-10-16 11:13:32 [http-nio-8083-exec-9] DEBUG org.hibernate.SQL - 
+    select
+        em1_0.bom_id,
+        em1_0.id,
+        em1_0.model_no,
+        em1_0.quantity,
+        em1_0.status 
+    from
+        tbl_bom_export_model em1_0 
+    where
+        em1_0.bom_id=?
+2025-10-16 11:13:32 [http-nio-8083-exec-9] DEBUG org.hibernate.SQL - 
+    select
+        em1_0.bom_id,
+        em1_0.id,
+        em1_0.model_no,
+        em1_0.quantity,
+        em1_0.status 
+    from
+        tbl_bom_export_model em1_0 
+    where
+        em1_0.bom_id=?
+2025-10-16 11:13:32 [http-nio-8083-exec-9] DEBUG org.hibernate.SQL - 
+    select
+        em1_0.bom_id,
+        em1_0.id,
+        em1_0.model_no,
+        em1_0.quantity,
+        em1_0.status 
+    from
+        tbl_bom_export_model em1_0 
+    where
+        em1_0.bom_id=?
+2025-10-16 11:13:32 [http-nio-8083-exec-9] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-10-16 11:13:32 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:13:32 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/bootstrap/dist/css/bootstrap.min.css", parameters={}
+2025-10-16 11:13:32 [http-nio-8083-exec-6] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:13:32 [http-nio-8083-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/pages/advance-elements/css/bootstrap-datetimepicker.css", parameters={}
+2025-10-16 11:13:32 [http-nio-8083-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/pages/flag-icon/flag-icon.min.css", parameters={}
+2025-10-16 11:13:32 [http-nio-8083-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/icon/themify-icons/themify-icons.css", parameters={}
+2025-10-16 11:13:32 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/pages/menu-search/css/component.css", parameters={}
+2025-10-16 11:13:32 [http-nio-8083-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/icon/icofont/css/icofont.css", parameters={}
+2025-10-16 11:13:32 [http-nio-8083-exec-3] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:13:32 [http-nio-8083-exec-2] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:13:32 [http-nio-8083-exec-8] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:13:32 [http-nio-8083-exec-4] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:13:32 [http-nio-8083-exec-5] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:13:32 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:13:32 [http-nio-8083-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/css/style.css", parameters={}
+2025-10-16 11:13:32 [http-nio-8083-exec-10] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:13:32 [http-nio-8083-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:13:32 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/css/linearicons.css", parameters={}
+2025-10-16 11:13:32 [http-nio-8083-exec-1] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:13:32 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:13:32 [http-nio-8083-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/css/simple-line-icons.css", parameters={}
+2025-10-16 11:13:32 [http-nio-8083-exec-7] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:13:32 [http-nio-8083-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:13:32 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/css/ionicons.css", parameters={}
+2025-10-16 11:13:32 [http-nio-8083-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:13:32 [http-nio-8083-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:13:32 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/css/jquery.mCustomScrollbar.css", parameters={}
+2025-10-16 11:13:32 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:13:32 [http-nio-8083-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/images/logo.png", parameters={}
+2025-10-16 11:13:32 [http-nio-8083-exec-9] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:13:32 [http-nio-8083-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:13:33 [http-nio-8083-exec-6] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:13:33 [http-nio-8083-exec-2] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:13:33 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/images/user.png", parameters={}
+2025-10-16 11:13:33 [http-nio-8083-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/jquery/dist/jquery.min.js", parameters={}
+2025-10-16 11:13:33 [http-nio-8083-exec-3] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:13:33 [http-nio-8083-exec-8] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:13:33 [http-nio-8083-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:13:33 [http-nio-8083-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/jquery-ui/jquery-ui.min.js", parameters={}
+2025-10-16 11:13:33 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:13:33 [http-nio-8083-exec-5] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:13:33 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:13:33 [http-nio-8083-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/tether/dist/js/tether.min.js", parameters={}
+2025-10-16 11:13:33 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/bootstrap/dist/js/bootstrap.min.js", parameters={}
+2025-10-16 11:13:33 [http-nio-8083-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:13:33 [http-nio-8083-exec-4] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:13:33 [http-nio-8083-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/jquery-slimscroll/jquery.slimscroll.js", parameters={}
+2025-10-16 11:13:33 [http-nio-8083-exec-1] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:13:33 [http-nio-8083-exec-2] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:13:33 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:13:33 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/modernizr/modernizr.js", parameters={}
+2025-10-16 11:13:33 [http-nio-8083-exec-3] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:13:33 [http-nio-8083-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:13:33 [http-nio-8083-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/modernizr/feature-detects/css-scrollbars.js", parameters={}
+2025-10-16 11:13:33 [http-nio-8083-exec-10] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:13:33 [http-nio-8083-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:13:33 [http-nio-8083-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/pages/advance-elements/moment-with-locales.min.js", parameters={}
+2025-10-16 11:13:33 [http-nio-8083-exec-7] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:13:33 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:13:33 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/js/script.js", parameters={}
+2025-10-16 11:13:33 [http-nio-8083-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:13:33 [http-nio-8083-exec-9] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:13:33 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:13:33 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/icon/themify-icons/fonts/themify.woff?-fvbane", parameters={masked}
+2025-10-16 11:13:33 [http-nio-8083-exec-6] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:13:33 [http-nio-8083-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/fonts/Simple-Line-Icons.woff2?v=2.3.2", parameters={masked}
+2025-10-16 11:13:33 [http-nio-8083-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:13:33 [http-nio-8083-exec-8] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:13:33 [http-nio-8083-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/icon/icofont/fonts/icofont.ttf?v=1.0.0-beta", parameters={masked}
+2025-10-16 11:13:33 [http-nio-8083-exec-10] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:13:33 [http-nio-8083-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:13:33 [http-nio-8083-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/pages/user-profile.js", parameters={}
+2025-10-16 11:13:33 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:13:33 [http-nio-8083-exec-2] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:13:33 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/js/pcoded.min.js", parameters={}
+2025-10-16 11:13:33 [http-nio-8083-exec-6] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:13:33 [http-nio-8083-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:13:33 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/js/demo-12.js", parameters={}
+2025-10-16 11:13:33 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:13:33 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/js/jquery.mCustomScrollbar.concat.min.js", parameters={}
+2025-10-16 11:13:33 [http-nio-8083-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:13:33 [http-nio-8083-exec-3] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:13:33 [http-nio-8083-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:13:33 [http-nio-8083-exec-1] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:13:33 [http-nio-8083-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:13:33 [http-nio-8083-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/js/jquery.mousewheel.min.js", parameters={}
+2025-10-16 11:13:33 [http-nio-8083-exec-8] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:13:33 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:13:33 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:13:33 [http-nio-8083-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:13:33 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:13:34 [http-nio-8083-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/images/pattern2.png", parameters={}
+2025-10-16 11:13:34 [http-nio-8083-exec-4] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:13:34 [http-nio-8083-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:14:57 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - POST "/worksheet/saveBulk", parameters={}
+2025-10-16 11:14:57 [http-nio-8083-exec-3] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.orpe.consultants.controller.WorksheetController#saveBulk(List, HttpSession, ObjectMapper)
+2025-10-16 11:14:57 [http-nio-8083-exec-3] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [[WorksheetDTO(worksheetId=null, claimRefNo=F-01, claimYear=F-01-2024, importId=1, beNo=9534355, beDa (truncated)...]
+2025-10-16 11:14:57 [http-nio-8083-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        id1_0.import_id,
+        id1_0.add_duty,
+        id1_0.add_rate,
+        id1_0.alt_boe_part_no,
+        id1_0.assessable_value,
+        id1_0.bcd,
+        id1_0.bcd_rate,
+        id1_0.be_date,
+        id1_0.be_month,
+        id1_0.be_no,
+        id1_0.be_year,
+        id1_0.claim_ref_no,
+        id1_0.claim_year,
+        id1_0.clientname,
+        id1_0.closing_balance,
+        id1_0.country_of_origin,
+        id1_0.created_at,
+        id1_0.dbk_part_no,
+        id1_0.duty_claimed_amt,
+        id1_0.igst,
+        id1_0.igst_rate,
+        id1_0.itchs_code,
+        id1_0.item_description,
+        id1_0.bom_part_no,
+        id1_0.notn_eligibility,
+        id1_0.notn_no,
+        id1_0.port_code,
+        id1_0.qty_opening_balance,
+        id1_0.qty_used,
+        id1_0.quantity,
+        id1_0.stock_wise_eligibility,
+        id1_0.supplier_name_address,
+        id1_0.sws,
+        id1_0.sws_rate,
+        id1_0.total_duty,
+        id1_0.uom,
+        id1_0.updated_at 
+    from
+        tbl_import_data id1_0 
+    where
+        id1_0.import_id=?
+2025-10-16 11:14:57 [http-nio-8083-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        m1_0.bom_part_no 
+    from
+        materials m1_0 
+    where
+        m1_0.bom_part_no=?
+2025-10-16 11:14:57 [http-nio-8083-exec-3] DEBUG org.hibernate.SQL - 
+    insert 
+    into
+        tbl_worksheet
+        (add_claimed_dgft, add_duty, assessable_value, bcd, bcd_claimed_dgft, be_date, be_no, cif_claimed_total, cif_value, claim_ref_no, claim_year, closing_balance_def, created_at, dbk_part_no, duty_claimed_total, duty_per_qty, import_id, imp_qty, item_description, bom_part_no, opening_balance_qty_def, per_qty_cif, qty_used_total_def, sws, sws_claimed_dgft, total_duty, uom, used_qty_total) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+2025-10-16 11:14:57 [http-nio-8083-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        id1_0.import_id,
+        id1_0.add_duty,
+        id1_0.add_rate,
+        id1_0.alt_boe_part_no,
+        id1_0.assessable_value,
+        id1_0.bcd,
+        id1_0.bcd_rate,
+        id1_0.be_date,
+        id1_0.be_month,
+        id1_0.be_no,
+        id1_0.be_year,
+        id1_0.claim_ref_no,
+        id1_0.claim_year,
+        id1_0.clientname,
+        id1_0.closing_balance,
+        id1_0.country_of_origin,
+        id1_0.created_at,
+        id1_0.dbk_part_no,
+        id1_0.duty_claimed_amt,
+        id1_0.igst,
+        id1_0.igst_rate,
+        id1_0.itchs_code,
+        id1_0.item_description,
+        id1_0.bom_part_no,
+        id1_0.notn_eligibility,
+        id1_0.notn_no,
+        id1_0.port_code,
+        id1_0.qty_opening_balance,
+        id1_0.qty_used,
+        id1_0.quantity,
+        id1_0.stock_wise_eligibility,
+        id1_0.supplier_name_address,
+        id1_0.sws,
+        id1_0.sws_rate,
+        id1_0.total_duty,
+        id1_0.uom,
+        id1_0.updated_at 
+    from
+        tbl_import_data id1_0 
+    where
+        id1_0.import_id=?
+2025-10-16 11:14:57 [http-nio-8083-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        m1_0.bom_part_no 
+    from
+        materials m1_0 
+    where
+        m1_0.bom_part_no=?
+2025-10-16 11:14:57 [http-nio-8083-exec-3] DEBUG org.hibernate.SQL - 
+    insert 
+    into
+        tbl_worksheet
+        (add_claimed_dgft, add_duty, assessable_value, bcd, bcd_claimed_dgft, be_date, be_no, cif_claimed_total, cif_value, claim_ref_no, claim_year, closing_balance_def, created_at, dbk_part_no, duty_claimed_total, duty_per_qty, import_id, imp_qty, item_description, bom_part_no, opening_balance_qty_def, per_qty_cif, qty_used_total_def, sws, sws_claimed_dgft, total_duty, uom, used_qty_total) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+2025-10-16 11:14:57 [http-nio-8083-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        id1_0.import_id,
+        id1_0.add_duty,
+        id1_0.add_rate,
+        id1_0.alt_boe_part_no,
+        id1_0.assessable_value,
+        id1_0.bcd,
+        id1_0.bcd_rate,
+        id1_0.be_date,
+        id1_0.be_month,
+        id1_0.be_no,
+        id1_0.be_year,
+        id1_0.claim_ref_no,
+        id1_0.claim_year,
+        id1_0.clientname,
+        id1_0.closing_balance,
+        id1_0.country_of_origin,
+        id1_0.created_at,
+        id1_0.dbk_part_no,
+        id1_0.duty_claimed_amt,
+        id1_0.igst,
+        id1_0.igst_rate,
+        id1_0.itchs_code,
+        id1_0.item_description,
+        id1_0.bom_part_no,
+        id1_0.notn_eligibility,
+        id1_0.notn_no,
+        id1_0.port_code,
+        id1_0.qty_opening_balance,
+        id1_0.qty_used,
+        id1_0.quantity,
+        id1_0.stock_wise_eligibility,
+        id1_0.supplier_name_address,
+        id1_0.sws,
+        id1_0.sws_rate,
+        id1_0.total_duty,
+        id1_0.uom,
+        id1_0.updated_at 
+    from
+        tbl_import_data id1_0 
+    where
+        id1_0.import_id=?
+2025-10-16 11:14:57 [http-nio-8083-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        m1_0.bom_part_no 
+    from
+        materials m1_0 
+    where
+        m1_0.bom_part_no=?
+2025-10-16 11:14:57 [http-nio-8083-exec-3] DEBUG org.hibernate.SQL - 
+    insert 
+    into
+        tbl_worksheet
+        (add_claimed_dgft, add_duty, assessable_value, bcd, bcd_claimed_dgft, be_date, be_no, cif_claimed_total, cif_value, claim_ref_no, claim_year, closing_balance_def, created_at, dbk_part_no, duty_claimed_total, duty_per_qty, import_id, imp_qty, item_description, bom_part_no, opening_balance_qty_def, per_qty_cif, qty_used_total_def, sws, sws_claimed_dgft, total_duty, uom, used_qty_total) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+2025-10-16 11:14:57 [http-nio-8083-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        bemq1_0.id,
+        bemq1_0.bom_id,
+        bemq1_0.model_no,
+        bemq1_0.quantity,
+        bemq1_0.status 
+    from
+        tbl_bom_export_model bemq1_0 
+    where
+        bemq1_0.id=?
+2025-10-16 11:14:57 [http-nio-8083-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        m1_0.model_no 
+    from
+        models m1_0 
+    where
+        m1_0.model_no=?
+2025-10-16 11:14:57 [http-nio-8083-exec-3] DEBUG org.hibernate.SQL - 
+    insert 
+    into
+        tbl_worksheet_model_split
+        (id, cif_claimed, col_no, duty_claimed, used_qty, model_no, worksheet_id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+2025-10-16 11:14:57 [http-nio-8083-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        ed1_0.export_id,
+        ed1_0.air_amount,
+        ed1_0.air_given_in_sb,
+        ed1_0.aro_date,
+        ed1_0.aro_file_date,
+        ed1_0.aro_file_no,
+        ed1_0.aro_no,
+        ed1_0.brc_no,
+        ed1_0.claim_ref_no,
+        ed1_0.claim_year,
+        ed1_0.clientname,
+        ed1_0.created_at,
+        ed1_0.currency_code,
+        ed1_0.customer_name,
+        ed1_0.dbk_applicability,
+        ed1_0.dbk_sno,
+        ed1_0.difference,
+        ed1_0.fob_inr,
+        ed1_0.hs_code,
+        ed1_0.invoice_date,
+        ed1_0.invoice_no,
+        ed1_0.invoice_value_fcc,
+        ed1_0.leo_date,
+        ed1_0.model_description,
+        ed1_0.model_no,
+        ed1_0.net_realised_currency,
+        ed1_0.net_realised_value,
+        ed1_0.pmv_actual,
+        ed1_0.pmv_per_qty,
+        ed1_0.port_code,
+        ed1_0.product_type,
+        ed1_0.quantity,
+        ed1_0.rate,
+        ed1_0.sb_date,
+        ed1_0.sb_no,
+        ed1_0.sb_utilization,
+        ed1_0.sbr,
+        ed1_0.scheme_description,
+        ed1_0.total_dbk,
+        ed1_0.unit,
+        ed1_0.updated_at 
+    from
+        tbl_export_data ed1_0 
+    left join
+        models m1_0 
+            on m1_0.model_no=ed1_0.model_no 
+    where
+        ed1_0.claim_ref_no=? 
+        and m1_0.model_no=?
+2025-10-16 11:14:57 [http-nio-8083-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        bemq1_0.id,
+        bemq1_0.bom_id,
+        bemq1_0.model_no,
+        bemq1_0.quantity,
+        bemq1_0.status 
+    from
+        tbl_bom_export_model bemq1_0 
+    where
+        bemq1_0.id=?
+2025-10-16 11:14:57 [http-nio-8083-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        m1_0.model_no 
+    from
+        models m1_0 
+    where
+        m1_0.model_no=?
+2025-10-16 11:14:57 [http-nio-8083-exec-3] DEBUG org.hibernate.SQL - 
+    insert 
+    into
+        tbl_worksheet_model_split
+        (id, cif_claimed, col_no, duty_claimed, used_qty, model_no, worksheet_id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+2025-10-16 11:14:57 [http-nio-8083-exec-3] DEBUG org.hibernate.SQL - 
+    update
+        tbl_import_data 
+    set
+        add_duty=?,
+        add_rate=?,
+        alt_boe_part_no=?,
+        assessable_value=?,
+        bcd=?,
+        bcd_rate=?,
+        be_date=?,
+        be_month=?,
+        be_no=?,
+        be_year=?,
+        claim_ref_no=?,
+        claim_year=?,
+        clientname=?,
+        closing_balance=?,
+        country_of_origin=?,
+        dbk_part_no=?,
+        duty_claimed_amt=?,
+        igst=?,
+        igst_rate=?,
+        itchs_code=?,
+        item_description=?,
+        bom_part_no=?,
+        notn_eligibility=?,
+        notn_no=?,
+        port_code=?,
+        qty_opening_balance=?,
+        qty_used=?,
+        quantity=?,
+        stock_wise_eligibility=?,
+        supplier_name_address=?,
+        sws=?,
+        sws_rate=?,
+        total_duty=?,
+        uom=?,
+        updated_at=? 
+    where
+        import_id=?
+2025-10-16 11:14:57 [http-nio-8083-exec-3] DEBUG org.hibernate.SQL - 
+    update
+        tbl_import_data 
+    set
+        add_duty=?,
+        add_rate=?,
+        alt_boe_part_no=?,
+        assessable_value=?,
+        bcd=?,
+        bcd_rate=?,
+        be_date=?,
+        be_month=?,
+        be_no=?,
+        be_year=?,
+        claim_ref_no=?,
+        claim_year=?,
+        clientname=?,
+        closing_balance=?,
+        country_of_origin=?,
+        dbk_part_no=?,
+        duty_claimed_amt=?,
+        igst=?,
+        igst_rate=?,
+        itchs_code=?,
+        item_description=?,
+        bom_part_no=?,
+        notn_eligibility=?,
+        notn_no=?,
+        port_code=?,
+        qty_opening_balance=?,
+        qty_used=?,
+        quantity=?,
+        stock_wise_eligibility=?,
+        supplier_name_address=?,
+        sws=?,
+        sws_rate=?,
+        total_duty=?,
+        uom=?,
+        updated_at=? 
+    where
+        import_id=?
+2025-10-16 11:14:57 [http-nio-8083-exec-3] DEBUG org.hibernate.SQL - 
+    update
+        tbl_import_data 
+    set
+        add_duty=?,
+        add_rate=?,
+        alt_boe_part_no=?,
+        assessable_value=?,
+        bcd=?,
+        bcd_rate=?,
+        be_date=?,
+        be_month=?,
+        be_no=?,
+        be_year=?,
+        claim_ref_no=?,
+        claim_year=?,
+        clientname=?,
+        closing_balance=?,
+        country_of_origin=?,
+        dbk_part_no=?,
+        duty_claimed_amt=?,
+        igst=?,
+        igst_rate=?,
+        itchs_code=?,
+        item_description=?,
+        bom_part_no=?,
+        notn_eligibility=?,
+        notn_no=?,
+        port_code=?,
+        qty_opening_balance=?,
+        qty_used=?,
+        quantity=?,
+        stock_wise_eligibility=?,
+        supplier_name_address=?,
+        sws=?,
+        sws_rate=?,
+        total_duty=?,
+        uom=?,
+        updated_at=? 
+    where
+        import_id=?
+2025-10-16 11:14:58 [http-nio-8083-exec-3] DEBUG org.hibernate.SQL - 
+    update
+        tbl_bom_export_model 
+    set
+        bom_id=?,
+        model_no=?,
+        quantity=?,
+        status=? 
+    where
+        id=?
+2025-10-16 11:14:58 [http-nio-8083-exec-3] DEBUG org.hibernate.SQL - 
+    update
+        tbl_export_data 
+    set
+        air_amount=?,
+        air_given_in_sb=?,
+        aro_date=?,
+        aro_file_date=?,
+        aro_file_no=?,
+        aro_no=?,
+        brc_no=?,
+        claim_ref_no=?,
+        claim_year=?,
+        clientname=?,
+        currency_code=?,
+        customer_name=?,
+        dbk_applicability=?,
+        dbk_sno=?,
+        difference=?,
+        fob_inr=?,
+        hs_code=?,
+        invoice_date=?,
+        invoice_no=?,
+        invoice_value_fcc=?,
+        leo_date=?,
+        model_description=?,
+        model_no=?,
+        net_realised_currency=?,
+        net_realised_value=?,
+        pmv_actual=?,
+        pmv_per_qty=?,
+        port_code=?,
+        product_type=?,
+        quantity=?,
+        rate=?,
+        sb_date=?,
+        sb_no=?,
+        sb_utilization=?,
+        sbr=?,
+        scheme_description=?,
+        total_dbk=?,
+        unit=?,
+        updated_at=? 
+    where
+        export_id=?
+2025-10-16 11:14:58 [http-nio-8083-exec-3] DEBUG org.hibernate.SQL - 
+    update
+        tbl_bom_export_model 
+    set
+        bom_id=?,
+        model_no=?,
+        quantity=?,
+        status=? 
+    where
+        id=?
+2025-10-16 11:14:58 [http-nio-8083-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        ed1_0.export_id,
+        ed1_0.air_amount,
+        ed1_0.air_given_in_sb,
+        ed1_0.aro_date,
+        ed1_0.aro_file_date,
+        ed1_0.aro_file_no,
+        ed1_0.aro_no,
+        ed1_0.brc_no,
+        ed1_0.claim_ref_no,
+        ed1_0.claim_year,
+        ed1_0.clientname,
+        ed1_0.created_at,
+        ed1_0.currency_code,
+        ed1_0.customer_name,
+        ed1_0.dbk_applicability,
+        ed1_0.dbk_sno,
+        ed1_0.difference,
+        ed1_0.fob_inr,
+        ed1_0.hs_code,
+        ed1_0.invoice_date,
+        ed1_0.invoice_no,
+        ed1_0.invoice_value_fcc,
+        ed1_0.leo_date,
+        ed1_0.model_description,
+        ed1_0.model_no,
+        ed1_0.net_realised_currency,
+        ed1_0.net_realised_value,
+        ed1_0.pmv_actual,
+        ed1_0.pmv_per_qty,
+        ed1_0.port_code,
+        ed1_0.product_type,
+        ed1_0.quantity,
+        ed1_0.rate,
+        ed1_0.sb_date,
+        ed1_0.sb_no,
+        ed1_0.sb_utilization,
+        ed1_0.sbr,
+        ed1_0.scheme_description,
+        ed1_0.total_dbk,
+        ed1_0.unit,
+        ed1_0.updated_at 
+    from
+        tbl_export_data ed1_0 
+    left join
+        models m1_0 
+            on m1_0.model_no=ed1_0.model_no 
+    where
+        ed1_0.claim_ref_no=? 
+        and m1_0.model_no=?
+2025-10-16 11:14:58 [http-nio-8083-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        id1_0.import_id,
+        id1_0.add_duty,
+        id1_0.add_rate,
+        id1_0.alt_boe_part_no,
+        id1_0.assessable_value,
+        id1_0.bcd,
+        id1_0.bcd_rate,
+        id1_0.be_date,
+        id1_0.be_month,
+        id1_0.be_no,
+        id1_0.be_year,
+        id1_0.claim_ref_no,
+        id1_0.claim_year,
+        id1_0.clientname,
+        id1_0.closing_balance,
+        id1_0.country_of_origin,
+        id1_0.created_at,
+        id1_0.dbk_part_no,
+        id1_0.duty_claimed_amt,
+        id1_0.igst,
+        id1_0.igst_rate,
+        id1_0.itchs_code,
+        id1_0.item_description,
+        id1_0.bom_part_no,
+        id1_0.notn_eligibility,
+        id1_0.notn_no,
+        id1_0.port_code,
+        id1_0.qty_opening_balance,
+        id1_0.qty_used,
+        id1_0.quantity,
+        id1_0.stock_wise_eligibility,
+        id1_0.supplier_name_address,
+        id1_0.sws,
+        id1_0.sws_rate,
+        id1_0.total_duty,
+        id1_0.uom,
+        id1_0.updated_at 
+    from
+        tbl_import_data id1_0 
+    where
+        id1_0.import_id=?
+2025-10-16 11:14:58 [http-nio-8083-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        m1_0.bom_part_no 
+    from
+        materials m1_0 
+    where
+        m1_0.bom_part_no=?
+2025-10-16 11:14:58 [http-nio-8083-exec-3] DEBUG org.hibernate.SQL - 
+    insert 
+    into
+        tbl_worksheet
+        (add_claimed_dgft, add_duty, assessable_value, bcd, bcd_claimed_dgft, be_date, be_no, cif_claimed_total, cif_value, claim_ref_no, claim_year, closing_balance_def, created_at, dbk_part_no, duty_claimed_total, duty_per_qty, import_id, imp_qty, item_description, bom_part_no, opening_balance_qty_def, per_qty_cif, qty_used_total_def, sws, sws_claimed_dgft, total_duty, uom, used_qty_total) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+2025-10-16 11:14:58 [http-nio-8083-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        bemq1_0.id,
+        bemq1_0.bom_id,
+        bemq1_0.model_no,
+        bemq1_0.quantity,
+        bemq1_0.status 
+    from
+        tbl_bom_export_model bemq1_0 
+    where
+        bemq1_0.id=?
+2025-10-16 11:14:58 [http-nio-8083-exec-3] DEBUG org.hibernate.SQL - 
+    insert 
+    into
+        tbl_worksheet_model_split
+        (id, cif_claimed, col_no, duty_claimed, used_qty, model_no, worksheet_id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+2025-10-16 11:14:58 [http-nio-8083-exec-3] DEBUG org.hibernate.SQL - 
+    update
+        tbl_export_data 
+    set
+        air_amount=?,
+        air_given_in_sb=?,
+        aro_date=?,
+        aro_file_date=?,
+        aro_file_no=?,
+        aro_no=?,
+        brc_no=?,
+        claim_ref_no=?,
+        claim_year=?,
+        clientname=?,
+        currency_code=?,
+        customer_name=?,
+        dbk_applicability=?,
+        dbk_sno=?,
+        difference=?,
+        fob_inr=?,
+        hs_code=?,
+        invoice_date=?,
+        invoice_no=?,
+        invoice_value_fcc=?,
+        leo_date=?,
+        model_description=?,
+        model_no=?,
+        net_realised_currency=?,
+        net_realised_value=?,
+        pmv_actual=?,
+        pmv_per_qty=?,
+        port_code=?,
+        product_type=?,
+        quantity=?,
+        rate=?,
+        sb_date=?,
+        sb_no=?,
+        sb_utilization=?,
+        sbr=?,
+        scheme_description=?,
+        total_dbk=?,
+        unit=?,
+        updated_at=? 
+    where
+        export_id=?
+2025-10-16 11:14:58 [http-nio-8083-exec-3] DEBUG org.hibernate.SQL - 
+    update
+        tbl_import_data 
+    set
+        add_duty=?,
+        add_rate=?,
+        alt_boe_part_no=?,
+        assessable_value=?,
+        bcd=?,
+        bcd_rate=?,
+        be_date=?,
+        be_month=?,
+        be_no=?,
+        be_year=?,
+        claim_ref_no=?,
+        claim_year=?,
+        clientname=?,
+        closing_balance=?,
+        country_of_origin=?,
+        dbk_part_no=?,
+        duty_claimed_amt=?,
+        igst=?,
+        igst_rate=?,
+        itchs_code=?,
+        item_description=?,
+        bom_part_no=?,
+        notn_eligibility=?,
+        notn_no=?,
+        port_code=?,
+        qty_opening_balance=?,
+        qty_used=?,
+        quantity=?,
+        stock_wise_eligibility=?,
+        supplier_name_address=?,
+        sws=?,
+        sws_rate=?,
+        total_duty=?,
+        uom=?,
+        updated_at=? 
+    where
+        import_id=?
+2025-10-16 11:14:58 [http-nio-8083-exec-3] DEBUG org.hibernate.SQL - 
+    update
+        tbl_bom_export_model 
+    set
+        bom_id=?,
+        model_no=?,
+        quantity=?,
+        status=? 
+    where
+        id=?
+2025-10-16 11:14:58 [http-nio-8083-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        ed1_0.export_id,
+        ed1_0.air_amount,
+        ed1_0.air_given_in_sb,
+        ed1_0.aro_date,
+        ed1_0.aro_file_date,
+        ed1_0.aro_file_no,
+        ed1_0.aro_no,
+        ed1_0.brc_no,
+        ed1_0.claim_ref_no,
+        ed1_0.claim_year,
+        ed1_0.clientname,
+        ed1_0.created_at,
+        ed1_0.currency_code,
+        ed1_0.customer_name,
+        ed1_0.dbk_applicability,
+        ed1_0.dbk_sno,
+        ed1_0.difference,
+        ed1_0.fob_inr,
+        ed1_0.hs_code,
+        ed1_0.invoice_date,
+        ed1_0.invoice_no,
+        ed1_0.invoice_value_fcc,
+        ed1_0.leo_date,
+        ed1_0.model_description,
+        ed1_0.model_no,
+        ed1_0.net_realised_currency,
+        ed1_0.net_realised_value,
+        ed1_0.pmv_actual,
+        ed1_0.pmv_per_qty,
+        ed1_0.port_code,
+        ed1_0.product_type,
+        ed1_0.quantity,
+        ed1_0.rate,
+        ed1_0.sb_date,
+        ed1_0.sb_no,
+        ed1_0.sb_utilization,
+        ed1_0.sbr,
+        ed1_0.scheme_description,
+        ed1_0.total_dbk,
+        ed1_0.unit,
+        ed1_0.updated_at 
+    from
+        tbl_export_data ed1_0 
+    left join
+        models m1_0 
+            on m1_0.model_no=ed1_0.model_no 
+    where
+        ed1_0.claim_ref_no=? 
+        and m1_0.model_no=?
+2025-10-16 11:14:58 [http-nio-8083-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        bemq1_0.id,
+        bemq1_0.bom_id,
+        bemq1_0.model_no,
+        bemq1_0.quantity,
+        bemq1_0.status 
+    from
+        tbl_bom_export_model bemq1_0 
+    where
+        bemq1_0.id=?
+2025-10-16 11:14:58 [http-nio-8083-exec-3] DEBUG org.hibernate.SQL - 
+    insert 
+    into
+        tbl_worksheet_model_split
+        (id, cif_claimed, col_no, duty_claimed, used_qty, model_no, worksheet_id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+2025-10-16 11:14:58 [http-nio-8083-exec-3] DEBUG org.hibernate.SQL - 
+    update
+        tbl_export_data 
+    set
+        air_amount=?,
+        air_given_in_sb=?,
+        aro_date=?,
+        aro_file_date=?,
+        aro_file_no=?,
+        aro_no=?,
+        brc_no=?,
+        claim_ref_no=?,
+        claim_year=?,
+        clientname=?,
+        currency_code=?,
+        customer_name=?,
+        dbk_applicability=?,
+        dbk_sno=?,
+        difference=?,
+        fob_inr=?,
+        hs_code=?,
+        invoice_date=?,
+        invoice_no=?,
+        invoice_value_fcc=?,
+        leo_date=?,
+        model_description=?,
+        model_no=?,
+        net_realised_currency=?,
+        net_realised_value=?,
+        pmv_actual=?,
+        pmv_per_qty=?,
+        port_code=?,
+        product_type=?,
+        quantity=?,
+        rate=?,
+        sb_date=?,
+        sb_no=?,
+        sb_utilization=?,
+        sbr=?,
+        scheme_description=?,
+        total_dbk=?,
+        unit=?,
+        updated_at=? 
+    where
+        export_id=?
+2025-10-16 11:14:58 [http-nio-8083-exec-3] DEBUG org.hibernate.SQL - 
+    update
+        tbl_bom_export_model 
+    set
+        bom_id=?,
+        model_no=?,
+        quantity=?,
+        status=? 
+    where
+        id=?
+2025-10-16 11:14:58 [http-nio-8083-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        ed1_0.export_id,
+        ed1_0.air_amount,
+        ed1_0.air_given_in_sb,
+        ed1_0.aro_date,
+        ed1_0.aro_file_date,
+        ed1_0.aro_file_no,
+        ed1_0.aro_no,
+        ed1_0.brc_no,
+        ed1_0.claim_ref_no,
+        ed1_0.claim_year,
+        ed1_0.clientname,
+        ed1_0.created_at,
+        ed1_0.currency_code,
+        ed1_0.customer_name,
+        ed1_0.dbk_applicability,
+        ed1_0.dbk_sno,
+        ed1_0.difference,
+        ed1_0.fob_inr,
+        ed1_0.hs_code,
+        ed1_0.invoice_date,
+        ed1_0.invoice_no,
+        ed1_0.invoice_value_fcc,
+        ed1_0.leo_date,
+        ed1_0.model_description,
+        ed1_0.model_no,
+        ed1_0.net_realised_currency,
+        ed1_0.net_realised_value,
+        ed1_0.pmv_actual,
+        ed1_0.pmv_per_qty,
+        ed1_0.port_code,
+        ed1_0.product_type,
+        ed1_0.quantity,
+        ed1_0.rate,
+        ed1_0.sb_date,
+        ed1_0.sb_no,
+        ed1_0.sb_utilization,
+        ed1_0.sbr,
+        ed1_0.scheme_description,
+        ed1_0.total_dbk,
+        ed1_0.unit,
+        ed1_0.updated_at 
+    from
+        tbl_export_data ed1_0 
+    left join
+        models m1_0 
+            on m1_0.model_no=ed1_0.model_no 
+    where
+        ed1_0.claim_ref_no=? 
+        and m1_0.model_no=?
+2025-10-16 11:14:58 [http-nio-8083-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        bemq1_0.id,
+        bemq1_0.bom_id,
+        bemq1_0.model_no,
+        bemq1_0.quantity,
+        bemq1_0.status 
+    from
+        tbl_bom_export_model bemq1_0 
+    where
+        bemq1_0.id=?
+2025-10-16 11:14:58 [http-nio-8083-exec-3] DEBUG org.hibernate.SQL - 
+    insert 
+    into
+        tbl_worksheet_model_split
+        (id, cif_claimed, col_no, duty_claimed, used_qty, model_no, worksheet_id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+2025-10-16 11:14:58 [http-nio-8083-exec-3] DEBUG org.hibernate.SQL - 
+    update
+        tbl_export_data 
+    set
+        air_amount=?,
+        air_given_in_sb=?,
+        aro_date=?,
+        aro_file_date=?,
+        aro_file_no=?,
+        aro_no=?,
+        brc_no=?,
+        claim_ref_no=?,
+        claim_year=?,
+        clientname=?,
+        currency_code=?,
+        customer_name=?,
+        dbk_applicability=?,
+        dbk_sno=?,
+        difference=?,
+        fob_inr=?,
+        hs_code=?,
+        invoice_date=?,
+        invoice_no=?,
+        invoice_value_fcc=?,
+        leo_date=?,
+        model_description=?,
+        model_no=?,
+        net_realised_currency=?,
+        net_realised_value=?,
+        pmv_actual=?,
+        pmv_per_qty=?,
+        port_code=?,
+        product_type=?,
+        quantity=?,
+        rate=?,
+        sb_date=?,
+        sb_no=?,
+        sb_utilization=?,
+        sbr=?,
+        scheme_description=?,
+        total_dbk=?,
+        unit=?,
+        updated_at=? 
+    where
+        export_id=?
+2025-10-16 11:14:58 [http-nio-8083-exec-3] DEBUG org.hibernate.SQL - 
+    update
+        tbl_bom_export_model 
+    set
+        bom_id=?,
+        model_no=?,
+        quantity=?,
+        status=? 
+    where
+        id=?
+2025-10-16 11:14:58 [http-nio-8083-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        ed1_0.export_id,
+        ed1_0.air_amount,
+        ed1_0.air_given_in_sb,
+        ed1_0.aro_date,
+        ed1_0.aro_file_date,
+        ed1_0.aro_file_no,
+        ed1_0.aro_no,
+        ed1_0.brc_no,
+        ed1_0.claim_ref_no,
+        ed1_0.claim_year,
+        ed1_0.clientname,
+        ed1_0.created_at,
+        ed1_0.currency_code,
+        ed1_0.customer_name,
+        ed1_0.dbk_applicability,
+        ed1_0.dbk_sno,
+        ed1_0.difference,
+        ed1_0.fob_inr,
+        ed1_0.hs_code,
+        ed1_0.invoice_date,
+        ed1_0.invoice_no,
+        ed1_0.invoice_value_fcc,
+        ed1_0.leo_date,
+        ed1_0.model_description,
+        ed1_0.model_no,
+        ed1_0.net_realised_currency,
+        ed1_0.net_realised_value,
+        ed1_0.pmv_actual,
+        ed1_0.pmv_per_qty,
+        ed1_0.port_code,
+        ed1_0.product_type,
+        ed1_0.quantity,
+        ed1_0.rate,
+        ed1_0.sb_date,
+        ed1_0.sb_no,
+        ed1_0.sb_utilization,
+        ed1_0.sbr,
+        ed1_0.scheme_description,
+        ed1_0.total_dbk,
+        ed1_0.unit,
+        ed1_0.updated_at 
+    from
+        tbl_export_data ed1_0 
+    left join
+        models m1_0 
+            on m1_0.model_no=ed1_0.model_no 
+    where
+        ed1_0.claim_ref_no=? 
+        and m1_0.model_no=?
+2025-10-16 11:14:58 [http-nio-8083-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        bemq1_0.id,
+        bemq1_0.bom_id,
+        bemq1_0.model_no,
+        bemq1_0.quantity,
+        bemq1_0.status 
+    from
+        tbl_bom_export_model bemq1_0 
+    where
+        bemq1_0.id=?
+2025-10-16 11:14:58 [http-nio-8083-exec-3] DEBUG org.hibernate.SQL - 
+    insert 
+    into
+        tbl_worksheet_model_split
+        (id, cif_claimed, col_no, duty_claimed, used_qty, model_no, worksheet_id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+2025-10-16 11:14:58 [http-nio-8083-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        ed1_0.export_id,
+        ed1_0.air_amount,
+        ed1_0.air_given_in_sb,
+        ed1_0.aro_date,
+        ed1_0.aro_file_date,
+        ed1_0.aro_file_no,
+        ed1_0.aro_no,
+        ed1_0.brc_no,
+        ed1_0.claim_ref_no,
+        ed1_0.claim_year,
+        ed1_0.clientname,
+        ed1_0.created_at,
+        ed1_0.currency_code,
+        ed1_0.customer_name,
+        ed1_0.dbk_applicability,
+        ed1_0.dbk_sno,
+        ed1_0.difference,
+        ed1_0.fob_inr,
+        ed1_0.hs_code,
+        ed1_0.invoice_date,
+        ed1_0.invoice_no,
+        ed1_0.invoice_value_fcc,
+        ed1_0.leo_date,
+        ed1_0.model_description,
+        ed1_0.model_no,
+        ed1_0.net_realised_currency,
+        ed1_0.net_realised_value,
+        ed1_0.pmv_actual,
+        ed1_0.pmv_per_qty,
+        ed1_0.port_code,
+        ed1_0.product_type,
+        ed1_0.quantity,
+        ed1_0.rate,
+        ed1_0.sb_date,
+        ed1_0.sb_no,
+        ed1_0.sb_utilization,
+        ed1_0.sbr,
+        ed1_0.scheme_description,
+        ed1_0.total_dbk,
+        ed1_0.unit,
+        ed1_0.updated_at 
+    from
+        tbl_export_data ed1_0 
+    left join
+        models m1_0 
+            on m1_0.model_no=ed1_0.model_no 
+    where
+        ed1_0.claim_ref_no=? 
+        and m1_0.model_no=?
+2025-10-16 11:14:58 [http-nio-8083-exec-3] DEBUG org.hibernate.SQL - 
+    update
+        tbl_bom_export_model 
+    set
+        bom_id=?,
+        model_no=?,
+        quantity=?,
+        status=? 
+    where
+        id=?
+2025-10-16 11:14:58 [http-nio-8083-exec-3] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'text/plain', given [*/*] and supported [text/plain, */*, application/json, application/*+json, application/xml;charset=UTF-8, text/xml;charset=UTF-8, application/*+xml;charset=UTF-8]
+2025-10-16 11:14:58 [http-nio-8083-exec-3] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing ["Bulk save successful"]
+2025-10-16 11:14:58 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:15:00 [http-nio-8083-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - GET "/index", parameters={}
+2025-10-16 11:15:00 [http-nio-8083-exec-8] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.orpe.consultants.controller.AuthController#index(HttpSession, Model)
+2025-10-16 11:15:00 [http-nio-8083-exec-8] DEBUG c.o.c.controller.AuthController - User rohank accessing index page
+2025-10-16 11:15:00 [http-nio-8083-exec-8] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-10-16 11:15:00 [http-nio-8083-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:15:00 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/bootstrap/dist/css/bootstrap.min.css", parameters={}
+2025-10-16 11:15:00 [http-nio-8083-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/icon/themify-icons/themify-icons.css", parameters={}
+2025-10-16 11:15:00 [http-nio-8083-exec-4] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:15:00 [http-nio-8083-exec-1] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:15:00 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/pages/flag-icon/flag-icon.min.css", parameters={}
+2025-10-16 11:15:00 [http-nio-8083-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/icon/icofont/css/icofont.css", parameters={}
+2025-10-16 11:15:00 [http-nio-8083-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/pages/menu-search/css/component.css", parameters={}
+2025-10-16 11:15:00 [http-nio-8083-exec-7] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:15:00 [http-nio-8083-exec-9] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:15:00 [http-nio-8083-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/css/style.css", parameters={}
+2025-10-16 11:15:00 [http-nio-8083-exec-10] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:15:00 [http-nio-8083-exec-2] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:15:00 [http-nio-8083-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:15:00 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/css/linearicons.css", parameters={}
+2025-10-16 11:15:00 [http-nio-8083-exec-6] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:15:00 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:15:00 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:15:00 [http-nio-8083-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/css/simple-line-icons.css", parameters={}
+2025-10-16 11:15:00 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/css/jquery.mCustomScrollbar.css", parameters={}
+2025-10-16 11:15:00 [http-nio-8083-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:15:00 [http-nio-8083-exec-5] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:15:00 [http-nio-8083-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/jquery/dist/jquery.min.js", parameters={}
+2025-10-16 11:15:00 [http-nio-8083-exec-3] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:15:00 [http-nio-8083-exec-8] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:15:00 [http-nio-8083-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:15:00 [http-nio-8083-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/images/logo.png", parameters={}
+2025-10-16 11:15:00 [http-nio-8083-exec-4] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:15:00 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:15:00 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/images/user.png", parameters={}
+2025-10-16 11:15:00 [http-nio-8083-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:15:00 [http-nio-8083-exec-9] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:15:00 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/jquery-ui/jquery-ui.min.js", parameters={}
+2025-10-16 11:15:00 [http-nio-8083-exec-1] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:15:00 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:15:00 [http-nio-8083-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:15:00 [http-nio-8083-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/tether/dist/js/tether.min.js", parameters={}
+2025-10-16 11:15:00 [http-nio-8083-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/bootstrap/dist/js/bootstrap.min.js", parameters={}
+2025-10-16 11:15:00 [http-nio-8083-exec-7] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:15:00 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:15:00 [http-nio-8083-exec-4] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:15:00 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/jquery-slimscroll/jquery.slimscroll.js", parameters={}
+2025-10-16 11:15:00 [http-nio-8083-exec-9] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:15:00 [http-nio-8083-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:15:00 [http-nio-8083-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/modernizr/modernizr.js", parameters={}
+2025-10-16 11:15:00 [http-nio-8083-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:15:00 [http-nio-8083-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:15:00 [http-nio-8083-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:15:00 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:15:00 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/modernizr/feature-detects/css-scrollbars.js", parameters={}
+2025-10-16 11:15:00 [http-nio-8083-exec-6] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:15:00 [http-nio-8083-exec-10] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:15:00 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/morris.js/morris.js", parameters={}
+2025-10-16 11:15:00 [http-nio-8083-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/raphael/raphael.min.js", parameters={}
+2025-10-16 11:15:00 [http-nio-8083-exec-3] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:15:00 [http-nio-8083-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/pages/chart/echarts/js/echarts-all.js", parameters={}
+2025-10-16 11:15:00 [http-nio-8083-exec-5] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:15:00 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:15:00 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/pages/dashboard/project-dashboard.js", parameters={}
+2025-10-16 11:15:00 [http-nio-8083-exec-8] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:15:00 [http-nio-8083-exec-6] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:15:01 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:15:01 [http-nio-8083-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/js/script.js", parameters={}
+2025-10-16 11:15:01 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:15:01 [http-nio-8083-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:15:01 [http-nio-8083-exec-7] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:15:01 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/js/pcoded.min.js", parameters={}
+2025-10-16 11:15:01 [http-nio-8083-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/js/demo-12.js", parameters={}
+2025-10-16 11:15:01 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:15:01 [http-nio-8083-exec-2] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:15:01 [http-nio-8083-exec-9] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:15:01 [http-nio-8083-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/js/jquery.mCustomScrollbar.concat.min.js", parameters={}
+2025-10-16 11:15:01 [http-nio-8083-exec-4] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:15:01 [http-nio-8083-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:15:01 [http-nio-8083-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:15:01 [http-nio-8083-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:15:01 [http-nio-8083-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/fonts/Simple-Line-Icons.woff2?v=2.3.2", parameters={masked}
+2025-10-16 11:15:01 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/icon/themify-icons/fonts/themify.woff?-fvbane", parameters={masked}
+2025-10-16 11:15:01 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/icon/icofont/fonts/icofont.ttf?v=1.0.0-beta", parameters={masked}
+2025-10-16 11:15:01 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:15:01 [http-nio-8083-exec-3] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:15:01 [http-nio-8083-exec-10] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:15:01 [http-nio-8083-exec-1] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:15:01 [http-nio-8083-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:15:01 [http-nio-8083-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:15:01 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:15:01 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:15:01 [http-nio-8083-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:15:01 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/images/pattern2.png", parameters={}
+2025-10-16 11:15:01 [http-nio-8083-exec-6] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-10-16 11:15:01 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-16 11:15:17 [RMI TCP Connection(8)-127.0.0.1] INFO  o.s.b.a.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin - Application shutdown requested.
+2025-10-16 11:15:17 [RMI TCP Connection(8)-127.0.0.1] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-10-16 11:15:17 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-10-16 11:15:17 [RMI TCP Connection(8)-127.0.0.1] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-10-16 11:15:17 [RMI TCP Connection(8)-127.0.0.1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-10-16 11:15:17 [RMI TCP Connection(8)-127.0.0.1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.

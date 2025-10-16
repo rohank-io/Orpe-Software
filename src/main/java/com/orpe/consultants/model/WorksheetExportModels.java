@@ -25,6 +25,12 @@ public class WorksheetExportModels {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "worksheet_id", nullable = false)
     private Worksheet worksheet;
+    
+    
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "id", nullable = false)
+    private BomExportModelQuantity bomExportModelData;
+
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "model_no", nullable = false)
@@ -37,7 +43,7 @@ public class WorksheetExportModels {
 
     @Column(name = "used_qty", precision = 18, scale = 6, nullable = false)
     @Builder.Default
-    private BigDecimal usedQty = BigDecimal.ZERO;
+    private BigDecimal emUsedQty = BigDecimal.ZERO;
 
     @Column(name = "duty_claimed", precision = 18, scale = 2, nullable = false)
     @Builder.Default

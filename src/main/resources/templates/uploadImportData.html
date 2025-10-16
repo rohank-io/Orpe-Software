@@ -502,10 +502,13 @@
 																				<td contenteditable="true"
 																					th:text="${r.beNo}"></td>
 																				<td contenteditable="true"
+																					class="beDate"
 																					th:text="${r.beDate}"></td>
 																				<td contenteditable="true"
+																					class="beMonth"
 																					th:text="${r.beMonth}"></td>
 																				<td contenteditable="true"
+																					class="beYear"
 																					th:text="${r.beYear}"></td>
 																				<td contenteditable="true"
 																					th:text="${r.claimRefNo}"></td>
@@ -764,6 +767,137 @@
 
 
 														</script>
+
+														<script>
+															document.addEventListener('DOMContentLoaded', () => {
+																const table = document.getElementById("importTable");
+
+																// Parse numbers safely (handles commas, decimals)
+																function parseNumber(text) {
+																	if (!text) return 0;
+																	let cleanText = text.replace(/[^0-9.\-,]/g, '');
+																	cleanText = cleanText.replace(/,/g, '');
+																	let num = parseFloat(cleanText);
+																	return isNaN(num) ? 0 : num;
+																}
+
+																// Parse rate like "15", "15%" correctly as decimal (0.15)
+																function parseRate(text) {
+																	if (!text) return 0;
+																	let clean = text.toString().replace('%', '').trim();
+																	let num = parseFloat(clean);
+																	return isNaN(num) ? 0 : num / 100;
+																}
+
+																// Format number according to Indian locale with fixed decimals
+																function formatDecimal(num, decimals = 2) {
+																	return num.toLocaleString('en-IN', {
+																		minimumFractionDigits: decimals,
+																		maximumFractionDigits: decimals
+																	});
+																}
+
+																// Calculate and update duty columns for a single row
+																function recalcRow(row) {
+																	const assessableCell = row.querySelector('td:nth-child(18)');
+																	const bcdRateCell = row.querySelector('td:nth-child(19)');
+																	const bcdCell = row.querySelector('td:nth-child(20)');
+																	const swsRateCell = row.querySelector('td:nth-child(21)');
+																	const swsCell = row.querySelector('td:nth-child(22)');
+																	const addRateCell = row.querySelector('td:nth-child(23)');
+																	const addDutyCell = row.querySelector('td:nth-child(24)');
+																	const igstRateCell = row.querySelector('td:nth-child(25)');
+																	const igstCell = row.querySelector('td:nth-child(26)');
+																	const totalDutyCell = row.querySelector('td:nth-child(27)');
+
+																	let assessableValue = parseNumber(assessableCell.innerText);
+																	let bcdRate = parseRate(bcdRateCell.innerText);
+																	let swsRate = parseRate(swsRateCell.innerText);
+																	let addRate = parseRate(addRateCell.innerText);
+																	let igstRate = parseRate(igstRateCell.innerText);
+
+																	let bcd = assessableValue * bcdRate;
+																	bcdCell.innerText = formatDecimal(bcd);
+
+																	let sws = bcd * swsRate;
+																	swsCell.innerText = formatDecimal(sws);
+
+																	let addDuty = assessableValue * addRate;
+																	addDutyCell.innerText = formatDecimal(addDuty);
+
+																	let igst = (assessableValue + bcd + sws + addDuty) * igstRate;
+																	igstCell.innerText = formatDecimal(igst);
+
+																	let totalDuty = bcd + sws + addDuty + igst;
+																	totalDutyCell.innerText = formatDecimal(totalDuty);
+																}
+
+																// Bind recalculation events to all inputs affecting calculations
+																function bindRecalculation(row) {
+																	['td:nth-child(18)', 'td:nth-child(19)', 'td:nth-child(21)', 'td:nth-child(23)', 'td:nth-child(25)'].forEach(selector => {
+																		const cell = row.querySelector(selector);
+																		if (cell) {
+																			['input', 'keyup', 'blur'].forEach(event => {
+																				cell.addEventListener(event, () => recalcRow(row));
+																			});
+																		}
+																	});
+																}
+
+																// Initial calculation on all rows and bind listeners
+																const rows = table.querySelectorAll('tbody tr');
+																rows.forEach(row => {
+																	recalcRow(row);
+																	bindRecalculation(row);
+																});
+															});
+
+
+														</script>
+
+														<script>
+															document.addEventListener('DOMContentLoaded', () => {
+																const table = document.getElementById("importTable");
+
+																function updateMonthYear(row, dateCellClass, monthCellClass, yearCellClass) {
+																	const dateCell = row.querySelector(`.${dateCellClass}`);
+																	const monthCell = row.querySelector(`.${monthCellClass}`);
+																	const yearCell = row.querySelector(`.${yearCellClass}`);
+
+																	if (!dateCell || !monthCell || !yearCell) return;
+
+																	const doUpdate = () => {
+																		const dateStr = dateCell.innerText.trim();
+																		const dateObj = new Date(dateStr);
+
+																		if (dateObj.toString() !== "Invalid Date") {
+																			const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+																				"Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+																			monthCell.innerText = monthNames[dateObj.getMonth()];
+																			yearCell.innerText = dateObj.getFullYear().toString().slice(-2);
+																		} else {
+																			monthCell.innerText = "";
+																			yearCell.innerText = "";
+																		}
+																	};
+
+																	// Bind multiple events to ensure input is caught on different browsers for contenteditable cells
+																	['input', 'keyup', 'blur'].forEach(evt => {
+																		dateCell.addEventListener(evt, doUpdate);
+																	});
+
+																	// Run update once initially to fill month/year from existing date
+																	doUpdate();
+																}
+
+																const rows = table.querySelectorAll('tbody tr');
+																rows.forEach(row => {
+																	updateMonthYear(row, "beDate", "beMonth", "beYear");
+																});
+															});
+
+														</script>
+
 
 
 														<script>

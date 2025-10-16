@@ -11,6 +11,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 @Repository
 public interface ExportDataRepository extends JpaRepository<ExportData, Long>, JpaSpecificationExecutor<ExportData> {
@@ -49,4 +50,8 @@ public interface ExportDataRepository extends JpaRepository<ExportData, Long>, J
         order by e.sbDate desc
     """)
     Page<ExportData> searchAllOrderBySbDateDesc(String q, Pageable pageable);
+    
+    
+    Optional<ExportData> findByClaimRefNoAndModels_ModelNo(String claimRefNo, String modelNo);
+
 }

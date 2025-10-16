@@ -103,6 +103,19 @@ public class ImportDataServiceImpl implements ImportDataService {
     Page<ImportData> page = importRepo.findAll(spec, pageable);
     return page.map(this::entityToDto);
   }
+  
+  @Override
+  public Page<ImportDataDTO> findWithPositiveClosingBalance(ImportDataFilter filter, Pageable pageable) {
+      Specification<ImportData> baseSpec = buildSpecification(filter);
+      Specification<ImportData> closingBalanceSpec = (root, query, cb) ->
+              cb.greaterThan(root.get("closingBalance"), BigDecimal.ZERO);
+
+      Specification<ImportData> finalSpec = baseSpec.and(closingBalanceSpec);
+      Page<ImportData> page = importRepo.findAll(finalSpec, pageable);
+      return page.map(this::entityToDto);
+  }
+
+
 
   @Override
   public byte[] exportData(ImportDataFilter filter) {
@@ -224,17 +237,20 @@ public class ImportDataServiceImpl implements ImportDataService {
 
       // Group BomData by bomPartNo, then flatten aggregated export model lists per bomPartNo
       Map<String, List<BomExportModelQuantity>> exportModelsByPartNo = bomList.stream()
-          .collect(Collectors.groupingBy(
-              bom -> bom.getMaterial().getBomPartNo(),
-              Collectors.mapping(BomData::getExportModels, Collectors.toList())
-          ))
-          .entrySet().stream()
-          .collect(Collectors.toMap(
-              Map.Entry::getKey,
-              e -> e.getValue().stream()
-                    .flatMap(List::stream)
-                    .collect(Collectors.toList())
-          ));
+    		    .collect(Collectors.groupingBy(
+    		        bom -> bom.getMaterial().getBomPartNo(),
+    		        Collectors.mapping(BomData::getExportModels, Collectors.toList())
+    		    ))
+    		    .entrySet().stream()
+    		    .collect(Collectors.toMap(
+    		        Map.Entry::getKey,
+    		        e -> e.getValue().stream()
+    		              .flatMap(List::stream)
+    		              // Filter export models only with status "OPEN"
+    		              .filter(expModel -> "OPEN".equalsIgnoreCase(expModel.getStatus()))
+    		              .collect(Collectors.toList())
+    		    ));
+
 
       List<ImportDataDTO> details = new ArrayList<>();
       for (ImportData imp : imports) {

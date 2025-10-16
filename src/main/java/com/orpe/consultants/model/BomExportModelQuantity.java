@@ -30,4 +30,9 @@ public class BomExportModelQuantity {
 
     @Column(name = "quantity", precision = 18, scale = 6, nullable = false)
     private BigDecimal quantity;
+    
+    @Column(name = "status", length = 50)
+    private String status;
+    
+    
 }

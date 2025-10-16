@@ -20,24 +20,27 @@ public class BomDataExtractor {
     private static final List<String> PREFERRED_SHEETS = List.of("BOM", "BOM DETAILS", "BILL OF MATERIAL");
 
     public List<BomDataDTO> parseBomSheet(MultipartFile file) throws Exception {
+        String originalFilename = file.getOriginalFilename();
+        String baseFilename;
+        if (originalFilename != null && originalFilename.contains(".")) {
+            baseFilename = originalFilename.substring(0, originalFilename.lastIndexOf('.'));
+        } else {
+            baseFilename = originalFilename;
+        }
         try (InputStream in = file.getInputStream(); Workbook wb = WorkbookFactory.create(in)) {
             List<BomDataDTO> allRows = new ArrayList<>();
-
             for (int i = 0; i < wb.getNumberOfSheets(); i++) {
                 Sheet sheet = wb.getSheetAt(i);
                 String sheetName = sheet.getSheetName();
-                System.out.println("Checking sheet: " + sheetName);
                 if (isBomSheetName(sheetName)) {
-                    System.out.println("Parsing sheet: " + sheetName);
-                    List<BomDataDTO> sheetRows = parseBomSheetFromSingleSheet(sheet);
-                    System.out.println("Rows parsed from sheet " + sheetName + " = " + sheetRows.size());
+                    List<BomDataDTO> sheetRows = parseBomSheetFromSingleSheet(sheet, baseFilename); // Pass clientName
                     allRows.addAll(sheetRows);
                 }
             }
-
             return allRows;
         }
     }
+
 
     private boolean isBomSheetName(String sheetName) {
         if (sheetName == null) return false;
@@ -50,7 +53,7 @@ public class BomDataExtractor {
     }
 
 
-    private List<BomDataDTO> parseBomSheetFromSingleSheet(Sheet sheet) {
+    private List<BomDataDTO> parseBomSheetFromSingleSheet(Sheet sheet, String clientName) {
         DataFormatter fmt = new DataFormatter();
         FormulaEvaluator eval = sheet.getWorkbook().getCreationHelper().createFormulaEvaluator();
 
@@ -89,7 +92,8 @@ public class BomDataExtractor {
                     .grandTotal(getDecimal(row, col(idx, "GRAND TOTAL"), fmt, eval))
                     .netWeightKg(getDecimal(row,
                             col(idx, "NET WEIGHT OF THE MATERIAL IN KGS", "NET WEIGHT KG", "NET WEIGHT"), fmt,
-                            eval));
+                            eval))
+                    .clientName(clientName);
 
             List<BomExportModelQuantityDTO> exportModels = new ArrayList<>();
 
@@ -110,7 +114,7 @@ public class BomDataExtractor {
 
                     BigDecimal qty = getDecimal(row, colIndex, fmt, eval);
                     if (qty != null && qty.compareTo(BigDecimal.ZERO) > 0) {
-                        exportModels.add(BomExportModelQuantityDTO.builder().modelNo(modelNo).quantity(qty).build());
+                        exportModels.add(BomExportModelQuantityDTO.builder().modelNo(modelNo).quantity(qty).status("OPEN").build());
                     }
                 }
             }

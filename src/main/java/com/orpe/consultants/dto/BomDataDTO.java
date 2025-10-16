@@ -26,6 +26,8 @@ public class BomDataDTO {
     private BigDecimal grandTotal;
     private BigDecimal netWeightKg;
     private LocalDateTime createdAt;
+    private String clientName;
+    private String status;
     private List<BomExportModelQuantityDTO> exportModels = new ArrayList<>();
 
 }

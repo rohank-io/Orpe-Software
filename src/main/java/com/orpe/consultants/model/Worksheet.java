@@ -6,6 +6,8 @@ import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -28,12 +30,12 @@ public class Worksheet {
     @Column(name = "worksheet_id", nullable = false, updatable = false)
     private Long worksheetId;
 
-    @Column(name = "claim_ref_no", length = 16, nullable = false)
+    @Column(name = "claim_ref_no", length = 32)
     @NotBlank
-    @Size(max = 16)
+    @Size(max = 32)
     private String claimRefNo;
 
-    @Column(name = "claim_year", length = 32, nullable = false)
+    @Column(name = "claim_year", length = 32)
     @NotBlank
     @Size(max = 32)
     private String claimYear;
@@ -56,6 +58,7 @@ public class Worksheet {
     private String beNo;
 
     @Column(name = "be_date", nullable = false)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @NotNull
     private LocalDate beDate;
 
@@ -79,11 +82,16 @@ public class Worksheet {
 
     @Column(name = "imp_qty", precision = 18, scale = 6, nullable = false)
     @NotNull
-    private BigDecimal impQty;
+    private BigDecimal importQty;
 
     @Column(name = "assessable_value", precision = 18, scale = 2, nullable = false)
     @NotNull
     private BigDecimal assessableValue;
+    
+    
+    @Column(name = "cif_value", precision = 18, scale = 2, nullable = false)
+    @NotNull
+    private BigDecimal cifValue;
 
     @Column(name = "per_qty_cif", precision = 18, scale = 6, nullable = false)
     @NotNull
@@ -127,17 +135,17 @@ public class Worksheet {
     @Column(name = "bcd_claimed_dgft", precision = 18, scale = 2, nullable = false)
     @NotNull
     @Builder.Default
-    private BigDecimal bcdClaimedDgft = BigDecimal.ZERO;
+    private BigDecimal bcdClaimed = BigDecimal.ZERO;
 
     @Column(name = "sws_claimed_dgft", precision = 18, scale = 2, nullable = false)
     @NotNull
     @Builder.Default
-    private BigDecimal swsClaimedDgft = BigDecimal.ZERO;
+    private BigDecimal swsClaimed = BigDecimal.ZERO;
 
     @Column(name = "add_claimed_dgft", precision = 18, scale = 2, nullable = false)
     @NotNull
     @Builder.Default
-    private BigDecimal addClaimedDgft = BigDecimal.ZERO;
+    private BigDecimal addClaimed = BigDecimal.ZERO;
 
     @Column(name = "opening_balance_qty_def", precision = 18, scale = 6)
     private BigDecimal openingBalanceQtyDef;

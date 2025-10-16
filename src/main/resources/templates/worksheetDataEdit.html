@@ -410,6 +410,9 @@
 																		<th>Opening</th>
 																		<th>Used</th>
 																		<th>Closing</th>
+																		<th>Claim Ref</th>
+																		<th>Claim Year</th>
+																		<th>Import ID</th>
 																	</tr>
 																</thead>
 																<tbody>
@@ -456,7 +459,7 @@
 																				th:text="${#numbers.formatDecimal(detail.importData.assessableValue, 0, 'COMMA', 2, 'POINT')}"
 																				data-field="cifValue"></td>
 																			<td contenteditable="false"
-																				data-field="perQtyCIF"></td>
+																				data-field="perQtyCif"></td>
 																			<td contenteditable="true"
 																				th:text="${#numbers.formatDecimal(detail.importData.bcd, 0, 'COMMA', 2, 'POINT')}"
 																				data-field="bcd"></td>
@@ -483,14 +486,27 @@
 																			<td contenteditable="false"
 																				data-field="addClaimed"></td>
 																			<td contenteditable="true"
-																				th:text="${#numbers.formatDecimal(detail.importData.qtyOpeningBalance, 0, 'COMMA', 2, 'POINT')}"
-																				data-field="opening"></td>
+																				data-field="openingBalanceQtyDef"
+																				th:text="${#numbers.formatDecimal(detail.importData.closingBalance, 0, 'COMMA', 2, 'POINT')}">
+																			</td>
 																			<td contenteditable="true"
-																				th:text="${#numbers.formatDecimal(detail.importData.qtyUsed, 0, 'COMMA', 2, 'POINT')}"
-																				data-field="used"></td>
-																			<td contenteditable="true" 
-																			th:text="${#numbers.formatDecimal(detail.importData.closingBalance, 0, 'COMMA', 2, 'POINT')}"
-																				data-field="closing"></td>
+																				data-field="qtyUsedDef"></td>
+																			<td contenteditable="true"
+																				th:text="${#numbers.formatDecimal(detail.importData.closingBalance, 0, 'COMMA', 2, 'POINT')}"
+																				data-field="closingBalanceDef"></td>
+
+																			<td contenteditable="true"
+																				th:text="${detail.importData.claimRefNo}"
+																				data-field="claimRefNo"></td>
+
+																			<td contenteditable="true"
+																				th:text="${detail.importData.claimYear}"
+																				data-field="claimYear"></td>
+
+																			<td contenteditable="false"
+																				th:text="${detail.importData.importId}"
+																				data-field="importId"></td>
+
 																		</tr>
 																		<tr th:id="'exportModelsRow' + ${stat.index}"
 																			class="export-models-row"
@@ -510,6 +526,7 @@
 																								</button>
 
 																							</th>
+																							<th>BOM ExportID</th>
 																							<th>Export Model</th>
 																							<th>Used
 																								Quantity</th>
@@ -522,6 +539,10 @@
 																						<tr
 																							th:each="em : ${detail.exportModels}">
 																							<td></td>
+																							<td contenteditable="true"
+																								th:text="${em.id}"
+																								data-field="bomExportModelId">
+																							</td>
 																							<td contenteditable="true"
 																								th:text="${em.modelNo}"
 																								data-field="modelNo">
@@ -594,6 +615,242 @@
 	</div>
 
 	<script>
+		document.getElementById('saveBtn').addEventListener('click', async function () {
+			const worksheetList = [];
+			const rows = document.querySelectorAll('#worksheetTable tbody > tr:not(.export-models-row)');
+
+			// Function to convert dd-MM-yyyy to yyyy-MM-dd ISO
+			function convertToISODate(str) {
+				const parts = str?.split('-');
+				if (parts?.length === 3) {
+					return `${parts[2]}-${parts[1]}-${parts[0]}`;
+				}
+				return str;
+			}
+
+			rows.forEach(row => {
+				const worksheet = {};
+				worksheet.beNo = row.querySelector('[data-field=beNo]')?.innerText.trim() || null;
+				worksheet.claimYear = row.querySelector('[data-field=claimYear]')?.innerText.trim() || null;
+				worksheet.claimRefNo = row.querySelector('[data-field=claimRefNo]')?.innerText.trim() || null;
+				worksheet.beDate = convertToISODate(row.querySelector('[data-field=beDate]')?.innerText.trim()) || null;
+				worksheet.itemDescription = row.querySelector('[data-field=itemDescription]')?.innerText.trim() || null;
+				worksheet.bomPartNo = row.querySelector('[data-field=bomPartNo]')?.innerText.trim() || null;
+				worksheet.dbkPartNo = row.querySelector('[data-field=dbkPartNo]')?.innerText.trim() || null;
+				worksheet.importQty = parseFloat(row.querySelector('[data-field=importQty]')?.innerText.replace(/,/g, '')) || 0;
+				worksheet.uom = row.querySelector('[data-field=uom]')?.innerText.trim() || null;
+				worksheet.assessableValue = parseFloat(row.querySelector('[data-field=assessableValue]')?.innerText.replace(/,/g, '')) || 0;
+				worksheet.cifValue = parseFloat(row.querySelector('[data-field=cifValue]')?.innerText.replace(/,/g, '')) || 0;
+				worksheet.perQtyCif = parseFloat(row.querySelector('[data-field=perQtyCif]')?.innerText.replace(/,/g, '')) || 0;
+				worksheet.bcd = parseFloat(row.querySelector('[data-field=bcd]')?.innerText.replace(/,/g, '')) || 0;
+				worksheet.sws = parseFloat(row.querySelector('[data-field=sws]')?.innerText.replace(/,/g, '')) || 0;
+				worksheet.addDuty = parseFloat(row.querySelector('[data-field=addDuty]')?.innerText.replace(/,/g, '')) || 0;
+				worksheet.totalDuty = parseFloat(row.querySelector('[data-field=totalDuty]')?.innerText.replace(/,/g, '')) || 0;
+				worksheet.dutyPerQty = parseFloat(row.querySelector('[data-field=dutyPerQty]')?.innerText.replace(/,/g, '')) || 0;
+				worksheet.usedQtyTotal = parseFloat(row.querySelector('[data-field=usedQtyTotal]')?.innerText.replace(/,/g, '')) || 0;
+				worksheet.dutyClaimedTotal = parseFloat(row.querySelector('[data-field=dutyClaimed]')?.innerText.replace(/,/g, '')) || 0;
+				worksheet.cifClaimedTotal = parseFloat(row.querySelector('[data-field=cifClaimed]')?.innerText.replace(/,/g, '')) || 0;
+				worksheet.bcdClaimed = parseFloat(row.querySelector('[data-field=bcdClaimed]')?.innerText.replace(/,/g, '')) || 0;
+				worksheet.swsClaimed = parseFloat(row.querySelector('[data-field=swsClaimed]')?.innerText.replace(/,/g, '')) || 0;
+				worksheet.addClaimed = parseFloat(row.querySelector('[data-field=addClaimed]')?.innerText.replace(/,/g, '')) || 0;
+				worksheet.openingBalanceQtyDef = parseFloat(row.querySelector('[data-field=openingBalanceQtyDef]')?.innerText.replace(/,/g, '')) || 0;
+				worksheet.qtyUsedDef = parseFloat(row.querySelector('[data-field=qtyUsedDef]')?.innerText.replace(/,/g, '')) || 0;
+				worksheet.closingBalanceDef = parseFloat(row.querySelector('[data-field=closingBalanceDef]')?.innerText.replace(/,/g, '')) || 0;
+				const importIdTextRaw = row.querySelector('[data-field=importId]')?.innerText || '';
+				const importIdText = importIdTextRaw.trim().replace(/,/g, '');
+				worksheet.importId = importIdText && !isNaN(importIdText) && parseInt(importIdText) > 0
+					? parseInt(importIdText)
+					: null;
+
+
+				// Collect nested export models
+				const exportModels = [];
+				const button = row.querySelector('button[data-index]');
+				const statIndex = button ? button.getAttribute('data-index') : null;
+				if (statIndex) {
+					const exportModelsRow = document.getElementById('exportModelsRow' + statIndex);
+					if (exportModelsRow) {
+						const emRows = exportModelsRow.querySelectorAll('tbody tr');
+
+						emRows.forEach(emRow => {
+						  // Read raw text for bomExportModelId and modelNo
+						  const bomIdRaw = emRow.querySelector('[data-field=bomExportModelId]')?.innerText.trim();
+						  const modelNoRaw = emRow.querySelector('[data-field=modelNo]')?.innerText.trim();
+
+						  // Skip export model if either critical field is missing or empty
+						  if (!bomIdRaw || !modelNoRaw) {
+						    console.warn('Skipping export model with missing bomId or modelNo', { bomIdRaw, modelNoRaw });
+						    return; // skip pushing this export model
+						  }
+
+						  // Construct export model object with parsed and trimmed values
+						  const exportModel = {};
+						  exportModel.bomExportModelId = parseInt(bomIdRaw) || null;
+						  exportModel.modelNo = modelNoRaw;
+						  exportModel.emUsedQty = parseFloat(emRow.querySelector('[data-field=emUsedQty]')?.innerText.replace(/,/g, '')) || 0;
+						  exportModel.dutyClaimed = parseFloat(emRow.querySelector('[data-field=emDutyClaimed]')?.innerText.replace(/,/g, '')) || 0;
+						  exportModel.cifClaimed = parseFloat(emRow.querySelector('[data-field=emCIFClaimed]')?.innerText.replace(/,/g, '')) || 0;
+
+						  // Add valid export model to the array
+						  exportModels.push(exportModel);
+						});
+
+					}
+				}
+				worksheet.exportModels = exportModels;
+
+				console.log("Payload being sent:", JSON.stringify(worksheetList, null, 2));
+
+				if (worksheet.importId !== null) {
+					worksheetList.push(worksheet);
+				} else {
+					console.warn('Skipping worksheet with null or invalid importId:', worksheet);
+				}
+			});
+
+			try {
+				// 1. Save data to backend
+				const response = await fetch('/worksheet/saveBulk', {
+					method: 'POST',
+					headers: {'Content-Type': 'application/json'},
+					body: JSON.stringify(worksheetList)
+				});
+
+				if (!response.ok) {
+					alert('Save failed');
+					return;
+				}
+
+				alert('Save successful');
+
+				// 2. Generate and download Excel file
+				generateExcelFile();
+				window.location.href = '/index';
+
+			} catch (error) {
+				console.error('Save error:', error);
+				alert('Error saving data');
+			}
+		});
+
+		// Excel generation can be extracted to a function and called after save success
+		function generateExcelFile() {
+			const baseColumns = [
+				'Sr No.', 'BE No', 'BE Date', 'Item Description', 'BOM Part No', 'DBK Part No.',
+				'Import Qty', 'UOM', 'Assessable Value', 'CIF Value', 'Per Qty CIF', 'BCD',
+				'SWS', 'Add Duty', 'Total Duty', 'Duty Per Qty', 'Used Qty(Total)', 'Duty Claimed(Total)',
+				'CIF Claimed(Total)', 'BCD Claimed(DGFT)', 'SWS Claimed(DGFT)', 'ADD Claimed(DGFT)',
+				'Opening', 'Used', 'Closing'
+			];
+
+			const headerKeyMap = {
+				'Sr No.': 'srNo',
+				'BE No': 'beNo',
+				'BE Date': 'beDate',
+				'Item Description': 'itemDescription',
+				'BOM Part No': 'bomPartNo',
+				'DBK Part No.': 'dbkPartNo',
+				'Import Qty': 'importQty',
+				'UOM': 'uom',
+				'Assessable Value': 'assessableValue',
+				'CIF Value': 'cifValue',
+				'Per Qty CIF': 'perQtyCif',
+				'BCD': 'bcd',
+				'SWS': 'sws',
+				'Add Duty': 'addDuty',
+				'Total Duty': 'totalDuty',
+				'Duty Per Qty': 'dutyPerQty',
+				'Used Qty(Total)': 'usedQtyTotal',
+				'Duty Claimed(Total)': 'dutyClaimed',
+				'CIF Claimed(Total)': 'cifClaimed',
+				'BCD Claimed(DGFT)': 'bcdClaimed',
+				'SWS Claimed(DGFT)': 'swsClaimed',
+				'ADD Claimed(DGFT)': 'addClaimed',
+				'Opening': 'openingBalanceQtyDef',
+				'Used': 'qtyUsedDef',
+				'Closing': 'closingBalanceDef'
+			};
+
+			const importRows = document.querySelectorAll('tbody > tr[id^="importRow"]');
+
+			// Collect all unique export model names
+			const exportModelsSet = new Set();
+			importRows.forEach(row => {
+				const exportModelsRow = row.nextElementSibling;
+				if (exportModelsRow && exportModelsRow.classList.contains('export-models-row')) {
+					exportModelsRow.querySelectorAll('tbody tr').forEach(emRow => {
+						const modelNo = emRow.querySelector('td[data-field="modelNo"]')?.textContent.trim();
+						if (modelNo) exportModelsSet.add(modelNo);
+					});
+				}
+			});
+			const exportModelNames = Array.from(exportModelsSet);
+
+			// Construct headers for Excel file
+			const firstHeaderRow = new Array(baseColumns.length).fill('');
+			exportModelNames.forEach(model => {
+				firstHeaderRow.push(model, '', '');
+			});
+
+			const secondHeaderRow = baseColumns.slice();
+			exportModelNames.forEach(() => {
+				secondHeaderRow.push('Used Quantity', 'Duty Claimed', 'CIF Claimed');
+			});
+
+			const rowsData = [];
+
+			importRows.forEach(row => {
+				const rowData = [];
+
+				const getCellText = (field) => {
+					const cell = row.querySelector(`td[data-field="${field}"]`);
+					return cell ? cell.textContent.trim() : '';
+				};
+
+				// Add base columns
+				baseColumns.forEach(header => {
+					const key = headerKeyMap[header];
+					const value = getCellText(key);
+					rowData.push(value || '0');
+				});
+
+				// Add export model data
+				const usageMap = {};
+				const exportModelsRow = row.nextElementSibling;
+				if (exportModelsRow && exportModelsRow.classList.contains('export-models-row')) {
+					exportModelsRow.querySelectorAll('tbody tr').forEach(emRow => {
+						const modelNo = emRow.querySelector('td[data-field="modelNo"]')?.textContent.trim();
+						const usedQty = emRow.querySelector('td[data-field="emUsedQty"]')?.textContent.trim() || '0';
+						const dutyClaimed = emRow.querySelector('td[data-field="emDutyClaimed"]')?.textContent.trim() || '0';
+						const cifClaimed = emRow.querySelector('td[data-field="emCIFClaimed"]')?.textContent.trim() || '0';
+						usageMap[modelNo] = {usedQty, dutyClaimed, cifClaimed};
+					});
+				}
+
+				exportModelNames.forEach(model => {
+					if (usageMap[model]) {
+						rowData.push(usageMap[model].usedQty, usageMap[model].dutyClaimed, usageMap[model].cifClaimed);
+					} else {
+						rowData.push('0', '0', '0');
+					}
+				});
+
+				rowsData.push(rowData);
+			});
+
+			const sheetData = [firstHeaderRow, secondHeaderRow, ...rowsData];
+
+			const worksheet = XLSX.utils.aoa_to_sheet(sheetData);
+			const workbook = XLSX.utils.book_new();
+			XLSX.utils.book_append_sheet(workbook, worksheet, 'Worksheet');
+
+			XLSX.writeFile(workbook, 'WorksheetExport.xlsx');
+		}
+
+	</script>
+
+
+	<script>
 		(() => {
 			// Selectors for rows and classes
 			const selectors = {
@@ -625,6 +882,8 @@
 					const emUsedQty = parseSafe(emRow.querySelector('td[data-field="emUsedQty"]')?.textContent || '0');
 					usedQtyTotal += emUsedQty;
 
+
+
 					const emDutyClaimed = emUsedQty * (importQty ? totalDuty / importQty : 0);
 					const emCIFClaimed = emUsedQty * assessableVal;
 
@@ -651,12 +910,20 @@
 				const sws = parseSafe(getCell(row, 'sws')?.textContent || '0');
 				const addDuty = parseSafe(getCell(row, 'addDuty')?.textContent || '0');
 
-				setCell(row, 'perQtyCIF', assessableVal * importQty);
+				setCell(row, 'perQtyCif', assessableVal * importQty);
 
 				const totalDuty = bcd + sws + addDuty;
 				setCell(row, 'totalDuty', totalDuty);
 
 				setCell(row, 'dutyPerQty', importQty ? totalDuty / importQty : 0);
+
+				// Get opening and used values:
+				const openingBalanceQtyDef = parseSafe(getCell(row, 'openingBalanceQtyDef')?.textContent || '0');
+				const qtyUsedDef = parseSafe(getCell(row, 'qtyUsedDef')?.textContent || '0');
+
+				// Calculate and set closingBalanceDef:
+				setCell(row, 'closingBalanceDef', openingBalanceQtyDef - qtyUsedDef);
+
 
 				// Get export models row
 				const exportModelsRow = row.nextElementSibling;
@@ -666,11 +933,13 @@
 					const exportRows = exportModelsRow.querySelectorAll('tbody tr:not(:empty)');
 					const totals = calcExportModelTotals(exportRows, importQty, totalDuty, assessableVal);
 					usedQtyTotal = totals.usedQtyTotal;
+
 					dutyClaimedTotal = totals.dutyClaimedTotal;
 					cifClaimedTotal = totals.cifClaimedTotal;
 				}
 
 				setCell(row, 'usedQtyTotal', usedQtyTotal);
+				setCell(row, 'qtyUsedDef', usedQtyTotal);
 				setCell(row, 'dutyClaimed', dutyClaimedTotal);
 				setCell(row, 'cifClaimed', cifClaimedTotal);
 
@@ -718,8 +987,9 @@
 				const newRow = document.createElement('tr');
 				newRow.innerHTML = `
 		      <td></td>
+			  <td contenteditable="true" data-field="bomExportModelId">1</td>
 		      <td contenteditable="true" data-field="modelNo">0</td>
-		      <td contenteditable="true" class="text-end" data-field="emUsedQty">0.000</td>
+		      <td contenteditable="true" class="text-end" data-field="emUsedQty">0</td>
 		      <td contenteditable="false" data-field="emDutyClaimed"></td>
 		      <td contenteditable="false" data-field="emCIFClaimed"></td>
 		      <td>
@@ -773,161 +1043,10 @@
 
 
 	<script>
-		function updateInputType() {
-			var field = document.getElementById('filterField').value;
-			var input = document.getElementById('filterValue');
-			if (field === 'sbDateFrom' || field === 'sbDateTo') {
-				input.type = 'date';
-				input.placeholder = '';
-			} else {
-				input.type = 'text';
-				input.placeholder = 'Value';
-			}
-		}
-		// Optionally, call on page load if preselected
-		document.addEventListener("DOMContentLoaded", function () {
-			updateInputType();
-		});
+	
 	</script>
 
-	<script>
-		const baseColumns = [
-		  'Sr No.', 'BE No', 'BE Date', 'Item Description', 'BOM Part No', 'DBK Part No.',
-		  'Import Qty', 'UOM', 'Assessable Value', 'CIF Value', 'Per Qty CIF', 'BCD',
-		  'SWS', 'Add Duty', 'Total Duty', 'Duty Per Qty', 'Used Qty(Total)', 'Duty Claimed(Total)',
-		  'CIF Claimed(Total)', 'BCD Claimed(DGFT)', 'SWS Claimed(DGFT)', 'ADD Claimed(DGFT)',
-		  'Opening', 'Used', 'Closing'
-		];
 
-		const headerKeyMap = {
-		  'Sr No.': 'srNo',
-		  'BE No': 'beNo',
-		  'BE Date': 'beDate',
-		  'Item Description': 'itemDescription',
-		  'BOM Part No': 'bomPartNo',
-		  'DBK Part No.': 'dbkPartNo',
-		  'Import Qty': 'importQty',
-		  'UOM': 'uom',
-		  'Assessable Value': 'assessableValue',
-		  'CIF Value': 'cifValue',
-		  'Per Qty CIF': 'perQtyCIF',
-		  'BCD': 'bcd',
-		  'SWS': 'sws',
-		  'Add Duty': 'addDuty',
-		  'Total Duty': 'totalDuty',
-		  'Duty Per Qty': 'dutyPerQty',
-		  'Used Qty(Total)': 'usedQtyTotal',
-		  'Duty Claimed(Total)': 'dutyClaimed',
-		  'CIF Claimed(Total)': 'cifClaimed',
-		  'BCD Claimed(DGFT)': 'bcdClaimed',
-		  'SWS Claimed(DGFT)': 'swsClaimed',
-		  'ADD Claimed(DGFT)': 'addClaimed',
-		  'Opening': 'opening',
-		  'Used': 'used',
-		  'Closing': 'closing'
-		};
-
-		document.getElementById('saveBtn').addEventListener('click', () => {
-		  const importRows = document.querySelectorAll('tbody > tr[id^="importRow"]');
-
-		  // Collect all unique export model names
-		  const exportModelsSet = new Set();
-		  importRows.forEach(row => {
-		    const exportModelsRow = row.nextElementSibling;
-		    if (exportModelsRow && exportModelsRow.classList.contains('export-models-row')) {
-		      exportModelsRow.querySelectorAll('tbody tr').forEach(emRow => {
-		        const modelNo = emRow.querySelector('td[data-field="modelNo"]')?.textContent.trim();
-		        if (modelNo) exportModelsSet.add(modelNo);
-		      });
-		    }
-		  });
-		  const exportModelNames = Array.from(exportModelsSet);
-
-		  // Construct first header row: blank for base columns + export model names for their sub-columns
-		  const firstHeaderRow = new Array(baseColumns.length).fill('');
-		  exportModelNames.forEach(model => {
-		    firstHeaderRow.push(model);
-		    firstHeaderRow.push('');
-		    firstHeaderRow.push('');
-		  });
-
-		  // Construct second header row: base columns + "Used Quantity", "Duty Claimed", "CIF Claimed" for each export model
-		  const secondHeaderRow = baseColumns.slice();
-		  exportModelNames.forEach(() => {
-		    secondHeaderRow.push('Used Quantity');
-		    secondHeaderRow.push('Duty Claimed');
-		    secondHeaderRow.push('CIF Claimed');
-		  });
-
-		  const rowsData = [];
-
-		  importRows.forEach(row => {
-		    const rowData = [];
-
-		    // Helper for base columns data
-		    const getCellText = (field) => {
-		      const cell = row.querySelector(`td[data-field="${field}"]`);
-		      return cell ? cell.textContent.trim() : '';
-		    };
-
-		    // Add base columns to data row
-		    baseColumns.forEach(header => {
-		      const key = headerKeyMap[header];
-		      const value = getCellText(key);
-		      rowData.push(value || '0');
-		    });
-
-		    // Map export model usage for this row
-		    const usageMap = {};
-		    const exportModelsRow = row.nextElementSibling;
-		    if (exportModelsRow && exportModelsRow.classList.contains('export-models-row')) {
-		      exportModelsRow.querySelectorAll('tbody tr').forEach(emRow => {
-		        const modelNo = emRow.querySelector('td[data-field="modelNo"]')?.textContent.trim();
-		        const usedQty = emRow.querySelector('td[data-field="emUsedQty"]')?.textContent.trim() || '0';
-		        const dutyClaimed = emRow.querySelector('td[data-field="emDutyClaimed"]')?.textContent.trim() || '0';
-		        const cifClaimed = emRow.querySelector('td[data-field="emCIFClaimed"]')?.textContent.trim() || '0';
-		        usageMap[modelNo] = { usedQty, dutyClaimed, cifClaimed };
-		      });
-		    }
-
-		    // Add export model data columns for this row; fill '0' if missing
-		    exportModelNames.forEach(model => {
-		      if (usageMap[model]) {
-		        rowData.push(usageMap[model].usedQty);
-		        rowData.push(usageMap[model].dutyClaimed);
-		        rowData.push(usageMap[model].cifClaimed);
-		      } else {
-		        rowData.push('0');
-		        rowData.push('0');
-		        rowData.push('0');
-		      }
-		    });
-
-		    rowsData.push(rowData);
-		  });
-		  
-		  const yellowFill = {
-		    fill: {
-		      patternType: "solid",
-		      fgColor: { rgb: "FFFF00" } // Yellow color
-		    }
-		  };
-
-		  // Full sheet data with two header rows followed by data rows
-		  const sheetData = [firstHeaderRow, secondHeaderRow, ...rowsData];
-
-		  // Generate worksheet and workbook
-		  const worksheet = XLSX.utils.aoa_to_sheet(sheetData);
-		  const workbook = XLSX.utils.book_new();
-		  XLSX.utils.book_append_sheet(workbook, worksheet, 'Worksheet');
-
-		  // Export Excel file
-		  XLSX.writeFile(workbook, 'WorksheetExport.xlsx');
-		});
-
-
-
-	</script>
 
 
 

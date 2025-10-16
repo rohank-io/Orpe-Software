@@ -87,7 +87,12 @@ public class BomDataController {
 			case "bomPartNo":
 				filterBuilder.bomPartNo(filterValue);
 				break;
-
+			case "clientName":
+				filterBuilder.clientName(filterValue);
+				break;
+			case "status":
+				filterBuilder.status(filterValue);
+				break;	
 			
 			// Add more supported filters here
 			}
