@@ -25,6 +25,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.orpe.consultants.dto.ImportDataDTO;
 import com.orpe.consultants.dto.ImportDataFilter;
 import com.orpe.consultants.dto.WorksheetDTO;
+import com.orpe.consultants.dto.WorksheetDataFilter;
 import com.orpe.consultants.model.ImportData;
 import com.orpe.consultants.model.User;
 import com.orpe.consultants.service.ImportDataService;
@@ -154,6 +155,45 @@ public class WorksheetController {
 	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
 	                             .body("Error during bulk save: " + e.getMessage());
 	    }
+	}
+	
+	
+	@GetMapping("/worksheet/list")
+	public String worksheetdataList(
+	    @RequestParam(required = false) String filterField,
+	    @RequestParam(required = false) String filterValue,
+	    @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fromDate,
+	    @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate toDate,
+	    @RequestParam(defaultValue = "0") int page,
+	    @RequestParam(defaultValue = "100") int size,
+	    HttpSession session,
+	    Model model) {
+
+	    // Authentication check omitted for brevity
+		User loggedInUser = (User) session.getAttribute("loggedInUser");
+        if (loggedInUser == null) {
+            return "redirect:/login";
+        }
+        model.addAttribute("user", loggedInUser);
+
+	    WorksheetDataFilter filter = new WorksheetDataFilter();
+	    filter.setFilterField(filterField);
+	    filter.setFilterValue(filterValue);
+	    filter.setFromDate(fromDate);
+	    filter.setToDate(toDate);
+
+	    Pageable pageable = PageRequest.of(page, size, Sort.by("beDate").descending());
+	    Page<WorksheetDTO> resultPage = worksheetService.search(filter, pageable);
+
+	    model.addAttribute("importDataPage", resultPage);
+	    model.addAttribute("filterField", filterField);
+	    model.addAttribute("filterValue", filterValue);
+	    model.addAttribute("fromDate", fromDate);
+	    model.addAttribute("toDate", toDate);
+	    model.addAttribute("currentPage", page);
+	    model.addAttribute("pageSize", size);
+
+	    return "worksheetDataList";
 	}
 
 

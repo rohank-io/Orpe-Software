@@ -1,16 +1,29 @@
 package com.orpe.consultants.service.impl;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import com.orpe.consultants.dto.BomDataDTO;
+import com.orpe.consultants.dto.BomDataFilter;
+import com.orpe.consultants.dto.ImportDataDTO;
+import com.orpe.consultants.dto.ImportDataFilter;
 import com.orpe.consultants.dto.StockWiseEligibility;
 import com.orpe.consultants.dto.WorksheetDTO;
+import com.orpe.consultants.dto.WorksheetDataFilter;
 import com.orpe.consultants.dto.WorksheetExportModelsDTO;
+import com.orpe.consultants.model.BomData;
 //import com.orpe.consultants.model.BomData;
 import com.orpe.consultants.model.ImportData;
 import com.orpe.consultants.model.Material;
@@ -27,6 +40,7 @@ import com.orpe.consultants.repository.WorksheetExportModelsRepository;
 import com.orpe.consultants.repository.WorksheetRepository;
 import com.orpe.consultants.service.WorksheetService;
 
+import jakarta.persistence.criteria.Predicate;
 import jakarta.transaction.Transactional;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
@@ -159,6 +173,84 @@ public class WorksheetServiceImpl implements WorksheetService {
             }
         }
     }
+    
+    
+    
+    @Override
+    public WorksheetDTO save(WorksheetDTO dto) {
+        Worksheet entity = toEntity(dto);
+        Worksheet saved = worksheetRepository.save(entity);
+        return toDto(saved);
+    }
+
+    @Override
+    public Optional<WorksheetDTO> findById(Long bomId) {
+        return worksheetRepository.findById(bomId)
+                .map(this::toDto);
+    }
+
+    @Override
+    public void deleteById(Long bomId) {
+        bomDataRepository.deleteById(bomId);
+    }
+    
+    @Override
+    public List<WorksheetDTO> findAll() {
+        List<Worksheet> all = worksheetRepository.findAll();
+        List<WorksheetDTO> dtos = new ArrayList<>();
+        for (Worksheet bd : all) {
+            dtos.add(toDto(bd));
+        }
+        return dtos;
+    }
+
+    @Override
+    public Page<WorksheetDTO> search(WorksheetDataFilter filter, Pageable pageable) {
+      Specification<Worksheet> spec = buildSpecification(filter);
+      Page<Worksheet> page = worksheetRepository.findAll(spec, pageable);
+      return page.map(this::toDto);
+    }
+    
+    private Specification<Worksheet> buildSpecification(WorksheetDataFilter filter) {
+	    return (root, query, cb) -> {
+	        List<Predicate> predicates = new ArrayList<>();
+
+	        String field = filter.getFilterField();
+	        String value = filter.getFilterValue();
+
+	        if (field != null && !field.isBlank() && value != null && !value.isBlank()) {
+	            List<String> stringFields = List.of(
+	                "beNo",
+	                "claimYear",
+	                "clientName",
+	                "supplierNameAddress",
+	                "countryOfOrigin",
+	                "bomPartNo",
+	                "dbkPartNo",
+	                "itchsCode",
+	                "portCode",
+	                "claimRefNo"
+	            );
+
+	            if (stringFields.contains(field)) {
+	                predicates.add(cb.like(cb.lower(root.get(field)), "%" + value.toLowerCase() + "%"));
+	            } else if ("stockWiseEligibility".equals(field)) {
+	                predicates.add(cb.equal(root.get(field), value));
+	            }
+	        }
+
+	     // Apply date range filtering on beDate independently regardless of filterField
+	        if (filter.getFromDate() != null) {
+	            predicates.add(cb.greaterThanOrEqualTo(root.get("beDate"), filter.getFromDate()));
+	        }
+	        if (filter.getToDate() != null) {
+	            predicates.add(cb.lessThanOrEqualTo(root.get("beDate"), filter.getToDate()));
+	        }
+	        
+
+	        return cb.and(predicates.toArray(new Predicate[0]));
+	    };
+	}
 
 
     
@@ -178,5 +270,29 @@ public class WorksheetServiceImpl implements WorksheetService {
         return modelMapper.map(dto, Worksheet.class);
         // You will need service/repository lookups to populate related entities (importData, material) from ids if saving.
     }
+
+
+
+	@Override
+	public byte[] exportData(WorksheetDataFilter filter) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+	@Override
+	public boolean validate(WorksheetDTO dto) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+
+	@Override
+	public long count(WorksheetDataFilter filter) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
 }

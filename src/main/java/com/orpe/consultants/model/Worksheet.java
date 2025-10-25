@@ -3,6 +3,7 @@ package com.orpe.consultants.model;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -159,4 +160,7 @@ public class Worksheet {
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime createdAt;
+    
+    @OneToMany(mappedBy = "worksheet", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<WorksheetExportModels> exportModels;
 }
