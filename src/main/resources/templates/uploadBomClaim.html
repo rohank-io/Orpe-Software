@@ -337,7 +337,7 @@
 								<div class="page-wrapper">
 									<div class="page-header">
 										<div class="page-header-title">
-											<h3>Export Data Upload</h3>
+											<h3>DBK Data Upload</h3>
 											<span>Extract your Excel Documents</span>
 										</div>
 										<div class="page-header-breadcrumb">
@@ -349,7 +349,7 @@
 												</li>
 												<li class="breadcrumb-item"><a th:href="@{/exceldataimport}">Excel</a>
 												</li>
-												<li class="breadcrumb-item"><a href="#!">Export Data</a>
+												<li class="breadcrumb-item"><a href="#!">Import Data</a>
 												</li>
 
 											</ul>
@@ -385,7 +385,7 @@
 															</div>
 															<div class="card-body">
 																<form id="fileUploadForm" enctype="multipart/form-data"
-																	method="post" action="/exportdata/exportExcel">
+																	method="post" action="/bomclaim/importExcel">
 																	<!-- Drop zone and hidden file input -->
 																	<div class="file-drop-zone"
 																		style="border: 2px dashed #0d6efd; border-radius: 10px; padding: 40px 0; text-align: center; background: #fafbfc; margin: 24px; font-size: 1.1rem; color: #555; cursor: pointer;"
@@ -412,11 +412,11 @@
 														</div>
 
 														<div class="card mt-4"
-															th:if="${exportRows != null or error != null}">
+															th:if="${bomRows != null or error != null}">
 															<div class="card-header">
-																<h5>Export Details</h5>
-																<small th:if="${exportFileName != null}"><span
-																		th:text="${exportFileName}"></span></small>
+																<h5>Import Details</h5>
+																<small th:if="${bomFileName != null}"><span
+																		th:text="${bomFileName}"></span></small>
 																<span class="text-info" th:if="${rowCount != null}">
 																	Parsed <span th:text="${rowCount}"></span> rows
 																</span>
@@ -425,17 +425,27 @@
 																	th:text="${error}"></small>
 															</div>
 															<div class="card-body">
-																<div th:if="${exportRows == null}">
+																<!-- ⚠️ Parse errors (non-fatal row-level issues) -->
+																<div th:if="${parseErrors != null and #lists.size(parseErrors) > 0}"
+																	class="alert alert-warning">
+																	<strong>⚠ Some rows could not be parsed:</strong>
+																	<ul class="mb-0">
+																		<li th:each="err : ${parseErrors}"
+																			th:text="'Sheet ' + ${err.sheetName} + ', Row ' + ${err.rowNumber} + ': ' + ${err.message}">
+																		</li>
+																	</ul>
+																</div>
+																<div th:if="${bomRows == null}">
 																	<em>No data loaded yet. Upload an Excel file and
 																		click Import Excel.</em>
 																</div>
 
-																<div th:if="${exportRows != null}"
-																	class="table-responsive"
+																<div th:if="${bomRows != null}" class="table-responsive"
 																	style="max-height: 520px; overflow:auto;">
-																	<table id="exportTable" style="background-color: #fff; z-index: 1020;"
+																	<table id="bomTable"
 																		class="table table-sm table-striped table-bordered align-middle">
-																		<thead class="table-light sticky-top">
+																		<thead class="table-light sticky-top"
+																			style="background-color: #fff; z-index: 1020;">
 																			<tr>
 																				<th class="text-center">
 																					<input type="checkbox"
@@ -443,55 +453,33 @@
 																						onclick="toggleAll(this)">
 																					<span class="ms-1">Sr No</span>
 																				</th>
-																				<th>SB No</th>
-																				<th>SB Date</th>
-																				<th>Month</th>
-																				<th>YEAR</th>
-																				<th>INVOICE No.</th>
-																				<th>Invoice Date</th>
+																				<!-- Core Header Fields -->
 
-																				<th>Claim Ref. no.</th>
+																				<th>Claim Ref No</th>
 																				<th>Claim Year</th>
-																				<th>Port Code</th>
-																				<th>LEO Date.</th>
-																				<th>HS CD</th>
-																				<th>CUSTOMER NAME</th>
-																				<th>DESCRIPTION</th>
-																				<th>MODEL no.</th>
-																				<th>PRODUCT TYPE</th>
-																				<th class="text-end">QUANTITY</th>
-																				<th>UNIT</th>
-																				<th class="text-end">INVOICE VALUE IN
-																					FCC</th>
-																				<th>CURRENCY</th>
-																				<th class="text-end">FOB INR</th>
-																				<th class="text-end">PMV(per qty)</th>
-																				<th class="text-end">PMV Actual</th>
-																				<th>SCHEME DESCRIPTION</th>
-																				<th>DBK SNO.</th>
-																				<th>DBK Applicability</th>
-																				<th class="text-end">RATE</th>
-																				<th class="text-end">AIR Given in SB
-																				</th>
-																				<th class="text-end">AIR AMOUNT</th>
-																				<th class="text-end">Difference</th>
-																				<th class="text-end">Total DBK</th>
-																				<th class="text-end">SBR</th>
-																				<th>ARO No.</th>
-																				<th>ARO DATE</th>
-																				<th>ARO File NO.</th>
-																				<th>ARO File DATE</th>
-																				<th>BRC no.</th>
-																				<th class="text-end">Net Realised Value
-																				</th>
-																				<th>CURRENCY</th>
-																				<th>SB utilization</th>
+
+																				<th>Material Description</th>
+																				<th>BOM Part No.</th>
+																				<th>Alt BOE Part</th>
+																				<th>DBK Part No.</th>
+																				<th>Imp\Indg</th>
+																				<th>Unit</th>
+																				<th>BOE No</th>
+																				<th>Used QTY</th>
+																				<th>Model No.</th>
+																				<th>SB No.</th>
+
+
+
 																				<th>Client Name</th>
+
+																				<!-- Action -->
 																				<th class="text-center">Action</th>
 																			</tr>
 																		</thead>
 																		<tbody>
-																			<tr th:each="r, rowStat : ${exportRows}">
+																			<tr th:each="r, rowStat : ${bomRows}">
+																				<!-- Select + Sr No -->
 																				<td class="text-center">
 																					<input type="checkbox"
 																						class="row-select"
@@ -499,127 +487,46 @@
 																					<span class="sr-no ms-1"
 																						th:text="${rowStat.index + 1}"></span>
 																				</td>
-																				<td contenteditable="true"
-																					th:text="${r.sbNo}"></td>
-																				<td contenteditable="true"
-																					class="sbDate"
-																					th:text="${#temporals.format(r.sbDate, 'yyyy-MM-dd')}">
-																				</td>
-																				<td class="sbMonth"
-																					contenteditable="false"></td>
-																				<td class="sbYear"
-																					contenteditable="false"></td>
-																				<td contenteditable="true"
-																					th:text="${r.invoiceNo}"></td>
-																				<td contenteditable="true"
-																					th:text="${#temporals.format(r.invoiceDate, 'yyyy-MM-dd')}">
-																				</td>
+
+																				<!-- Core -->
 
 																				<td contenteditable="true"
 																					th:text="${r.claimRefNo}"></td>
 																				<td contenteditable="true"
 																					th:text="${r.claimYear}"></td>
 																				<td contenteditable="true"
-																					th:text="${r.portCode}"></td>
-																				<td contenteditable="true"
-																					th:text="${#temporals.format(r.leoDate, 'yyyy-MM-dd')}">
+																					th:text="${r.materialDescription}">
 																				</td>
 																				<td contenteditable="true"
-																					th:text="${r.hsCode}"></td>
+																					th:text="${r.bomPartNo}"></td>
 																				<td contenteditable="true"
-																					th:text="${r.customerName}"></td>
+																					th:text="${r.altBoePartNo}"></td>
 																				<td contenteditable="true"
-																					th:text="${r.modelDescription}">
-																				</td>
+																					th:text="${r.dbkPartNo}"></td>
 																				<td contenteditable="true"
-																					th:text="${r.modelNo}"></td>
-																				<td contenteditable="true"
-																					th:text="${r.productType}"></td>
-																				<td contenteditable="true"
-																					class="text-end"
-																					th:text="${#numbers.formatDecimal(r.quantity,1,'COMMA',2,'POINT')}">
+																					th:text="${r.importedOrIndigenous}">
 																				</td>
 																				<td contenteditable="true"
 																					th:text="${r.unit}"></td>
 																				<td contenteditable="true"
-																					class="text-end"
-																					th:text="${#numbers.formatDecimal(r.invoiceValueFcc,0,'COMMA',2,'POINT')}">
-																				</td>
+																					th:text="${r.boeNo}"></td>
 																				<td contenteditable="true"
-																					th:text="${r.currencyCode}"></td>
+																					th:text="${r.usedQty}"></td>
 																				<td contenteditable="true"
-																					class="text-end"
-																					th:text="${#numbers.formatDecimal(r.fobInr,0,'COMMA',2,'POINT')}">
-																				</td>
+																					th:text="${r.exportModelNo}"></td>
 																				<td contenteditable="true"
-																					class="text-end"
-																					th:text="${#numbers.formatDecimal(r.pmvPerQty,0,'COMMA',2,'POINT')}">
-																				</td>
+																					th:text="${r.sbNo}"></td>
 																				<td contenteditable="true"
-																					class="text-end"
-																					th:text="${#numbers.formatDecimal(r.pmvActual,0,'COMMA',2,'POINT')}">
-																				</td>
-																				<td contenteditable="true"
-																					th:text="${r.schemeDescription}">
-																				</td>
-																				<td contenteditable="true"
-																					th:text="${r.dbkSno}"></td>
-																				<td contenteditable="true"
-																					th:text="${r.dbkApplicability}">
-																				</td>
-																				<td contenteditable="true"
-																					class="text-end"
-																					th:text="${#numbers.formatDecimal(r.rate,1,'COMMA',6,'POINT')}">
-																				</td>
-																				<td contenteditable="true"
-																					class="text-end"
-																					th:text="${#numbers.formatDecimal(r.airGivenInSb,0,'COMMA',3,'POINT')}">
-																				</td>
-																				<td contenteditable="true"
-																					class="text-end"
-																					th:text="${#numbers.formatDecimal(r.airAmount,0,'COMMA',3,'POINT')}">
-																				</td>
-																				<td contenteditable="true"
-																					class="text-end"
-																					th:text="${#numbers.formatDecimal(r.difference,1,'COMMA',12,'POINT')}">
-																				</td>
-																				<td contenteditable="true"
-																					class="text-end"
-																					th:text="${#numbers.formatDecimal(r.totalDbk,0,'COMMA',6,'POINT')}">
-																				</td>
-																				<td contenteditable="true"
-																					class="text-end"
-																					th:text="${#numbers.formatDecimal(r.sbr,0,'COMMA',6,'POINT')}">
-																				</td>
-																				<td contenteditable="true"
-																					th:text="${r.aroNo}"></td>
-																				<td contenteditable="true"
-																					th:text="${#temporals.format(r.aroDate, 'yyyy-MM-dd')}">
-																				</td>
-																				<td contenteditable="true"
-																					th:text="${r.aroFileNo}"></td>
-																				<td contenteditable="true"
-																					th:text="${#temporals.format(r.aroFileDate, 'yyyy-MM-dd')}">
-																				</td>
-																				<td contenteditable="true"
-																					th:text="${r.brcNo}"></td>
-																				<td contenteditable="true"
-																					class="text-end"
-																					th:text="${#numbers.formatDecimal(r.netRealisedValue,0,'COMMA',6,'POINT')}">
-																				</td>
-																				<td contenteditable="true"
-																					th:text="${r.netRealisedCurrency}">
-																				</td>
-																				<td contenteditable="true"
-																					th:text="${r.sbUtilization}"></td>
-																					<td contenteditable="true"
-																					    th:text="${exportFileName.contains('.') ? exportFileName.substring(0, exportFileName.lastIndexOf('.')) : exportFileName}">
-																					</td>
+																					th:text="${r.clientName}"></td>
 
+
+																				<!-- Action -->
 																				<td class="text-center">
 																					<button type="button"
 																						class="btn btn-sm btn-outline-danger"
-																						onclick="removeRow(this)">Remove</button>
+																						onclick="removeRow(this)">
+																						Remove
+																					</button>
 																				</td>
 																			</tr>
 																		</tbody>
@@ -638,262 +545,13 @@
 
 
 
-														<script>
-															function parseDecimal(txt) {
-																if (txt == null) return null;
-																const n = txt.replace(/,/g, '').trim();
-																return n === '' || isNaN(n) ? null : n;
-															}
-															function parseIntSafe(txt) {
-																const n = (txt || '').trim();
-																return n === '' || isNaN(n) ? null : parseInt(n, 10);
-															}
-															function toIsoLocalDate(txt) {
-																const t = (txt || '').trim();
-																if (!t) return null;
-																if (/^\d{4}-\d{2}-\d{2}$/.test(t)) return t;             // yyyy-MM-dd
-																const m = t.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);         // dd/MM/yyyy
-																if (m) return `${m[3]}-${m[2]}-${m[1]}`;
-																return t; // last-resort; backend may reject
-															}
-															function nth(tr, idx) {
-																return tr.querySelector(`td:nth-child(${idx})`)?.innerText?.trim() || '';
-															}
-
-															async function collectSelectedExportDTO() {
-																const out = [];
-																const rows = document.querySelectorAll('#exportTable tbody tr');
-																rows.forEach(tr => {
-																	const cb = tr.querySelector('input.row-select');
-																	if (!cb || !cb.checked) return;
-
-																	const dto = {
-																		sbNo: nth(tr, 2),
-																		sbDate: toIsoLocalDate(nth(tr, 3)),
-																		sbMonth: nth(tr, 4),
-																		sbYear: nth(tr, 5),
-																		invoiceNo: nth(tr, 6),
-																		invoiceDate: toIsoLocalDate(nth(tr, 7)),
-																		claimRefNo: nth(tr, 8),
-																		claimYear: nth(tr, 9),
-																		portCode: nth(tr, 10),
-																		leoDate: toIsoLocalDate(nth(tr, 11)),
-																		hsCode: nth(tr, 12),
-																		customerName: nth(tr, 13),
-																		modelDescription: nth(tr, 14),
-																		modelNo: nth(tr, 15),
-																		productType: nth(tr, 16),
-																		quantity: parseDecimal(nth(tr, 17)),
-																		unit: nth(tr, 18),
-																		invoiceValueFcc: parseDecimal(nth(tr, 19)),
-																		currencyCode: nth(tr, 20),
-																		fobInr: parseDecimal(nth(tr, 21)),
-																		pmvPerQty: parseDecimal(nth(tr, 22)),
-																		pmvActual: parseDecimal(nth(tr, 23)),
-																		schemeDescription: nth(tr, 24),
-																		dbkSno: nth(tr, 25),
-																		dbkApplicability: nth(tr, 26),
-																		rate: parseDecimal(nth(tr, 27)),
-																		airGivenInSb: parseDecimal(nth(tr, 28)),
-																		airAmount: parseDecimal(nth(tr, 29)),
-																		difference: parseDecimal(nth(tr, 30)),
-																		totalDbk: parseDecimal(nth(tr, 31)),
-																		sbr: parseDecimal(nth(tr, 32)),
-																		aroNo: nth(tr, 33),
-																		aroDate: toIsoLocalDate(nth(tr, 34)),
-																		aroFileNo: nth(tr, 35),
-																		aroFileDate: toIsoLocalDate(nth(tr, 36)),
-																		brcNo: nth(tr, 37),
-																		netRealisedValue: parseDecimal(nth(tr, 38)),
-																		netRealisedCurrency: nth(tr, 39),
-																		sbUtilization: nth(tr, 40),
-																		clientName: nth(tr,41)
-																	};
-																	out.push(dto);
-																});
-																return out;
-															}
-
-															async function saveSelectedExport() {
-																const btn = document.getElementById('saveBtn');
-																const loader = document.querySelector('.theme-loader');
-																btn.style.display = 'none';
-																if (loader) loader.style.display = 'block';
-
-																const rows = await collectSelectedExportDTO();
-																if (!rows.length) {
-																	alert('Please select at least one row.');
-																	btn.style.display = '';
-																	if (loader) loader.style.display = 'none';
-																	return;
-																}
-																try {
-																	const resp = await fetch('/exportdata/bulk-save', {
-																		method: 'POST',
-																		headers: {'Content-Type': 'application/json'},
-																		body: JSON.stringify(rows)
-																	});
-																	if (!resp.ok) throw new Error(await resp.text());
-																	const res = await resp.json();
-																	alert(`Saved ${res.savedCount} rows.`);
-																	window.location.href = '/exportdata/list';
-																} catch (e) {
-																	console.error(e);
-																	alert('Save failed: ' + e.message);
-																	btn.style.display = '';
-																	if (loader) loader.style.display = 'none';
-																}
-															}
-
-															// Hook up the save button when ready
-															document.addEventListener('DOMContentLoaded', function () {
-																const btn = document.getElementById('saveBtn');
-																if (btn) {
-																	btn.addEventListener('click', saveSelectedExport);
-																}
-															});
-														</script>
 
 
-														<script>
-															document.addEventListener('DOMContentLoaded', () => {
-																const table = document.getElementById("exportTable");
-
-																function updateMonthYear(row, dateCellClass, monthCellClass, yearCellClass) {
-																	const dateCell = row.querySelector(`.${dateCellClass}`);
-																	const monthCell = row.querySelector(`.${monthCellClass}`);
-																	const yearCell = row.querySelector(`.${yearCellClass}`);
-
-																	if (!dateCell || !monthCell || !yearCell) return;
-
-																	const doUpdate = () => {
-																		const dateStr = dateCell.innerText.trim();
-																		const dateObj = new Date(dateStr);
-
-																		if (dateObj.toString() !== "Invalid Date") {
-																			const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
-																				"Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-																			monthCell.innerText = monthNames[dateObj.getMonth()];
-																			yearCell.innerText = dateObj.getFullYear().toString().slice(-2);
-																		} else {
-																			monthCell.innerText = "";
-																			yearCell.innerText = "";
-																		}
-																	};
-
-																	// Bind multiple events to ensure input is caught on different browsers for contenteditable cells
-																	['input', 'keyup', 'blur'].forEach(evt => {
-																		dateCell.addEventListener(evt, doUpdate);
-																	});
-
-																	// Run update once initially to fill month/year from existing date
-																	doUpdate();
-																}
-
-																const rows = table.querySelectorAll('tbody tr');
-																rows.forEach(row => {
-																	updateMonthYear(row, "sbDate", "sbMonth", "sbYear");
-																});
-															});
-
-														</script>
-														
-														<script>
-															document.addEventListener('DOMContentLoaded', () => {
-															    const table = document.getElementById("exportTable");
-
-															    // Utility to parse numbers removing commas and handling empty values
-															    function parseNumber(text) {
-															        if (!text) return 0;
-															        text = text.replace(/,/g, '');
-															        let num = parseFloat(text);
-															        return isNaN(num) ? 0 : num;
-															    }
-
-															    // Utility to format decimal with your formatting: 1 decimal, comma thousands, point decimal
-															    function formatDecimal(num, decimals = 1) {
-															        return num.toLocaleString('en-IN', {
-															            minimumFractionDigits: decimals,
-															            maximumFractionDigits: decimals
-															        });
-															    }
-
-															    // Recalculate all computed columns for a given row element
-															    function recalculateRow(row) {
-															        const qtyCell = row.querySelector('td:nth-child(17)');       // Quantity
-															        const pmvPerQtyCell = row.querySelector('td:nth-child(22)'); // PMV Per Qty
-															        const pmvActualCell = row.querySelector('td:nth-child(23)'); // PMV Actual
-
-															        const fobInrCell = row.querySelector('td:nth-child(21)');    // FOB INR
-															        const rateCell = row.querySelector('td:nth-child(27)');      // RATE
-															        const airGivenCell = row.querySelector('td:nth-child(28)');  // AIR Given in SB
-															        const airAmountCell = row.querySelector('td:nth-child(29)'); // AIR Amount
-
-															        const differenceCell = row.querySelector('td:nth-child(30)');// Difference
-
-															        const dbkSnoCell = row.querySelector('td:nth-child(25)');    // DBK SNO
-															        const dbkApplicabilityCell = row.querySelector('td:nth-child(26)'); // DBK Applicability
-
-															        const totalDbkCell = row.querySelector('td:nth-child(31)');  // Total DBK
-															        const sbrCell = row.querySelector('td:nth-child(32)');       // SBR
-
-															        // Calculate PMV Actual = PMV Per Qty * Quantity
-															        let quantity = parseNumber(qtyCell.innerText);
-															        let pmvPerQty = parseNumber(pmvPerQtyCell.innerText);
-															        let pmvActual = pmvPerQty * quantity;
-															        pmvActualCell.innerText = formatDecimal(pmvActual, 1);
-
-															        // Calculate AIR Amount = FOB INR * RATE
-															        let fobInr = parseNumber(fobInrCell.innerText);
-															        let rate = parseNumber(rateCell.innerText);
-															        let airAmount = fobInr * rate;
-															        airAmountCell.innerText = formatDecimal(airAmount, 3);
-
-															        // Calculate Difference = AIR Given in SB - AIR Amount
-															        let airGiven = parseNumber(airGivenCell.innerText);
-															        let difference = airGiven - airAmount;
-															        differenceCell.innerText = formatDecimal(difference, 1);
-
-															        // Calculate DBK Applicability = YES if DBK SNO = 98078483B else NO
-															        let dbkSno = dbkSnoCell.innerText.trim();
-															        dbkApplicabilityCell.innerText = (dbkSno === "98078483B") ? "YES" : "NO";
-
-															        // Calculate SBR = Total DBK - AIR Amount
-															        let totalDbk = parseNumber(totalDbkCell.innerText);
-															        let sbr = totalDbk - airAmount;
-															        sbrCell.innerText = formatDecimal(sbr, 1);
-															    }
-
-															    // Bind recalculate to contenteditable fields which affect calculations,
-															    // i.e. Quantity, PMV Per Qty, FOB INR, RATE, AIR Given in SB, DBK SNO, Total DBK
-															    function bindRecalculate(row) {
-															        ['td:nth-child(17)', 'td:nth-child(22)', 'td:nth-child(21)', 'td:nth-child(27)', 'td:nth-child(28)', 'td:nth-child(25)', 'td:nth-child(31)'].forEach(selector => {
-															            const cell = row.querySelector(selector);
-															            if (cell) {
-															                ['input', 'blur', 'keyup'].forEach(evt => {
-															                    cell.addEventListener(evt, () => {
-															                        recalculateRow(row);
-															                    });
-															                });
-															            }
-															        });
-															    }
-
-															    // Initial calculation on all rows and bind event listeners
-															    const rows = table.querySelectorAll('tbody tr');
-															    rows.forEach(row => {
-															        recalculateRow(row);
-															        bindRecalculate(row);
-															    });
-															});
-
-															
-														</script>
 
 
 														<script>
 															function toggleAll(master) {
-																const checks = document.querySelectorAll('#exportTable .row-select');
+																const checks = document.querySelectorAll('#bomTable .row-select');
 																checks.forEach(cb => cb.checked = master.checked);
 															}
 
@@ -905,7 +563,7 @@
 															}
 
 															function renumberRows() {
-																const rows = document.querySelectorAll('#exportTable tbody tr');
+																const rows = document.querySelectorAll('#importTable tbody tr');
 																rows.forEach((tr, idx) => {
 																	const sr = tr.querySelector('.sr-no');
 																	if (sr) sr.textContent = idx + 1;
@@ -938,6 +596,93 @@
 																console.log("dashboardEcharts called");
 															}
 														</script>
+
+														<script>
+															function parseDecimal(txt) {
+																if (txt == null) return null;
+																const n = txt.replace(/,/g, '').trim();
+																return n === '' || isNaN(n) ? null : n;
+															}
+
+															function parseIntSafe(txt) {
+																const n = (txt || '').trim();
+																return n === '' || isNaN(n) ? null : parseInt(n, 10);
+															}
+
+															function nth(tr, idx) {
+																return tr.querySelector(`td:nth-child(${idx})`)?.innerText?.trim() || '';
+															}
+
+															// Collect selected table rows as BomClaimDTO objects
+															async function collectSelectedAsDTO() {
+																const out = [];
+																const rows = document.querySelectorAll('#bomTable tbody tr');
+																rows.forEach(tr => {
+																	const cb = tr.querySelector('input.row-select');
+																	if (!cb || !cb.checked) return;
+
+																	const dto = {
+																		// follows your BomClaimDTO fields in order
+																		claimRefNo: nth(tr, 2),
+																		claimYear: nth(tr, 3),
+																		materialDescription: nth(tr, 4),
+																		bomPartNo: nth(tr, 5),
+																		altBoePartNo: nth(tr, 6),
+																		dbkPartNo: nth(tr, 7),
+																		importedOrIndigenous: nth(tr, 8),
+																		unit: nth(tr, 9),
+																		boeNo: nth(tr, 10),
+																		usedQty: parseDecimal(nth(tr, 11)),
+																		exportModelNo: nth(tr, 12),
+																		sbNo: nth(tr, 13),
+																		clientName: nth(tr, 14)
+																	};
+																	out.push(dto);
+																});
+																return out;
+															}
+
+															async function saveSelected() {
+																const btn = document.getElementById('saveBtn');
+																const loader = document.querySelector('.theme-loader');
+
+																// Hide the Save button instantly and show loader
+																if (btn) btn.style.display = 'none';
+																if (loader) loader.style.display = 'block';
+
+																const rows = await collectSelectedAsDTO();
+																if (!rows.length) {
+																	alert('Please select at least one row.');
+																	if (btn) btn.style.display = '';
+																	if (loader) loader.style.display = 'none';
+																	return;
+																}
+
+																try {
+																	const resp = await fetch('/bomclaim/bulk-save', {
+																		method: 'POST',
+																		headers: {'Content-Type': 'application/json'},
+																		body: JSON.stringify(rows)
+																	});
+																	if (!resp.ok) throw new Error(await resp.text());
+
+																	const res = await resp.json();
+																	alert(`✅ Successfully saved ${res.savedCount ?? rows.length} rows.`);
+																	window.location.href = '/index';
+																} catch (e) {
+																	console.error(e);
+																	alert('❌ Save failed: ' + e.message);
+																	if (btn) btn.style.display = '';
+																	if (loader) loader.style.display = 'none';
+																}
+															}
+
+															document.addEventListener('DOMContentLoaded', function () {
+																const btn = document.getElementById('saveBtn');
+																if (btn) btn.addEventListener('click', saveSelected);
+															});
+														</script>
+
 
 													</div>
 												</div>

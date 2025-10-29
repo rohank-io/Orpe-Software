@@ -194,6 +194,14 @@
 											</a>
 										</li>
 
+										<li class=" ">
+											<a th:href="@{/worksheet/list}">
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">Worksheet</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+										</li>
+
 
 
 
@@ -532,6 +540,7 @@
 																								Quantity</th>
 																							<th>Duty Claimed</th>
 																							<th>CIF Claimed</th>
+																							<th>BOM Status</th>
 																							<th>Action</th>
 																						</tr>
 																					</thead>
@@ -558,6 +567,9 @@
 																							<td contenteditable="false"
 																								data-field="emCIFClaimed">
 																							</td>
+																							<td contenteditable="true"
+																								th:text="${em.status}"
+																								>
 																							<td><button type="button"
 																									class="btn btn-sm btn-outline-danger"
 																									onclick="removeRow(this)">Remove</button>
@@ -673,26 +685,26 @@
 						const emRows = exportModelsRow.querySelectorAll('tbody tr');
 
 						emRows.forEach(emRow => {
-						  // Read raw text for bomExportModelId and modelNo
-						  const bomIdRaw = emRow.querySelector('[data-field=bomExportModelId]')?.innerText.trim();
-						  const modelNoRaw = emRow.querySelector('[data-field=modelNo]')?.innerText.trim();
+							// Read raw text for bomExportModelId and modelNo
+							const bomIdRaw = emRow.querySelector('[data-field=bomExportModelId]')?.innerText.trim();
+							const modelNoRaw = emRow.querySelector('[data-field=modelNo]')?.innerText.trim();
 
-						  // Skip export model if either critical field is missing or empty
-						  if (!bomIdRaw || !modelNoRaw) {
-						    console.warn('Skipping export model with missing bomId or modelNo', { bomIdRaw, modelNoRaw });
-						    return; // skip pushing this export model
-						  }
+							// Skip export model if either critical field is missing or empty
+							if (!bomIdRaw || !modelNoRaw) {
+								console.warn('Skipping export model with missing bomId or modelNo', {bomIdRaw, modelNoRaw});
+								return; // skip pushing this export model
+							}
 
-						  // Construct export model object with parsed and trimmed values
-						  const exportModel = {};
-						  exportModel.bomExportModelId = parseInt(bomIdRaw) || null;
-						  exportModel.modelNo = modelNoRaw;
-						  exportModel.emUsedQty = parseFloat(emRow.querySelector('[data-field=emUsedQty]')?.innerText.replace(/,/g, '')) || 0;
-						  exportModel.dutyClaimed = parseFloat(emRow.querySelector('[data-field=emDutyClaimed]')?.innerText.replace(/,/g, '')) || 0;
-						  exportModel.cifClaimed = parseFloat(emRow.querySelector('[data-field=emCIFClaimed]')?.innerText.replace(/,/g, '')) || 0;
+							// Construct export model object with parsed and trimmed values
+							const exportModel = {};
+							exportModel.bomExportModelId = parseInt(bomIdRaw) || null;
+							exportModel.modelNo = modelNoRaw;
+							exportModel.emUsedQty = parseFloat(emRow.querySelector('[data-field=emUsedQty]')?.innerText.replace(/,/g, '')) || 0;
+							exportModel.dutyClaimed = parseFloat(emRow.querySelector('[data-field=emDutyClaimed]')?.innerText.replace(/,/g, '')) || 0;
+							exportModel.cifClaimed = parseFloat(emRow.querySelector('[data-field=emCIFClaimed]')?.innerText.replace(/,/g, '')) || 0;
 
-						  // Add valid export model to the array
-						  exportModels.push(exportModel);
+							// Add valid export model to the array
+							exportModels.push(exportModel);
 						});
 
 					}
@@ -1043,7 +1055,7 @@
 
 
 	<script>
-	
+
 	</script>
 
 

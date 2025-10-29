@@ -94,6 +94,26 @@ public class NavigationController {
     
     
     
+    @GetMapping({"/uploadbomclaim"})
+    public String bomClaimExcelImport(HttpSession session, Model model) {
+        // Check if user is logged in
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+        if (loggedInUser == null) {
+            // User not logged in, redirect to login page
+            log.info("User not authenticated, redirecting to login page");
+            return "redirect:/login";
+        }
+        
+        // User is authenticated, add to model and show index page
+        model.addAttribute("user", loggedInUser);
+       
+        log.debug("User {} accessing index page", loggedInUser.getUsername());
+        return "uploadBomClaim";
+    }
+    
+    
+    
+    
     
     
     

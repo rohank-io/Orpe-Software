@@ -219,6 +219,7 @@ public class BomDataServiceImpl implements BomDataService {
                     .id(em.getId())
                     .modelNo(em.getModelNo())
                     .quantity(em.getQuantity())
+                    .status(em.getStatus())
                     .build();
                 childDtos.add(emDto);
             }

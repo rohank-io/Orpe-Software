@@ -148,180 +148,188 @@
 			<div class="pcoded-main-container">
 				<div class="pcoded-wrapper">
 					<nav class="pcoded-navbar">
-											<div class="sidebar_toggle"><a href="#"><i class="icon-close icons"></i></a></div>
-											<div class="pcoded-inner-navbar main-menu">
+						<div class="sidebar_toggle"><a href="#"><i class="icon-close icons"></i></a></div>
+						<div class="pcoded-inner-navbar main-menu">
 
-												<div class="pcoded-navigatio-lavel">Main</div>
-												<ul class="pcoded-item pcoded-left-item">
-													<li class=" pcoded-trigger ">
-														<a th:href="@{/index}">
-															<span class="pcoded-micon"><i class="ti-comments"></i></span>
-															<span class="pcoded-mtext">Dashboard</span>
-															<span class="pcoded-mcaret"></span>
-														</a>
-													</li>
-												</ul>
-												<ul class="pcoded-item pcoded-left-item">
-													<li class="pcoded-hasmenu">
-														<a href="javascript:void(0)">
-															<span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i></span>
-															<span class="pcoded-mtext">All Data</span>
-															<span class="pcoded-mcaret"></span>
-														</a>
-														<ul class="pcoded-submenu">
-															<li class=" ">
-																<a th:href="@{/importdata/list}">
-																	<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-																	<span class="pcoded-mtext">Import</span>
-																	<span class="pcoded-mcaret"></span>
-																</a>
-															</li>
-															<li class=" ">
-																<a th:href="@{/exportdata/list}">
-																	<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-																	<span class="pcoded-mtext">Export</span>
-																	<span class="pcoded-mcaret"></span>
-																</a>
-															</li>
-															<li class=" ">
-																<a th:href="@{/bomdata/list}">
-																	<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-																	<span class="pcoded-mtext">BOM</span>
-																	<span class="pcoded-mcaret"></span>
-																</a>
-															</li>
-																								
-
-
-															
-
-														</ul>
-													</li>
-													<li class="pcoded-hasmenu">
-														<a href="javascript:void(0)">
-															<span class="pcoded-micon"><i class="ti-crown"></i></span>
-															<span class="pcoded-mtext">Advance Calculations</span>
-															<span class="pcoded-mcaret"></span>
-														</a>
-														<ul class="pcoded-submenu">
-															<li class=" ">
-																<a th:href="@{/worksheet/importdata/select}">
-																	<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-																	<span class="pcoded-mtext">Worksheet</span>
-																	<span class="pcoded-mcaret"></span>
-																</a>
-															</li>
-															<li class=" ">
-																<a href="light-box.html">
-																	<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-																	<span class="pcoded-mtext">SB wise Qty Consumption</span>
-																	<span class="pcoded-mcaret"></span>
-																</a>
-															</li>
-															<li class=" ">
-																<a href="notification.html">
-																	<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-																	<span class="pcoded-mtext">SB wise DBK Calculation</span>
-																	<span class="pcoded-mcaret"></span>
-																</a>
-															</li>
-														</ul>
-													</li>
-													
-												</ul>
-												<div class="pcoded-navigatio-lavel">Data Import </div>
-
-												
-
-												<ul class="pcoded-item pcoded-left-item">
-													<li class="active">
-														<a th:href="@{/exceldataimport}">
-															<span class="pcoded-micon"><i class="ti-receipt"></i></span>
-															<span class="pcoded-mtext">Excel</span>
-															<span class="pcoded-mcaret"></span>
-														</a>
-													</li>
-												</ul>
-												<div class="pcoded-navigatio-lavel">Chart And Reports</div>
-												<ul class="pcoded-item pcoded-left-item">
-													<li>
-														<a href="chart.html">
-															<span class="pcoded-micon"><i class="ti-bar-chart-alt"></i></span>
-															<span class="pcoded-mtext">Chart</span>
-															<span class="pcoded-mcaret"></span>
-														</a>
-													</li>
-												</ul>
+							<div class="pcoded-navigatio-lavel">Main</div>
+							<ul class="pcoded-item pcoded-left-item">
+								<li class=" pcoded-trigger ">
+									<a th:href="@{/index}">
+										<span class="pcoded-micon"><i class="ti-comments"></i></span>
+										<span class="pcoded-mtext">Dashboard</span>
+										<span class="pcoded-mcaret"></span>
+									</a>
+								</li>
+							</ul>
+							<ul class="pcoded-item pcoded-left-item">
+								<li class="pcoded-hasmenu">
+									<a href="javascript:void(0)">
+										<span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i></span>
+										<span class="pcoded-mtext">All Data</span>
+										<span class="pcoded-mcaret"></span>
+									</a>
+									<ul class="pcoded-submenu">
+										<li class=" ">
+											<a th:href="@{/importdata/list}">
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">Import</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+										</li>
+										<li class=" ">
+											<a th:href="@{/exportdata/list}">
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">Export</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+										</li>
+										<li class=" ">
+											<a th:href="@{/bomdata/list}">
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">BOM</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+										</li>
+										
+										<li class=" ">
+																					<a th:href="@{/worksheet/list}">
+																						<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+																						<span class="pcoded-mtext">Worksheet</span>
+																						<span class="pcoded-mcaret"></span>
+																					</a>
+																				</li>
 
 
-												<ul class="pcoded-item pcoded-left-item">
-													<li class="pcoded-hasmenu ">
-														<a href="javascript:void(0)">
-															<span class="pcoded-micon"><i class="icofont icofont-cloud-download"></i></span>
-															<span class="pcoded-mtext">Reports</span>
-															<span class="pcoded-mcaret"></span>
-														</a>
-														<ul class="pcoded-submenu">
-
-															<li class="">
-																<a href="auth-sign-in-social.html" target="_blank">
-																	<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-																	<span class="pcoded-mtext">Report 1</span>
-																	<span class="pcoded-mcaret"></span>
-																</a>
-															</li>
-
-															<li class="">
-																<a href="auth-sign-up-social.html" target="_blank">
-																	<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-																	<span class="pcoded-mtext">Report 2</span>
-																	<span class="pcoded-mcaret"></span>
-																</a>
-															</li>
-															<li class="">
-																<a href="auth-reset-password.html" target="_blank">
-																	<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-																	<span class="pcoded-mtext">Report 3</span>
-																	<span class="pcoded-mcaret"></span>
-																</a>
-															</li>
 
 
-														</ul>
-													</li>
-												</ul>
-												<div class="pcoded-navigatio-lavel">Other</div>
-												<ul class="pcoded-item pcoded-left-item">
-													<li class="pcoded-hasmenu ">
-														<a href="javascript:void(0)">
-															<span class="pcoded-micon"><i class="icofont icofont-businessman"></i></span>
-															<span class="pcoded-mtext">User</span>
-															<span class="pcoded-mcaret"></span>
-														</a>
-														<ul class="pcoded-submenu">
-															<li class="">
-																<a th:href="@{/register}">
-																	<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-																	<span class="pcoded-mtext">Add User</span>
-																	<span class="pcoded-mcaret"></span>
-																</a>
-															</li>
-															<li class="">
-																<a th:href="@{/users}">
-																	<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-																	<span class="pcoded-mtext">User List</span>
-																	<span class="pcoded-mcaret"></span>
-																</a>
 
-															</li>
+									</ul>
+								</li>
+								<li class="pcoded-hasmenu">
+									<a href="javascript:void(0)">
+										<span class="pcoded-micon"><i class="ti-crown"></i></span>
+										<span class="pcoded-mtext">Advance Calculations</span>
+										<span class="pcoded-mcaret"></span>
+									</a>
+									<ul class="pcoded-submenu">
+										<li class=" ">
+											<a th:href="@{/worksheet/importdata/select}">
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">Worksheet</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+										</li>
+										<li class=" ">
+											<a href="light-box.html">
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">SB wise Qty Consumption</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+										</li>
+										<li class=" ">
+											<a href="notification.html">
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">SB wise DBK Calculation</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+										</li>
+									</ul>
+								</li>
+
+							</ul>
+							<div class="pcoded-navigatio-lavel">Data Import </div>
 
 
-														</ul>
-													</li>
-												</ul>
 
-											</div>
-										</nav>
+							<ul class="pcoded-item pcoded-left-item">
+								<li class="active">
+									<a th:href="@{/exceldataimport}">
+										<span class="pcoded-micon"><i class="ti-receipt"></i></span>
+										<span class="pcoded-mtext">Excel</span>
+										<span class="pcoded-mcaret"></span>
+									</a>
+								</li>
+							</ul>
+							<div class="pcoded-navigatio-lavel">Chart And Reports</div>
+							<ul class="pcoded-item pcoded-left-item">
+								<li>
+									<a href="chart.html">
+										<span class="pcoded-micon"><i class="ti-bar-chart-alt"></i></span>
+										<span class="pcoded-mtext">Chart</span>
+										<span class="pcoded-mcaret"></span>
+									</a>
+								</li>
+							</ul>
+
+
+							<ul class="pcoded-item pcoded-left-item">
+								<li class="pcoded-hasmenu ">
+									<a href="javascript:void(0)">
+										<span class="pcoded-micon"><i class="icofont icofont-cloud-download"></i></span>
+										<span class="pcoded-mtext">Reports</span>
+										<span class="pcoded-mcaret"></span>
+									</a>
+									<ul class="pcoded-submenu">
+
+										<li class="">
+											<a href="auth-sign-in-social.html" target="_blank">
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">Report 1</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+										</li>
+
+										<li class="">
+											<a href="auth-sign-up-social.html" target="_blank">
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">Report 2</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+										</li>
+										<li class="">
+											<a href="auth-reset-password.html" target="_blank">
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">Report 3</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+										</li>
+
+
+									</ul>
+								</li>
+							</ul>
+							<div class="pcoded-navigatio-lavel">Other</div>
+							<ul class="pcoded-item pcoded-left-item">
+								<li class="pcoded-hasmenu ">
+									<a href="javascript:void(0)">
+										<span class="pcoded-micon"><i class="icofont icofont-businessman"></i></span>
+										<span class="pcoded-mtext">User</span>
+										<span class="pcoded-mcaret"></span>
+									</a>
+									<ul class="pcoded-submenu">
+										<li class="">
+											<a th:href="@{/register}">
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">Add User</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+										</li>
+										<li class="">
+											<a th:href="@{/users}">
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">User List</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+
+										</li>
+
+
+									</ul>
+								</li>
+							</ul>
+
+						</div>
+					</nav>
 					<div class="pcoded-content">
 						<div class="pcoded-inner-content">
 
@@ -330,7 +338,7 @@
 									<div class="page-header">
 										<div class="page-header-title">
 											<h3>Excel Data Processing Modules</h3>
-											
+
 										</div>
 										<div class="page-header-breadcrumb">
 											<ul class="breadcrumb-title">
@@ -341,121 +349,195 @@
 												</li>
 												<li class="breadcrumb-item"><a href="#!">EXCEL</a>
 												</li>
-												
+
 											</ul>
 										</div>
 									</div>
 									<div class="page-body">
-									    <!-- Profile Header Section (unchanged) -->
-									    <div class="row">
-									        <div class="col-lg-12">
-									            <div class="cover-profile">
-									                <div class="profile-bg-img">
-									                    <img class="profile-bg-img img-fluid" src="/assets/images/user-profile/bg-img1.jpg" alt="bg-img">
-									                    <div class="card-block user-info">
-									                        <div class="col-md-12">
-									                            <div class="media-left"></div>
-									                            <div class="media-body row">
-									                                <div class="col-lg-12">
-									                                    <div class="user-title">
-									                                        
-									                                    </div>
-									                                </div>
-									                                <div>
-									                                    <div class="pull-right cover-btn">
-									                                        
-									                                        <button type="button" onclick="window.history.back()" class="btn btn-primary m-r-10 m-b-5">
-									                                            <i class="icofont icofont-reply"></i> Back
-									                                        </button>
-									                                    </div>
-									                                </div>
-									                            </div>
-									                        </div>
-									                    </div>
-									                </div>
-									            </div>
-									        </div>
-									    </div>
-									    
-									    <!-- Three Processing Cards in a Row -->
+										<!-- Profile Header Section (unchanged) -->
 										<div class="row">
-										  <!-- Import Processing Card -->
-										  <div class="col-sm-4">
-										    <div class="card">
-										      <div class="card-header">
-										        <h5><i class="icofont icofont-download text-primary"></i> Import Processing</h5>
-										        <span>Extract BOE / SEZ BOE data from PDF files</span>
-										        <div class="card-header-right">
-										          <i class="icofont icofont-rounded-down"></i>
-										        </div>
-										      </div>
-										      <div class="card-block">
-										        <ul class="list-unstyled">
-										          <li class="m-b-10"><i class="icofont icofont-tick-mark text-success"></i> BE Header & Item Details</li>
-										          <li class="m-b-10"><i class="icofont icofont-tick-mark text-success"></i> Duties & Taxes (BCD/SWS/ADD/IGST)</li>
-										          <li class="m-b-10"><i class="icofont icofont-tick-mark text-success"></i> Supplier / Port / Country Info</li>
-										          <li class="m-b-10"><i class="icofont icofont-tick-mark text-success"></i> Excel Export</li>
-										        </ul>
-										        <div class="text-center m-t-20">
-										          <a th:href="@{/uploadimport}" class="btn btn-primary btn-block waves-effect waves-light">
-										            <i class="icofont icofont-ui-play"></i> Start Import Processing
-										          </a>
-										        </div>
-										      </div>
-										    </div>
-										  </div>
+											<div class="col-lg-12">
+												<div class="cover-profile">
+													<div class="profile-bg-img">
+														<img class="profile-bg-img img-fluid"
+															src="/assets/images/user-profile/bg-img1.jpg" alt="bg-img">
+														<div class="card-block user-info">
+															<div class="col-md-12">
+																<div class="media-left"></div>
+																<div class="media-body row">
+																	<div class="col-lg-12">
+																		<div class="user-title">
 
-										  <!-- Export Processing Card -->
-										  <div class="col-sm-4">
-										    <div class="card">
-										      <div class="card-header">
-										        <h5><i class="icofont icofont-upload text-primary"></i> Export Processing</h5>
-										        <span>Extract Export Tax Invoice data from PDF files</span>
-										        <div class="card-header-right">
-										          <i class="icofont icofont-rounded-down"></i>
-										        </div>
-										      </div>
-										      <div class="card-block">
-										        <ul class="list-unstyled">
-										          <li class="m-b-10"><i class="icofont icofont-tick-mark text-success"></i> Invoice & Customer Details</li>
-										          <li class="m-b-10"><i class="icofont icofont-tick-mark text-success"></i> Product / Model Information</li>
-										          <li class="m-b-10"><i class="icofont icofont-tick-mark text-success"></i> Financials (FOB/PMV/Currency)</li>
-										          <li class="m-b-10"><i class="icofont icofont-tick-mark text-success"></i> Excel Export</li>
-										        </ul>
-										        <div class="text-center m-t-20">
-										          <a th:href="@{/uploadexport}" class="btn btn-primary btn-block waves-effect waves-light">
-										            <i class="icofont icofont-ui-play"></i> Start Export Processing
-										          </a>
-										        </div>
-										      </div>
-										    </div>
-										  </div>
+																		</div>
+																	</div>
+																	<div>
+																		<div class="pull-right cover-btn">
 
-										  <!-- BOM Processing Card -->
-										  <div class="col-sm-4">
-										    <div class="card">
-										      <div class="card-header">
-										        <h5><i class="icofont icofont-layers text-primary"></i> BOM Processing</h5>
-										        <span>Upload and maintain Model–Material BOM data</span>
-										        <div class="card-header-right">
-										          <i class="icofont icofont-rounded-down"></i>
-										        </div>
-										      </div>
-										      <div class="card-block">
-										        <ul class="list-unstyled">
-										          <li class="m-b-10"><i class="icofont icofont-tick-mark text-success"></i> Model–Material Mapping</li>
-										          <li class="m-b-10"><i class="icofont icofont-tick-mark text-success"></i> Per‑Unit Quantity & Unit</li>
-										          <li class="m-b-10"><i class="icofont icofont-tick-mark text-success"></i> CSV/Excel Upload & Validation</li>
-										          <li class="m-b-10"><i class="icofont icofont-tick-mark text-success"></i> Excel Export</li>
-										        </ul>
-										        <div class="text-center m-t-20">
-										          <a th:href="@{/uploadbom}" class="btn btn-primary btn-block waves-effect waves-light">
-										            <i class="icofont icofont-ui-play"></i> Start BOM Processing
-										          </a>
-										        </div>
-										      </div>
-										    </div>
-										  </div>
+																			<button type="button"
+																				onclick="window.history.back()"
+																				class="btn btn-primary m-r-10 m-b-5">
+																				<i class="icofont icofont-reply"></i>
+																				Back
+																			</button>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<!-- Three Processing Cards in a Row -->
+										<div class="row">
+
+											<div class="col-sm-3">
+												<div class="card">
+													<div class="card-header">
+														<h5><i class="icofont icofont-download text-primary"></i> Import
+															Processing</h5>
+														<span>Extract the BOE / SEZ BOE data from Excel files</span>
+														<div class="card-header-right">
+															<i class="icofont icofont-rounded-down"></i>
+														</div>
+													</div>
+													<div class="card-block">
+														<ul class="list-unstyled">
+															<li class="m-b-10"><i
+																	class="icofont icofont-tick-mark text-success"></i>
+																BE Header & Item Details</li>
+															<li class="m-b-10"><i
+																	class="icofont icofont-tick-mark text-success"></i>
+																Duties & Taxes (BCD/SWS/ADD/IGST)</li>
+															<li class="m-b-10"><i
+																	class="icofont icofont-tick-mark text-success"></i>
+																Supplier / Port / Country Info</li>
+															<li class="m-b-10"><i
+																	class="icofont icofont-tick-mark text-success"></i>
+																Excel Export</li>
+														</ul>
+														<div class="text-center m-t-20">
+															<a th:href="@{/uploadimport}"
+																class="btn btn-primary btn-block waves-effect waves-light">
+																<i class="icofont icofont-ui-play"></i> Start Import
+																Processing
+															</a>
+														</div>
+													</div>
+												</div>
+											</div>
+
+											<div class="col-sm-3">
+												<div class="card">
+													<div class="card-header">
+														<h5><i class="icofont icofont-upload text-primary"></i> Export
+															Processing</h5>
+														<span>Extract the Export Tax Invoice data from Excel
+															files</span>
+														<div class="card-header-right">
+															<i class="icofont icofont-rounded-down"></i>
+														</div>
+													</div>
+													<div class="card-block">
+														<ul class="list-unstyled">
+															<li class="m-b-10"><i
+																	class="icofont icofont-tick-mark text-success"></i>
+																Invoice & Customer Details</li>
+															<li class="m-b-10"><i
+																	class="icofont icofont-tick-mark text-success"></i>
+																Product / Model Information</li>
+															<li class="m-b-10"><i
+																	class="icofont icofont-tick-mark text-success"></i>
+																Financials (FOB/PMV/Currency)</li>
+															<li class="m-b-10"><i
+																	class="icofont icofont-tick-mark text-success"></i>
+																Excel Export</li>
+														</ul>
+														<div class="text-center m-t-20">
+															<a th:href="@{/uploadexport}"
+																class="btn btn-primary btn-block waves-effect waves-light">
+																<i class="icofont icofont-ui-play"></i> Start Export
+																Processing
+															</a>
+														</div>
+													</div>
+												</div>
+											</div>
+
+
+
+											<div class="col-sm-3">
+												<div class="card">
+													<div class="card-header">
+														<h5><i class="icofont icofont-layers text-primary"></i> BOM
+															Processing</h5>
+														<span>Upload and maintain Model–Material BOM data</span>
+														<div class="card-header-right">
+															<i class="icofont icofont-rounded-down"></i>
+														</div>
+													</div>
+													<div class="card-block">
+														<ul class="list-unstyled">
+															<li class="m-b-10"><i
+																	class="icofont icofont-tick-mark text-success"></i>
+																Model–Material Mapping</li>
+															<li class="m-b-10"><i
+																	class="icofont icofont-tick-mark text-success"></i>
+																Per‑Unit Quantity & Unit</li>
+															<li class="m-b-10"><i
+																	class="icofont icofont-tick-mark text-success"></i>
+																CSV/Excel Upload & Validation</li>
+															<li class="m-b-10"><i
+																	class="icofont icofont-tick-mark text-success"></i>
+																Excel Export</li>
+														</ul>
+														<div class="text-center m-t-20">
+															<a th:href="@{/uploadbom}"
+																class="btn btn-primary btn-block waves-effect waves-light">
+																<i class="icofont icofont-ui-play"></i> Start BOM
+																Processing
+															</a>
+														</div>
+													</div>
+												</div>
+											</div>
+
+											<div class="col-sm-3">
+												<div class="card">
+													<div class="card-header">
+														<h5><i class="icofont icofont-calculator text-primary"></i>
+															Claim Processing</h5>
+														<span>Upload claims for SB-wise DBK calculation</span>
+														<div class="card-header-right">
+															<i class="icofont icofont-rounded-down"></i>
+														</div>
+													</div>
+													<div class="card-block">
+														<ul class="list-unstyled">
+															<li class="m-b-10"><i
+																	class="icofont icofont-tick-mark text-success"></i>
+																Claim Ref. No. & Year Mapping</li>
+															<li class="m-b-10"><i
+																	class="icofont icofont-tick-mark text-success"></i>
+																Link BOM to SB/BOE data</li>
+															<li class="m-b-10"><i
+																	class="icofont icofont-tick-mark text-success"></i>
+																Per-SB Duty Drawback Calculation</li>
+															<li class="m-b-10"><i
+																	class="icofont icofont-tick-mark text-success"></i>
+																Consolidated Report Generation</li>
+														</ul>
+														<div class="text-center m-t-20">
+															<a th:href="@{/uploadbomclaim}"
+																class="btn btn-primary btn-block waves-effect waves-light">
+																<i class="icofont icofont-upload"></i> Start Claim
+																Upload
+															</a>
+														</div>
+													</div>
+												</div>
+											</div>
 										</div>
 
 									</div>

@@ -191,6 +191,14 @@
 											</a>
 										</li>
 
+										<li class=" ">
+											<a th:href="@{/worksheet/list}">
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">Worksheet</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+										</li>
+
 
 
 
@@ -484,7 +492,8 @@
 																			<td
 																				th:text="${#temporals.format(row.beDate, 'dd-MM-yyyy')}">
 																			</td>
-																			<td th:text="${row.clientName}">Clientname</td>
+																			<td th:text="${row.clientName}">Clientname
+																			</td>
 																			<td th:text="${row.claimRefNo}">Claim
 																				Ref No</td>
 																			<td th:text="${row.claimYear}">Claim
@@ -515,7 +524,7 @@
 																				th:text="${#numbers.formatDecimal(row.addDuty,1,'COMMA',2,'POINT')}">
 																				Add Duty</td>
 
-																			
+
 																			<td class="text-end"
 																				th:text="${#numbers.formatDecimal(row.qtyOpeningBalance,1,'COMMA',2,'POINT')}">
 																				Opening</td>
@@ -525,8 +534,8 @@
 																			<td class="text-end"
 																				th:text="${#numbers.formatDecimal(row.closingBalance,1,'COMMA',2,'POINT')}">
 																				Closing</td>
-																				
-																				<td th:text="${row.importId}">ImportId</td>
+
+																			<td th:text="${row.importId}">ImportId</td>
 
 
 																		</tr>
@@ -631,37 +640,37 @@
 	<script>
 		// Show/hide and toggle input type of filterValue based on filterField selection
 		function updateInputType() {
-		  const filterField = document.getElementById('filterField').value;
-		  const filterValueInput = document.getElementById('filterValue');
-		  const fromDateInput = document.getElementById('fromDate');
-		  const toDateInput = document.getElementById('toDate');
+			const filterField = document.getElementById('filterField').value;
+			const filterValueInput = document.getElementById('filterValue');
+			const fromDateInput = document.getElementById('fromDate');
+			const toDateInput = document.getElementById('toDate');
 
-		  if (!filterField) {
-		    // Hide all inputs if no filterField selected
-		    filterValueInput.style.display = 'none';
-		    filterValueInput.required = false;
+			if (!filterField) {
+				// Hide all inputs if no filterField selected
+				filterValueInput.style.display = 'none';
+				filterValueInput.required = false;
 
-		    fromDateInput.style.display = 'none';
-		    fromDateInput.required = false;
+				fromDateInput.style.display = 'none';
+				fromDateInput.required = false;
 
-		    toDateInput.style.display = 'none';
-		    toDateInput.required = false;
-		  } else {
-		    // Show all inputs when a filterField is selected
-		    filterValueInput.style.display = 'inline-block';
-		    filterValueInput.required = true;
+				toDateInput.style.display = 'none';
+				toDateInput.required = false;
+			} else {
+				// Show all inputs when a filterField is selected
+				filterValueInput.style.display = 'inline-block';
+				filterValueInput.required = true;
 
-		    fromDateInput.style.display = 'inline-block';
-		    fromDateInput.required = false;
+				fromDateInput.style.display = 'inline-block';
+				fromDateInput.required = false;
 
-		    toDateInput.style.display = 'inline-block';
-		    toDateInput.required = false;
-		  }
+				toDateInput.style.display = 'inline-block';
+				toDateInput.required = false;
+			}
 		}
 
 		// Initialize on page load
 		document.addEventListener('DOMContentLoaded', () => {
-		  updateInputType();
+			updateInputType();
 		});
 
 
