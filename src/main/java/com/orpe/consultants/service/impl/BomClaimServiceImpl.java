@@ -13,13 +13,17 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.orpe.consultants.dto.BomClaimDTO;
 import com.orpe.consultants.dto.BomClaimFilter;
+
 import com.orpe.consultants.exception.ResourceNotFoundException;
 import com.orpe.consultants.model.BomClaim;
+
 import com.orpe.consultants.repository.BomClaimRepository;
 import com.orpe.consultants.service.BomClaimService;
 
@@ -108,12 +112,55 @@ public class BomClaimServiceImpl implements BomClaimService {
     // endregion
 
     // region ===== Search and Count =====
+//    @Override
+//    public Page<BomClaimDTO> search(BomClaimFilter filter, Pageable pageable) {
+//        Specification<BomClaim> spec = buildSpecification(filter);
+//        Page<BomClaim> page = bomClaimRepo.findAll(spec, pageable);
+//        return page.map(this::entityToDto);
+//    }
+    
+    
+    
     @Override
     public Page<BomClaimDTO> search(BomClaimFilter filter, Pageable pageable) {
         Specification<BomClaim> spec = buildSpecification(filter);
         Page<BomClaim> page = bomClaimRepo.findAll(spec, pageable);
-        return page.map(this::entityToDto);
+
+        List<BomClaimDTO> dtos = page.stream()
+                .map(this::entityToDto)
+                .collect(Collectors.toList());
+
+        return new PageImpl<>(dtos, pageable, page.getTotalElements());
     }
+
+    
+    
+    public Specification<BomClaim> buildSpecification(BomClaimFilter filter) {
+        return (root, query, cb) -> {
+            List<Predicate> predicates = new ArrayList<>();
+            if (StringUtils.hasText(filter.getBomPartNo())) {
+                predicates.add(cb.like(cb.lower(root.get("bomPartNo")), "%" + filter.getBomPartNo().toLowerCase() + "%"));
+            }
+            if (StringUtils.hasText(filter.getClaimRefNo())) {
+                predicates.add(cb.like(cb.lower(root.get("claimRefNo")), "%" + filter.getClaimRefNo().toLowerCase() + "%"));
+            }
+            
+            if (StringUtils.hasText(filter.getClaimYear())) {
+        	    predicates.add(cb.like(cb.lower(root.get("claimYear")), "%" + filter.getClaimYear().toLowerCase() + "%"));
+            }
+            
+            if (StringUtils.hasText(filter.getClientName())) {
+                predicates.add(cb.like(cb.lower(root.get("clientName")), "%" + filter.getClientName().toLowerCase() + "%"));
+            }
+           
+            // Add more predicates for other filter fields
+
+            return cb.and(predicates.toArray(new Predicate[0]));
+        };
+    }
+    
+    
+    
 
     @Override
     public long count(BomClaimFilter filter) {
@@ -132,46 +179,7 @@ public class BomClaimServiceImpl implements BomClaimService {
     // endregion
 
     // region ===== Specification Builder =====
-    private Specification<BomClaim> buildSpecification(BomClaimFilter filter) {
-        return (root, query, cb) -> {
-            List<Predicate> predicates = new ArrayList<>();
-
-            String field = trim(filter.getFilterField());
-            String value = trim(filter.getFilterValue());
-
-            if (field != null && !field.isBlank() && value != null && !value.isBlank()) {
-                List<String> stringFields = List.of(
-                    "claimRefNo",
-                    "claimYear",
-                    "materialDescription",
-                    "bomPartNo",
-                    "altBoePartNo",
-                    "dbkPartNo",
-                    "importedOrIndigenous",
-                    "unit",
-                    "boeNo",
-                    "exportModelNo",
-                    "sbNo",
-                    "clientName"
-                );
-
-                if (stringFields.contains(field)) {
-                    predicates.add(cb.like(cb.lower(root.get(field)), "%" + value.toLowerCase() + "%"));
-                }
-            }
-
-            // Future date range filters (if you ever add LocalDate fields)
-            // e.g., claimDate, createdAt, updatedAt
-            if (filter.getFromDate() != null) {
-                predicates.add(cb.greaterThanOrEqualTo(root.get("createdAt"), filter.getFromDate().atStartOfDay()));
-            }
-            if (filter.getToDate() != null) {
-                predicates.add(cb.lessThanOrEqualTo(root.get("createdAt"), filter.getToDate().atTime(23, 59, 59)));
-            }
-
-            return cb.and(predicates.toArray(new Predicate[0]));
-        };
-    }
+    
     // endregion
 
     private static String trim(String s) {

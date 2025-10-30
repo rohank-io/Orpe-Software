@@ -70,7 +70,7 @@ public class BomDataController {
     @GetMapping("/bomdata/list")
 	public String showBomDataList(@RequestParam(required = false) String filterField,
 			@RequestParam(required = false) String filterValue, @RequestParam(defaultValue = "0") int page,
-			@RequestParam(defaultValue = "20") int size, HttpSession session, Model model) {
+			@RequestParam(defaultValue = "200") int size, HttpSession session, Model model) {
 
 		User loggedInUser = (User) session.getAttribute("loggedInUser");
 		if (loggedInUser == null) {
