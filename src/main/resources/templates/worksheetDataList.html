@@ -372,6 +372,12 @@
 												class="btn btn-primary m-r-10 m-b-5">
 												<i class="icofont icofont-reply"></i> Back
 											</button>
+											
+											<a 
+											            class="btn btn-primary m-b-5 m-r-5"
+											            th:href="@{/draftworksheet/list}">
+											        <i class="icofont icofont-save"></i> Saved Drafts
+											    </a>															
 										</div>
 
 										<div class="row">
@@ -652,21 +658,7 @@
 
 
 	<script>
-		function updateInputType() {
-			var field = document.getElementById('filterField').value;
-			var input = document.getElementById('filterValue');
-			if (field === 'sbDateFrom' || field === 'sbDateTo') {
-				input.type = 'date';
-				input.placeholder = '';
-			} else {
-				input.type = 'text';
-				input.placeholder = 'Value';
-			}
-		}
-		// Optionally, call on page load if preselected
-		document.addEventListener("DOMContentLoaded", function () {
-			updateInputType();
-		});
+		
 	</script>
 
 

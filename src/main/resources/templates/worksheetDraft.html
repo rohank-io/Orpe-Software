@@ -193,14 +193,14 @@
 												<span class="pcoded-mcaret"></span>
 											</a>
 										</li>
-
+										
 										<li class=" ">
-											<a th:href="@{/bomclaimdata/list}">
-												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-												<span class="pcoded-mtext">BOM 2</span>
-												<span class="pcoded-mcaret"></span>
-											</a>
-										</li>
+																					<a th:href="@{/bomclaimdata/list}">
+																																<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+																																<span class="pcoded-mtext">BOM 2</span>
+																																<span class="pcoded-mcaret"></span>
+																															</a>
+																														</li>
 
 										<li class=" ">
 											<a th:href="@{/worksheet/list}">
@@ -576,7 +576,8 @@
 																								data-field="emCIFClaimed">
 																							</td>
 																							<td contenteditable="true"
-																								th:text="${em.status}">
+																								th:text="${em.status}"
+																								>
 																							<td><button type="button"
 																									class="btn btn-sm btn-outline-danger"
 																									onclick="removeRow(this)">Remove</button>
@@ -599,10 +600,8 @@
 															</table>
 														</div>
 														<div class="text-center">
-															<button id="saveDraftBtn" type="button"
-																class="btn btn-info btn-outline-info m-b-5 m-r-5"><i
-																	class="icofont icofont-save"></i>Save Draft</button>
-
+															<button id="saveDraftBtn" type="button" class="btn btn-info btn-outline-info m-b-5 m-r-5"><i class="icofont icofont-save"></i>Save Draft</button>
+															                                                        
 															<button id="saveBtn" type="button"
 																class="btn btn-primary waves-effect waves-light m-b-5"
 																style="width: 150px;">
@@ -639,171 +638,142 @@
 
 	<script>
 		async function collectWorksheetData() {
-			const worksheetList = [];
-			const rows = document.querySelectorAll('#worksheetTable tbody > tr:not(.export-models-row)');
+		    const worksheetList = [];
+		    const rows = document.querySelectorAll('#worksheetTable tbody > tr:not(.export-models-row)');
 
-			function convertToISODate(str) {
-				const parts = str?.split('-');
-				return (parts?.length === 3) ? `${parts[2]}-${parts[1]}-${parts[0]}` : str;
-			}
+		    function convertToISODate(str) {
+		      const parts = str?.split('-');
+		      if (parts?.length === 3) {
+		        return `${parts[2]}-${parts[1]}-${parts[0]}`;
+		      }
+		      return str;
+		    }
 
-			rows.forEach(row => {
-				const worksheet = {};
+		    rows.forEach(row => {
+		      const worksheet = {};
+		      worksheet.beNo = row.querySelector('[data-field=beNo]')?.innerText.trim() || null;
+		      worksheet.claimYear = row.querySelector('[data-field=claimYear]')?.innerText.trim() || null;
+		      worksheet.claimRefNo = row.querySelector('[data-field=claimRefNo]')?.innerText.trim() || null;
+		      worksheet.beDate = convertToISODate(row.querySelector('[data-field=beDate]')?.innerText.trim()) || null;
+		      worksheet.itemDescription = row.querySelector('[data-field=itemDescription]')?.innerText.trim() || null;
+		      worksheet.bomPartNo = row.querySelector('[data-field=bomPartNo]')?.innerText.trim() || null;
+		      worksheet.dbkPartNo = row.querySelector('[data-field=dbkPartNo]')?.innerText.trim() || null;
+		      worksheet.importQty = parseFloat(row.querySelector('[data-field=importQty]')?.innerText.replace(/,/g, '')) || 0;
+		      worksheet.uom = row.querySelector('[data-field=uom]')?.innerText.trim() || null;
+		      worksheet.assessableValue = parseFloat(row.querySelector('[data-field=assessableValue]')?.innerText.replace(/,/g, '')) || 0;
+		      worksheet.cifValue = parseFloat(row.querySelector('[data-field=cifValue]')?.innerText.replace(/,/g, '')) || 0;
+		      worksheet.perQtyCif = parseFloat(row.querySelector('[data-field=perQtyCif]')?.innerText.replace(/,/g, '')) || 0;
+		      worksheet.bcd = parseFloat(row.querySelector('[data-field=bcd]')?.innerText.replace(/,/g, '')) || 0;
+		      worksheet.sws = parseFloat(row.querySelector('[data-field=sws]')?.innerText.replace(/,/g, '')) || 0;
+		      worksheet.addDuty = parseFloat(row.querySelector('[data-field=addDuty]')?.innerText.replace(/,/g, '')) || 0;
+		      worksheet.totalDuty = parseFloat(row.querySelector('[data-field=totalDuty]')?.innerText.replace(/,/g, '')) || 0;
+		      worksheet.dutyPerQty = parseFloat(row.querySelector('[data-field=dutyPerQty]')?.innerText.replace(/,/g, '')) || 0;
+		      worksheet.usedQtyTotal = parseFloat(row.querySelector('[data-field=usedQtyTotal]')?.innerText.replace(/,/g, '')) || 0;
+		      worksheet.dutyClaimedTotal = parseFloat(row.querySelector('[data-field=dutyClaimed]')?.innerText.replace(/,/g, '')) || 0;
+		      worksheet.cifClaimedTotal = parseFloat(row.querySelector('[data-field=cifClaimed]')?.innerText.replace(/,/g, '')) || 0;
+		      worksheet.bcdClaimed = parseFloat(row.querySelector('[data-field=bcdClaimed]')?.innerText.replace(/,/g, '')) || 0;
+		      worksheet.swsClaimed = parseFloat(row.querySelector('[data-field=swsClaimed]')?.innerText.replace(/,/g, '')) || 0;
+		      worksheet.addClaimed = parseFloat(row.querySelector('[data-field=addClaimed]')?.innerText.replace(/,/g, '')) || 0;
+		      worksheet.openingBalanceQtyDef = parseFloat(row.querySelector('[data-field=openingBalanceQtyDef]')?.innerText.replace(/,/g, '')) || 0;
+		      worksheet.qtyUsedDef = parseFloat(row.querySelector('[data-field=qtyUsedDef]')?.innerText.replace(/,/g, '')) || 0;
+		      worksheet.closingBalanceDef = parseFloat(row.querySelector('[data-field=closingBalanceDef]')?.innerText.replace(/,/g, '')) || 0;
+		      const importIdTextRaw = row.querySelector('[data-field=importId]')?.innerText || '';
+		      const importIdText = importIdTextRaw.trim().replace(/,/g, '');
+		      worksheet.importId = importIdText && !isNaN(importIdText) && parseInt(importIdText) > 0
+		        ? parseInt(importIdText)
+		        : null;
 
-				// collect importId first — skip invalid rows early
-				const importIdTextRaw = row.querySelector('[data-field=importId]')?.innerText || '';
-				const importIdText = importIdTextRaw.trim().replace(/,/g, '');
-				worksheet.importId = importIdText && !isNaN(importIdText) && parseInt(importIdText) > 0
-					? parseInt(importIdText)
-					: null;
-
-				// if saving draft: allow null importId
-				// if saving final: you can filter later
-				// BUT avoid reading exportModels for null importId rows
-				if (worksheet.importId === null) return;
-
-				// then continue with the rest of the mapping
-				worksheet.beNo = row.querySelector('[data-field=beNo]')?.innerText.trim() || null;
-				worksheet.claimYear = row.querySelector('[data-field=claimYear]')?.innerText.trim() || null;
-				worksheet.claimRefNo = row.querySelector('[data-field=claimRefNo]')?.innerText.trim() || null;
-				worksheet.beDate = convertToISODate(row.querySelector('[data-field=beDate]')?.innerText.trim()) || null;
-				worksheet.itemDescription = row.querySelector('[data-field=itemDescription]')?.innerText.trim() || null;
-				worksheet.bomPartNo = row.querySelector('[data-field=bomPartNo]')?.innerText.trim() || null;
-				worksheet.dbkPartNo = row.querySelector('[data-field=dbkPartNo]')?.innerText.trim() || null;
-				worksheet.importQty = parseFloat(row.querySelector('[data-field=importQty]')?.innerText.replace(/,/g, '')) || 0;
-				worksheet.uom = row.querySelector('[data-field=uom]')?.innerText.trim() || null;
-				worksheet.assessableValue = parseFloat(row.querySelector('[data-field=assessableValue]')?.innerText.replace(/,/g, '')) || 0;
-				worksheet.cifValue = parseFloat(row.querySelector('[data-field=cifValue]')?.innerText.replace(/,/g, '')) || 0;
-				worksheet.perQtyCif = parseFloat(row.querySelector('[data-field=perQtyCif]')?.innerText.replace(/,/g, '')) || 0;
-				worksheet.bcd = parseFloat(row.querySelector('[data-field=bcd]')?.innerText.replace(/,/g, '')) || 0;
-				worksheet.sws = parseFloat(row.querySelector('[data-field=sws]')?.innerText.replace(/,/g, '')) || 0;
-				worksheet.addDuty = parseFloat(row.querySelector('[data-field=addDuty]')?.innerText.replace(/,/g, '')) || 0;
-				worksheet.totalDuty = parseFloat(row.querySelector('[data-field=totalDuty]')?.innerText.replace(/,/g, '')) || 0;
-				worksheet.dutyPerQty = parseFloat(row.querySelector('[data-field=dutyPerQty]')?.innerText.replace(/,/g, '')) || 0;
-				worksheet.usedQtyTotal = parseFloat(row.querySelector('[data-field=usedQtyTotal]')?.innerText.replace(/,/g, '')) || 0;
-				worksheet.dutyClaimedTotal = parseFloat(row.querySelector('[data-field=dutyClaimed]')?.innerText.replace(/,/g, '')) || 0;
-				worksheet.cifClaimedTotal = parseFloat(row.querySelector('[data-field=cifClaimed]')?.innerText.replace(/,/g, '')) || 0;
-				worksheet.bcdClaimed = parseFloat(row.querySelector('[data-field=bcdClaimed]')?.innerText.replace(/,/g, '')) || 0;
-				worksheet.swsClaimed = parseFloat(row.querySelector('[data-field=swsClaimed]')?.innerText.replace(/,/g, '')) || 0;
-				worksheet.addClaimed = parseFloat(row.querySelector('[data-field=addClaimed]')?.innerText.replace(/,/g, '')) || 0;
-				worksheet.openingBalanceQtyDef = parseFloat(row.querySelector('[data-field=openingBalanceQtyDef]')?.innerText.replace(/,/g, '')) || 0;
-				worksheet.qtyUsedDef = parseFloat(row.querySelector('[data-field=qtyUsedDef]')?.innerText.replace(/,/g, '')) || 0;
-				worksheet.closingBalanceDef = parseFloat(row.querySelector('[data-field=closingBalanceDef]')?.innerText.replace(/,/g, '')) || 0;
-
-				// collect export models only for valid worksheet
-				const exportModels = [];
-				const button = row.querySelector('button[data-index]');
-				const statIndex = button ? button.getAttribute('data-index') : null;
-				if (statIndex) {
-					const exportModelsRow = document.getElementById('exportModelsRow' + statIndex);
-					if (exportModelsRow) {
-						const emRows = exportModelsRow.querySelectorAll('tbody tr');
-						emRows.forEach(emRow => {
-							const bomIdRaw = emRow.querySelector('[data-field=bomExportModelId]')?.innerText.trim();
-							const modelNoRaw = emRow.querySelector('[data-field=modelNo]')?.innerText.trim();
-							if (!bomIdRaw || !modelNoRaw) return;
-							exportModels.push({
-								bomExportModelId: parseInt(bomIdRaw) || null,
-								modelNo: modelNoRaw,
-								emUsedQty: parseFloat(emRow.querySelector('[data-field=emUsedQty]')?.innerText.replace(/,/g, '')) || 0,
-								dutyClaimed: parseFloat(emRow.querySelector('[data-field=emDutyClaimed]')?.innerText.replace(/,/g, '')) || 0,
-								cifClaimed: parseFloat(emRow.querySelector('[data-field=emCIFClaimed]')?.innerText.replace(/,/g, '')) || 0
-							});
-						});
-					}
-				}
-				worksheet.exportModels = exportModels;
-
-				worksheetList.push(worksheet);
-			});
-
-			return worksheetList;
-		}
-
-
-		document.getElementById('saveDraftBtn').addEventListener('click', async function () {
-		    const btn = document.getElementById('saveDraftBtn');
-		    btn.disabled = true;          // prevent multiple clicks
-		    btn.style.display = 'none';   // hide instantly
-
-		    try {
-		        const draftData = await collectWorksheetData();
-		        const filteredDraftData = draftData.filter(ws => ws.importId !== null);
-
-		        console.log("Draft data being sent:", filteredDraftData);
-
-		        const response = await fetch('/worksheet/saveDraft', {
-		            method: 'POST',
-		            headers: {'Content-Type': 'application/json'},
-		            body: JSON.stringify(filteredDraftData)
-		        });
-
-		        if (!response.ok) {
-		            alert('Draft save failed');
-		            btn.disabled = false;
-		            btn.style.display = 'inline-block';
-		            return;
+		      // Collect nested export models similarly
+		      const exportModels = [];
+		      const button = row.querySelector('button[data-index]');
+		      const statIndex = button ? button.getAttribute('data-index') : null;
+		      if (statIndex) {
+		        const exportModelsRow = document.getElementById('exportModelsRow' + statIndex);
+		        if (exportModelsRow) {
+		          const emRows = exportModelsRow.querySelectorAll('tbody tr');
+		          emRows.forEach(emRow => {
+		            const bomIdRaw = emRow.querySelector('[data-field=bomExportModelId]')?.innerText.trim();
+		            const modelNoRaw = emRow.querySelector('[data-field=modelNo]')?.innerText.trim();
+		            if (!bomIdRaw || !modelNoRaw) return;
+		            const exportModel = {};
+		            exportModel.bomExportModelId = parseInt(bomIdRaw) || null;
+		            exportModel.modelNo = modelNoRaw;
+		            exportModel.emUsedQty = parseFloat(emRow.querySelector('[data-field=emUsedQty]')?.innerText.replace(/,/g, '')) || 0;
+		            exportModel.dutyClaimed = parseFloat(emRow.querySelector('[data-field=emDutyClaimed]')?.innerText.replace(/,/g, '')) || 0;
+		            exportModel.cifClaimed = parseFloat(emRow.querySelector('[data-field=emCIFClaimed]')?.innerText.replace(/,/g, '')) || 0;
+		            exportModels.push(exportModel);
+		          });
 		        }
+		      }
+		      worksheet.exportModels = exportModels;
 
-		        alert('Draft saved successfully');
-		        window.location.href = '/draftworksheet/list';
+		      // Push all worksheets, including ones with null importId for draft save
+		      worksheetList.push(worksheet);
+		    });
+
+		    return worksheetList;
+		  }
+
+		  document.getElementById('saveDraftBtn').addEventListener('click', async function () {
+		    try {
+		      const draftData = await collectWorksheetData();
+
+		      // Call draft save API endpoint
+		      const response = await fetch('/worksheet/saveDraft', {
+		        method: 'POST',
+		        headers: {'Content-Type': 'application/json'},
+		        body: JSON.stringify(draftData)
+		      });
+
+		      if (!response.ok) {
+		        alert('Draft save failed');
+		        return;
+		      }
+
+		      alert('Draft saved successfully');
 
 		    } catch (error) {
-		        console.error('Error saving draft:', error);
-		        alert('Error saving draft');
-		        btn.disabled = false;
-		        btn.style.display = 'inline-block';
+		      console.error('Error saving draft:', error);
+		      alert('Error saving draft');
 		    }
-		});
+		  });
 
-
-		document.getElementById('saveBtn').addEventListener('click', async function () {
-		    const btn = document.getElementById('saveBtn');
-		    btn.disabled = true;          // prevent multiple clicks
-		    btn.style.display = 'none';   // hide instantly
-
+		  // Your existing save button stays unchanged
+		  document.getElementById('saveBtn').addEventListener('click', async function () {
 		    try {
-		        const saveData = await collectWorksheetData();
-		        const filteredData = saveData.filter(ws => ws.importId !== null);
+		      const saveData = await collectWorksheetData();
+		      // Filter out entries with null importId if needed for final save
+		      const filteredData = saveData.filter(ws => ws.importId !== null);
 
-		        const response = await fetch('/worksheet/saveBulk', {
-		            method: 'POST',
-		            headers: {'Content-Type': 'application/json'},
-		            body: JSON.stringify(filteredData)
-		        });
+		      const response = await fetch('/worksheet/saveBulk', {
+		        method: 'POST',
+		        headers: {'Content-Type': 'application/json'},
+		        body: JSON.stringify(filteredData)
+		      });
 
-		        if (!response.ok) {
-		            alert('Save failed');
-		            btn.disabled = false;
-		            btn.style.display = 'inline-block';
-		            return;
-		        }
+		      if (!response.ok) {
+		        alert('Save failed');
+		        return;
+		      }
 
-		        alert('Save successful');
-		        generateExcelFile();
-		        window.location.href = '/worksheet/list';
+		      alert('Save successful');
+		      // Your existing post-save logic here
+		      generateExcelFile();
+		      window.location.href = '/index';
 
 		    } catch (error) {
-		        console.error('Save error:', error);
-		        alert('Error saving data');
-		        btn.disabled = false;
-		        btn.style.display = 'inline-block';
+		      console.error('Save error:', error);
+		      alert('Error saving data');
 		    }
-		});
-
+		  });
 
 		// Excel generation can be extracted to a function and called after save success
 		function generateExcelFile() {
 			const baseColumns = [
 				'Sr No.', 'BE No', 'BE Date', 'Item Description', 'BOM Part No', 'DBK Part No.',
 				'Import Qty', 'UOM', 'Assessable Value', 'CIF Value', 'Per Qty CIF', 'BCD',
-				'SWS', 'Add Duty', 'Total Duty', 'Duty Per Qty'
-			];
-
-			// These fields will be moved after export models
-			const postExportColumns = [
-				'Used Qty(Total)', 'Duty Claimed(Total)', 'CIF Claimed(Total)',
-				'BCD Claimed(DGFT)', 'SWS Claimed(DGFT)', 'ADD Claimed(DGFT)',
+				'SWS', 'Add Duty', 'Total Duty', 'Duty Per Qty', 'Used Qty(Total)', 'Duty Claimed(Total)',
+				'CIF Claimed(Total)', 'BCD Claimed(DGFT)', 'SWS Claimed(DGFT)', 'ADD Claimed(DGFT)',
 				'Opening', 'Used', 'Closing'
 			];
 
@@ -850,18 +820,16 @@
 			});
 			const exportModelNames = Array.from(exportModelsSet);
 
-			// Construct headers
+			// Construct headers for Excel file
 			const firstHeaderRow = new Array(baseColumns.length).fill('');
 			exportModelNames.forEach(model => {
 				firstHeaderRow.push(model, '', '');
 			});
-			postExportColumns.forEach(() => firstHeaderRow.push('')); // fill blanks for merged structure
 
 			const secondHeaderRow = baseColumns.slice();
 			exportModelNames.forEach(() => {
 				secondHeaderRow.push('Used Quantity', 'Duty Claimed', 'CIF Claimed');
 			});
-			postExportColumns.forEach(col => secondHeaderRow.push(col));
 
 			const rowsData = [];
 
@@ -873,14 +841,14 @@
 					return cell ? cell.textContent.trim() : '';
 				};
 
-				// Base columns first
+				// Add base columns
 				baseColumns.forEach(header => {
 					const key = headerKeyMap[header];
 					const value = getCellText(key);
 					rowData.push(value || '0');
 				});
 
-				// Export model data
+				// Add export model data
 				const usageMap = {};
 				const exportModelsRow = row.nextElementSibling;
 				if (exportModelsRow && exportModelsRow.classList.contains('export-models-row')) {
@@ -889,7 +857,7 @@
 						const usedQty = emRow.querySelector('td[data-field="emUsedQty"]')?.textContent.trim() || '0';
 						const dutyClaimed = emRow.querySelector('td[data-field="emDutyClaimed"]')?.textContent.trim() || '0';
 						const cifClaimed = emRow.querySelector('td[data-field="emCIFClaimed"]')?.textContent.trim() || '0';
-						usageMap[modelNo] = { usedQty, dutyClaimed, cifClaimed };
+						usageMap[modelNo] = {usedQty, dutyClaimed, cifClaimed};
 					});
 				}
 
@@ -899,13 +867,6 @@
 					} else {
 						rowData.push('0', '0', '0');
 					}
-				});
-
-				// Now add post-export fields
-				postExportColumns.forEach(header => {
-					const key = headerKeyMap[header];
-					const value = getCellText(key);
-					rowData.push(value || '0');
 				});
 
 				rowsData.push(rowData);
@@ -919,7 +880,6 @@
 
 			XLSX.writeFile(workbook, 'WorksheetExport.xlsx');
 		}
-
 
 	</script>
 
@@ -984,8 +944,7 @@
 				const sws = parseSafe(getCell(row, 'sws')?.textContent || '0');
 				const addDuty = parseSafe(getCell(row, 'addDuty')?.textContent || '0');
 
-				setCell(row, 'perQtyCif', importQty ? assessableVal / importQty : 0);
-
+				setCell(row, 'perQtyCif', assessableVal * importQty);
 
 				const totalDuty = bcd + sws + addDuty;
 				setCell(row, 'totalDuty', totalDuty);

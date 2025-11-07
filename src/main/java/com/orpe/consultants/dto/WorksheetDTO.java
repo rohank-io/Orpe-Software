@@ -50,6 +50,9 @@ public class WorksheetDTO {
  private BigDecimal closingBalanceDef;
  private LocalDateTime createdAt;
  
+ //For Draft deletion:
+ private Long draftWorksheetId; 
+ 
  private List<WorksheetExportModelsDTO> exportModels;
 }
 

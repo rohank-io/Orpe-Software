@@ -1,9 +1,6 @@
 package com.orpe.consultants.controller;
 
-import java.lang.System.Logger;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,12 +19,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.orpe.consultants.dto.DraftWorksheetDTO;
 import com.orpe.consultants.dto.ImportDataDTO;
 import com.orpe.consultants.dto.ImportDataFilter;
 import com.orpe.consultants.dto.WorksheetDTO;
 import com.orpe.consultants.dto.WorksheetDataFilter;
 import com.orpe.consultants.model.ImportData;
 import com.orpe.consultants.model.User;
+import com.orpe.consultants.service.DraftWorksheetService;
 import com.orpe.consultants.service.ImportDataService;
 import com.orpe.consultants.service.WorksheetService;
 
@@ -40,164 +39,206 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Slf4j
 public class WorksheetController {
-	
+
 	private final ImportDataService importDataService;
 	private final WorksheetService worksheetService;
-	
-	
-	
+	private final DraftWorksheetService draftWorksheetService;
+	private final ObjectMapper mapper;
 
-	
-	
 	@GetMapping("/worksheet/importdata/select")
-	public String worksheetdataSelect(
-	    @RequestParam(required = false) String filterField,
-	    @RequestParam(required = false) String filterValue,
-	    @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fromDate,
-	    @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate toDate,
-	    @RequestParam(defaultValue = "0") int page,
-	    @RequestParam(defaultValue = "100") int size,
-	    HttpSession session,
-	    Model model) {
+	public String worksheetdataSelect(@RequestParam(required = false) String filterField,
+			@RequestParam(required = false) String filterValue,
+			@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fromDate,
+			@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate toDate,
+			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "100") int size,
+			HttpSession session, Model model) {
 
-	    // Authentication check omitted for brevity
+		// Authentication check omitted for brevity
 		User loggedInUser = (User) session.getAttribute("loggedInUser");
-        if (loggedInUser == null) {
-            return "redirect:/login";
-        }
-        model.addAttribute("user", loggedInUser);
+		if (loggedInUser == null) {
+			return "redirect:/login";
+		}
+		model.addAttribute("user", loggedInUser);
 
-	    ImportDataFilter filter = new ImportDataFilter();
-	    filter.setFilterField(filterField);
-	    filter.setFilterValue(filterValue);
-	    filter.setFromDate(fromDate);
-	    filter.setToDate(toDate);
+		ImportDataFilter filter = new ImportDataFilter();
+		filter.setFilterField(filterField);
+		filter.setFilterValue(filterValue);
+		filter.setFromDate(fromDate);
+		filter.setToDate(toDate);
 
-	    Pageable pageable = PageRequest.of(page, size, Sort.by("beDate").descending());
-	    Page<ImportDataDTO> resultPage = importDataService.findWithPositiveClosingBalance(filter, pageable);
+		Pageable pageable = PageRequest.of(page, size, Sort.by("beDate").descending());
+		Page<ImportDataDTO> resultPage = importDataService.findWithPositiveClosingBalance(filter, pageable);
 
-	    model.addAttribute("importDataPage", resultPage);
-	    model.addAttribute("filterField", filterField);
-	    model.addAttribute("filterValue", filterValue);
-	    model.addAttribute("fromDate", fromDate);
-	    model.addAttribute("toDate", toDate);
-	    model.addAttribute("currentPage", page);
-	    model.addAttribute("pageSize", size);
+		model.addAttribute("importDataPage", resultPage);
+		model.addAttribute("filterField", filterField);
+		model.addAttribute("filterValue", filterValue);
+		model.addAttribute("fromDate", fromDate);
+		model.addAttribute("toDate", toDate);
+		model.addAttribute("currentPage", page);
+		model.addAttribute("pageSize", size);
 
-	    return "worksheetDataSelect";
+		return "worksheetDataSelect";
 	}
 
-	
-	
 	@PostMapping("/worksheet/importdata/edit")
-    public String editSelectedImportData(
-            @RequestParam(name = "selectedRows", required = false) List<Long> selectedImportIds,
-            Model model,
-            HttpSession session) {
+	public String editSelectedImportData(
+			@RequestParam(name = "selectedRows", required = false) List<Long> selectedImportIds, Model model,
+			HttpSession session) {
 
-        User loggedInUser = (User) session.getAttribute("loggedInUser");
-        if (loggedInUser == null) {
-            return "redirect:/login";
-        }
-        model.addAttribute("user", loggedInUser);
-
-        if (selectedImportIds == null || selectedImportIds.isEmpty()) {
-            model.addAttribute("errorMessage", "No rows selected. Please select rows before clicking Calculate.");
-            // Ideally redirect back or reload selection page
-            return "redirect:/worksheet/importdata/select";
-        }
-
-        // Fetch selected import data rows by IDs
-        List<ImportDataDTO> worksheetDetails = importDataService.fetchImportDataWithExportModels(selectedImportIds);
-        model.addAttribute("importDataDetails", worksheetDetails);
-
-        // Pass the selected list to the editing view
-        
-
-        // Return the Thymeleaf edit page for worksheet data
-        return "worksheetDataEdit";
-    }
-	
-	
-	@PostMapping("/worksheet/saveBulk")
-	public ResponseEntity<?> saveBulk(
-	        @RequestBody List<WorksheetDTO> worksheetDTOList,
-	        HttpSession session,
-	        @Autowired ObjectMapper mapper) {  // <-- Inject Spring's configured mapper
-
-	    User loggedInUser = (User) session.getAttribute("loggedInUser");
-	    if (loggedInUser == null) {
-	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not logged in");
-	    }
-
-	    if (worksheetDTOList == null || worksheetDTOList.isEmpty()) {
-	        return ResponseEntity.badRequest().body("No worksheet data to save");
-	    }
-
-	    // ✅ Use the injected mapper (already has JavaTimeModule)
-	    try {
-	        String json = mapper.writerWithDefaultPrettyPrinter()
-	                            .writeValueAsString(worksheetDTOList);
-	        System.out.println("Incoming worksheetDTOList payload:\n" + json);
-	    } catch (Exception e) {
-	        System.out.println("Failed to print incoming worksheetDTOList: " + e.getMessage());
-	    }
-
-	    try {
-	        worksheetService.saveBulkWorksheets(worksheetDTOList);
-	        return ResponseEntity.ok("Bulk save successful");
-	    } catch (ConstraintViolationException ex) {
-	        ex.getConstraintViolations().forEach(cv ->
-	                System.err.println("Validation failed at " + cv.getPropertyPath() + ": " + cv.getMessage()));
-	        return ResponseEntity.badRequest().body("Validation errors occurred. See server logs for details.");
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-	                             .body("Error during bulk save: " + e.getMessage());
-	    }
-	}
-	
-	
-	@GetMapping("/worksheet/list")
-	public String worksheetdataList(
-	    @RequestParam(required = false) String filterField,
-	    @RequestParam(required = false) String filterValue,
-	    @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fromDate,
-	    @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate toDate,
-	    @RequestParam(defaultValue = "0") int page,
-	    @RequestParam(defaultValue = "100") int size,
-	    HttpSession session,
-	    Model model) {
-
-	    // Authentication check omitted for brevity
 		User loggedInUser = (User) session.getAttribute("loggedInUser");
-        if (loggedInUser == null) {
-            return "redirect:/login";
-        }
-        model.addAttribute("user", loggedInUser);
+		if (loggedInUser == null) {
+			return "redirect:/login";
+		}
+		model.addAttribute("user", loggedInUser);
 
-	    WorksheetDataFilter filter = new WorksheetDataFilter();
-	    filter.setFilterField(filterField);
-	    filter.setFilterValue(filterValue);
-	    filter.setFromDate(fromDate);
-	    filter.setToDate(toDate);
+		if (selectedImportIds == null || selectedImportIds.isEmpty()) {
+			model.addAttribute("errorMessage", "No rows selected. Please select rows before clicking Calculate.");
+			// Ideally redirect back or reload selection page
+			return "redirect:/worksheet/importdata/select";
+		}
 
-	    Pageable pageable = PageRequest.of(page, size, Sort.by("beDate").descending());
-	    Page<WorksheetDTO> resultPage = worksheetService.search(filter, pageable);
+		// Fetch selected import data rows by IDs
+		List<ImportDataDTO> worksheetDetails = importDataService.fetchImportDataWithExportModels(selectedImportIds);
+		model.addAttribute("importDataDetails", worksheetDetails);
 
-	    model.addAttribute("importDataPage", resultPage);
-	    model.addAttribute("filterField", filterField);
-	    model.addAttribute("filterValue", filterValue);
-	    model.addAttribute("fromDate", fromDate);
-	    model.addAttribute("toDate", toDate);
-	    model.addAttribute("currentPage", page);
-	    model.addAttribute("pageSize", size);
+		// Pass the selected list to the editing view
 
-	    return "worksheetDataList";
+		// Return the Thymeleaf edit page for worksheet data
+		return "worksheetDataEdit";
 	}
 
+	@PostMapping("/worksheet/saveBulk")
+	public ResponseEntity<?> saveBulk(@RequestBody List<WorksheetDTO> worksheetDTOList, HttpSession session,
+			@Autowired ObjectMapper mapper) { // <-- Inject Spring's configured mapper
 
+		User loggedInUser = (User) session.getAttribute("loggedInUser");
+		if (loggedInUser == null) {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not logged in");
+		}
 
+		if (worksheetDTOList == null || worksheetDTOList.isEmpty()) {
+			return ResponseEntity.badRequest().body("No worksheet data to save");
+		}
 
+		// ✅ Use the injected mapper (already has JavaTimeModule)
+		try {
+			String json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(worksheetDTOList);
+			System.out.println("Incoming worksheetDTOList payload:\n" + json);
+		} catch (Exception e) {
+			System.out.println("Failed to print incoming worksheetDTOList: " + e.getMessage());
+		}
+
+		try {
+			worksheetService.saveBulkWorksheets(worksheetDTOList);
+			return ResponseEntity.ok("Bulk save successful");
+		} catch (ConstraintViolationException ex) {
+			ex.getConstraintViolations().forEach(
+					cv -> System.err.println("Validation failed at " + cv.getPropertyPath() + ": " + cv.getMessage()));
+			return ResponseEntity.badRequest().body("Validation errors occurred. See server logs for details.");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("Error during bulk save: " + e.getMessage());
+		}
+	}
+
+	@GetMapping("/worksheet/list")
+	public String worksheetdataList(@RequestParam(required = false) String filterField,
+			@RequestParam(required = false) String filterValue,
+			@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fromDate,
+			@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate toDate,
+			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "100") int size,
+			HttpSession session, Model model) {
+
+		// Authentication check omitted for brevity
+		User loggedInUser = (User) session.getAttribute("loggedInUser");
+		if (loggedInUser == null) {
+			return "redirect:/login";
+		}
+		model.addAttribute("user", loggedInUser);
+
+		WorksheetDataFilter filter = new WorksheetDataFilter();
+		filter.setFilterField(filterField);
+		filter.setFilterValue(filterValue);
+		filter.setFromDate(fromDate);
+		filter.setToDate(toDate);
+
+		Pageable pageable = PageRequest.of(page, size, Sort.by("beDate").descending());
+		Page<WorksheetDTO> resultPage = worksheetService.search(filter, pageable);
+
+		model.addAttribute("importDataPage", resultPage);
+		model.addAttribute("filterField", filterField);
+		model.addAttribute("filterValue", filterValue);
+		model.addAttribute("fromDate", fromDate);
+		model.addAttribute("toDate", toDate);
+		model.addAttribute("currentPage", page);
+		model.addAttribute("pageSize", size);
+
+		return "worksheetDataList";
+	}
+
+	@PostMapping("/worksheet/saveDraft")
+	public ResponseEntity<?> saveDraft(@RequestBody List<DraftWorksheetDTO> draftWorksheetDTOList,
+			HttpSession session) {
+
+		User loggedInUser = (User) session.getAttribute("loggedInUser");
+		if (loggedInUser == null) {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not logged in");
+		}
+
+		if (draftWorksheetDTOList == null || draftWorksheetDTOList.isEmpty()) {
+			return ResponseEntity.badRequest().body("No draft worksheet data to save");
+		}
+
+		try {
+			// ✅ Now uses globally configured ObjectMapper (has JavaTimeModule)
+			String json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(draftWorksheetDTOList);
+			System.out.println("Incoming draftWorksheetDTOList payload:\n" + json);
+		} catch (Exception e) {
+			System.out.println("Failed to print incoming draftWorksheetDTOList: " + e.getMessage());
+		}
+
+		try {
+			draftWorksheetService.saveBulkWorksheets(draftWorksheetDTOList);
+			return ResponseEntity.ok("Draft save successful");
+		} catch (ConstraintViolationException ex) {
+			ex.getConstraintViolations().forEach(
+					cv -> System.err.println("Validation failed at " + cv.getPropertyPath() + ": " + cv.getMessage()));
+			return ResponseEntity.badRequest().body("Validation errors occurred. See server logs for details.");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("Error during draft save: " + e.getMessage());
+		}
+	}
+
+	@PostMapping("/draftworksheet/updateBulk")
+	public ResponseEntity<?> updateBulkDrafts(@RequestBody List<DraftWorksheetDTO> drafts) {
+		try {
+			draftWorksheetService.updateBulkDrafts(drafts);
+			return ResponseEntity.ok("Updated successfully");
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+		}
+	}
+
+	@GetMapping("/draftworksheet/list")
+	public String draftWorksheetdataList(HttpSession session, Model model) {
+		// Authentication check
+		User loggedInUser = (User) session.getAttribute("loggedInUser");
+		if (loggedInUser == null) {
+			return "redirect:/login";
+		}
+		model.addAttribute("user", loggedInUser);
+
+		// Fetch all draft worksheets (service should call repository.findAll() which
+		// uses @EntityGraph)
+		List<DraftWorksheetDTO> draftList = draftWorksheetService.findAll();
+
+		// Put the list into the model for the view
+		model.addAttribute("draftList", draftList);
+
+		return "worksheetDraftList"; // or whichever Thymeleaf view you use for drafts
+	}
 
 }

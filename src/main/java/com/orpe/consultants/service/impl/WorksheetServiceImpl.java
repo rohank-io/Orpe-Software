@@ -24,6 +24,7 @@ import com.orpe.consultants.dto.WorksheetDTO;
 import com.orpe.consultants.dto.WorksheetDataFilter;
 import com.orpe.consultants.dto.WorksheetExportModelsDTO;
 import com.orpe.consultants.model.BomData;
+import com.orpe.consultants.model.ExportData;
 //import com.orpe.consultants.model.BomData;
 import com.orpe.consultants.model.ImportData;
 import com.orpe.consultants.model.Material;
@@ -32,6 +33,7 @@ import com.orpe.consultants.model.Worksheet;
 import com.orpe.consultants.model.WorksheetExportModels;
 import com.orpe.consultants.repository.BomDataRepository;
 import com.orpe.consultants.repository.BomExportModelReposioty;
+import com.orpe.consultants.repository.DraftWorksheetRepository;
 import com.orpe.consultants.repository.ExportDataRepository;
 import com.orpe.consultants.repository.ImportDataRepository;
 import com.orpe.consultants.repository.MaterialRepository;
@@ -64,6 +66,7 @@ public class WorksheetServiceImpl implements WorksheetService {
     private final ModelMapper modelMapper;
     private final ImportDataRepository importDataRepository;
     private final ExportDataRepository exportDataRepository;
+    private final DraftWorksheetRepository draftWorksheetRepository;
 
     
     
@@ -114,7 +117,7 @@ public class WorksheetServiceImpl implements WorksheetService {
             }
 
             // Feature: Save worksheet entity to generate ID for export models association.
-            Worksheet savedWorksheet = worksheetRepository.save(worksheet);
+            Worksheet savedWorksheet = worksheetRepository.saveAndFlush(worksheet);
 
             // Feature: Process each export model DTO to persist and link to saved worksheet.
             if (worksheetDTO.getExportModels() != null) {
@@ -156,11 +159,20 @@ public class WorksheetServiceImpl implements WorksheetService {
                         String claimRefNo = worksheetDTO.getClaimRefNo();
                         String modelNo = exportModelDTO.getModelNo();
                         if (claimRefNo != null && modelNo != null) {
-                            exportDataRepository.findByClaimRefNoAndModels_ModelNo(claimRefNo, modelNo).ifPresent(exportData -> {
-                                exportData.setSbUtilization("CLOSED");
-                                exportDataRepository.save(exportData);
-                                System.out.println("ExportData sbUtilization set to CLOSED for claimRefNo: " + claimRefNo + ", modelNo: " + modelNo);
-                            });
+                        	List<ExportData> exportDataList = exportDataRepository.findByClaimRefNoAndModels_ModelNo(claimRefNo, modelNo);
+
+                        	if (exportDataList != null && !exportDataList.isEmpty()) {
+                        	    for (ExportData exportData : exportDataList) {
+                        	        exportData.setSbUtilization("CLOSED");
+                        	        exportDataRepository.save(exportData);
+                        	    }
+                        	    System.out.println("ExportData sbUtilization set to CLOSED for claimRefNo: "
+                        	        + claimRefNo + ", modelNo: " + modelNo + " (" + exportDataList.size() + " records)");
+                        	} else {
+                        	    System.err.println("No ExportData found for claimRefNo=" + claimRefNo + ", modelNo=" + modelNo);
+                        	}
+                        	
+
                         }
                     } catch (Exception e) {
                         System.err.println("Failed to save export model for worksheet " + worksheetDTO.getBeNo() + ": " + e.getMessage());
@@ -171,6 +183,18 @@ public class WorksheetServiceImpl implements WorksheetService {
             } else {
                 System.out.println("No export models to save for worksheet " + worksheetDTO.getBeNo());
             }
+            
+         // ✅ To delete drafts After saving worksheet and its export models successfully:
+            if (worksheetDTO.getDraftWorksheetId() != null) {
+                try {
+                    draftWorksheetRepository.deleteById(worksheetDTO.getDraftWorksheetId());
+                    System.out.println("✅ Deleted draft worksheet ID: " + worksheetDTO.getDraftWorksheetId());
+                } catch (Exception e) {
+                    System.err.println("⚠️ Failed to delete draft worksheet ID: "
+                        + worksheetDTO.getDraftWorksheetId() + " - " + e.getMessage());
+                }
+            }
+
         }
     }
     

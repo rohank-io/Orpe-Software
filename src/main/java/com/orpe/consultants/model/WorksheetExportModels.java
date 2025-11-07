@@ -22,13 +22,13 @@ public class WorksheetExportModels {
     @Column(name = "ws_model_id", nullable = false, updatable = false)
     private Long wsModelId;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "worksheet_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "worksheet_id", nullable = true)
     private Worksheet worksheet;
     
     
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "bom_export_id", nullable = true)
     private BomExportModelQuantity bomExportModelData;
 
 
