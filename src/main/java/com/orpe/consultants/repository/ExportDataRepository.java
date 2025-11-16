@@ -3,11 +3,16 @@ package com.orpe.consultants.repository;
 
 
 import com.orpe.consultants.model.ExportData;
+import com.orpe.consultants.dto.DashboardMetricsDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
+import java.time.LocalDateTime;
+
+
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
@@ -54,5 +59,50 @@ public interface ExportDataRepository extends JpaRepository<ExportData, Long>, J
     
     
     List<ExportData> findByClaimRefNoAndModels_ModelNo(String claimRefNo, String modelNo);
+    
+    
+    
+    @Query("""
+    	    SELECT new com.orpe.consultants.dto.DashboardMetricsDto(
+    	        COUNT( e.sbNo), 
+    	        (SELECT COUNT( i.altBoePartNo) 
+    	           FROM ImportData i 
+    	           WHERE (:fromDate IS NULL OR i.beDate >= :fromDate) 
+    	             AND (:toDate   IS NULL OR i.beDate <= :toDate)
+    	        ),
+    	        COALESCE(SUM(e.totalDbk), 0),
+    	        COALESCE(SUM(e.airAmount), 0),
+    	        COALESCE(SUM(e.sbr), 0),
+    	        (SELECT COUNT(DISTINCT w.claimYear)
+           FROM Worksheet w
+           WHERE (:fromDate IS NULL OR w.beDate >= :fromDate)
+             AND (:toDate   IS NULL OR w.beDate <= :toDate)
+        )
+    	    )
+    	    FROM ExportData e
+    	    WHERE (:fromDate IS NULL OR e.sbDate >= :fromDate)
+    	      AND (:toDate   IS NULL OR e.sbDate <= :toDate)
+    	""")
+    	DashboardMetricsDto fetchDashboardMetrics(@Param("fromDate") LocalDate fromDate,
+    	                                          @Param("toDate")   LocalDate toDate);
+
+    
+    @Query("""
+    	    SELECT COUNT(e)
+    	    FROM ExportData e
+    	    WHERE (:fromDate IS NULL OR e.sbDate >= :fromDate)
+    	      AND (:toDate   IS NULL OR e.sbDate <= :toDate)
+    	""")
+    	Long countExportsInRange(LocalDate fromDate, LocalDate toDate);
+
+    	@Query("""
+    	    SELECT COUNT(DISTINCT e.sbNo)
+    	    FROM ExportData e
+    	    WHERE (:fromDate IS NULL OR e.sbDate >= :fromDate)
+    	      AND (:toDate   IS NULL OR e.sbDate <= :toDate)
+    	""")
+    	Long countSbInRange(LocalDate fromDate, LocalDate toDate);
+
+
 
 }

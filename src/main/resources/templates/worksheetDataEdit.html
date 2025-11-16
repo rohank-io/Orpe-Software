@@ -996,8 +996,16 @@
 				const openingBalanceQtyDef = parseSafe(getCell(row, 'openingBalanceQtyDef')?.textContent || '0');
 				const qtyUsedDef = parseSafe(getCell(row, 'qtyUsedDef')?.textContent || '0');
 
-				// Calculate and set closingBalanceDef:
-				setCell(row, 'closingBalanceDef', openingBalanceQtyDef - qtyUsedDef);
+				// Calculate closing balance:
+				let closingBalance = openingBalanceQtyDef - qtyUsedDef;
+
+				// If negative, set to 0
+				if (closingBalance < 0) {
+				    closingBalance = 0;
+				}
+
+				// Set closing balance value:
+				setCell(row, 'closingBalanceDef', closingBalance);
 
 
 				// Get export models row

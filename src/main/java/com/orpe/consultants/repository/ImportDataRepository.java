@@ -8,10 +8,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Repository
 public interface ImportDataRepository extends JpaRepository<ImportData, Long>, JpaSpecificationExecutor<ImportData> {
@@ -52,5 +54,17 @@ public interface ImportDataRepository extends JpaRepository<ImportData, Long>, J
     """)
     Page<ImportData> searchAllOrderByBeDateDesc(String q, Pageable pageable);
     
+    
+    
     Page<ImportData> findByClosingBalanceGreaterThan(BigDecimal value, Pageable pageable);
+    
+    
+    @Query("""
+    	    SELECT COUNT(i)
+    	    FROM ImportData i
+    	    WHERE (:fromDate IS NULL OR i.beDate >= :fromDate)
+    	      AND (:toDate   IS NULL OR i.beDate <= :toDate)
+    	""")
+    	Long countImportsInRange(LocalDate fromDate, LocalDate toDate);
+
 }

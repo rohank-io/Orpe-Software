@@ -356,20 +356,18 @@
 											<div class="d-flex justify-content-end">
 												<form method="get" th:action="@{/}"
 													class="d-flex align-items-center gap-2">
-
 													<input type="date" class="form-control form-control-sm mr-1"
 														style="max-width: 150px;" name="fromDate" id="fromDate"
-														placeholder="From Date" th:value="${fromDate}" />
+														th:value="${fromDate}" />
 
 													<input type="date" class="form-control form-control-sm mr-1"
 														style="max-width: 150px;" name="toDate" id="toDate"
-														placeholder="To Date" th:value="${toDate}" />
+														th:value="${toDate}" />
 
 													<button class="btn btn-sm btn-primary d-flex align-items-center"
 														type="submit">
 														<i class="icofont icofont-filter"></i>&nbsp; Filter
 													</button>
-
 												</form>
 											</div>
 										</div>
@@ -386,9 +384,20 @@
 															</div>
 															<div class="col-6  text-right">
 																<div class="counter-card-text">
-																	<h3>12</h3>
+																	<h3 th:text="${dashboard.sbCount}">0</h3>
 																	<h4>No. of SB's available</h4>
-																	<p>1 Aug-30 Aug</p>
+																	<p>
+																		<span th:if="${fromDate != null}"
+																			th:text="${#temporals.format(fromDate,'dd MMM')}"></span>
+																		<span
+																			th:if="${fromDate != null && toDate != null}">
+																			- </span>
+																		<span th:if="${toDate != null}"
+																			th:text="${#temporals.format(toDate,'dd MMM')}"></span>
+																		<span
+																			th:if="${fromDate == null && toDate == null}">Up
+																			to today</span>
+																	</p>
 																</div>
 															</div>
 														</div>
@@ -406,9 +415,20 @@
 															</div>
 															<div class="col-6 text-right">
 																<div class="counter-card-text">
-																	<h3>123</h3>
+																	<h3 th:text="${dashboard.boeCount}">0</h3>
 																	<h4>No. of BOE Available</h4>
-																	<p>1 Aug- 30 Aug</p>
+																	<p>
+																		<span th:if="${fromDate != null}"
+																			th:text="${#temporals.format(fromDate,'dd MMM')}"></span>
+																		<span
+																			th:if="${fromDate != null && toDate != null}">
+																			- </span>
+																		<span th:if="${toDate != null}"
+																			th:text="${#temporals.format(toDate,'dd MMM')}"></span>
+																		<span
+																			th:if="${fromDate == null && toDate == null}">Up
+																			to today</span>
+																	</p>
 																</div>
 															</div>
 														</div>
@@ -426,9 +446,23 @@
 															</div>
 															<div class="col-6 text-right">
 																<div class="counter-card-text">
-																	<h3>35%</h3>
+																	<!-- show as integer without decimals -->
+																	<h3
+																		th:text="${dashboard.claimedDbkAmount != null ? dashboard.claimedDbkAmount.longValue() : 0}">
+																		0</h3>
 																	<h4>Claimed DBK Amount</h4>
-																	<p>1 Aug- 30 Aug</p>
+																	<p>
+																		<span th:if="${fromDate != null}"
+																			th:text="${#temporals.format(fromDate,'dd MMM')}"></span>
+																		<span
+																			th:if="${fromDate != null && toDate != null}">
+																			- </span>
+																		<span th:if="${toDate != null}"
+																			th:text="${#temporals.format(toDate,'dd MMM')}"></span>
+																		<span
+																			th:if="${fromDate == null && toDate == null}">Up
+																			to today</span>
+																	</p>
 																</div>
 															</div>
 														</div>
@@ -436,100 +470,155 @@
 												</div>
 											</div>
 											<!-- counter-card-3 end -->
-											<!-- Morris chart start -->
-											<div class="col-md-8 col-xl-8">
-												<div class="card">
-													<div class="card-header">
-														<button class="btn btn-primary btn-sm">Week</button>
-														<button class="btn btn-primary btn-sm">Month</button>
-														<button class="btn btn-primary btn-sm">Year</button>
+
+											<!-- counter-card-4 start -->
+											<div class="col-md-6 col-xl-4">
+												<div class="card counter-card-1">
+													<div class="card-block-big">
+														<div class="row">
+															<div class="col-6 counter-card-icon">
+																<i class="icofont icofont-money-bag"></i>
+															</div>
+															<div class="col-6 text-right">
+																<div class="counter-card-text">
+																	<!-- format with thousand separators and no decimals -->
+																	<h3
+																		th:text="${#numbers.formatDecimal(dashboard.totalAirAmount, 0, 'COMMA', 0, 'POINT')}">
+																		₹ 0</h3>
+																	<h4>Total AIR Amount</h4>
+																	<p>
+																		<span th:if="${fromDate != null}"
+																			th:text="${#temporals.format(fromDate,'dd MMM')}"></span>
+																		<span
+																			th:if="${fromDate != null && toDate != null}">
+																			- </span>
+																		<span th:if="${toDate != null}"
+																			th:text="${#temporals.format(toDate,'dd MMM')}"></span>
+																		<span
+																			th:if="${fromDate == null && toDate == null}">Up
+																			to today</span>
+																	</p>
+																</div>
+															</div>
+														</div>
 													</div>
+												</div>
+											</div>
+											<!-- counter-card-4 end -->
+
+											<!-- counter-card-5 start -->
+											<div class="col-md-6 col-xl-4">
+												<div class="card counter-card-2">
+													<div class="card-block-big">
+														<div class="row">
+															<div class="col-6 counter-card-icon">
+																<i class="icofont icofont-coins"></i>
+															</div>
+															<div class="col-6 text-right">
+																<div class="counter-card-text">
+																	<h3
+																		th:text="${#numbers.formatDecimal(dashboard.totalSbrAmount, 0, 'COMMA', 0, 'POINT')}">
+																		₹ 0</h3>
+																	<h4>Total SBR</h4>
+																	<p>
+																		<span th:if="${fromDate != null}"
+																			th:text="${#temporals.format(fromDate,'dd MMM')}"></span>
+																		<span
+																			th:if="${fromDate != null && toDate != null}">
+																			- </span>
+																		<span th:if="${toDate != null}"
+																			th:text="${#temporals.format(toDate,'dd MMM')}"></span>
+																		<span
+																			th:if="${fromDate == null && toDate == null}">Up
+																			to today</span>
+																	</p>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<!-- counter-card-5 end -->
+
+
+											<!-- counter-card-3 start -->
+											<div class="col-md-6 col-xl-4">
+												<div class="card counter-card-3">
+													<div class="card-block-big">
+														<div class="row">
+															<div class="col-6 counter-card-icon">
+																<i class="icofont icofont-file-excel"></i>
+															</div>
+															<div class="col-6 text-right">
+																<div class="counter-card-text">
+																	<h3 th:text="${dashboard.totalWorksheetCount}">0
+																	</h3>
+																	<h4>Total Worksheets</h4>
+																	<p>
+																		<span th:if="${fromDate != null}"
+																			th:text="${#temporals.format(fromDate,'dd MMM')}"></span>
+																		<span
+																			th:if="${fromDate != null && toDate != null}">
+																			- </span>
+																		<span th:if="${toDate != null}"
+																			th:text="${#temporals.format(toDate,'dd MMM')}"></span>
+																		<span
+																			th:if="${fromDate == null && toDate == null}">Up
+																			to today</span>
+																	</p>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+
+
+											<!-- counter-card-3 end -->
+
+
+
+											<!-- Morris chart start -->
+											<div class="col-md-12 col-xl-12">
+												<div class="card">
+													<div
+														class="card-header d-flex justify-content-between align-items-center">
+														<div class="btn-group" role="group">
+															<button id="btn-week"
+																class="btn btn-primary btn-sm">Week</button>
+															<button id="btn-month"
+																class="btn btn-primary btn-sm">Month</button>
+															<button id="btn-year"
+																class="btn btn-primary btn-sm">Year</button>
+														</div>
+
+														<!-- Counts area -->
+														<div class="d-flex gap-3 align-items-center">
+															<div class="text-center">
+																<div style="font-size:12px;color:#666">Total Imports
+																</div>
+																<div id="total-imports"
+																	style="font-weight:600;font-size:16px;">0</div>
+															</div>
+															<div style="width:1px;height:36px;background:#eee;"></div>
+															<div class="text-center">
+																<div style="font-size:12px;color:#666">Total Exports
+																</div>
+																<div id="total-exports"
+																	style="font-weight:600;font-size:16px;">0</div>
+															</div>
+														</div>
+													</div>
+
 													<div class="card-block">
 														<div id="morris-extra-area" style="height:340px;"></div>
 													</div>
 												</div>
 											</div>
+
 											<!-- Morris chart end -->
 											<!--Follow block start-->
-											<div class="col-md-4">
-												<div class="card">
-													<div class="card-block">
-														<h5>Data Transfer Detail</h5>
-													</div>
-													<div class="card-block product-table p-t-35">
-														<div class="table-responsive">
-															<table class="table">
-																<thead>
-																	<tr class="text-uppercase">
-																		<th>SB Number</th>
-																		<th>Date</th>
-																		<th>Client Name</th>
-																		<th>Amount</th>
-																		<th>Actions</th>
-																	</tr>
-																</thead>
-																<tbody>
-																	<tr>
-																		<td>SB10234</td>
-																		<td>2025-08-01</td>
-																		<td><button type="button"
-																				class="btn btn-primary">ABC
-																				Corporation</button></td>
-																		<td>$1,250.00</td>
-																		<td><button type="button"
-																				class="btn btn-success btn-round btn-outline-success">View</button>
-																		</td>
-																	</tr>
-																	<tr>
-																		<td>SB10235</td>
-																		<td>2025-08-05</td>
-																		<td><button type="button"
-																				class="btn btn-primary">XYZ
-																				Limited</button></td>
-																		<td>$890.50</td>
-																		<td><button type="button"
-																				class="btn btn-success btn-round btn-outline-success">View</button>
-																		</td>
-																	</tr>
-																	<tr>
-																		<td>SB10236</td>
-																		<td>2025-08-10</td>
-																		<td><button type="button"
-																				class="btn btn-primary">Mega
-																				Industries</button></td>
-																		<td>$1,500.75</td>
-																		<td><button type="button"
-																				class="btn btn-success btn-round btn-outline-success">View</button>
-																		</td>
-																	</tr>
-																	<tr>
-																		<td>SB10237</td>
-																		<td>2025-08-12</td>
-																		<td><button type="button"
-																				class="btn btn-primary">Alpha
-																				Enterprises</button></td>
-																		<td>$720.25</td>
-																		<td><button type="button"
-																				class="btn btn-success btn-round btn-outline-success">View</button>
-																		</td>
-																	</tr>
-																	<tr>
-																		<td>SB10238</td>
-																		<td>2025-08-15</td>
-																		<td><button type="button"
-																				class="btn btn-primary">Beta
-																				Solutions</button></td>
-																		<td>$1,050.00</td>
-																		<td><button type="button"
-																				class="btn btn-success btn-round btn-outline-success">View</button>
-																		</td>
-																	</tr>
-																</tbody>
-															</table>
-														</div>
-													</div>
-												</div>
-											</div>
+											
 											<!--Follow block Ends-->
 
 											<!-- Product table End -->
@@ -555,6 +644,14 @@
 			<a th:href="@{/register}" class="btn btn-primary" aria-hidden="true">Home</a>
 		</div>
 	</div>
+	
+	
+	<!-- ensure this is placed after you included Morris.js and jQuery -->
+	
+
+
+	
+
 
 
 
@@ -622,6 +719,74 @@
 	<!-- Morris Chart Custom js -->
 	<script type="text/javascript" src="assets/pages/dashboard/project-dashboard.js"></script>
 	<!-- Custom js -->
+	<!-- YOUR server-embedded chartData variable -->
+	<script th:inline="javascript">
+		  /*<![CDATA[*/
+		  // chartData is a List<ChartPointDto> in the model
+		  var initialChartData = /*[[${chartData}]]*/ [];
+		  /*]]>*/
+		</script>
+
+		<script>
+		  // helper: render Morris with given data
+		  function renderMorris(data) {
+		    // clear container
+		    document.getElementById('morris-extra-area').innerHTML = '';
+
+		    Morris.Area({
+		      element: 'morris-extra-area',
+		      data: data,
+		      xkey: 'period',
+		      ykeys: ['imports', 'exports', 'sbCount'],
+		      labels: ['Imports', 'Exports', 'SB Count'],
+		      lineColors: ['#7E81CB', '#fb9678', '#01C0C8'],
+		      pointSize: 2,
+		      lineWidth: 1,
+		      resize: true,
+		      fillOpacity: 0.6,
+		      behaveLikeLine: true,
+		      gridLineColor: '#eef0f2',
+		      hideHover: 'auto'
+		    });
+
+		    // update header totals if elements exist
+		    var totalImports = (data || []).reduce(function(acc, p){ return acc + (p.imports||0); }, 0);
+		    var totalExports = (data || []).reduce(function(acc, p){ return acc + (p.exports||0); }, 0);
+		    var elI = document.getElementById('total-imports');
+		    var elE = document.getElementById('total-exports');
+		    if (elI) elI.textContent = totalImports;
+		    if (elE) elE.textContent = totalExports;
+		  }
+
+		  // initial render using server-provided data
+		  renderMorris(initialChartData);
+
+		  // Hook the buttons to do client-side re-render using the same approach:
+		  document.getElementById('btn-week').addEventListener('click', function() {
+		    // you can call server again via redirect with ?range=week or implement ajax.
+		    // For simplicity, request a reload with the range parameter:
+		    location.href = updateQueryString(window.location.href, 'chartRange', 'week');
+		  });
+		  document.getElementById('btn-month').addEventListener('click', function() {
+		    location.href = updateQueryString(window.location.href, 'chartRange', 'month');
+		  });
+		  document.getElementById('btn-year').addEventListener('click', function() {
+		    location.href = updateQueryString(window.location.href, 'chartRange', 'year');
+		  });
+
+		  // small helper to update query string param (keeps existing params like fromDate/toDate)
+		  function updateQueryString(uri, key, value) {
+		    var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
+		    var separator = uri.indexOf('?') !== -1 ? "&" : "?";
+		    if (uri.match(re)) {
+		      return uri.replace(re, '$1' + key + "=" + value + '$2');
+		    }
+		    else {
+		      return uri + separator + key + "=" + value;
+		    }
+		  }
+		</script>
+	
 	<script type="text/javascript" src="assets/js/script.js"></script>
 	<script src="assets/js/pcoded.min.js"></script>
 	<script src="assets/js/demo-12.js"></script>

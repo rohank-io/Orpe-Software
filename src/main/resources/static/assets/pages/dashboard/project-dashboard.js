@@ -1,25 +1,26 @@
 $(document).ready(function () {
 
     // Extra chart
-    Morris.Area({
-        element: 'morris-extra-area',
-        data: [{
-            period: '2010',
-            iphone: 0,
-            ipad: 0,
-            itouch: 0
-        }, {
-            period: '2011',
-            iphone: 100,
-            ipad: 15,
-            itouch: 65
-        }, {
-            period: '2012',
-            iphone: 20,
-            ipad: 135,
-            itouch: 0
-        }, {
-            period: '2013',
+   // Morris.Area({
+   //     element: 'morris-extra-area',
+   //     data: [{
+   //         period: '2010',
+//iphone: 0,
+ //           ipad: 0,
+ //           itouch: 0
+ //       }, {
+ //           period: '2011',
+  //          iphone: 100,
+  //          ipad: 15,
+  //          itouch: 65
+  //      }, {
+  //          period: '2012',
+  //          iphone: 20,
+  //          ipad: 135,
+  //          itouch: 0
+  //      }, {
+   //         period: '2013',
+   /*
             iphone: 100,
             ipad: 12,
             itouch: 25
@@ -55,7 +56,7 @@ $(document).ready(function () {
         hideHover: 'auto'
 
     });
-
+*/
     // Morris bar chart
 
     Morris.Bar({

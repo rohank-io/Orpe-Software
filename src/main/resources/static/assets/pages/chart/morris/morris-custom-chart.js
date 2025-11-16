@@ -71,6 +71,7 @@ function donutChart() {
 }
 
 // Morris bar chart
+/*
 Morris.Bar({
     element: 'morris-bar-chart',
     data: [{
@@ -118,6 +119,7 @@ Morris.Bar({
     resize: true
 });
 // Extra chart
+
 Morris.Area({
     element: 'morris-extra-area',
     data: [{
@@ -173,7 +175,7 @@ Morris.Area({
 
 });
 
-/*Site visit Chart*/
+Site visit Chart*/
 
 Morris.Area({
     element: 'morris-site-visit',
