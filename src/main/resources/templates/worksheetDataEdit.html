@@ -231,14 +231,14 @@
 											</a>
 										</li>
 										<li class=" ">
-											<a href="light-box.html">
+											<a th:href="@{/sbwiseqtyconsumption/bomclaimdata/select}">
 												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
 												<span class="pcoded-mtext">SB wise Qty Consumption</span>
 												<span class="pcoded-mcaret"></span>
 											</a>
 										</li>
 										<li class=" ">
-											<a href="notification.html">
+											<a th:href="@{/work-in-progress}">
 												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
 												<span class="pcoded-mtext">SB wise DBK Calculation</span>
 												<span class="pcoded-mcaret"></span>
@@ -264,11 +264,11 @@
 							<div class="pcoded-navigatio-lavel">Chart And Reports</div>
 							<ul class="pcoded-item pcoded-left-item">
 								<li>
-									<a href="chart.html">
-										<span class="pcoded-micon"><i class="ti-bar-chart-alt"></i></span>
-										<span class="pcoded-mtext">Chart</span>
-										<span class="pcoded-mcaret"></span>
-									</a>
+									<a th:href="@{/export/all-zip}">
+																			<span class="pcoded-micon"><i class="ti-bar-chart-alt"></i></span>
+																			<span class="pcoded-mtext">Download Data</span>
+																			<span class="pcoded-mcaret"></span>
+																		</a>
 								</li>
 							</ul>
 
@@ -722,73 +722,73 @@
 
 
 		document.getElementById('saveDraftBtn').addEventListener('click', async function () {
-		    const btn = document.getElementById('saveDraftBtn');
-		    btn.disabled = true;          // prevent multiple clicks
-		    btn.style.display = 'none';   // hide instantly
+			const btn = document.getElementById('saveDraftBtn');
+			btn.disabled = true;          // prevent multiple clicks
+			btn.style.display = 'none';   // hide instantly
 
-		    try {
-		        const draftData = await collectWorksheetData();
-		        const filteredDraftData = draftData.filter(ws => ws.importId !== null);
+			try {
+				const draftData = await collectWorksheetData();
+				const filteredDraftData = draftData.filter(ws => ws.importId !== null);
 
-		        console.log("Draft data being sent:", filteredDraftData);
+				console.log("Draft data being sent:", filteredDraftData);
 
-		        const response = await fetch('/worksheet/saveDraft', {
-		            method: 'POST',
-		            headers: {'Content-Type': 'application/json'},
-		            body: JSON.stringify(filteredDraftData)
-		        });
+				const response = await fetch('/worksheet/saveDraft', {
+					method: 'POST',
+					headers: {'Content-Type': 'application/json'},
+					body: JSON.stringify(filteredDraftData)
+				});
 
-		        if (!response.ok) {
-		            alert('Draft save failed');
-		            btn.disabled = false;
-		            btn.style.display = 'inline-block';
-		            return;
-		        }
+				if (!response.ok) {
+					alert('Draft save failed');
+					btn.disabled = false;
+					btn.style.display = 'inline-block';
+					return;
+				}
 
-		        alert('Draft saved successfully');
-		        window.location.href = '/draftworksheet/list';
+				alert('Draft saved successfully');
+				window.location.href = '/draftworksheet/list';
 
-		    } catch (error) {
-		        console.error('Error saving draft:', error);
-		        alert('Error saving draft');
-		        btn.disabled = false;
-		        btn.style.display = 'inline-block';
-		    }
+			} catch (error) {
+				console.error('Error saving draft:', error);
+				alert('Error saving draft');
+				btn.disabled = false;
+				btn.style.display = 'inline-block';
+			}
 		});
 
 
 		document.getElementById('saveBtn').addEventListener('click', async function () {
-		    const btn = document.getElementById('saveBtn');
-		    btn.disabled = true;          // prevent multiple clicks
-		    btn.style.display = 'none';   // hide instantly
+			const btn = document.getElementById('saveBtn');
+			btn.disabled = true;          // prevent multiple clicks
+			btn.style.display = 'none';   // hide instantly
 
-		    try {
-		        const saveData = await collectWorksheetData();
-		        const filteredData = saveData.filter(ws => ws.importId !== null);
+			try {
+				const saveData = await collectWorksheetData();
+				const filteredData = saveData.filter(ws => ws.importId !== null);
 
-		        const response = await fetch('/worksheet/saveBulk', {
-		            method: 'POST',
-		            headers: {'Content-Type': 'application/json'},
-		            body: JSON.stringify(filteredData)
-		        });
+				const response = await fetch('/worksheet/saveBulk', {
+					method: 'POST',
+					headers: {'Content-Type': 'application/json'},
+					body: JSON.stringify(filteredData)
+				});
 
-		        if (!response.ok) {
-		            alert('Save failed');
-		            btn.disabled = false;
-		            btn.style.display = 'inline-block';
-		            return;
-		        }
+				if (!response.ok) {
+					alert('Save failed');
+					btn.disabled = false;
+					btn.style.display = 'inline-block';
+					return;
+				}
 
-		        alert('Save successful');
-		        generateExcelFile();
-		        window.location.href = '/worksheet/list';
+				alert('Save successful');
+				generateExcelFile();
+				window.location.href = '/worksheet/list';
 
-		    } catch (error) {
-		        console.error('Save error:', error);
-		        alert('Error saving data');
-		        btn.disabled = false;
-		        btn.style.display = 'inline-block';
-		    }
+			} catch (error) {
+				console.error('Save error:', error);
+				alert('Error saving data');
+				btn.disabled = false;
+				btn.style.display = 'inline-block';
+			}
 		});
 
 
@@ -889,7 +889,7 @@
 						const usedQty = emRow.querySelector('td[data-field="emUsedQty"]')?.textContent.trim() || '0';
 						const dutyClaimed = emRow.querySelector('td[data-field="emDutyClaimed"]')?.textContent.trim() || '0';
 						const cifClaimed = emRow.querySelector('td[data-field="emCIFClaimed"]')?.textContent.trim() || '0';
-						usageMap[modelNo] = { usedQty, dutyClaimed, cifClaimed };
+						usageMap[modelNo] = {usedQty, dutyClaimed, cifClaimed};
 					});
 				}
 

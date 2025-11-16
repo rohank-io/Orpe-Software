@@ -183,14 +183,14 @@
 												<span class="pcoded-mcaret"></span>
 											</a>
 										</li>
-										
+
 										<li class=" ">
-																					<a th:href="@{/bomclaimdata/list}">
-																																<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-																																<span class="pcoded-mtext">BOM 2</span>
-																																<span class="pcoded-mcaret"></span>
-																															</a>
-																														</li>
+											<a th:href="@{/bomclaimdata/list}">
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">BOM 2</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+										</li>
 										<li class=" ">
 											<a th:href="@{/worksheet/list}">
 												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
@@ -220,14 +220,14 @@
 											</a>
 										</li>
 										<li class=" ">
-											<a href="light-box.html">
+											<a th:href="@{/sbwiseqtyconsumption/bomclaimdata/select}">
 												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
 												<span class="pcoded-mtext">SB wise Qty Consumption</span>
 												<span class="pcoded-mcaret"></span>
 											</a>
 										</li>
 										<li class=" ">
-											<a href="notification.html">
+											<a th:href="@{/work-in-progress}">
 												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
 												<span class="pcoded-mtext">SB wise DBK Calculation</span>
 												<span class="pcoded-mcaret"></span>
@@ -253,9 +253,9 @@
 							<div class="pcoded-navigatio-lavel">Chart And Reports</div>
 							<ul class="pcoded-item pcoded-left-item">
 								<li>
-									<a href="chart.html">
+									<a th:href="@{/export/all-zip}">
 										<span class="pcoded-micon"><i class="ti-bar-chart-alt"></i></span>
-										<span class="pcoded-mtext">Chart</span>
+										<span class="pcoded-mtext">Download Data</span>
 										<span class="pcoded-mcaret"></span>
 									</a>
 								</li>
@@ -352,8 +352,31 @@
 										</div>
 									</div>
 									<div class="page-body">
+										<div class="col-12 mb-2">
+											<div class="d-flex justify-content-end">
+												<form method="get" th:action="@{/}"
+													class="d-flex align-items-center gap-2">
+
+													<input type="date" class="form-control form-control-sm mr-1"
+														style="max-width: 150px;" name="fromDate" id="fromDate"
+														placeholder="From Date" th:value="${fromDate}" />
+
+													<input type="date" class="form-control form-control-sm mr-1"
+														style="max-width: 150px;" name="toDate" id="toDate"
+														placeholder="To Date" th:value="${toDate}" />
+
+													<button class="btn btn-sm btn-primary d-flex align-items-center"
+														type="submit">
+														<i class="icofont icofont-filter"></i>&nbsp; Filter
+													</button>
+
+												</form>
+											</div>
+										</div>
+
 										<div class="row">
 											<!-- counter-card-1 start-->
+
 											<div class="col-md-12 col-xl-4">
 												<div class="card counter-card-1">
 													<div class="card-block-big">

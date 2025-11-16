@@ -64,10 +64,6 @@ public class ImportDataDTO {
     
     private List<BomExportModelQuantity> exportModels;
     
-     // To match Entity type or convert accordingly
-        // To match Entity type or convert accordingly
-    // Use enum or map properly
-
-    // Optional aliases from sheet structure
+     
 }
 

@@ -41,6 +41,7 @@
 	<link rel="stylesheet" type="text/css" href="/assets/css/simple-line-icons.css">
 	<link rel="stylesheet" type="text/css" href="/assets/css/ionicons.css">
 	<link rel="stylesheet" type="text/css" href="/assets/css/jquery.mCustomScrollbar.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" />
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 </head>
 
@@ -186,7 +187,7 @@
 										<li class=" ">
 											<a th:href="@{/bomdata/list}">
 												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-												<span class="pcoded-mtext">BOM</span>
+												<span class="pcoded-mtext">BOM 1</span>
 												<span class="pcoded-mcaret"></span>
 											</a>
 										</li>
@@ -198,7 +199,6 @@
 												<span class="pcoded-mcaret"></span>
 											</a>
 										</li>
-
 										<li class=" ">
 											<a th:href="@{/worksheet/list}">
 												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
@@ -345,8 +345,8 @@
 								<div class="page-wrapper">
 									<div class="page-header">
 										<div class="page-header-title">
-											<h3>All Import Data</h3>
-											<span>List of all imported materials</span>
+											<h3>SB Wise Qty Consumption Data</h3>
+											<span>List of all Qty Consumption</span>
 										</div>
 										<div class="page-header-breadcrumb">
 											<ul class="breadcrumb-title">
@@ -355,7 +355,7 @@
 														<i class="icofont icofont-home"></i>
 													</a>
 												</li>
-												<li class="breadcrumb-item"><a th:href="@{/pdfimport}">Import</a>
+												<li class="breadcrumb-item"><a th:href="@{/}">SbWiseQtyConsumption</a>
 												</li>
 												<li class="breadcrumb-item"><a href="#!">List</a>
 												</li>
@@ -367,14 +367,11 @@
 										<!-- Profile Header Section (unchanged) -->
 										<div class="">
 
-											<a class="btn btn-primary m-r-10 m-b-5" th:href="@{/sb-consumption/list}">
-												<i class="icofont icofont-database-add"></i> Export Selected
-											</a>
-											<a class="btn btn-primary m-r-10 m-b-5" th:href="@{/importdata/exportall}">
-												<i class="icofont icofont-downloaded"></i> Export All
-											</a>
+											<button type="button" onclick="window.history.back()"
+												class="btn btn-primary m-r-10 m-b-5">
+												<i class="icofont icofont-reply"></i> Back
+											</button>
 										</div>
-
 
 										<div class="row">
 											<div class="col-xs-12 col-sm-12 col-lg-12">
@@ -383,54 +380,74 @@
 												<div class="card">
 													<!-- personal card start -->
 													<div class="card-header">
-														<h5>Import Data List</h5>
-														<span>List of all import material</span>
+														<h5>Qty Consumption List</h5>
+														<span>List of all SB Wise Qty Consumption</span>
 														<div class="card-header-right">
 															<i class="icofont icofont-rounded-down"></i>
-															<a th:href="@{/importdata/list}">
+															<a th:href="@{/sb-consumption/list}">
 																<i class="icofont icofont-refresh"></i>
 															</a>
 														</div>
 													</div>
 													<div class="card-block table-border-style">
 														<div class="d-flex justify-content-end">
-
-															<form th:action="@{/importdata/list}" method="get"
+															<form th:action="@{/sb-consumption/list}" method="get"
 																class="d-flex align-items-center gap-2 m-3 flex-nowrap"
 																style="max-width:700px;">
+
+																<!-- Filter Field Dropdown -->
 																<select name="filterField" id="filterField"
 																	class="form-control form-control-sm mr-2"
-																	style="width:110px; min-width:90px;" required
+																	style="width:140px; min-width:120px;"
 																	onchange="updateInputType();">
-																	<option th:selected="${filterField == null}"
-																		value="" disabled>Sort By</option>
-																	<option th:selected="${filterField == 'beNo'}"
-																		value="beNo">BE No</option>
-																	<option th:selected="${filterField == 'claimYear'}"
-																		value="claimYear">Claim Year</option>
-																	<option th:selected="${filterField == 'clientName'}"
-																		value="clientName">Client Name</option>
-																	<!-- add more fields as needed -->
+																	<option value=""
+																		th:selected="${filterField == null or filterField == ''}">
+																		Sort By</option>
+
+																	<option value="dbkPartNo"
+																		th:selected="${filterField == 'dbkPartNo'}">DBK
+																		Part No</option>
+																	<option value="claimRefNo"
+																		th:selected="${filterField == 'claimRefNo'}">
+																		Claim Ref No</option>
+																	<option value="claimYear"
+																		th:selected="${filterField == 'claimYear'}">
+																		Claim Year</option>
+																	<option value="sbNo"
+																		th:selected="${filterField == 'sbNo'}">SB No
+																	</option>
+																	<option value="exportModelNo"
+																		th:selected="${filterField == 'exportModelNo'}">
+																		Export Model No</option>
+																	<option value="boeNo"
+																		th:selected="${filterField == 'boeNo'}">BOE No
+																	</option>
+																	<option value="dateRange"
+																		th:selected="${filterField == 'dateRange'}">
+																		Created Date</option>
 																</select>
 
+																<!-- Filter Value -->
 																<input type="text" name="filterValue" id="filterValue"
 																	th:value="${filterValue}" placeholder="Value"
 																	class="form-control form-control-sm mr-2"
-																	style="width:140px; min-width:120px;" required />
+																	style="width:150px; min-width:120px;" />
 
+																<!-- Date From -->
 																<input type="date" name="fromDate" id="fromDate"
-																	th:value="${fromDate}" placeholder="From Date"
+																	th:value="${fromDate}"
 																	class="form-control form-control-sm mr-2"
-																	style="width:120px; min-width:110px; display:none;" />
+																	style="width:140px; min-width:120px; display:none;" />
 
+																<!-- Date To -->
 																<input type="date" name="toDate" id="toDate"
-																	th:value="${toDate}" placeholder="To Date"
+																	th:value="${toDate}"
 																	class="form-control form-control-sm mr-2"
-																	style="width:120px; min-width:110px; display:none;" />
+																	style="width:140px; min-width:120px; display:none;" />
 
 																<button type="submit"
-																	class="btn btn-sm btn-primary waves-effect waves-light f-right"
-																	title="Filter" style="height:32px;">
+																	class="btn btn-sm btn-primary waves-effect waves-light"
+																	style="height:32px;">
 																	<i class="icofont icofont-search"
 																		style="font-size: 1.2rem;"></i>
 																</button>
@@ -443,270 +460,173 @@
 
 														<!-- Data Table style="max-height: 520px; overflow:auto;" -->
 														<div class="table-responsive"
-															style="max-height: 520px; overflow:auto;">
-															<table class="table table-hover table-sm table-bordered">
+															style="max-height:520px; overflow:auto;">
+															<table id="bomTable"
+																class="table table-hover table-sm table-bordered">
 																<thead class="table-light sticky-top"
-																	style="background-color: #fff; z-index: 1020;">
+																	style="background-color:#fff; z-index:1020;">
 																	<tr>
+																		<th>Select</th>
+																		<th>#</th>
 
-																		<th>Sr No.</th>
-																		<th>BE No</th>
-																		<th>BE Date</th>
-																		<th>Month</th>
-																		<th>Year</th>
-																		<th>Client Name</th>
+																		<th style="display:none;">ID</th>
 																		<th>Claim Ref No</th>
 																		<th>Claim Year</th>
-																		<th>Port Code</th>
-																		<th>Country of Origin</th>
-																		<th>Supplier</th>
-																		<th>ITCHS</th>
-																		<th>Item Description</th>
-																		<th>BOM Part</th>
-																		<th>Alt BOE Part</th>
-																		<th>DBK Part</th>
-																		<th class="text-end">Qty</th>
-																		<th>UOM</th>
-																		<th class="text-end">Assessable</th>
-																		<th class="text-end">BCD Rate(%)</th>
-																		<th class="text-end">BCD</th>
-																		<th class="text-end">SWS Rate(%)</th>
-																		<th class="text-end">SWS</th>
-																		<th class="text-end">Add Rate(%)</th>
-																		<th class="text-end">Add Duty</th>
-																		<th class="text-end">IGST Rate(%)</th>
-																		<th class="text-end">IGST</th>
-																		<th class="text-end">Total Duty</th>
-																		<th>Notification No</th>
-																		<th>Eligibility</th>
-																		<th class="text-end">Opening</th>
-																		<th class="text-end">Used</th>
-																		<th class="text-end">Closing</th>
-																		<th>Stock Eligibility</th>
-																		<th class="text-end">Duty Claimed</th>
-																		<th class="text-end">Actions</th>
+																		<th>DBK Part No</th>
+																		<th>BOE No</th>
+																		<th>Used Qty</th>
+																		<th>Export Model No</th>
+																		<th>SB No</th>
+																		<th>Created At</th>
+																		<th style="display:none;">Claim ID</th>
+																		<th class="text-center">Action</th>
 																	</tr>
 																</thead>
+
 																<tbody>
-																	<tr th:if="${importDataPage.content.isEmpty()}">
-																		<td colspan="33" class="text-center text-muted">
-																			No
-																			records found.</td>
-																	</tr>
+																	<th:block
+																		th:each="rec, stat : ${qtyConsumptionPage}">
+																		<tr th:id="'row-' + ${stat.index}">
 
-																	<tr th:each="row, stat : ${importDataPage.content}">
+																			<!-- Checkbox -->
+																			<td class="text-center">
+																				<input type="checkbox"
+																					class="row-select"
+																					th:value="${stat.index}" />
+																			</td>
 
-																		<td class="text-center"
-																			th:text="${stat.index + 1 + importDataPage.number * importDataPage.size}">
-																			1</td>
-																		<td th:text="${row.beNo}">BE No</td>
-																		<td
-																			th:text="${#temporals.format(row.beDate, 'dd-MM-yyyy')}">
-																		</td>
-																		<td th:text="${row.beMonth}">Month</td>
-																		<td th:text="${row.beYear}">Year</td>
-																		<td th:text="${row.clientName}">Client Name
-																		</td>
-																		<td th:text="${row.claimRefNo}">Claim
-																			Ref No</td>
-																		<td th:text="${row.claimYear}">Claim
-																			Year</td>
-
-																		<td th:text="${row.portCode}">Port Code
-																		</td>
-																		<td th:text="${row.countryOfOrigin}">
-																			Country of Origin</td>
-																		<td th:text="${row.supplierNameAddress}">
-																			Supplier</td>
-																		<td th:text="${row.itchsCode}">ITCHS
-																		</td>
-																		<td th:text="${row.itemDescription}">
-																			Item Description</td>
-																		<td th:text="${row.bomPartNo}">BOM Part
-																		</td>
-																		<td th:text="${row.altBoePartNo}">Alt
-																			BOE Part</td>
-																		<td th:text="${row.dbkPartNo}">DBK Part
-																		</td>
-																		<td class="text-end"
-																			th:text="${#numbers.formatDecimal(row.quantity,1,'COMMA',2,'POINT')}">
-																			Qty</td>
-																		<td th:text="${row.uom}">UOM</td>
-																		<td class="text-end"
-																			th:text="${#numbers.formatDecimal(row.assessableValue,1,'COMMA',2,'POINT')}">
-																			Assessable</td>
-																		<td class="text-end"
-																			th:text="${#numbers.formatDecimal(row.bcdRate,1,'COMMA',2,'POINT')}">
-																			BCD Rate</td>
-																		<td class="text-end"
-																			th:text="${#numbers.formatDecimal(row.bcd,1,'COMMA',2,'POINT')}">
-																			BCD</td>
-																		<td class="text-end"
-																			th:text="${#numbers.formatDecimal(row.swsRate,1,'COMMA',2,'POINT')}">
-																			SWS Rate</td>
-																		<td class="text-end"
-																			th:text="${#numbers.formatDecimal(row.sws,1,'COMMA',2,'POINT')}">
-																			SWS</td>
-																		<td class="text-end"
-																			th:text="${#numbers.formatDecimal(row.addRate,1,'COMMA',2,'POINT')}">
-																			Add Rate</td>
-																		<td class="text-end"
-																			th:text="${#numbers.formatDecimal(row.addDuty,1,'COMMA',2,'POINT')}">
-																			Add Duty</td>
-																		<td class="text-end"
-																			th:text="${#numbers.formatDecimal(row.igstRate,1,'COMMA',2,'POINT')}">
-																			IGST Rate</td>
-																		<td class="text-end"
-																			th:text="${#numbers.formatDecimal(row.igst,1,'COMMA',2,'POINT')}">
-																			IGST</td>
-																		<td class="text-end"
-																			th:text="${#numbers.formatDecimal(row.totalDuty,1,'COMMA',2,'POINT')}">
-																			Total Duty</td>
-																		<td th:text="${row.notnNo}">Notification
-																			No</td>
-																		<td th:text="${row.notnEligibility}">
-																			Eligibility</td>
-																		<td class="text-end"
-																			th:text="${#numbers.formatDecimal(row.qtyOpeningBalance,1,'COMMA',2,'POINT')}">
-																			Opening</td>
-																		<td class="text-end"
-																			th:text="${#numbers.formatDecimal(row.qtyUsed,1,'COMMA',2,'POINT')}">
-																			Used</td>
-																		<td class="text-end"
-																			th:text="${#numbers.formatDecimal(row.closingBalance,1,'COMMA',2,'POINT')}">
-																			Closing</td>
-																		<td th:text="${row.stockWiseEligibility}">
-																			Stock Eligibility</td>
-																		<td class="text-end"
-																			th:text="${#numbers.formatDecimal(row.dutyClaimedAmt,1,'COMMA',2,'POINT')}">
-																			Duty Claimed</td>
-
-																		<td>
+																			<!-- Serial -->
+																			<td th:text="${stat.index + 1}"></td>
 
 
-																			<a th:href="@{/importdata/delete/{id}(id=${row.importId}, filterField=${filterField}, filterValue=${filterValue}, page=${currentPage}, size=${pageSize})}"
-																				onclick="return confirm('Are you sure you want to delete this record?')"
-																				class="btn btn-danger btn-sm btn-round btn-outline-danger">Delete</a>
 
-																		</td>
+																			<!-- ID -->
+																			<td style="display:none;"
+																				th:text="${rec.sbQtyConsumptionId}">
+																			</td>
+
+																			<!-- Editable fields -->
+																			<td contenteditable="true"
+																				data-field="claimRefNo"
+																				th:text="${rec.claimRefNo}"></td>
+																			<td contenteditable="true"
+																				data-field="claimYear"
+																				th:text="${rec.claimYear}"></td>
+																			<td contenteditable="true"
+																				data-field="dbkPartNo"
+																				th:text="${rec.dbkPartNo}"></td>
+																			<td contenteditable="true"
+																				data-field="boeNo"
+																				th:text="${rec.boeNo}"></td>
+																			<td contenteditable="true"
+																				data-field="usedQty"
+																				th:text="${rec.usedQty}"></td>
+																			<td contenteditable="true"
+																				data-field="exportModelNo"
+																				th:text="${rec.exportModelNo}"></td>
+																			<td contenteditable="true" data-field="sbNo"
+																				th:text="${rec.sbNo}"></td>
+
+																			<!-- createdAt formatted -->
+																			<td
+																				th:text="${#temporals.format(rec.createdAt, 'yyyy-MM-dd HH:mm')}">
+																			</td>
+
+																			<!-- Hidden claimId (for save/delete) -->
+																			<td style="display:none;">
+																				<span data-field="claimId"
+																					th:text="${rec.claimId}"></span>
+																			</td>
+
+																			<!-- Delete -->
+																			<td class="text-center">
+																				<a th:href="@{/sb-consumption/delete/{id}(id=${rec.sbQtyConsumptionId})}"
+																					onclick="return confirm('Delete this record?')"
+																					class="btn btn-danger btn-sm">Delete</a>
+																			</td>
+																		</tr>
+																	</th:block>
+
+																	<tr th:if="${#lists.isEmpty(qtyConsumptionPage)}">
+																		<td colspan="12" class="text-center">No Records
+																			Found</td>
 																	</tr>
 																</tbody>
 															</table>
 														</div>
 
+
+
+
 														<!-- Pagination controls -->
-														<div
-															class="d-flex align-items-center justify-content-center mt-3 ml-3">
-															<nav aria-label="Page navigation">
-																<ul class="pagination mb-0">
-																	<!-- Previous button -->
-																	<li class="page-item"
-																		th:classappend="${importDataPage.first} ? 'disabled'">
-																		<a class="page-link" th:href="@{/importdata/list(
-																													                                  page=${importDataPage.number - 1},
-																													                                  size=${importDataPage.size},
-																													                                  filterField=${filterField},
-																													                                  filterValue=${filterValue},
-																													                                  fromDate=${fromDate},
-																													                                  toDate=${toDate})}" tabindex="-1">Previous</a>
-																	</li>
-
-																	<!-- Page numbers -->
-																	<li class="page-item"
-																		th:each="pageNum : ${#numbers.sequence(0, importDataPage.totalPages - 1)}"
-																		th:classappend="${pageNum == importDataPage.number} ? 'active'">
-																		<a class="page-link" th:href="@{/importdata/list(
-																													                                         page=${pageNum},
-																													                                         size=${importDataPage.size},
-																													                                         filterField=${filterField},
-																													                                         filterValue=${filterValue},
-																													                                         fromDate=${fromDate},
-																													                                         toDate=${toDate})}"
-																			th:text="${pageNum + 1}">1</a>
-																		<span class="sr-only"
-																			th:if="${pageNum == importDataPage.number}">(current)</span>
-																	</li>
-
-																	<!-- Next button -->
-																	<li class="page-item"
-																		th:classappend="${importDataPage.last} ? 'disabled'">
-																		<a class="page-link" th:href="@{/importdata/list(
-																													                                  page=${importDataPage.number + 1},
-																													                                  size=${importDataPage.size},
-																													                                  filterField=${filterField},
-																													                                  filterValue=${filterValue},
-																													                                  fromDate=${fromDate},
-																													                                  toDate=${toDate})}">Next</a>
-																	</li>
-																</ul>
-															</nav>
-															</di>
 
 
 
-														</div>
 
 													</div>
+
 												</div>
-												<!-- tab content end -->
-
 											</div>
-										</div>
+											<!-- tab content end -->
 
+										</div>
 									</div>
 
-
 								</div>
-							</div>
-							<!--<div id="styleSelector">-->
 
-							<!--</div>-->
+
+							</div>
 						</div>
+						<!--<div id="styleSelector">-->
+
+						<!--</div>-->
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="fixed-button">
-			<a th:href="@{/index}" class="btn btn-primary" aria-hidden="true">Home</a>
-		</div>
+	</div>
+	<div class="fixed-button">
+		<a th:href="@{/index}" class="btn btn-primary" aria-hidden="true">Home</a>
+	</div>
 	</div>
 
 	<script>
+
+
+
+	</script>
+
+
+	<script>
 		function updateInputType() {
-			const filterField = document.getElementById('filterField').value;
-			const filterValueInput = document.getElementById('filterValue');
-			const fromDateInput = document.getElementById('fromDate');
-			const toDateInput = document.getElementById('toDate');
+			var field = document.getElementById('filterField').value;
+			var filterValue = document.getElementById('filterValue');
+			var fromDate = document.getElementById('fromDate');
+			var toDate = document.getElementById('toDate');
 
-			if (!filterField) {
-				// Hide all inputs if no filterField selected
-				filterValueInput.style.display = 'none';
-				filterValueInput.required = false;
+			if (field === 'dateRange') {
+				// hide text input
+				filterValue.style.display = 'none';
+				filterValue.value = '';
 
-				fromDateInput.style.display = 'none';
-				fromDateInput.required = false;
-
-				toDateInput.style.display = 'none';
-				toDateInput.required = false;
+				// show date inputs
+				fromDate.style.display = 'block';
+				toDate.style.display = 'block';
 			} else {
-				// Show all inputs when a filterField is selected
-				filterValueInput.style.display = 'inline-block';
-				filterValueInput.required = true;
+				// show text
+				filterValue.style.display = 'block';
 
-				fromDateInput.style.display = 'inline-block';
-				fromDateInput.required = false;
-
-				toDateInput.style.display = 'inline-block';
-				toDateInput.required = false;
+				// hide dates
+				fromDate.style.display = 'none';
+				toDate.style.display = 'none';
 			}
 		}
 
-		// Initialize on page load
-		document.addEventListener('DOMContentLoaded', () => {
-			updateInputType();
-		});
-
+		document.addEventListener("DOMContentLoaded", updateInputType);
 	</script>
+
+
+
 
 
 

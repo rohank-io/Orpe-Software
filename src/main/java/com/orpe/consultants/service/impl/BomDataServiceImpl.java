@@ -1,9 +1,11 @@
 package com.orpe.consultants.service.impl;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -23,6 +25,7 @@ import com.orpe.consultants.model.BomExportModelQuantity;
 import com.orpe.consultants.model.Material;
 import com.orpe.consultants.model.Models;
 import com.orpe.consultants.repository.BomDataRepository;
+import com.orpe.consultants.repository.BomExportModelReposioty;
 import com.orpe.consultants.repository.MaterialRepository;
 import com.orpe.consultants.repository.ModelsRepository;
 import com.orpe.consultants.service.BomDataService;
@@ -38,9 +41,12 @@ public class BomDataServiceImpl implements BomDataService {
 
     private final BomDataRepository bomDataRepository;
     private final ModelMapper modelMapper;
+    
+   
 
     private final MaterialRepository materialRepository;  
-    private final ModelsRepository modelsRepository;      
+    private final ModelsRepository modelsRepository;  
+    private final BomExportModelReposioty bomExportModelQuantityRepository;
 
     @Override
     public int saveBulk(List<BomDataDTO> dtos) {
@@ -96,6 +102,59 @@ public class BomDataServiceImpl implements BomDataService {
         }
         return dtos;
     }
+    
+ // BomServiceImpl.java (or where findAll() is implemented)
+    @Override
+    @Transactional
+    public List<BomDataDTO> findAllForExport() {
+    	// 1) fetch all parents
+        List<BomData> parents = bomDataRepository.findAll();
+
+        if (parents.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        // 2) collect parent ids
+        List<Long> parentIds = parents.stream()
+                .map(BomData::getBomId)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+
+        // 3) fetch all children in one query
+        List<BomExportModelQuantity> allChildren = Collections.emptyList();
+        if (!parentIds.isEmpty()) {
+            allChildren = bomExportModelQuantityRepository.findByBomDataBomIdIn(parentIds);
+        }
+
+        // 4) group children by parent id
+        Map<Long, List<BomExportModelQuantity>> childrenByParent = allChildren.stream()
+                .filter(Objects::nonNull)
+                .collect(Collectors.groupingBy(c -> c.getBomData().getBomId()));
+
+        // 5) map parents -> DTO and attach child DTOs
+        List<BomDataDTO> dtos = new ArrayList<>(parents.size());
+        for (BomData parent : parents) {
+            BomDataDTO dto = entityToDto(parent); // your existing mapper (ensure it does not assume children are loaded)
+
+            // build child DTOs from grouped list (override whatever entityToDto gave if needed)
+            List<BomExportModelQuantity> childEntities = childrenByParent.getOrDefault(parent.getBomId(), Collections.emptyList());
+            List<BomExportModelQuantityDTO> childDtos = childEntities.stream()
+                    .map(em -> BomExportModelQuantityDTO.builder()
+                            .id(em.getId())
+                            .bomId(parent.getBomId())
+                            .modelNo(em.getModelNo())
+                            .quantity(em.getQuantity())
+                            .status(em.getStatus())
+                            .build())
+                    .collect(Collectors.toList());
+
+            dto.setExportModels(childDtos);
+            dtos.add(dto);
+        }
+
+        return dtos;
+    }
+
 
     @Override
     public Page<BomDataDTO> search(BomDataFilter filter, Pageable pageable) {
@@ -190,6 +249,7 @@ public class BomDataServiceImpl implements BomDataService {
             .clientName(dto.getClientName())
             .grandTotal(dto.getGrandTotal())
             .netWeightKg(dto.getNetWeightKg())
+            .createdAt(dto.getCreatedAt())
             .build();
 
         List<BomExportModelQuantity> children = new ArrayList<>();
@@ -237,6 +297,7 @@ public class BomDataServiceImpl implements BomDataService {
             .clientName(entity.getClientName())
             .grandTotal(entity.getGrandTotal())
             .netWeightKg(entity.getNetWeightKg())
+            .createdAt(entity.getCreatedAt())
             .exportModels(childDtos)
             .build();
     }

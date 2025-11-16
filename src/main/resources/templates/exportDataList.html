@@ -190,21 +190,21 @@
 												<span class="pcoded-mcaret"></span>
 											</a>
 										</li>
-										
+
 										<li class=" ">
-																					<a th:href="@{/bomclaimdata/list}">
-																																<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-																																<span class="pcoded-mtext">BOM 2</span>
-																																<span class="pcoded-mcaret"></span>
-																															</a>
-																														</li>
+											<a th:href="@{/bomclaimdata/list}">
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">BOM 2</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+										</li>
 										<li class=" ">
-																					<a th:href="@{/worksheet/list}">
-																						<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-																						<span class="pcoded-mtext">Worksheet</span>
-																						<span class="pcoded-mcaret"></span>
-																					</a>
-																				</li>
+											<a th:href="@{/worksheet/list}">
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">Worksheet</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+										</li>
 
 
 
@@ -227,14 +227,14 @@
 											</a>
 										</li>
 										<li class=" ">
-											<a href="light-box.html">
+											<a th:href="@{/sbwiseqtyconsumption/bomclaimdata/select}">
 												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
 												<span class="pcoded-mtext">SB wise Qty Consumption</span>
 												<span class="pcoded-mcaret"></span>
 											</a>
 										</li>
 										<li class=" ">
-											<a href="notification.html">
+											<a th:href="@{/work-in-progress}">
 												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
 												<span class="pcoded-mtext">SB wise DBK Calculation</span>
 												<span class="pcoded-mcaret"></span>
@@ -260,9 +260,9 @@
 							<div class="pcoded-navigatio-lavel">Chart And Reports</div>
 							<ul class="pcoded-item pcoded-left-item">
 								<li>
-									<a href="chart.html">
+									<a th:href="@{/export/all-zip}">
 										<span class="pcoded-micon"><i class="ti-bar-chart-alt"></i></span>
-										<span class="pcoded-mtext">Chart</span>
+										<span class="pcoded-mtext">Download Data</span>
 										<span class="pcoded-mcaret"></span>
 									</a>
 								</li>
@@ -470,7 +470,7 @@
 																		<th>Net Realised Value</th>
 																		<th>Currency</th>
 																		<th>SB Utilization</th>
-																	
+
 																		<th>Actions</th>
 																	</tr>
 																</thead>
@@ -563,7 +563,7 @@
 																			Currency</td>
 																		<td th:text="${row.sbUtilization}">SB
 																			Utilization</td>
-																		
+
 																		<td>
 
 																			<a th:href="@{/exportdata/delete/{id}(id=${row.exportId}, filterField=${filterField}, filterValue=${filterValue}, page=${currentPage}, size=${pageSize})}"

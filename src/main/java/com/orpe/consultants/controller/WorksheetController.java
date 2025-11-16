@@ -50,7 +50,7 @@ public class WorksheetController {
 			@RequestParam(required = false) String filterValue,
 			@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fromDate,
 			@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate toDate,
-			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "100") int size,
+			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "1000") int size,
 			HttpSession session, Model model) {
 
 		// Authentication check omitted for brevity

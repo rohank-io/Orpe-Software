@@ -54,6 +54,8 @@ public interface BomClaimService{
     
     Page<BomClaimDTO> search(BomClaimFilter filter, Pageable pageable);
     
+    List<BomClaimDTO> search(BomClaimFilter filter);
+    
     
 
     /**

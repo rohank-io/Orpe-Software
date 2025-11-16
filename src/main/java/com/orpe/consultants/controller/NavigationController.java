@@ -114,6 +114,22 @@ public class NavigationController {
     
     
     
+    @GetMapping("/work-in-progress")
+    public String showWorkInProgressPage(HttpSession session, Model model) {
+
+        
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+        if (loggedInUser == null) {
+            return "redirect:/login";
+        }
+
+        model.addAttribute("user", loggedInUser);
+
+        return "error/workinprogress"; 
+    }
+    
+    
+    
     
     
     

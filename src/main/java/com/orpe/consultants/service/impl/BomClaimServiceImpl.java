@@ -2,6 +2,7 @@ package com.orpe.consultants.service.impl;
 
 
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -132,6 +133,19 @@ public class BomClaimServiceImpl implements BomClaimService {
 
         return new PageImpl<>(dtos, pageable, page.getTotalElements());
     }
+    
+    
+    @Override
+	public List<BomClaimDTO> search(BomClaimFilter filter) {
+	    Specification<BomClaim> spec = buildSpecification(filter);
+
+	    // Sort by createdAt descending (property name of your entity)
+	    List<BomClaim> list = bomClaimRepo.findAll(spec, Sort.by(Sort.Direction.DESC, "createdAt"));
+
+	    return list.stream()
+	            .map(this::entityToDto)
+	            .collect(Collectors.toList());
+	}
 
     
     
@@ -165,7 +179,7 @@ public class BomClaimServiceImpl implements BomClaimService {
     @Override
     public long count(BomClaimFilter filter) {
         return bomClaimRepo.count(buildSpecification(filter));
-    }
+    } 
     // endregion
 
     // region ===== DTO <-> Entity Mapping =====

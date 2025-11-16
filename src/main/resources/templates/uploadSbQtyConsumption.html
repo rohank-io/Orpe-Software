@@ -163,7 +163,7 @@
 								</li>
 							</ul>
 							<ul class="pcoded-item pcoded-left-item">
-								<li class="pcoded-hasmenu active">
+								<li class="pcoded-hasmenu ">
 									<a href="javascript:void(0)">
 										<span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i></span>
 										<span class="pcoded-mtext">All Data</span>
@@ -191,14 +191,14 @@
 												<span class="pcoded-mcaret"></span>
 											</a>
 										</li>
-										
+
 										<li class=" ">
 											<a th:href="@{/bomclaimdata/list}">
-																						<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-																						<span class="pcoded-mtext">BOM 2</span>
-																						<span class="pcoded-mcaret"></span>
-																					</a>
-																				</li>
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">BOM 2</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+										</li>
 										<li class=" ">
 											<a th:href="@{/worksheet/list}">
 												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
@@ -213,7 +213,7 @@
 
 									</ul>
 								</li>
-								<li class="pcoded-hasmenu">
+								<li class="pcoded-hasmenu active">
 									<a href="javascript:void(0)">
 										<span class="pcoded-micon"><i class="ti-crown"></i></span>
 										<span class="pcoded-mtext">Advance Calculations</span>
@@ -262,10 +262,10 @@
 							<ul class="pcoded-item pcoded-left-item">
 								<li>
 									<a th:href="@{/export/all-zip}">
-										<span class="pcoded-micon"><i class="ti-bar-chart-alt"></i></span>
-										<span class="pcoded-mtext">Download Data</span>
-										<span class="pcoded-mcaret"></span>
-									</a>
+																			<span class="pcoded-micon"><i class="ti-bar-chart-alt"></i></span>
+																			<span class="pcoded-mtext">Download Data</span>
+																			<span class="pcoded-mcaret"></span>
+																		</a>
 								</li>
 							</ul>
 
@@ -345,8 +345,8 @@
 								<div class="page-wrapper">
 									<div class="page-header">
 										<div class="page-header-title">
-											<h3>All BOM Claim Data</h3>
-											<span>List of all BOM2</span>
+											<h3>Create SB Wise Qty Consumption</h3>
+											<span>List of all BOM 2</span>
 										</div>
 										<div class="page-header-breadcrumb">
 											<ul class="breadcrumb-title">
@@ -371,6 +371,10 @@
 												class="btn btn-primary m-r-10 m-b-5">
 												<i class="icofont icofont-reply"></i> Back
 											</button>
+
+											<a class="btn btn-primary m-b-5 m-r-5" th:href="@{/sb-consumption/list}">
+												<i class="icofont icofont-save"></i> Saved Data
+											</a>
 										</div>
 
 										<div class="row">
@@ -380,18 +384,20 @@
 												<div class="card">
 													<!-- personal card start -->
 													<div class="card-header">
-														<h5>BOM 2 List</h5>
+														<h5>Select BOM2 Data</h5>
 														<span>List of all BOM 2</span>
 														<div class="card-header-right">
 															<i class="icofont icofont-rounded-down"></i>
-															<a th:href="@{/bomclaimdata/list}">
+															<a th:href="@{/sbwiseqtyconsumption/bomclaimdata/select}">
 																<i class="icofont icofont-refresh"></i>
 															</a>
 														</div>
 													</div>
 													<div class="card-block table-border-style">
 														<div class="d-flex justify-content-end">
-															<form th:action="@{/bomclaimdata/list}" method="get"
+															<form
+																th:action="@{/sbwiseqtyconsumption/bomclaimdata/select}"
+																method="get"
 																class="d-flex align-items-center gap-2 m-3 flex-nowrap"
 																style="max-width:400px;">
 																<select name="filterField" id="filterField"
@@ -442,7 +448,11 @@
 																	<tr>
 
 																		<!-- Toggle Button -->
-																		<th>Sr No. </th> <!-- Serial Number -->
+																		<th class="text-center">
+																			<input type="checkbox" id="selectAll"
+																				onclick="toggleAll(this)">
+																			<span class="ms-1">Sr No</span>
+																		</th>
 																		<th>Claim Ref No</th>
 																		<th>Claim Year</th>
 
@@ -460,84 +470,90 @@
 
 
 																		<th>Client Name</th>
+																		<th>Claim ID</th>
 
 																		<!-- Action -->
-																		<th class="text-center">Action</th>
+
 
 
 																	</tr>
 																</thead>
 																<tbody>
-																	<th:block
-																		th:each="bom, stat : ${bomDataPage.content}">
+																	<th:block th:each="bom, stat : ${bomDataPage}">
 																		<tr th:id="'bomRow' + ${stat.index}">
 
-
-
-																			<td
-																				th:text="${bomDataPage.number * bomDataPage.size + stat.index + 1}">
+																			<!-- Checkbox + SR No -->
+																			<td class="text-center">
+																				<input type="checkbox"
+																					class="row-select"
+																					th:value="${stat.index}">
+																				<span class="sr-no ms-1"
+																					th:text="${stat.index + 1}"></span>
 																			</td>
 
+																			<!-- Editable cells with data-field -->
+																			<td contenteditable="true"
+																				data-field="claimRefNo"
+																				th:text="${bom.claimRefNo}"></td>
+																			<td contenteditable="true"
+																				data-field="claimYear"
+																				th:text="${bom.claimYear}"></td>
+																			<td contenteditable="true"
+																				data-field="materialDescription"
+																				th:text="${bom.materialDescription}">
+																			</td>
+																			<td contenteditable="true"
+																				data-field="bomPartNo"
+																				th:text="${bom.bomPartNo}"></td>
+																			<td contenteditable="true"
+																				data-field="altBoePartNo"
+																				th:text="${bom.altBoePartNo}"></td>
+																			<td contenteditable="true"
+																				data-field="dbkPartNo"
+																				th:text="${bom.dbkPartNo}"></td>
+																			<td contenteditable="true"
+																				data-field="importedOrIndigenous"
+																				th:text="${bom.importedOrIndigenous}">
+																			</td>
+																			<td contenteditable="true" data-field="unit"
+																				th:text="${bom.unit}"></td>
+																			<td contenteditable="true"
+																				data-field="boeNo"
+																				th:text="${bom.boeNo}"></td>
+																			<td contenteditable="true"
+																				data-field="usedQty"
+																				th:text="${bom.usedQty}"></td>
+																			<td contenteditable="true"
+																				data-field="exportModelNo"
+																				th:text="${bom.exportModelNo}"></td>
+																			<td contenteditable="true" data-field="sbNo"
+																				th:text="${bom.sbNo}"></td>
+																			<td contenteditable="true"
+																				data-field="clientName"
+																				th:text="${bom.clientName}"></td>
 
-																			<td th:text="${bom.claimRefNo}"></td>
-																			<td th:text="${bom.claimYear}"></td>
-																			<td th:text="${bom.materialDescription}">
-																			</td>
-																			<td th:text="${bom.bomPartNo}"></td>
-
-
-																			<td th:text="${bom.altBoePartNo}">
-																			</td>
-																			<td th:text="${bom.dbkPartNo}"></td>
-																			<td th:text="${bom.importedOrIndigenous}">
-																			</td>
-																			<td th:text="${bom.unit}">
-																			</td>
-																			<td th:text="${bom.boeNo}"></td>
-																			<td th:text="${bom.usedQty}"></td>
-																			<td th:text="${bom.exportModelNo}"></td>
-																			<td th:text="${bom.sbNo}"></td>
-																			<td th:text="${bom.clientName}"></td>
-																			<td>
-																				<a th:href="@{/bomclaimdata/delete/{id}(id=${bom.claimId}, filterField=${filterField}, filterValue=${filterValue}, page=${currentPage}, size=${pageSize})}"
-																																								onclick="return confirm('Are you sure you want to delete this record?')"
-																																								class="btn btn-danger btn-sm btn-round btn-outline-danger">Delete</a>
-																			</td>
-
+																			<!--  style="display:none;" Hidden Claim ID (not editable but kept in DOM) -->
+																			<td data-field="claimId"
+																				th:text="${bom.claimId}"></td>
 
 																		</tr>
-
 																	</th:block>
 																</tbody>
+
 															</table>
 
 														</div>
 
+														<div class="text-center">
+															<button id="saveBtn" type="button"
+																class="btn btn-primary waves-effect waves-light m-b-5"
+																style="width: 180px;">
+																Create & Save
+															</button>
+														</div>
+
 
 														<!-- Pagination controls -->
-														<nav aria-label="Page navigation" class="mt-3 ml-3">
-															<ul class="pagination justify-content-center">
-
-																<!-- Previous button -->
-																<li class="page-item"
-																	th:classappend="${bomDataPage.first} ? 'disabled'">
-																	<a class="page-link"
-																		th:href="@{/bomclaimdata/list(page=${bomDataPage.number - 1}, size=${bomDataPage.size})}">Previous</a>
-																</li>
-																<li class="page-item"
-																	th:each="i : ${#numbers.sequence(0, bomDataPage.totalPages - 1)}"
-																	th:classappend="${i == bomDataPage.number} ? 'active'">
-																	<a class="page-link"
-																		th:href="@{/bomclaimdata/list(page=${i}, size=${bomDataPage.size})}"
-																		th:text="${i + 1}">1</a>
-																</li>
-																<li class="page-item"
-																	th:classappend="${bomDataPage.last} ? 'disabled'">
-																	<a class="page-link"
-																		th:href="@{/bomclaimdata/list(page=${bomDataPage.number + 1}, size=${bomDataPage.size})}">Next</a>
-																</li>
-															</ul>
-														</nav>
 
 
 
@@ -569,6 +585,10 @@
 	</div>
 
 	<script>
+		function toggleAll(master) {
+			const checks = document.querySelectorAll('#bomTable .row-select');
+			checks.forEach(cb => cb.checked = master.checked);
+		}
 
 
 
@@ -595,6 +615,352 @@
 
 
 
+	<script>
+		document.addEventListener('DOMContentLoaded', () => {
+
+			// ----------------------
+			// Configuration
+			// ----------------------
+			const SAVE_ENDPOINT = '/sb-qty-consumption/bulk-save';
+			// If true, SB columns will be sorted (numeric-aware). If false, columns keep insertion order.
+			const SORT_SB_COLUMNS = false;
+
+			// ----------------------
+			// Helpers
+			// ----------------------
+			function safeTrim(s) {return s == null ? '' : String(s).trim();}
+
+			function parseUsedQtyToNumber(val) {
+				if (val === null || val === undefined || val === '') return 0;
+				const cleaned = String(val).replace(/,/g, '').trim();
+				const n = parseFloat(cleaned);
+				return Number.isFinite(n) ? n : 0;
+			}
+
+			function cleanUsedQtyForBackend(val) {
+				if (val === null || val === undefined) return null;
+				const cleaned = String(val).replace(/,/g, '').trim();
+				return cleaned === '' ? null : cleaned;
+			}
+
+			// Read row values for export usage
+			function readRowDataForExport(tr) {
+				const cells = tr.querySelectorAll('td');
+				return {
+					claimRefNo: (cells[1] && cells[1].innerText.trim()) || '',
+					claimYear: (cells[2] && cells[2].innerText.trim()) || '',
+					impPartNo: (cells[6] && cells[6].innerText.trim()) || '',
+					boeNo: (cells[9] && cells[9].innerText.trim()) || '',
+					exportModelNo: (cells[11] && cells[11].innerText.trim()) || '',
+					sbNo: (cells[12] && cells[12].innerText.trim()) || '',
+					usedQtyRaw: (cells[10] && cells[10].innerText.trim()) || ''
+				};
+			}
+
+			// Read row values for backend DTO
+			function readRowDataForSave(tr) {
+				const cells = tr.querySelectorAll('td');
+				let claimId = null;
+				const claimIdCell = tr.querySelector('[data-field="claimId"]');
+				if (claimIdCell) {
+					const v = claimIdCell.innerText.trim();
+					claimId = v === '' ? null : Number(v);
+				} else {
+					const lastCell = cells[cells.length - 1];
+					if (lastCell) {
+						const v = lastCell.innerText.trim();
+						claimId = v === '' ? null : Number(v);
+					}
+				}
+
+				const claimRefNo = (cells[1] && cells[1].innerText.trim()) || '';
+				const claimYear = (cells[2] && cells[2].innerText.trim()) || '';
+				const dbkPartNo = (cells[6] && cells[6].innerText.trim()) || '';
+				const boeNo = (cells[9] && cells[9].innerText.trim()) || '';
+				const exportModelNo = (cells[11] && cells[11].innerText.trim()) || '';
+				const sbNo = (cells[12] && cells[12].innerText.trim()) || '';
+				const usedQtyRaw = (cells[10] && cells[10].innerText.trim()) || '';
+
+				return {
+					claimId: claimId,
+					claimRefNo: claimRefNo,
+					claimYear: claimYear,
+					dbkPartNo: dbkPartNo,
+					boeNo: boeNo,
+					usedQty: cleanUsedQtyForBackend(usedQtyRaw), // send as string for BigDecimal
+					exportModelNo: exportModelNo,
+					sbNo: sbNo
+				};
+			}
+
+			// ----------------------
+			// Two-pass pair & group builder (fixes column-placement bug)
+			// raw: [{claimRefNo,claimYear,impPartNo,boeNo,exportModelNo,sbNo,usedQtyRaw}, ...]
+			// returns { pairList, groupMap }
+			// ----------------------
+			function buildGroupMapAndPairs(raw, {sortPairs = SORT_SB_COLUMNS} = {}) {
+				// 1) collect unique SB|Model pairs in insertion order
+				const pairKeyToPair = new Map(); // key -> {sb, model}
+				raw.forEach(item => {
+					const sb = safeTrim(item.sbNo);
+					const model = safeTrim(item.exportModelNo);
+					const key = sb + '|' + model;
+					if (!pairKeyToPair.has(key)) pairKeyToPair.set(key, {sb, model});
+				});
+
+				// convert to array
+				let pairList = Array.from(pairKeyToPair.values());
+
+				// optional stable sort (numeric-aware)
+				if (sortPairs) {
+					pairList.sort((a, b) => a.sb.localeCompare(b.sb, undefined, {numeric: true}));
+				}
+
+				// build index map
+				const pairIndexMap = new Map();
+				pairList.forEach((p, i) => pairIndexMap.set(p.sb + '|' + p.model, i));
+
+				// 2) build groupMap using final indices
+				const groupMap = new Map(); // groupKey -> { first: {...}, sums: Array(pairList.length) }
+				raw.forEach(item => {
+					const imp = safeTrim(item.impPartNo);
+					const boe = safeTrim(item.boeNo);
+					const groupKey = boe + '|' + imp;
+
+					if (!groupMap.has(groupKey)) {
+						groupMap.set(groupKey, {
+							first: {
+								claimRefNo: safeTrim(item.claimRefNo),
+								claimYear: safeTrim(item.claimYear),
+								impPartNo: imp,
+								boeNo: boe
+							},
+							sums: new Array(pairList.length).fill(0)
+						});
+					}
+
+					const entry = groupMap.get(groupKey);
+					const used = parseUsedQtyToNumber(item.usedQtyRaw);
+					const pairKey = safeTrim(item.sbNo) + '|' + safeTrim(item.exportModelNo);
+					const pIdx = pairIndexMap.get(pairKey);
+
+					if (typeof pIdx === 'number') {
+						entry.sums[pIdx] = (entry.sums[pIdx] || 0) + used;
+					} else {
+						console.warn('Pair not found in final pairIndexMap (skipped):', pairKey);
+					}
+				});
+
+				return {pairList, groupMap};
+			}
+
+			// ----------------------
+			// Export builder (AOA -> XLSX)
+			// ----------------------
+			function exportRawToExcel(raw) {
+				if (!Array.isArray(raw) || raw.length === 0) {
+					alert('No data to export.');
+					return;
+				}
+
+				const {pairList, groupMap} = buildGroupMapAndPairs(raw);
+
+				// Build AOA
+				const aoa = [];
+				aoa.push([]); // row 1 blank
+
+				// Row 2: 'SB NO' in column D (index 3)
+				const row2 = [];
+				row2[3] = 'SB NO';
+				pairList.forEach((p, idx) => row2[4 + idx] = p.sb);
+				aoa.push(row2);
+
+				// Row 3: 'Export Model No'
+				const row3 = [];
+				row3[3] = 'Export Model No';
+				pairList.forEach((p, idx) => row3[4 + idx] = p.model);
+				aoa.push(row3);
+
+				// Row 4 headers
+				const headerRow = ['Claim Ref No', 'Claim Year', 'IMP Part No', 'BOE No'];
+				pairList.forEach(_ => headerRow.push(''));
+				headerRow.push('Row Total');
+				aoa.push(headerRow);
+
+				// Data rows
+				const pairTotals = new Array(pairList.length).fill(0);
+				let grandTotal = 0;
+
+				for (const [groupKey, entry] of groupMap.entries()) {
+					const dataRow = [];
+					dataRow[0] = entry.first.claimRefNo;
+					dataRow[1] = entry.first.claimYear;
+					dataRow[2] = entry.first.impPartNo;
+					dataRow[3] = entry.first.boeNo;
+
+					let rowSum = 0;
+					for (let i = 0; i < pairList.length; i++) {
+						const val = entry.sums[i] || 0;
+						dataRow[4 + i] = Number.isFinite(val) ? (Math.round((val + Number.EPSILON) * 1000000) / 1000000) : 0;
+						pairTotals[i] += dataRow[4 + i];
+						rowSum += dataRow[4 + i];
+					}
+
+					const rowTotalVal = Number.isInteger(rowSum) ? rowSum : (Math.round((rowSum + Number.EPSILON) * 1000000) / 1000000);
+					dataRow[4 + pairList.length] = rowTotalVal;
+					grandTotal += rowTotalVal;
+
+					aoa.push(dataRow);
+				}
+
+				// Totals row
+				const totalsRow = [];
+				totalsRow[0] = 'TOTAL';
+				totalsRow[1] = '';
+				totalsRow[2] = '';
+				totalsRow[3] = '';
+				for (let i = 0; i < pairList.length; i++) {
+					const v = pairTotals[i] || 0;
+					totalsRow[4 + i] = Number.isInteger(v) ? v : (Math.round((v + Number.EPSILON) * 1000000) / 1000000);
+				}
+				totalsRow[4 + pairList.length] = Number.isInteger(grandTotal) ? grandTotal : (Math.round((grandTotal + Number.EPSILON) * 1000000) / 1000000);
+				aoa.push(totalsRow);
+
+				// Create worksheet and set column widths
+				const ws = XLSX.utils.aoa_to_sheet(aoa);
+				const cols = [
+					{wpx: 160}, // A Claim Ref No
+					{wpx: 100}, // B Claim Year
+					{wpx: 220}, // C IMP Part No (DBK)
+					{wpx: 130}  // D BOE No
+				];
+				for (let i = 0; i < pairList.length; i++) cols.push({wpx: 100});
+				cols.push({wpx: 110}); // Row Total
+				ws['!cols'] = cols;
+
+				// Styling: bold header row (row 4), D2/D3 and totals label
+				const headerExcelRow = 4;
+				const totalHeaderCols = 4 + pairList.length;
+				for (let col = 0; col <= totalHeaderCols; col++) {
+					const letter = XLSX.utils.encode_col(col);
+					const ref = letter + headerExcelRow;
+					if (ws[ref]) {
+						ws[ref].s = ws[ref].s || {};
+						ws[ref].s.font = Object.assign({}, ws[ref].s.font, {bold: true});
+						ws[ref].s.alignment = Object.assign({}, ws[ref].s.alignment, {horizontal: 'center'});
+					}
+				}
+				if (ws['D2']) ws['D2'].s = Object.assign({}, ws['D2'].s, {font: {bold: true}});
+				if (ws['D3']) ws['D3'].s = Object.assign({}, ws['D3'].s, {font: {bold: true}});
+
+				// Bold totals label cell
+				const totalsRowIndexExcel = aoa.length;
+				const totalsLabelRef = 'A' + totalsRowIndexExcel;
+				if (ws[totalsLabelRef]) ws[totalsLabelRef].s = Object.assign({}, ws[totalsLabelRef].s, {font: {bold: true}});
+
+				// Create workbook & download
+				const wb = XLSX.utils.book_new();
+				XLSX.utils.book_append_sheet(wb, ws, 'SB Qty Consumption(Software)');
+				const filename = 'SB-wise-qty-consumption.xlsx';
+				XLSX.writeFile(wb, filename);
+
+				console.info(`Exported ${groupMap.size} BOE+IMP rows with ${pairList.length} SB/Model columns.`);
+			}
+
+			// ----------------------
+			// Save + Export main
+			// ----------------------
+			async function saveAndExportSelected() {
+				if (typeof XLSX === 'undefined') {
+					alert('XLSX library not found. Include SheetJS before this script.');
+					return;
+				}
+
+				const allRows = Array.from(document.querySelectorAll('#bomTable tbody tr'));
+				const selectedRows = allRows.filter(tr => {
+					const cb = tr.querySelector('.row-select');
+					return cb && cb.checked;
+				});
+
+				if (selectedRows.length === 0) {
+					alert('Select at least one row to save/export.');
+					return;
+				}
+
+				const payload = [];
+				const exportRaw = [];
+
+				for (const tr of selectedRows) {
+					const dto = readRowDataForSave(tr);
+					if (dto.usedQty === null || dto.usedQty === '') dto.usedQty = '0';
+					payload.push(dto);
+					exportRaw.push(readRowDataForExport(tr));
+				}
+
+				try {
+					const resp = await fetch(SAVE_ENDPOINT, {
+						method: 'POST',
+						headers: {'Content-Type': 'application/json'},
+						body: JSON.stringify(payload)
+					});
+
+					if (!resp.ok) {
+						let msg = resp.statusText;
+						try {
+							const body = await resp.json();
+							msg = JSON.stringify(body);
+						} catch (e) {
+							msg = await resp.text().catch(() => resp.statusText);
+						}
+						console.error('Save failed', msg);
+						alert('❌ Save failed: ' + msg);
+						return;
+					}
+
+					const saved = await resp.json();
+					// saved may be a map {status, savedCount, ...} or an array of saved entities
+					const savedCount = (saved && (saved.savedCount || (Array.isArray(saved) ? saved.length : null))) ?? payload.length;
+
+					// Popup success
+					alert(`✅ Data saved successfully!\nSaved records: ${savedCount}`);
+
+					// highlight saved rows (add class .saved-row) and disable their checkboxes
+					selectedRows.forEach(tr => {
+						tr.classList.add('saved-row');
+						const cb = tr.querySelector('.row-select');
+						if (cb) {cb.checked = false; cb.disabled = true;}
+					});
+
+					// proceed to export
+					exportRawToExcel(exportRaw);
+
+				} catch (err) {
+					console.error('Error saving rows', err);
+					alert('❌ Error saving rows: ' + err.message);
+				}
+			}
+
+			// ----------------------
+			// Button binding
+			// ----------------------
+			const saveBtn = document.getElementById('saveBtn');
+			if (saveBtn) {
+				saveBtn.addEventListener('click', saveAndExportSelected);
+			} else {
+				console.warn('saveBtn not found - export/save button missing.');
+			}
+
+		});
+	</script>
+
+
+
+
+
+
+
+
+
 
 
 	<script type="text/javascript" src="/assets/plugins/jquery/dist/jquery.min.js"></script>
@@ -617,6 +983,8 @@
 	<script src="/assets/js/demo-12.js"></script>
 	<script src="/assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
 	<script src="/assets/js/jquery.mousewheel.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
 
 
 </body>

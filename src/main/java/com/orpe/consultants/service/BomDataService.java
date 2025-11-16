@@ -42,6 +42,8 @@ public interface BomDataService {
      * @return list of BomDataDTO
      */
     List<BomDataDTO> findAll();
+    
+    List<BomDataDTO> findAllForExport();
 
     /**
      * Search BOM rows using filter criteria with pagination support.
