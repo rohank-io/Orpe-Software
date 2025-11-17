@@ -21,17 +21,20 @@ public interface DraftWorksheetRepository extends JpaRepository<DraftWorksheet, 
 	@EntityGraph(attributePaths = {"exportModels"})
 	List<DraftWorksheet> findAll();
 	
+	// in DraftWorksheetRepository
 	@Query("""
-		       SELECT d.claimRefNo, d.claimYear, COUNT(d)
-		       FROM DraftWorksheet d
-		       GROUP BY d.claimRefNo, d.claimYear
-		       ORDER BY MAX(d.createdAt) DESC
-		    """)
-		    List<Object[]> findAllDraftGroups();
-		    
-		    
-		    @EntityGraph(attributePaths = {"exportModels"})
-		    List<DraftWorksheet> findByClaimRefNoAndClaimYearOrderByCreatedAtDesc(String claimRefNo, String claimYear);
+	   SELECT d.username, d.claimRefNo, d.claimYear, COUNT(d)
+	   FROM DraftWorksheet d
+	   GROUP BY d.username, d.claimRefNo, d.claimYear
+	   ORDER BY MAX(d.createdAt) DESC
+	""")
+	List<Object[]> findAllDraftGroupsByUserClaimRefAndYear();
+	
+	
+	@EntityGraph(attributePaths = {"exportModels"})
+	List<DraftWorksheet> findByUsernameAndClaimRefNoAndClaimYearOrderByCreatedAtDesc(
+	    String username, String claimRefNo, String claimYear);
+
 
 	
 

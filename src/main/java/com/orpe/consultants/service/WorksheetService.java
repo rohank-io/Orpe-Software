@@ -1,6 +1,7 @@
 package com.orpe.consultants.service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -8,6 +9,8 @@ import org.springframework.data.domain.Pageable;
 
 import com.orpe.consultants.dto.WorksheetDTO;
 import com.orpe.consultants.dto.WorksheetDataFilter;
+import com.orpe.consultants.model.DraftWorksheet;
+import com.orpe.consultants.model.Worksheet;
 
 public interface WorksheetService {
 	
@@ -75,5 +78,15 @@ public interface WorksheetService {
      * @return count of matching rows
      */
     long count(WorksheetDataFilter filter);
+    
+    
+    List<Map<String, Object>> getAllWorksheetGroups();
+    
+    /**
+     * Fetch all DraftWorksheet rows for given user + claimRefNo + claimYear
+     * ordered by createdAt desc. Returns empty list if none found.
+     */
+    List<Worksheet> getWorksheetByUserAndClaimRefAndYear(String username, String claimRefNo, String claimYear);
+
 
 }

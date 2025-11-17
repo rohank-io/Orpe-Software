@@ -263,10 +263,10 @@
 							<ul class="pcoded-item pcoded-left-item">
 								<li>
 									<a th:href="@{/export/all-zip}">
-																			<span class="pcoded-micon"><i class="ti-bar-chart-alt"></i></span>
-																			<span class="pcoded-mtext">Download Data</span>
-																			<span class="pcoded-mcaret"></span>
-																		</a>
+										<span class="pcoded-micon"><i class="ti-bar-chart-alt"></i></span>
+										<span class="pcoded-mtext">Download Data</span>
+										<span class="pcoded-mcaret"></span>
+									</a>
 								</li>
 							</ul>
 
@@ -440,6 +440,7 @@
 																		<th>Closing</th>
 																		<th style="display:none;">ImportID</th>
 																		<th style="display:none;">DraftID</th>
+																		<th>Username</th>
 
 																	</tr>
 																</thead>
@@ -566,6 +567,10 @@
 																				style="display:none;"
 																				th:text="${ws.draftWorksheetId}"
 																				data-field="draftWorksheetId"></td>
+
+																			<td contenteditable="false"
+																				th:text="${ws.username}"
+																				data-field="username"></td>
 																		</tr>
 
 																		<!-- Nested Export Models -->
@@ -783,58 +788,58 @@
 
 		// ===== UPDATE BUTTON =====
 		document.getElementById('updateBtn').addEventListener('click', async () => {
-		    const btn = document.getElementById('updateBtn');
-		    btn.disabled = true;          // disable immediately
-		    btn.style.display = 'none';   // hide instantly
+			const btn = document.getElementById('updateBtn');
+			btn.disabled = true;          // disable immediately
+			btn.style.display = 'none';   // hide instantly
 
-		    const selectedDrafts = collectSelectedDrafts();
-		    if (selectedDrafts.length === 0) {
-		        alert('Please select at least one draft to update.');
-		        btn.disabled = false;
-		        btn.style.display = 'inline-block';
-		        return;
-		    }
+			const selectedDrafts = collectSelectedDrafts();
+			if (selectedDrafts.length === 0) {
+				alert('Please select at least one draft to update.');
+				btn.disabled = false;
+				btn.style.display = 'inline-block';
+				return;
+			}
 
-		    // Convert all date strings (dd-MM-yyyy → ISO)
-		    selectedDrafts.forEach(draft => {
-		        for (const key in draft) {
-		            if (typeof draft[key] === 'string' && /^\d{2}-\d{2}-\d{4}$/.test(draft[key])) {
-		                draft[key] = convertDateToISO(draft[key]);
-		            }
-		        }
-		        if (draft.exportModels) {
-		            draft.exportModels.forEach(em => {
-		                for (const k in em) {
-		                    if (typeof em[k] === 'string' && /^\d{2}-\d{2}-\d{4}$/.test(em[k])) {
-		                        em[k] = convertDateToISO(em[k]);
-		                    }
-		                }
-		            });
-		        }
-		    });
+			// Convert all date strings (dd-MM-yyyy → ISO)
+			selectedDrafts.forEach(draft => {
+				for (const key in draft) {
+					if (typeof draft[key] === 'string' && /^\d{2}-\d{2}-\d{4}$/.test(draft[key])) {
+						draft[key] = convertDateToISO(draft[key]);
+					}
+				}
+				if (draft.exportModels) {
+					draft.exportModels.forEach(em => {
+						for (const k in em) {
+							if (typeof em[k] === 'string' && /^\d{2}-\d{2}-\d{4}$/.test(em[k])) {
+								em[k] = convertDateToISO(em[k]);
+							}
+						}
+					});
+				}
+			});
 
-		    try {
-		        const response = await fetch('/draftworksheet/updateBulk', {
-		            method: 'POST',
-		            headers: {'Content-Type': 'application/json'},
-		            body: JSON.stringify(selectedDrafts)
-		        });
+			try {
+				const response = await fetch('/draftworksheet/updateBulk', {
+					method: 'POST',
+					headers: {'Content-Type': 'application/json'},
+					body: JSON.stringify(selectedDrafts)
+				});
 
-		        if (response.ok) {
-		            alert('Drafts updated successfully!');
-		            location.reload();
-		        } else {
-		            const err = await response.text();
-		            alert('Failed to update drafts: ' + err);
-		            btn.disabled = false;
-		            btn.style.display = 'inline-block';
-		        }
-		    } catch (e) {
-		        console.error('Error updating drafts', e);
-		        alert('An error occurred while updating.');
-		        btn.disabled = false;
-		        btn.style.display = 'inline-block';
-		    }
+				if (response.ok) {
+					alert('Drafts updated successfully!');
+					location.reload();
+				} else {
+					const err = await response.text();
+					alert('Failed to update drafts: ' + err);
+					btn.disabled = false;
+					btn.style.display = 'inline-block';
+				}
+			} catch (e) {
+				console.error('Error updating drafts', e);
+				alert('An error occurred while updating.');
+				btn.disabled = false;
+				btn.style.display = 'inline-block';
+			}
 		});
 	</script>
 
@@ -931,10 +936,20 @@
 
 				setCell(row, 'dutyPerQty', importQty ? totalDuty / importQty : 0, 6);
 
-				// Closing balance
-				const opening = parseSafe(getCell(row, 'openingBalanceQtyDef')?.textContent);
-				const used = parseSafe(getCell(row, 'qtyUsedDef')?.textContent);
-				setCell(row, 'closingBalanceDef', opening - used);
+				// Get opening and used values:
+				const openingBalanceQtyDef = parseSafe(getCell(row, 'openingBalanceQtyDef')?.textContent || '0');
+				const qtyUsedDef = parseSafe(getCell(row, 'qtyUsedDef')?.textContent || '0');
+
+				// Calculate closing balance:
+				let closingBalance = openingBalanceQtyDef - qtyUsedDef;
+
+				// If negative, set to 0
+				if (closingBalance < 0) {
+					closingBalance = 0;
+				}
+
+				// Set closing balance value:
+				setCell(row, 'closingBalanceDef', closingBalance);
 
 				// Get export model rows
 				const exportModelsRow = row.nextElementSibling;
@@ -1084,7 +1099,8 @@
 				worksheet.openingBalanceQtyDef = parseFloat(row.querySelector('[data-field=openingBalanceQtyDef]')?.innerText.replace(/,/g, '')) || 0;
 				worksheet.qtyUsedDef = parseFloat(row.querySelector('[data-field=qtyUsedDef]')?.innerText.replace(/,/g, '')) || 0;
 				worksheet.closingBalanceDef = parseFloat(row.querySelector('[data-field=closingBalanceDef]')?.innerText.replace(/,/g, '')) || 0;
-
+				worksheet.username = row.querySelector('[data-field=username]')?.innerText.trim() || null;
+								
 				// collect export models only for valid worksheet
 				const exportModels = [];
 				const button = row.querySelector('button[data-index]');
@@ -1121,37 +1137,37 @@
 		// Your existing save button stays unchanged
 		// ===== SAVE BUTTON =====
 		document.getElementById('saveBtn').addEventListener('click', async function () {
-		    const btn = document.getElementById('saveBtn');
-		    btn.disabled = true;          // disable immediately
-		    btn.style.display = 'none';   // hide instantly
+			const btn = document.getElementById('saveBtn');
+			btn.disabled = true;          // disable immediately
+			btn.style.display = 'none';   // hide instantly
 
-		    try {
-		        const saveData = await collectWorksheetData();
-		        const filteredData = saveData.filter(ws => ws.importId !== null);
+			try {
+				const saveData = await collectWorksheetData();
+				const filteredData = saveData.filter(ws => ws.importId !== null);
 
-		        const response = await fetch('/worksheet/saveBulk', {
-		            method: 'POST',
-		            headers: {'Content-Type': 'application/json'},
-		            body: JSON.stringify(filteredData)
-		        });
+				const response = await fetch('/worksheet/saveBulk', {
+					method: 'POST',
+					headers: {'Content-Type': 'application/json'},
+					body: JSON.stringify(filteredData)
+				});
 
-		        if (!response.ok) {
-		            alert('Save failed');
-		            btn.disabled = false;
-		            btn.style.display = 'inline-block';
-		            return;
-		        }
+				if (!response.ok) {
+					alert('Save failed');
+					btn.disabled = false;
+					btn.style.display = 'inline-block';
+					return;
+				}
 
-		        alert('Save successful');
-		        generateExcelFile();
-		        window.location.href = '/worksheet/list';
+				alert('Save successful');
+				generateExcelFile();
+				window.location.href = '/worksheet/list';
 
-		    } catch (error) {
-		        console.error('Save error:', error);
-		        alert('Error saving data');
-		        btn.disabled = false;
-		        btn.style.display = 'inline-block';
-		    }
+			} catch (error) {
+				console.error('Save error:', error);
+				alert('Error saving data');
+				btn.disabled = false;
+				btn.style.display = 'inline-block';
+			}
 		});
 
 

@@ -2,6 +2,7 @@ package com.orpe.consultants.controller;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -24,8 +25,10 @@ import com.orpe.consultants.dto.ImportDataDTO;
 import com.orpe.consultants.dto.ImportDataFilter;
 import com.orpe.consultants.dto.WorksheetDTO;
 import com.orpe.consultants.dto.WorksheetDataFilter;
+import com.orpe.consultants.model.DraftWorksheet;
 import com.orpe.consultants.model.ImportData;
 import com.orpe.consultants.model.User;
+import com.orpe.consultants.model.Worksheet;
 import com.orpe.consultants.service.DraftWorksheetService;
 import com.orpe.consultants.service.ImportDataService;
 import com.orpe.consultants.service.WorksheetService;
@@ -211,6 +214,41 @@ public class WorksheetController {
 					.body("Error during draft save: " + e.getMessage());
 		}
 	}
+	
+	
+	@GetMapping("/worksheet/selected")
+    public String listWorksheetsForGroup(@RequestParam String username,
+                                     @RequestParam String claimRefNo,
+                                     @RequestParam String claimYear,
+                                     HttpSession session,
+                                     Model model) {
+
+        // 1. LOGIN CHECK
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+        if (loggedInUser == null) {
+            log.warn("Unauthenticated access to /draftworksheet/list — redirecting to login.");
+            return "redirect:/login";
+        }
+
+        // 2. ROLE CHECK (optional)
+        // Allow ADMIN or the owner (username match)
+       
+        // 3. Fetch the draft records
+        List<Worksheet> worksheetList = worksheetService.getWorksheetByUserAndClaimRefAndYear(username, claimRefNo, claimYear);
+
+        // 4. Add data to model
+        model.addAttribute("worksheetList", worksheetList);
+        model.addAttribute("selectedUsername", username);
+        model.addAttribute("claimRefNo", claimRefNo);
+        model.addAttribute("claimYear", claimYear);
+        model.addAttribute("count", worksheetList != null ? worksheetList.size() : 0);
+
+        log.info("Loaded {}  worksheet(s) for user={}, refNo={}, year={}", 
+        		worksheetList.size(), username, claimRefNo, claimYear);
+
+        // 5. Return the list page
+        return "worksheetDataUserwise";
+    }
 
 	@PostMapping("/draftworksheet/updateBulk")
 	public ResponseEntity<?> updateBulkDrafts(@RequestBody List<DraftWorksheetDTO> drafts) {
@@ -240,5 +278,60 @@ public class WorksheetController {
 
 		return "worksheetDraftList"; // or whichever Thymeleaf view you use for drafts
 	}
+	
+	
+	// --- LIST PAGE FOR A SINGLE GROUP ---
+    @GetMapping("/draftworksheet/selected")
+    public String listDraftsForGroup(@RequestParam String username,
+                                     @RequestParam String claimRefNo,
+                                     @RequestParam String claimYear,
+                                     HttpSession session,
+                                     Model model) {
 
+        // 1. LOGIN CHECK
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+        if (loggedInUser == null) {
+            log.warn("Unauthenticated access to /draftworksheet/list — redirecting to login.");
+            return "redirect:/login";
+        }
+
+        // 2. ROLE CHECK (optional)
+        // Allow ADMIN or the owner (username match)
+       
+        // 3. Fetch the draft records
+        List<DraftWorksheet> draftList = draftWorksheetService.getDraftsByUserAndClaimRefAndYear(username, claimRefNo, claimYear);
+
+        // 4. Add data to model
+        model.addAttribute("draftList", draftList);
+        model.addAttribute("selectedUsername", username);
+        model.addAttribute("claimRefNo", claimRefNo);
+        model.addAttribute("claimYear", claimYear);
+        model.addAttribute("count", draftList != null ? draftList.size() : 0);
+
+        log.info("Loaded {} draft worksheet(s) for user={}, refNo={}, year={}", 
+        		draftList.size(), username, claimRefNo, claimYear);
+
+        // 5. Return the list page
+        return "worksheetDraftSelected";
+    }
+    
+    
+    
+    @GetMapping("/drafts")
+	public String draftWorksheet(HttpSession session, Model model) {
+		// Authentication check
+		User loggedInUser = (User) session.getAttribute("loggedInUser");
+		if (loggedInUser == null) {
+			return "redirect:/login";
+		}
+		model.addAttribute("user", loggedInUser);
+
+		 List<Map<String, Object>> draftGroups = draftWorksheetService.getAllDraftGroups();
+	        model.addAttribute("draftGroups", draftGroups);
+
+
+		return "worksheetDraft"; // or whichever Thymeleaf view you use for drafts
+	}
 }
+
+

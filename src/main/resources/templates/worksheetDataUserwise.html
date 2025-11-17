@@ -191,22 +191,22 @@
 												<span class="pcoded-mcaret"></span>
 											</a>
 										</li>
-										
+
 										<li class=" ">
-																					<a th:href="@{/bomclaimdata/list}">
-																																<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-																																<span class="pcoded-mtext">BOM 2</span>
-																																<span class="pcoded-mcaret"></span>
-																															</a>
-																														</li>
-										
+											<a th:href="@{/bomclaimdata/list}">
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">BOM 2</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+										</li>
+
 										<li class=" ">
-																					<a th:href="@{/worksheet/list}">
-																						<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-																						<span class="pcoded-mtext">Worksheet</span>
-																						<span class="pcoded-mcaret"></span>
-																					</a>
-																				</li>
+											<a th:href="@{/worksheet/list}">
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">Worksheet</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+										</li>
 
 
 
@@ -263,10 +263,10 @@
 							<ul class="pcoded-item pcoded-left-item">
 								<li>
 									<a th:href="@{/export/all-zip}">
-																			<span class="pcoded-micon"><i class="ti-bar-chart-alt"></i></span>
-																			<span class="pcoded-mtext">Download Data</span>
-																			<span class="pcoded-mcaret"></span>
-																		</a>
+										<span class="pcoded-micon"><i class="ti-bar-chart-alt"></i></span>
+										<span class="pcoded-mtext">Download Data</span>
+										<span class="pcoded-mcaret"></span>
+									</a>
 								</li>
 							</ul>
 
@@ -347,7 +347,9 @@
 									<div class="page-header">
 										<div class="page-header-title">
 											<h3>Worksheet Data List</h3>
-											<span>List of all created worksheets</span>
+											<span>List of worksheet createdBy <span
+													th:text="${selectedUsername}"></span>
+											</span>
 										</div>
 										<div class="page-header-breadcrumb">
 											<ul class="breadcrumb-title">
@@ -356,7 +358,8 @@
 														<i class="icofont icofont-home"></i>
 													</a>
 												</li>
-												<li class="breadcrumb-item"><a th:href="@{/worksheet/importdata/select}">Worksheet</a>
+												<li class="breadcrumb-item"><a
+														th:href="@{/worksheet/importdata/select}">Worksheet</a>
 												</li>
 												<li class="breadcrumb-item"><a href="#!">List</a>
 												</li>
@@ -372,12 +375,10 @@
 												class="btn btn-primary m-r-10 m-b-5">
 												<i class="icofont icofont-reply"></i> Back
 											</button>
-											
-											<a 
-											            class="btn btn-primary m-b-5 m-r-5"
-											            th:href="@{/drafts}">
-											        <i class="icofont icofont-save"></i> Saved Drafts
-											    </a>															
+
+											<a class="btn btn-primary m-b-5 m-r-5" th:href="@{/drafts}">
+												<i class="icofont icofont-save"></i> Saved Drafts
+											</a>
 										</div>
 
 										<div class="row">
@@ -397,183 +398,188 @@
 														</div>
 													</div>
 													<div class="card-block table-border-style">
-														<div class="d-flex justify-content-end">
-															<form th:action="@{/worksheet/list}" method="get"
-															              class="d-flex align-items-center gap-2 m-3 flex-nowrap"
-															              style="max-width: 700px;">
-															            <select name="filterField" id="filterField"
-															                    class="form-control form-control-sm mr-2"
-															                    style="width: 110px;" onchange="updateInputType();">
-															                <option th:selected="${filterField == null}"
-															                        value="" disabled>Sort By</option>
-															                <option th:selected="${filterField == 'beNo'}" value="beNo">BE No</option>
-															                <option th:selected="${filterField == 'claimYear'}" value="claimYear">Claim Year</option>
-															                <option th:selected="${filterField == 'claimRefNo'}" value="claimRefNo">Claim Ref</option>
-															                <option th:selected="${filterField == 'username'}" value="username">Created By</option>
-															            </select>
 
-															            <input type="text" name="filterValue" id="filterValue"
-															                   th:value="${filterValue}" placeholder="Value"
-															                   class="form-control form-control-sm mr-2"
-															                   style="width: 140px;" />
-
-															            <input type="date" name="fromDate" id="fromDate"
-															                   th:value="${fromDate}" class="form-control form-control-sm mr-2"
-															                   style="width: 120px;" />
-
-															            <input type="date" name="toDate" id="toDate"
-															                   th:value="${toDate}" class="form-control form-control-sm mr-2"
-															                   style="width: 120px;" />
-
-															            <button type="submit" class="btn btn-sm btn-primary"
-															                    title="Filter" style="height: 32px;">
-															                <i class="icofont icofont-search"></i>
-															            </button>
-															        </form>
-														</div>
 
 
 
 
 
 														<!-- Data Table style="max-height: 520px; overflow:auto;" -->
-														<div class="table-responsive" style="max-height: 520px; overflow:auto;">
-														        <table class="table table-hover table-sm table-bordered">
-														            <thead class="table-light sticky-top" style="background-color:#fff;">
-														                <tr>
-														                    <th></th>
-														                    <th>Sr No.</th>
-														                    <th>BE No</th>
-														                    <th>BE Date</th>
-																			<th>Created By</th>
-														                    <th>Claim Ref</th>
-														                    <th>Claim Year</th>
-														                    <th>Item Description</th>
-														                    <th>BOM Part No</th>
-														                    <th>DBK Part No</th>
-														                    <th>Import Qty</th>
-														                    <th>UOM</th>
-														                    <th>Assessable Value</th>
-														                    <th>CIF Value</th>
-														                    <th>Per Qty CIF</th>
-														                    <th>BCD</th>
-														                    <th>SWS</th>
-														                    <th>Add Duty</th>
-														                    <th>Total Duty</th>
-														                    <th>Duty Per Qty</th>
-														                    <th>Used Qty</th>
-														                    <th>Duty Claimed</th>
-														                    <th>CIF Claimed</th>
-														                    <th>BCD Claimed</th>
-														                    <th>SWS Claimed</th>
-														                    <th>Add Claimed</th>
-														                    <th>Opening</th>
-														                    <th>Used</th>
-														                    <th>Closing</th>
-																			
-														                </tr>
-														            </thead>
+														<div class="table-responsive"
+															style="max-height: 520px; overflow:auto;">
+															<table class="table table-hover table-sm table-bordered">
+																<thead class="table-light sticky-top"
+																	style="background-color:#fff;">
+																	<tr>
+																		<th></th>
+																		<th>Sr No.</th>
+																		<th>BE No</th>
+																		<th>BE Date</th>
+																		<th>Created By</th>
+																		<th>Claim Ref</th>
+																		<th>Claim Year</th>
+																		<th>Item Description</th>
+																		<th>BOM Part No</th>
+																		<th>DBK Part No</th>
+																		<th>Import Qty</th>
+																		<th>UOM</th>
+																		<th>Assessable Value</th>
+																		<th>CIF Value</th>
+																		<th>Per Qty CIF</th>
+																		<th>BCD</th>
+																		<th>SWS</th>
+																		<th>Add Duty</th>
+																		<th>Total Duty</th>
+																		<th>Duty Per Qty</th>
+																		<th>Used Qty</th>
+																		<th>Duty Claimed</th>
+																		<th>CIF Claimed</th>
+																		<th>BCD Claimed</th>
+																		<th>SWS Claimed</th>
+																		<th>Add Claimed</th>
+																		<th>Opening</th>
+																		<th>Used</th>
+																		<th>Closing</th>
 
-														            <tbody>
-														            <th:block th:each="ws, stat : ${importDataPage.content}">
-														                <tr th:id="'wsRow' + ${stat.index}">
-														                    <td class="text-center">
-														                        <button type="button" class="btn btn-sm btn-link p-0"
-														                                th:data-index="${stat.index}"
-														                                onclick="toggleExportModels(this.getAttribute('data-index'))">
-														                            <i th:id="'toggleIcon' + ${stat.index}"
-														                               class="bi bi-caret-right"></i>
-														                        </button>
-														                    </td>
+																	</tr>
+																</thead>
 
-														                    <td th:text="${stat.index + 1}"></td>
-														                    <td th:text="${ws.beNo}"></td>
-														                    <td th:text="${#temporals.format(ws.beDate, 'dd-MM-yyyy')}"></td>
+																<tbody>
+																	<th:block th:each="ws, stat : ${worksheetList}">
+																		<tr th:id="'wsRow' + ${stat.index}">
+																			<td class="text-center">
+																				<button type="button"
+																					class="btn btn-sm btn-link p-0"
+																					th:data-index="${stat.index}"
+																					onclick="toggleExportModels(this.getAttribute('data-index'))">
+																					<i th:id="'toggleIcon' + ${stat.index}"
+																						class="bi bi-caret-right"></i>
+																				</button>
+																			</td>
+
+																			<td th:text="${stat.index + 1}"></td>
+																			<td th:text="${ws.beNo}"></td>
+																			<td
+																				th:text="${#temporals.format(ws.beDate, 'dd-MM-yyyy')}">
+																			</td>
 																			<td th:text="${ws.username}"></td>
 																			<td th:text="${ws.claimRefNo}"></td>
-														                    <td th:text="${ws.claimYear}"></td>
-														                    <td th:text="${ws.itemDescription}"></td>
-														                    <td th:text="${ws.bomPartNo}"></td>
-														                    <td th:text="${ws.dbkPartNo}"></td>
-														                    <td th:text="${#numbers.formatDecimal(ws.importQty, 0, 'COMMA', 2, 'POINT')}"></td>
-														                    <td th:text="${ws.uom}"></td>
-														                    <td th:text="${#numbers.formatDecimal(ws.assessableValue, 0, 'COMMA', 2, 'POINT')}"></td>
-														                    <td th:text="${#numbers.formatDecimal(ws.cifValue, 0, 'COMMA', 2, 'POINT')}"></td>
-														                    <td th:text="${#numbers.formatDecimal(ws.perQtyCif, 0, 'COMMA', 2, 'POINT')}"></td>
-														                    <td th:text="${#numbers.formatDecimal(ws.bcd, 0, 'COMMA', 2, 'POINT')}"></td>
-														                    <td th:text="${#numbers.formatDecimal(ws.sws, 0, 'COMMA', 2, 'POINT')}"></td>
-														                    <td th:text="${#numbers.formatDecimal(ws.addDuty, 0, 'COMMA', 2, 'POINT')}"></td>
-														                    <td th:text="${#numbers.formatDecimal(ws.totalDuty, 0, 'COMMA', 2, 'POINT')}"></td>
-														                    <td th:text="${#numbers.formatDecimal(ws.dutyPerQty, 0, 'COMMA', 6, 'POINT')}"></td>
-														                    <td th:text="${#numbers.formatDecimal(ws.usedQtyTotal, 0, 'COMMA', 6, 'POINT')}"></td>
-														                    <td th:text="${#numbers.formatDecimal(ws.dutyClaimedTotal, 0, 'COMMA', 2, 'POINT')}"></td>
-														                    <td th:text="${#numbers.formatDecimal(ws.cifClaimedTotal, 0, 'COMMA', 2, 'POINT')}"></td>
-														                    <td th:text="${#numbers.formatDecimal(ws.bcdClaimed, 0, 'COMMA', 2, 'POINT')}"></td>
-														                    <td th:text="${#numbers.formatDecimal(ws.swsClaimed, 0, 'COMMA', 2, 'POINT')}"></td>
-														                    <td th:text="${#numbers.formatDecimal(ws.addClaimed, 0, 'COMMA', 2, 'POINT')}"></td>
-														                    <td th:text="${#numbers.formatDecimal(ws.openingBalanceQtyDef, 0, 'COMMA', 2, 'POINT')}"></td>
-														                    <td th:text="${#numbers.formatDecimal(ws.qtyUsedDef, 0, 'COMMA', 2, 'POINT')}"></td>
-														                    <td th:text="${#numbers.formatDecimal(ws.closingBalanceDef, 0, 'COMMA', 2, 'POINT')}"></td>
-																			
+																			<td th:text="${ws.claimYear}"></td>
+																			<td th:text="${ws.itemDescription}"></td>
+																			<td
+																				th:text="${ws.material != null ? ws.material.bomPartNo : ''}">
+																				BOM</td>
+
+																			<td th:text="${ws.dbkPartNo}"></td>
+																			<td
+																				th:text="${#numbers.formatDecimal(ws.importQty, 0, 'COMMA', 2, 'POINT')}">
+																			</td>
+																			<td th:text="${ws.uom}"></td>
+																			<td
+																				th:text="${#numbers.formatDecimal(ws.assessableValue, 0, 'COMMA', 2, 'POINT')}">
+																			</td>
+																			<td
+																				th:text="${#numbers.formatDecimal(ws.cifValue, 0, 'COMMA', 2, 'POINT')}">
+																			</td>
+																			<td
+																				th:text="${#numbers.formatDecimal(ws.perQtyCif, 0, 'COMMA', 2, 'POINT')}">
+																			</td>
+																			<td
+																				th:text="${#numbers.formatDecimal(ws.bcd, 0, 'COMMA', 2, 'POINT')}">
+																			</td>
+																			<td
+																				th:text="${#numbers.formatDecimal(ws.sws, 0, 'COMMA', 2, 'POINT')}">
+																			</td>
+																			<td
+																				th:text="${#numbers.formatDecimal(ws.addDuty, 0, 'COMMA', 2, 'POINT')}">
+																			</td>
+																			<td
+																				th:text="${#numbers.formatDecimal(ws.totalDuty, 0, 'COMMA', 2, 'POINT')}">
+																			</td>
+																			<td
+																				th:text="${#numbers.formatDecimal(ws.dutyPerQty, 0, 'COMMA', 6, 'POINT')}">
+																			</td>
+																			<td
+																				th:text="${#numbers.formatDecimal(ws.usedQtyTotal, 0, 'COMMA', 6, 'POINT')}">
+																			</td>
+																			<td
+																				th:text="${#numbers.formatDecimal(ws.dutyClaimedTotal, 0, 'COMMA', 2, 'POINT')}">
+																			</td>
+																			<td
+																				th:text="${#numbers.formatDecimal(ws.cifClaimedTotal, 0, 'COMMA', 2, 'POINT')}">
+																			</td>
+																			<td
+																				th:text="${#numbers.formatDecimal(ws.bcdClaimed, 0, 'COMMA', 2, 'POINT')}">
+																			</td>
+																			<td
+																				th:text="${#numbers.formatDecimal(ws.swsClaimed, 0, 'COMMA', 2, 'POINT')}">
+																			</td>
+																			<td
+																				th:text="${#numbers.formatDecimal(ws.addClaimed, 0, 'COMMA', 2, 'POINT')}">
+																			</td>
+																			<td
+																				th:text="${#numbers.formatDecimal(ws.openingBalanceQtyDef, 0, 'COMMA', 2, 'POINT')}">
+																			</td>
+																			<td
+																				th:text="${#numbers.formatDecimal(ws.qtyUsedDef, 0, 'COMMA', 2, 'POINT')}">
+																			</td>
+																			<td
+																				th:text="${#numbers.formatDecimal(ws.closingBalanceDef, 0, 'COMMA', 2, 'POINT')}">
+																			</td>
+
 																		</tr>
 
-														                <!-- Nested Export Models -->
-														                <tr th:id="'exportModelsRow' + ${stat.index}"
-														                    class="export-models-row"
-														                    style="display:none;">
-														                    <td colspan="28" class="p-0 border-0">
-														                        <table class="table table-sm table-bordered m-0">
-														                            <thead>
-														                                <tr>
-														                                    <th>Export Model No</th>
-														                                    <th>Used Qty</th>
-														                                    <th>Duty Claimed</th>
-														                                    <th>CIF Claimed</th>
-														                                </tr>
-														                            </thead>
-														                            <tbody>
-														                                <tr th:if="${ws.exportModels != null and !#lists.isEmpty(ws.exportModels)}"
-														                                    th:each="em : ${ws.exportModels}">
-														                                    <td th:text="${em.modelNo}"></td>
-														                                    <td th:text="${#numbers.formatDecimal(em.emUsedQty, 0, 'COMMA', 6, 'POINT')}"></td>
-														                                    <td th:text="${#numbers.formatDecimal(em.dutyClaimed, 0, 'COMMA', 2, 'POINT')}"></td>
-														                                    <td th:text="${#numbers.formatDecimal(em.cifClaimed, 0, 'COMMA', 2, 'POINT')}"></td>
-														                                </tr>
-														                                <tr th:if="${ws.exportModels == null or #lists.isEmpty(ws.exportModels)}">
-														                                    <td colspan="4" class="text-center"><em>No export model data</em></td>
-														                                </tr>
-														                            </tbody>
-														                        </table>
-														                    </td>
-														                </tr>
-														            </th:block>
-														            </tbody>
-														        </table>
-														    </div>
+																		<!-- Nested Export Models -->
+																		<tr th:id="'exportModelsRow' + ${stat.index}"
+																			class="export-models-row"
+																			style="display:none;">
+																			<td colspan="28" class="p-0 border-0">
+																				<table
+																					class="table table-sm table-bordered m-0">
+																					<thead>
+																						<tr>
+																							<th>Export Model No</th>
+																							<th>Used Qty</th>
+																							<th>Duty Claimed</th>
+																							<th>CIF Claimed</th>
+																						</tr>
+																					</thead>
+																					<tbody>
+																						<tr th:if="${ws.exportModels != null and !#lists.isEmpty(ws.exportModels)}"
+																							th:each="em : ${ws.exportModels}">
+																							<td th:text="${em.modelNo}">
+																							</td>
+																							<td
+																								th:text="${#numbers.formatDecimal(em.emUsedQty, 0, 'COMMA', 6, 'POINT')}">
+																							</td>
+																							<td
+																								th:text="${#numbers.formatDecimal(em.dutyClaimed, 0, 'COMMA', 2, 'POINT')}">
+																							</td>
+																							<td
+																								th:text="${#numbers.formatDecimal(em.cifClaimed, 0, 'COMMA', 2, 'POINT')}">
+																							</td>
+																						</tr>
+																						<tr
+																							th:if="${ws.exportModels == null or #lists.isEmpty(ws.exportModels)}">
+																							<td colspan="4"
+																								class="text-center">
+																								<em>No export model
+																									data</em>
+																							</td>
+																						</tr>
+																					</tbody>
+																				</table>
+																			</td>
+																		</tr>
+																	</th:block>
+																</tbody>
+															</table>
+														</div>
 
 
 														<!-- Pagination controls -->
 														<!-- Pagination -->
-														   <nav aria-label="Page navigation" class="mt-3">
-														       <ul class="pagination justify-content-center">
-														           <li class="page-item" th:classappend="${importDataPage.first}? 'disabled'">
-														               <a class="page-link"
-														                  th:href="@{/worksheet/list(page=${importDataPage.number - 1}, size=${importDataPage.size})}">
-														                  Previous</a>
-														           </li>
-														           <li th:each="i : ${#numbers.sequence(0, importDataPage.totalPages - 1)}"
-														               th:classappend="${i == importDataPage.number}? 'active'">
-														               <a class="page-link"
-														                  th:href="@{/worksheet/list(page=${i}, size=${importDataPage.size})}"
-														                  th:text="${i + 1}"></a>
-														           </li>
-														           <li class="page-item" th:classappend="${importDataPage.last}? 'disabled'">
-														               <a class="page-link"
-														                  th:href="@{/worksheet/list(page=${importDataPage.number + 1}, size=${importDataPage.size})}">
-														                  Next</a>
-														           </li>
-														       </ul>
-														   </nav>
+
 
 
 
@@ -622,47 +628,15 @@
 		}
 
 	</script>
-	
+
 	<script>
-			function updateInputType() {
-					  const filterField = document.getElementById('filterField').value;
-					  const filterValueInput = document.getElementById('filterValue');
-					  const fromDateInput = document.getElementById('fromDate');
-					  const toDateInput = document.getElementById('toDate');
 
-					  if (!filterField) {
-					    // Hide all inputs if no filterField selected
-					    filterValueInput.style.display = 'none';
-					    filterValueInput.required = false;
 
-					    fromDateInput.style.display = 'none';
-					    fromDateInput.required = false;
-
-					    toDateInput.style.display = 'none';
-					    toDateInput.required = false;
-					  } else {
-					    // Show all inputs when a filterField is selected
-					    filterValueInput.style.display = 'inline-block';
-					    filterValueInput.required = true;
-
-					    fromDateInput.style.display = 'inline-block';
-					    fromDateInput.required = false;
-
-					    toDateInput.style.display = 'inline-block';
-					    toDateInput.required = false;
-					  }
-					}
-
-					// Initialize on page load
-					document.addEventListener('DOMContentLoaded', () => {
-					  updateInputType();
-					});
-
-		</script>
+	</script>
 
 
 	<script>
-		
+
 	</script>
 
 

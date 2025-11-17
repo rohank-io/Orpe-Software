@@ -2,6 +2,7 @@ package com.orpe.consultants.service.impl;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,10 +40,12 @@ import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Validator;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Transactional
 @RequiredArgsConstructor
+@Slf4j
 public class DraftWorksheetServiceImpl implements DraftWorksheetService {
 	
 	@Autowired
@@ -298,28 +301,65 @@ public class DraftWorksheetServiceImpl implements DraftWorksheetService {
 	}
 	
 	
-	 @Override
-	    public List<Map<String, Object>> getAllDraftGroups() {
-	        List<Object[]> rows = draftWorksheetRepository.findAllDraftGroups();
-	        List<Map<String, Object>> result = new ArrayList<>(rows.size());
+	@Override
+	public List<Map<String, Object>> getAllDraftGroups() {
+	    // ensure repository method exists: findAllDraftGroupsByUserClaimRefAndYear()
+	    List<Object[]> rows = draftWorksheetRepository.findAllDraftGroupsByUserClaimRefAndYear();
+	    List<Map<String, Object>> result = new ArrayList<>(rows.size());
 
-	        for (Object[] r : rows) {
-	            Map<String, Object> m = new HashMap<>(3);
-	            // r[0] = claimRefNo, r[1] = claimYear, r[2] = count (Number)
-	            m.put("claimRefNo", r[0] != null ? r[0].toString() : null);
-	            m.put("claimYear", r[1] != null ? r[1].toString() : null);
+	    for (Object[] r : rows) {
+	        Map<String, Object> m = new HashMap<>(4);
+	        // Expected layout:
+	        // r[0] = username (String)
+	        // r[1] = claimRefNo (String)
+	        // r[2] = claimYear  (String)
+	        // r[3] = count      (Number)
 
-	            Long countValue = 0L;
-	            if (r[2] instanceof Number) {
-	                countValue = ((Number) r[2]).longValue();
-	            }
-	            m.put("count", countValue);
+	        m.put("username", r[0] != null ? r[0].toString() : null);
+	        m.put("claimRefNo", r[1] != null ? r[1].toString() : null);
+	        m.put("claimYear", r[2] != null ? r[2].toString() : null);
 
-	            result.add(m);
+	        Long countValue = 0L;
+	        if (r.length > 3 && r[3] instanceof Number) {
+	            countValue = ((Number) r[3]).longValue();
 	        }
+	        m.put("count", countValue);
 
-	        return result;
+	        result.add(m);
 	    }
+
+	    return result;
+	}
+	
+	
+	
+	@Override
+    public List<DraftWorksheet> getDraftsByUserAndClaimRefAndYear(String username, String claimRefNo, String claimYear) {
+        if (username == null || username.isBlank() || claimRefNo == null || claimRefNo.isBlank() || claimYear == null || claimYear.isBlank()) {
+            log.debug("Invalid params for getDraftsByUserAndClaimRefAndYear: username='{}', claimRefNo='{}', claimYear='{}'",
+                      username, claimRefNo, claimYear);
+            return Collections.emptyList();
+        }
+
+        try {
+            List<DraftWorksheet> rows = draftWorksheetRepository
+                    .findByUsernameAndClaimRefNoAndClaimYearOrderByCreatedAtDesc(username, claimRefNo, claimYear);
+
+            if (rows == null || rows.isEmpty()) {
+                log.debug("No draft worksheets found for user={}, claimRefNo={}, claimYear={}", username, claimRefNo, claimYear);
+                return Collections.emptyList();
+            }
+
+            log.debug("Found {} draft worksheets for user={}, claimRefNo={}, claimYear={}", rows.size(), username, claimRefNo, claimYear);
+            return rows;
+        } catch (Exception ex) {
+            log.error("Error fetching draft worksheets for user={}, claimRefNo={}, claimYear={}: {}", username, claimRefNo, claimYear, ex.getMessage(), ex);
+            return Collections.emptyList();
+        }
+    }
+	
+	
+
 
 
 	

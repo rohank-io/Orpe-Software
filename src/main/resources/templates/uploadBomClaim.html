@@ -345,7 +345,7 @@
 								<div class="page-wrapper">
 									<div class="page-header">
 										<div class="page-header-title">
-											<h3>DBK Data Upload</h3>
+											<h3>BOM 2 Data Upload</h3>
 											<span>Extract your Excel Documents</span>
 										</div>
 										<div class="page-header-breadcrumb">
@@ -676,7 +676,7 @@
 
 																	const res = await resp.json();
 																	alert(`✅ Successfully saved ${res.savedCount ?? rows.length} rows.`);
-																	window.location.href = '/index';
+																	window.location.href = '/bomclaimdata/list';
 																} catch (e) {
 																	console.error(e);
 																	alert('❌ Save failed: ' + e.message);

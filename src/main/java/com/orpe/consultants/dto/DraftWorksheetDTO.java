@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import jakarta.persistence.Column;
 import lombok.*;
 
 @Data
@@ -48,6 +49,10 @@ public class DraftWorksheetDTO {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private String draftStatus; // e.g., "DRAFT", "SUBMITTED"
+    
+    
+    
+    private String username;
 
     private List<DraftWorksheetExportModelsDTO> exportModels;
 }

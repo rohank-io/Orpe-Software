@@ -2,7 +2,10 @@ package com.orpe.consultants.service.impl;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -24,6 +27,7 @@ import com.orpe.consultants.dto.WorksheetDTO;
 import com.orpe.consultants.dto.WorksheetDataFilter;
 import com.orpe.consultants.dto.WorksheetExportModelsDTO;
 import com.orpe.consultants.model.BomData;
+import com.orpe.consultants.model.DraftWorksheet;
 import com.orpe.consultants.model.ExportData;
 //import com.orpe.consultants.model.BomData;
 import com.orpe.consultants.model.ImportData;
@@ -48,10 +52,12 @@ import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Validator;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Transactional
 @RequiredArgsConstructor
+@Slf4j
 public class WorksheetServiceImpl implements WorksheetService {
 	
 	@Autowired
@@ -253,7 +259,9 @@ public class WorksheetServiceImpl implements WorksheetService {
 	                "dbkPartNo",
 	                "itchsCode",
 	                "portCode",
-	                "claimRefNo"
+	                "claimRefNo",
+	                "username"
+	                
 	            );
 
 	            if (stringFields.contains(field)) {
@@ -318,5 +326,65 @@ public class WorksheetServiceImpl implements WorksheetService {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	
+	
+	
+	@Override
+	public List<Map<String, Object>> getAllWorksheetGroups() {
+	    // ensure repository method exists: findAllDraftGroupsByUserClaimRefAndYear()
+	    List<Object[]> rows = worksheetRepository.findAllWorksheetsGroupsByUserClaimRefAndYear();
+	    List<Map<String, Object>> result = new ArrayList<>(rows.size());
+
+	    for (Object[] r : rows) {
+	        Map<String, Object> m = new HashMap<>(4);
+	        // Expected layout:
+	        // r[0] = username (String)
+	        // r[1] = claimRefNo (String)
+	        // r[2] = claimYear  (String)
+	        // r[3] = count      (Number)
+
+	        m.put("username", r[0] != null ? r[0].toString() : null);
+	        m.put("claimRefNo", r[1] != null ? r[1].toString() : null);
+	        m.put("claimYear", r[2] != null ? r[2].toString() : null);
+
+	        Long countValue = 0L;
+	        if (r.length > 3 && r[3] instanceof Number) {
+	            countValue = ((Number) r[3]).longValue();
+	        }
+	        m.put("count", countValue);
+
+	        result.add(m);
+	    }
+
+	    return result;
+	}
+
+
+
+	@Override
+    public List<Worksheet> getWorksheetByUserAndClaimRefAndYear(String username, String claimRefNo, String claimYear) {
+        if (username == null || username.isBlank() || claimRefNo == null || claimRefNo.isBlank() || claimYear == null || claimYear.isBlank()) {
+            log.debug("Invalid params for getWorksheetByUserAndClaimRefAndYear: username='{}', claimRefNo='{}', claimYear='{}'",
+                      username, claimRefNo, claimYear);
+            return Collections.emptyList();
+        }
+
+        try {
+            List<Worksheet> rows = worksheetRepository
+                    .findByUsernameAndClaimRefNoAndClaimYearOrderByCreatedAtDesc(username, claimRefNo, claimYear);
+
+            if (rows == null || rows.isEmpty()) {
+                log.debug("No  worksheets found for user={}, claimRefNo={}, claimYear={}", username, claimRefNo, claimYear);
+                return Collections.emptyList();
+            }
+
+            log.debug("Found {}  worksheets for user={}, claimRefNo={}, claimYear={}", rows.size(), username, claimRefNo, claimYear);
+            return rows;
+        } catch (Exception ex) {
+            log.error("Error fetching  worksheets for user={}, claimRefNo={}, claimYear={}: {}", username, claimRefNo, claimYear, ex.getMessage(), ex);
+            return Collections.emptyList();
+        }
+    }
+	
 
 }

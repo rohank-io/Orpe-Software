@@ -599,9 +599,11 @@
 																<thead class="thead-light">
 																	<tr class="text-uppercase small">
 																		<th style="width:48px;">Sr No.</th>
+																		<th>Username</th>
 																		<th>Claim Ref No</th>
 																		<th>Claim Year</th>
 																		<th class="text-center">No. of records</th>
+																		<th class="text-center">Action</th>
 																	</tr>
 																</thead>
 
@@ -616,9 +618,20 @@
 
 																	<tr th:each="g, iterStat : ${draftGroups}">
 																		<td th:text="${iterStat.index + 1}">1</td>
+																		<td th:text="${g.username}"></td>
 																		<td th:text="${g.claimRefNo}">f 01</td>
 																		<td th:text="${g.claimYear}">2024</td>
 																		<td class="text-center" th:text="${g.count}">4
+																		</td>
+																		<td class="text-center">
+																			<a class="btn btn-sm btn-primary" th:href="@{'/draftworksheet/selected'(
+																		                          username=${g.username},
+																		                          claimRefNo=${g.claimRefNo},
+																		                          claimYear=${g.claimYear}
+																		                        )}">
+																				<i
+																					class="icofont icofont-simple-right"></i>
+																			</a>
 																		</td>
 																	</tr>
 																</tbody>
@@ -633,8 +646,7 @@
 																groups
 															</div>
 
-															<a class="btn btn-primary btn-sm"
-																th:href="@{/draftworksheet/list}">
+															<a class="btn btn-primary btn-sm" th:href="@{/drafts}">
 																See drafts
 															</a>
 														</div>
@@ -646,8 +658,8 @@
 												<div class="card" style="height: 300px;"> <!-- 👈 fixed height -->
 													<div
 														class="card-header d-flex justify-content-between align-items-center">
-														<h5 class="m-0">Latest SB wise DBK records</h5>
-														<small class="text-muted">Latest 10</small>
+														<h5 class="m-0">Latest Worksheets</h5>
+														<small class="text-muted">Unique groups</small>
 													</div>
 
 													<div class="card-block p-3"
@@ -658,25 +670,34 @@
 																<thead class="thead-light">
 																	<tr class="text-uppercase small">
 																		<th style="width:48px;">Sr No.</th>
-																		<th>SB No</th>
-																		<th>Quantity</th>
-																		<th class="text-center">DBK Amount</th>
+																		<th>Username</th>
+																		<th>Claim Ref No</th>
+																		<th>Claim Year</th>
+																		<th class="text-center">No. of records</th>
+																		<th class="text-center"></th>
 																	</tr>
 																</thead>
 
 																<tbody>
-																	<tr>
+																	<tr
+																		th:if="${worksheetGroups == null or #lists.isEmpty(worksheetGroups)}">
 																		<td colspan="5"
 																			class="text-center text-muted py-4">
-																			No Records Available
+																			No worksheets available
 																		</td>
 																	</tr>
 
-																	<tr>
-																		<td></td>
-																		<td></td>
-																		<td></td>
-																		<td>
+																	<tr th:each="w, iterStat : ${worksheetGroups}">
+																		<td th:text="${iterStat.index + 1}">1</td>
+																		<td th:text="${w.username}"></td>
+																		<td th:text="${w.claimRefNo}">f 01</td>
+																		<td th:text="${w.claimYear}">2024</td>
+																		<td class="text-center" th:text="${w.count}">4
+																		</td>
+																		<td class="text-center">
+																			<a class="btn btn-sm btn-primary" th:href="@{'/worksheet/selected'(username=${w.username}, claimRefNo=${w.claimRefNo},claimYear=${w.claimYear} )}">
+																				<i class="icofont icofont-simple-right"></i>
+																			</a>
 																		</td>
 																	</tr>
 																</tbody>
@@ -686,13 +707,14 @@
 														<div
 															class="d-flex justify-content-between align-items-center mt-2">
 															<div class="small text-muted">
-																Showing <span>0</span>
+																Showing <span
+																	th:text="${worksheetGroups != null ? worksheetGroups.size() : 0}">0</span>
 																groups
 															</div>
 
 															<a class="btn btn-primary btn-sm"
-																th:href="@{/work-in-progress}">
-																See Records
+																th:href="@{/worksheet/list}">
+																See Worksheets
 															</a>
 														</div>
 													</div>

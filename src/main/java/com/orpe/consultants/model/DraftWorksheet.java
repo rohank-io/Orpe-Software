@@ -123,6 +123,9 @@ public class DraftWorksheet {
 
     @Column(name = "draft_status", length = 16)
     private String draftStatus;     // e.g., "DRAFT", "SUBMITTED"
+    
+    @Column(name = "username")
+    private String username;
 
     // Optionally, relate export models as DraftWorksheetExportModels
     @OneToMany(mappedBy = "draftWorksheet", cascade = {}, orphanRemoval = true, fetch = FetchType.LAZY)

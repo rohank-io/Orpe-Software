@@ -43,8 +43,6 @@
 	<link rel="stylesheet" type="text/css" href="/assets/css/jquery.mCustomScrollbar.css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" />
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-
-
 </head>
 
 <body>
@@ -165,7 +163,7 @@
 								</li>
 							</ul>
 							<ul class="pcoded-item pcoded-left-item">
-								<li class="pcoded-hasmenu">
+								<li class="pcoded-hasmenu active">
 									<a href="javascript:void(0)">
 										<span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i></span>
 										<span class="pcoded-mtext">All Data</span>
@@ -216,7 +214,7 @@
 
 									</ul>
 								</li>
-								<li class="pcoded-hasmenu active">
+								<li class="pcoded-hasmenu ">
 									<a href="javascript:void(0)">
 										<span class="pcoded-micon"><i class="ti-crown"></i></span>
 										<span class="pcoded-mtext">Advance Calculations</span>
@@ -224,7 +222,7 @@
 									</a>
 									<ul class="pcoded-submenu">
 										<li class=" ">
-											<a th:href="@{/worksheet/list}">
+											<a th:href="@{/worksheet/importdata/select}">
 												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
 												<span class="pcoded-mtext">Worksheet</span>
 												<span class="pcoded-mcaret"></span>
@@ -348,8 +346,8 @@
 								<div class="page-wrapper">
 									<div class="page-header">
 										<div class="page-header-title">
-											<h3>Edit Worksheet</h3>
-											<span>Edit required worksheet details</span>
+											<h3>Selected Draft</h3>
+											<span>List of saved draft</span>
 										</div>
 										<div class="page-header-breadcrumb">
 											<ul class="breadcrumb-title">
@@ -358,9 +356,10 @@
 														<i class="icofont icofont-home"></i>
 													</a>
 												</li>
-												<li class="breadcrumb-item"><a th:href="@{/}">Worksheet</a>
+												<li class="breadcrumb-item"><a
+														th:href="@{/draftworksheet/list}">Draft</a>
 												</li>
-												<li class="breadcrumb-item"><a href="#!">Edit</a>
+												<li class="breadcrumb-item"><a href="#!">List</a>
 												</li>
 
 											</ul>
@@ -378,35 +377,47 @@
 
 										<div class="row">
 											<div class="col-xs-12 col-sm-12 col-lg-12">
+
+
 												<div class="card">
 													<!-- personal card start -->
 													<div class="card-header">
-														<h5>BOM Data List</h5>
-														<span>List of export models</span>
+														<h5>Worksheet Draft List</h5>
+														<span></span>
 														<div class="card-header-right">
 															<i class="icofont icofont-rounded-down"></i>
-															<a th:href="@{/}">
+															<a th:href="@{/draftworksheet/list}">
 																<i class="icofont icofont-refresh"></i>
 															</a>
 														</div>
 													</div>
 													<div class="card-block table-border-style">
-														<div class="d-flex justify-content-end"></div>
+														<div class="d-flex justify-content-end">
 
+														</div>
+
+
+
+
+
+														<!-- Data Table style="max-height: 520px; overflow:auto;" -->
 														<div class="table-responsive"
 															style="max-height: 520px; overflow:auto;">
 															<table id="worksheetTable"
 																class="table table-hover table-sm table-bordered">
 																<thead class="table-light sticky-top"
-																	style="background-color: #fff; z-index: 1020;">
+																	style="background-color:#fff;">
 																	<tr>
-																		<th></th> <!-- Toggle Button -->
+																		<th><input type="checkbox" id="selectAll" />
+																		</th>
 																		<th>Sr No.</th>
 																		<th>BE No</th>
 																		<th>BE Date</th>
+																		<th>Claim Ref</th>
+																		<th>Claim Year</th>
 																		<th>Item Description</th>
 																		<th>BOM Part No</th>
-																		<th>DBK Part No.</th>
+																		<th>DBK Part No</th>
 																		<th>Import Qty</th>
 																		<th>UOM</th>
 																		<th>Assessable Value</th>
@@ -417,25 +428,29 @@
 																		<th>Add Duty</th>
 																		<th>Total Duty</th>
 																		<th>Duty Per Qty</th>
-																		<th>Used Qty(Total)</th>
-																		<th>Duty Claimed(Total)</th>
-																		<th>CIF Claimed(Total)</th>
-																		<th>BCD Claimed(DGFT)</th>
-																		<th>SWS Claimed(DGFT)</th>
-																		<th>ADD Claimed(DGFT)</th>
+																		<th>Used Qty</th>
+																		<th>Duty Claimed</th>
+																		<th>CIF Claimed</th>
+																		<th>BCD Claimed</th>
+																		<th>SWS Claimed</th>
+																		<th>Add Claimed</th>
 																		<th>Opening</th>
 																		<th>Used</th>
 																		<th>Closing</th>
-																		<th>Claim Ref</th>
-																		<th>Claim Year</th>
-																		<th>Import ID</th>
+																		<th style="display:none;">ImportID</th>
+																		<th style="display:none;">DraftID</th>
 																		<th>Username</th>
+
 																	</tr>
 																</thead>
+
 																<tbody>
-																	<th:block
-																		th:each="detail, stat : ${importDataDetails}">
-																		<tr th:id="'importRow' + ${stat.index}">
+																	<th:block th:each="ws, stat : ${draftList}">
+																		<tr th:id="'wsRow' + ${stat.index}">
+																			<td class="text-center">
+																				<input type="checkbox"
+																					class="rowCheckbox" />
+																			</td>
 																			<td class="text-center">
 																				<button type="button"
 																					class="btn btn-sm btn-link p-0"
@@ -444,99 +459,126 @@
 																					<i th:id="'toggleIcon' + ${stat.index}"
 																						class="bi bi-caret-right"></i>
 																				</button>
+
+																				<span class="sr-no ms-1"
+																					th:text="${stat.index + 1}"></span>
+																			</td>
+
+
+																			<td contenteditable="true" data-field="beNo"
+																				th:text="${ws.beNo}"></td>
+																			<td contenteditable="true"
+																				data-field="beDate"
+																				th:text="${#temporals.format(ws.beDate, 'dd-MM-yyyy')}">
 																			</td>
 																			<td contenteditable="true"
-																				th:text="${stat.index + 1}"
-																				data-field="srNo"></td>
+																				data-field="claimRefNo"
+																				th:text="${ws.claimRefNo}"></td>
 																			<td contenteditable="true"
-																				th:text="${detail.importData.beNo}"
-																				data-field="beNo"></td>
+																				data-field="claimYear"
+																				th:text="${ws.claimYear}"></td>
 																			<td contenteditable="true"
-																				th:text="${#temporals.format(detail.importData.beDate, 'dd-MM-yyyy')}"
-																				data-field="beDate"></td>
+																				data-field="itemDescription"
+																				th:text="${ws.itemDescription}"></td>
 																			<td contenteditable="true"
-																				th:text="${detail.importData.itemDescription}"
-																				data-field="itemDescription"></td>
+																				data-field="bomPartNo"
+																				th:text="${ws.bomPartNo}"></td>
 																			<td contenteditable="true"
-																				th:text="${detail.importData.material != null ? detail.importData.material.bomPartNo : ''}"
-																				data-field="bomPartNo"></td>
+																				data-field="dbkPartNo"
+																				th:text="${ws.dbkPartNo}"></td>
 																			<td contenteditable="true"
-																				th:text="${detail.importData.dbkPartNo}"
-																				data-field="dbkPartNo"></td>
+																				data-field="importQty"
+																				th:text="${#numbers.formatDecimal(ws.importQty, 0, 'COMMA', 2, 'POINT')}">
+																			</td>
+																			<td contenteditable="true" data-field="uom"
+																				th:text="${ws.uom}"></td>
 																			<td contenteditable="true"
-																				th:text="${#numbers.formatDecimal(detail.importData.quantity, 0, 'COMMA', 2, 'POINT')}"
-																				data-field="importQty"></td>
+																				data-field="assessableValue"
+																				th:text="${#numbers.formatDecimal(ws.assessableValue, 0, 'COMMA', 2, 'POINT')}">
+																			</td>
 																			<td contenteditable="true"
-																				th:text="${detail.importData.uom}"
-																				data-field="uom"></td>
+																				data-field="cifValue"
+																				th:text="${#numbers.formatDecimal(ws.cifValue, 0, 'COMMA', 2, 'POINT')}">
+																			</td>
 																			<td contenteditable="true"
-																				th:text="${#numbers.formatDecimal(detail.importData.assessableValue, 0, 'COMMA', 2, 'POINT')}"
-																				data-field="assessableValue"></td>
+																				data-field="perQtyCif"
+																				th:text="${#numbers.formatDecimal(ws.perQtyCif, 0, 'COMMA', 2, 'POINT')}">
+																			</td>
+																			<td contenteditable="true" data-field="bcd"
+																				th:text="${#numbers.formatDecimal(ws.bcd, 0, 'COMMA', 2, 'POINT')}">
+																			</td>
+																			<td contenteditable="true" data-field="sws"
+																				th:text="${#numbers.formatDecimal(ws.sws, 0, 'COMMA', 2, 'POINT')}">
+																			</td>
 																			<td contenteditable="true"
-																				th:text="${#numbers.formatDecimal(detail.importData.assessableValue, 0, 'COMMA', 2, 'POINT')}"
-																				data-field="cifValue"></td>
-																			<td contenteditable="false"
-																				data-field="perQtyCif"></td>
+																				data-field="addDuty"
+																				th:text="${#numbers.formatDecimal(ws.addDuty, 0, 'COMMA', 2, 'POINT')}">
+																			</td>
 																			<td contenteditable="true"
-																				th:text="${#numbers.formatDecimal(detail.importData.bcd, 0, 'COMMA', 2, 'POINT')}"
-																				data-field="bcd"></td>
+																				data-field="totalDuty"
+																				th:text="${#numbers.formatDecimal(ws.totalDuty, 0, 'COMMA', 2, 'POINT')}">
+																			</td>
 																			<td contenteditable="true"
-																				th:text="${#numbers.formatDecimal(detail.importData.sws, 0, 'COMMA', 2, 'POINT')}"
-																				data-field="sws"></td>
+																				data-field="dutyPerQty"
+																				th:text="${#numbers.formatDecimal(ws.dutyPerQty, 0, 'COMMA', 6, 'POINT')}">
+																			</td>
 																			<td contenteditable="true"
-																				th:text="${#numbers.formatDecimal(detail.importData.addDuty, 0, 'COMMA', 2, 'POINT')}"
-																				data-field="addDuty"></td>
+																				data-field="usedQtyTotal"
+																				th:text="${#numbers.formatDecimal(ws.usedQtyTotal, 0, 'COMMA', 6, 'POINT')}">
+																			</td>
 																			<td contenteditable="true"
-																				data-field="totalDuty"></td>
-																			<td contenteditable="false"
-																				data-field="dutyPerQty"></td>
+																				data-field="dutyClaimedTotal"
+																				th:text="${#numbers.formatDecimal(ws.dutyClaimedTotal, 0, 'COMMA', 2, 'POINT')}">
+																			</td>
 																			<td contenteditable="true"
-																				data-field="usedQtyTotal"></td>
-																			<td contenteditable="false"
-																				data-field="dutyClaimed"></td>
-																			<td contenteditable="false"
-																				data-field="cifClaimed"></td>
-																			<td contenteditable="false"
-																				data-field="bcdClaimed"></td>
-																			<td contenteditable="false"
-																				data-field="swsClaimed"></td>
-																			<td contenteditable="false"
-																				data-field="addClaimed"></td>
+																				data-field="cifClaimedTotal"
+																				th:text="${#numbers.formatDecimal(ws.cifClaimedTotal, 0, 'COMMA', 2, 'POINT')}">
+																			</td>
+																			<td contenteditable="true"
+																				data-field="bcdClaimed"
+																				th:text="${#numbers.formatDecimal(ws.bcdClaimed, 0, 'COMMA', 2, 'POINT')}">
+																			</td>
+																			<td contenteditable="true"
+																				data-field="swsClaimed"
+																				th:text="${#numbers.formatDecimal(ws.swsClaimed, 0, 'COMMA', 2, 'POINT')}">
+																			</td>
+																			<td contenteditable="true"
+																				data-field="addClaimed"
+																				th:text="${#numbers.formatDecimal(ws.addClaimed, 0, 'COMMA', 2, 'POINT')}">
+																			</td>
 																			<td contenteditable="true"
 																				data-field="openingBalanceQtyDef"
-																				th:text="${#numbers.formatDecimal(detail.importData.closingBalance, 0, 'COMMA', 2, 'POINT')}">
+																				th:text="${#numbers.formatDecimal(ws.openingBalanceQtyDef, 0, 'COMMA', 2, 'POINT')}">
 																			</td>
 																			<td contenteditable="true"
-																				data-field="qtyUsedDef"></td>
+																				data-field="qtyUsedDef"
+																				th:text="${#numbers.formatDecimal(ws.qtyUsedDef, 0, 'COMMA', 2, 'POINT')}">
+																			</td>
 																			<td contenteditable="true"
-																				th:text="${#numbers.formatDecimal(detail.importData.closingBalance, 0, 'COMMA', 2, 'POINT')}"
-																				data-field="closingBalanceDef"></td>
-
-																			<td contenteditable="true"
-																				th:text="${detail.importData.claimRefNo}"
-																				data-field="claimRefNo"></td>
-
-																			<td contenteditable="true"
-																				th:text="${detail.importData.claimYear}"
-																				data-field="claimYear"></td>
+																				data-field="closingBalanceDef"
+																				th:text="${#numbers.formatDecimal(ws.closingBalanceDef, 0, 'COMMA', 2, 'POINT')}">
+																			</td>
+																			<td contenteditable="false"
+																				style="display:none;"
+																				th:text="${ws.importId}"
+																				data-field="importId"></td>
+																			<td contenteditable="false"
+																				style="display:none;"
+																				th:text="${ws.draftWorksheetId}"
+																				data-field="draftWorksheetId"></td>
 
 																			<td contenteditable="false"
-																				th:text="${detail.importData.importId}"
-																				data-field="importId"></td>
-
-																			<td
-																				th:text="${session.loggedInUser.username}" data-field="username">
-																			</td>
-
-
-
+																				th:text="${ws.username}"
+																				data-field="username"></td>
 																		</tr>
+
+																		<!-- Nested Export Models -->
 																		<tr th:id="'exportModelsRow' + ${stat.index}"
 																			class="export-models-row"
 																			style="display:none;">
-																			<td colspan="26" class="p-0 border-0">
+																			<td colspan="28" class="p-0 border-0">
 																				<table
-																					class="table table-sm table-bordered mb-4 m-0">
+																					class="table table-sm table-bordered m-0">
 																					<thead>
 																						<tr>
 																							<th>
@@ -547,53 +589,52 @@
 																									<i
 																										class="bi bi-plus"></i>
 																								</button>
-
 																							</th>
-																							<th>BOM ExportID</th>
-																							<th>Export Model</th>
-																							<th>Used
-																								Quantity</th>
+																							<th>Export Model No</th>
+																							<th>Used Qty</th>
 																							<th>Duty Claimed</th>
 																							<th>CIF Claimed</th>
-																							<th>BOM Status</th>
-
-																							<th>Action</th>
+																							<th>Bom ID</th>
+																							<th>Draft Export ID</th>
+																							<th></th>
 																						</tr>
 																					</thead>
 																					<tbody>
-																						<tr
-																							th:each="em : ${detail.exportModels}">
+																						<tr th:if="${ws.exportModels != null and !#lists.isEmpty(ws.exportModels)}"
+																							th:each="em : ${ws.exportModels}">
 																							<td></td>
 																							<td contenteditable="true"
-																								th:text="${em.id}"
+																								data-field="modelNo"
+																								th:text="${em.modelNo}">
+																							</td>
+																							<td contenteditable="true"
+																								data-field="emUsedQty"
+																								th:text="${#numbers.formatDecimal(em.emUsedQty, 0, 'COMMA', 6, 'POINT')}">
+																							</td>
+																							<td contenteditable="true"
+																								data-field="dutyClaimed"
+																								th:text="${#numbers.formatDecimal(em.dutyClaimed, 0, 'COMMA', 2, 'POINT')}">
+																							</td>
+																							<td contenteditable="true"
+																								data-field="cifClaimed"
+																								th:text="${#numbers.formatDecimal(em.cifClaimed, 0, 'COMMA', 2, 'POINT')}">
+																							</td>
+																							<td th:text="${em.bomExportModelId}"
 																								data-field="bomExportModelId">
 																							</td>
-																							<td contenteditable="true"
-																								th:text="${em.modelNo}"
-																								data-field="modelNo">
+																							<td th:text="${em.draftWsModelId}"
+																								data-field="draftWsModelId">
 																							</td>
-																							<td contenteditable="true"
-																								class="text-end"
-																								th:text="${#numbers.formatDecimal(em.quantity, 0, 'COMMA', 3, 'POINT')}"
-																								data-field="emUsedQty">
-																							</td>
-																							<td contenteditable="false"
-																								data-field="emDutyClaimed">
-																							</td>
-																							<td contenteditable="false"
-																								data-field="emCIFClaimed">
-																							</td>
-																							<td contenteditable="true"
-																								th:text="${em.status}">
-
 
 																							<td><button type="button"
 																									class="btn btn-sm btn-outline-danger"
 																									onclick="removeRow(this)">Remove</button>
 																							</td>
+
+																							<!-- ID column: not editable -->
 																						</tr>
 																						<tr
-																							th:if="${detail.exportModels == null or #lists.isEmpty(detail.exportModels)}">
+																							th:if="${ws.exportModels == null or #lists.isEmpty(ws.exportModels)}">
 																							<td colspan="5"
 																								class="text-center">
 																								<em>No export model
@@ -606,12 +647,17 @@
 																		</tr>
 																	</th:block>
 																</tbody>
+
 															</table>
 														</div>
+
 														<div class="text-center">
-															<button id="saveDraftBtn" type="button"
-																class="btn btn-info btn-outline-info m-b-5 m-r-5"><i
-																	class="icofont icofont-save"></i>Save Draft</button>
+
+															<button id="updateBtn" type="button"
+																class="btn btn-info waves-effect waves-light m-r-5 m-b-5"
+																style="width: 150px;">
+																Update
+															</button>
 
 															<button id="saveBtn" type="button"
 																class="btn btn-primary waves-effect waves-light m-b-5"
@@ -619,14 +665,21 @@
 																Save
 															</button>
 														</div>
+
+
+														<!-- Pagination controls -->
+														<!-- Pagination -->
+
+
+
+
 													</div>
+
 												</div>
 											</div>
 											<!-- tab content end -->
+
 										</div>
-
-
-
 									</div>
 
 								</div>
@@ -646,6 +699,357 @@
 		<a th:href="@{/index}" class="btn btn-primary" aria-hidden="true">Home</a>
 	</div>
 	</div>
+
+	<!-- **********UPDATE DRAFT LOGIC START HERE-->
+
+	<script>
+		document.getElementById('selectAll').addEventListener('change', function () {
+			const checked = this.checked;
+			document.querySelectorAll('.rowCheckbox').forEach(cb => cb.checked = checked);
+		});
+	</script>
+
+	<script>
+		function collectSelectedDrafts() {
+			const selectedRows = [];
+
+			function convertToISODate(str) {
+				const parts = str?.split('-');
+				return (parts?.length === 3) ? `${parts[2]}-${parts[1]}-${parts[0]}` : str;
+			}
+
+			document.querySelectorAll('#worksheetTable tbody tr').forEach(row => {
+				const checkbox = row.querySelector('.rowCheckbox');
+				if (checkbox && checkbox.checked) {
+					if (row.classList.contains('export-models-row')) return; // skip export models row
+
+					const draft = {};
+
+					row.querySelectorAll('[data-field]').forEach(cell => {
+						const field = cell.getAttribute('data-field');
+						let value = cell.innerText.trim();
+
+						// ✅ Clean numeric values
+						value = value.replace(/,/g, '');
+						if (!isNaN(value) && value !== '') value = parseFloat(value);
+
+						// ✅ Convert date values (dd-MM-yyyy → yyyy-MM-dd)
+						if (typeof value === 'string' && /^\d{2}-\d{2}-\d{4}$/.test(value)) {
+							value = convertToISODate(value);
+						}
+
+						draft[field] = value;
+					});
+
+					// ✅ Handle nested export models
+					const exportModels = [];
+					const nextRow = row.nextElementSibling;
+					if (nextRow && nextRow.classList.contains('export-models-row')) {
+						nextRow.querySelectorAll('tbody tr').forEach(emRow => {
+							const emData = {};
+							emRow.querySelectorAll('[data-field]').forEach(emCell => {
+								const f = emCell.getAttribute('data-field');
+								let v = emCell.innerText.trim();
+
+								v = v.replace(/,/g, '');
+								if (!isNaN(v) && v !== '') v = parseFloat(v);
+
+								if (typeof v === 'string' && /^\d{2}-\d{2}-\d{4}$/.test(v)) {
+									v = convertToISODate(v);
+								}
+
+								emData[f] = v;
+							});
+
+							// ✅ Only push non-empty export models
+							const hasData = Object.values(emData).some(val => val !== '');
+							if (hasData) {
+								exportModels.push(emData);
+							}
+						});
+
+					}
+
+					draft.exportModels = exportModels;
+					selectedRows.push(draft);
+				}
+			});
+
+			return selectedRows;
+		}
+	</script>
+
+
+
+	<script>
+		function convertDateToISO(dateStr) {
+			const parts = dateStr.split('-');
+			if (parts.length === 3) {
+				// Convert dd-MM-yyyy → yyyy-MM-dd
+				return `${parts[2]}-${parts[1]}-${parts[0]}`;
+			}
+			return dateStr;
+		}
+
+		// ===== UPDATE BUTTON =====
+		document.getElementById('updateBtn').addEventListener('click', async () => {
+			const btn = document.getElementById('updateBtn');
+			btn.disabled = true;          // disable immediately
+			btn.style.display = 'none';   // hide instantly
+
+			const selectedDrafts = collectSelectedDrafts();
+			if (selectedDrafts.length === 0) {
+				alert('Please select at least one draft to update.');
+				btn.disabled = false;
+				btn.style.display = 'inline-block';
+				return;
+			}
+
+			// Convert all date strings (dd-MM-yyyy → ISO)
+			selectedDrafts.forEach(draft => {
+				for (const key in draft) {
+					if (typeof draft[key] === 'string' && /^\d{2}-\d{2}-\d{4}$/.test(draft[key])) {
+						draft[key] = convertDateToISO(draft[key]);
+					}
+				}
+				if (draft.exportModels) {
+					draft.exportModels.forEach(em => {
+						for (const k in em) {
+							if (typeof em[k] === 'string' && /^\d{2}-\d{2}-\d{4}$/.test(em[k])) {
+								em[k] = convertDateToISO(em[k]);
+							}
+						}
+					});
+				}
+			});
+
+			try {
+				const response = await fetch('/draftworksheet/updateBulk', {
+					method: 'POST',
+					headers: {'Content-Type': 'application/json'},
+					body: JSON.stringify(selectedDrafts)
+				});
+
+				if (response.ok) {
+					alert('Drafts updated successfully!');
+					location.reload();
+				} else {
+					const err = await response.text();
+					alert('Failed to update drafts: ' + err);
+					btn.disabled = false;
+					btn.style.display = 'inline-block';
+				}
+			} catch (e) {
+				console.error('Error updating drafts', e);
+				alert('An error occurred while updating.');
+				btn.disabled = false;
+				btn.style.display = 'inline-block';
+			}
+		});
+	</script>
+
+
+	<!-- **********UPDATE DRAFT LOGIC ENDS HERE-->
+
+
+
+
+	<script>
+
+		function toggleExportModels(rowIndex) {
+			const row = document.getElementById('exportModelsRow' + rowIndex);
+			const icon = document.getElementById('toggleIcon' + rowIndex);
+			if (!row || !icon) return;
+			if (row.style.display === 'none') {
+				row.style.display = '';
+				icon.classList.remove('bi-caret-right');
+				icon.classList.add('bi-caret-down');
+			} else {
+				row.style.display = 'none';
+				icon.classList.remove('bi-caret-down');
+				icon.classList.add('bi-caret-right');
+			}
+		}
+
+	</script>
+
+	<script>
+		(() => {
+			// Selectors for rows and classes
+			const selectors = {
+				tableBody: '#worksheetTable tbody',
+				importRowPrefix: 'wsRow', // ✅ corrected to your table row id prefix
+				exportModelRowClass: 'export-models-row',
+			};
+
+			// Parse float safely (remove commas)
+			const parseSafe = val => {
+				const x = parseFloat((val || '').replace(/,/g, '')) || 0;
+				return isNaN(x) ? 0 : x;
+			};
+
+			// Get a table cell by data-field name
+			const getCell = (row, field) => row.querySelector(`td[data-field="${field}"]`);
+
+			// Set a table cell value (formatted)
+			const setCell = (row, field, val, decimals = 2) => {
+				const cell = getCell(row, field);
+				if (cell) cell.textContent = isNaN(val) ? '' : val.toFixed(decimals);
+			};
+
+			// Calculate export model totals
+			const calcExportModelTotals = (exportRows, importQty, totalDuty, assessableVal) => {
+				let usedQtyTotal = 0, dutyClaimedTotal = 0, cifClaimedTotal = 0;
+
+				exportRows.forEach(emRow => {
+					const emUsedQty = parseSafe(emRow.querySelector('td[data-field="emUsedQty"]')?.textContent || '0');
+					usedQtyTotal += emUsedQty;
+
+					// ✅ Corrected per-unit formulas
+					const emDutyClaimed = emUsedQty * (importQty ? totalDuty / importQty : 0);
+					const emCIFClaimed = emUsedQty * (importQty ? assessableVal / importQty : 0);
+
+					// ✅ Update duty/cif claimed cells (field names match your table)
+					const dutyCell = emRow.querySelector('td[data-field="dutyClaimed"]');
+					if (dutyCell) dutyCell.textContent = emDutyClaimed.toFixed(2);
+
+					const cifCell = emRow.querySelector('td[data-field="cifClaimed"]');
+					if (cifCell) cifCell.textContent = emCIFClaimed.toFixed(2);
+
+					dutyClaimedTotal += emDutyClaimed;
+					cifClaimedTotal += emCIFClaimed;
+				});
+
+				return {usedQtyTotal, dutyClaimedTotal, cifClaimedTotal};
+			};
+
+			// Main row calculation
+			function calculateRow(row) {
+				const assessableVal = parseSafe(getCell(row, 'assessableValue')?.textContent);
+				setCell(row, 'cifValue', assessableVal);
+
+				const importQty = parseSafe(getCell(row, 'importQty')?.textContent);
+				const bcd = parseSafe(getCell(row, 'bcd')?.textContent);
+				const sws = parseSafe(getCell(row, 'sws')?.textContent);
+				const addDuty = parseSafe(getCell(row, 'addDuty')?.textContent);
+
+				// ✅ Corrected Per Qty CIF formula
+				setCell(row, 'perQtyCif', importQty ? assessableVal / importQty : 0, 6);
+
+				const totalDuty = bcd + sws + addDuty;
+				setCell(row, 'totalDuty', totalDuty);
+
+				setCell(row, 'dutyPerQty', importQty ? totalDuty / importQty : 0, 6);
+
+				// Get opening and used values:
+				const openingBalanceQtyDef = parseSafe(getCell(row, 'openingBalanceQtyDef')?.textContent || '0');
+				const qtyUsedDef = parseSafe(getCell(row, 'qtyUsedDef')?.textContent || '0');
+
+				// Calculate closing balance:
+				let closingBalance = openingBalanceQtyDef - qtyUsedDef;
+
+				// If negative, set to 0
+				if (closingBalance < 0) {
+					closingBalance = 0;
+				}
+
+				// Set closing balance value:
+				setCell(row, 'closingBalanceDef', closingBalance);
+
+				// Get export model rows
+				const exportModelsRow = row.nextElementSibling;
+				let usedQtyTotal = 0, dutyClaimedTotal = 0, cifClaimedTotal = 0;
+
+				if (exportModelsRow && exportModelsRow.classList.contains(selectors.exportModelRowClass)) {
+					const exportRows = exportModelsRow.querySelectorAll('tbody tr:not(:empty)');
+					const totals = calcExportModelTotals(exportRows, importQty, totalDuty, assessableVal);
+					usedQtyTotal = totals.usedQtyTotal;
+					dutyClaimedTotal = totals.dutyClaimedTotal;
+					cifClaimedTotal = totals.cifClaimedTotal;
+				}
+
+				// ✅ Update totals in main row (matching your HTML fields)
+				setCell(row, 'usedQtyTotal', usedQtyTotal, 6);
+				setCell(row, 'qtyUsedDef', usedQtyTotal, 6);
+				setCell(row, 'dutyClaimedTotal', dutyClaimedTotal);
+				setCell(row, 'cifClaimedTotal', cifClaimedTotal);
+
+				setCell(row, 'bcdClaimed', importQty ? (bcd / importQty) * usedQtyTotal : 0);
+				setCell(row, 'swsClaimed', importQty ? (sws / importQty) * usedQtyTotal : 0);
+				setCell(row, 'addClaimed', importQty ? (addDuty / importQty) * usedQtyTotal : 0);
+			}
+
+			// Toggle export model rows
+			function toggleExportModels(rowIndex) {
+				const row = document.getElementById('exportModelsRow' + rowIndex);
+				const icon = document.getElementById('toggleIcon' + rowIndex);
+				if (!row || !icon) return;
+
+				const isHidden = row.style.display === 'none';
+				row.style.display = isHidden ? '' : 'none';
+				icon.classList.toggle('bi-caret-right', !isHidden);
+				icon.classList.toggle('bi-caret-down', isHidden);
+
+				const importRow = row.previousElementSibling;
+				if (importRow) calculateRow(importRow);
+			}
+
+			// Remove export model row
+			function removeRow(btn) {
+				const tr = btn.closest('tr');
+				const exportModelsRow = tr.closest('tr.export-models-row');
+				const importRow = exportModelsRow ? exportModelsRow.previousElementSibling : null;
+				tr.remove();
+				if (importRow) calculateRow(importRow);
+			}
+
+			// Add new export model row
+			function addExportModelRow(button) {
+				const table = button.closest('table');
+				const tbody = table.querySelector('tbody');
+				const noDataRow = tbody.querySelector('tr em');
+				if (noDataRow) noDataRow.closest('tr').remove();
+
+				const newRow = document.createElement('tr');
+				newRow.innerHTML = `
+				<td></td>
+				<td contenteditable="true" data-field="modelNo"></td>
+				<td contenteditable="true" class="text-end" data-field="emUsedQty">0</td>
+				<td contenteditable="false" data-field="dutyClaimed">0.00</td>
+				<td contenteditable="false" data-field="cifClaimed">0.00</td>
+				<td contenteditable="false" data-field="bomExportModelId"></td>
+				<td>
+					<button type="button" class="btn btn-sm btn-outline-danger" onclick="removeRow(this)">Remove</button>
+				</td>
+			`;
+				tbody.appendChild(newRow);
+
+				const exportModelsRow = table.closest('tr.export-models-row');
+				const importRow = exportModelsRow ? exportModelsRow.previousElementSibling : null;
+				if (importRow) calculateRow(importRow);
+			}
+
+			// Input change recalculation
+			document.querySelector(selectors.tableBody).addEventListener('input', e => {
+				if (e.target.isContentEditable) {
+					const row = e.target.closest(`tr[id^="${selectors.importRowPrefix}"]`);
+					if (row) calculateRow(row);
+				}
+			});
+
+			// Initialize calculations on load
+			document.addEventListener('DOMContentLoaded', () => {
+				document.querySelectorAll(`tbody > tr[id^="${selectors.importRowPrefix}"]`).forEach(calculateRow);
+			});
+
+			// Expose globally for inline calls
+			window.removeRow = removeRow;
+			window.addExportModelRow = addExportModelRow;
+			window.toggleExportModels = toggleExportModels;
+			window.calculateRow = calculateRow;
+		})();
+	</script>
+
 
 	<script>
 		async function collectWorksheetData() {
@@ -673,6 +1077,8 @@
 				if (worksheet.importId === null) return;
 
 				// then continue with the rest of the mapping
+				worksheet.draftWorksheetId = row.querySelector('[data-field=draftWorksheetId]')?.innerText.trim() || null;
+
 				worksheet.beNo = row.querySelector('[data-field=beNo]')?.innerText.trim() || null;
 				worksheet.claimYear = row.querySelector('[data-field=claimYear]')?.innerText.trim() || null;
 				worksheet.claimRefNo = row.querySelector('[data-field=claimRefNo]')?.innerText.trim() || null;
@@ -732,45 +1138,13 @@
 		}
 
 
-		document.getElementById('saveDraftBtn').addEventListener('click', async function () {
-			const btn = document.getElementById('saveDraftBtn');
-			btn.disabled = true;          // prevent multiple clicks
-			btn.style.display = 'none';   // hide instantly
-
-			try {
-				const draftData = await collectWorksheetData();
-				const filteredDraftData = draftData.filter(ws => ws.importId !== null);
-
-				console.log("Draft data being sent:", filteredDraftData);
-
-				const response = await fetch('/worksheet/saveDraft', {
-					method: 'POST',
-					headers: {'Content-Type': 'application/json'},
-					body: JSON.stringify(filteredDraftData)
-				});
-
-				if (!response.ok) {
-					alert('Draft save failed');
-					btn.disabled = false;
-					btn.style.display = 'inline-block';
-					return;
-				}
-
-				alert('Draft saved successfully');
-				window.location.href = '/drafts';
-
-			} catch (error) {
-				console.error('Error saving draft:', error);
-				alert('Error saving draft');
-				btn.disabled = false;
-				btn.style.display = 'inline-block';
-			}
-		});
 
 
+		// Your existing save button stays unchanged
+		// ===== SAVE BUTTON =====
 		document.getElementById('saveBtn').addEventListener('click', async function () {
 			const btn = document.getElementById('saveBtn');
-			btn.disabled = true;          // prevent multiple clicks
+			btn.disabled = true;          // disable immediately
 			btn.style.display = 'none';   // hide instantly
 
 			try {
@@ -811,8 +1185,7 @@
 				'SWS', 'Add Duty', 'Total Duty', 'Duty Per Qty'
 			];
 
-			// These fields will be moved after export models
-			const postExportColumns = [
+			const summaryColumns = [
 				'Used Qty(Total)', 'Duty Claimed(Total)', 'CIF Claimed(Total)',
 				'BCD Claimed(DGFT)', 'SWS Claimed(DGFT)', 'ADD Claimed(DGFT)',
 				'Opening', 'Used', 'Closing'
@@ -835,9 +1208,10 @@
 				'Add Duty': 'addDuty',
 				'Total Duty': 'totalDuty',
 				'Duty Per Qty': 'dutyPerQty',
+
 				'Used Qty(Total)': 'usedQtyTotal',
-				'Duty Claimed(Total)': 'dutyClaimed',
-				'CIF Claimed(Total)': 'cifClaimed',
+				'Duty Claimed(Total)': 'dutyClaimedTotal',
+				'CIF Claimed(Total)': 'cifClaimedTotal',
 				'BCD Claimed(DGFT)': 'bcdClaimed',
 				'SWS Claimed(DGFT)': 'swsClaimed',
 				'ADD Claimed(DGFT)': 'addClaimed',
@@ -846,7 +1220,8 @@
 				'Closing': 'closingBalanceDef'
 			};
 
-			const importRows = document.querySelectorAll('tbody > tr[id^="importRow"]');
+			// ✅ Select worksheet rows correctly
+			const importRows = document.querySelectorAll('tbody > tr[id^="wsRow"]');
 
 			// Collect all unique export model names
 			const exportModelsSet = new Set();
@@ -861,18 +1236,19 @@
 			});
 			const exportModelNames = Array.from(exportModelsSet);
 
-			// Construct headers
+			// Construct headers for Excel file
 			const firstHeaderRow = new Array(baseColumns.length).fill('');
 			exportModelNames.forEach(model => {
 				firstHeaderRow.push(model, '', '');
 			});
-			postExportColumns.forEach(() => firstHeaderRow.push('')); // fill blanks for merged structure
+			// 🟢 Add empty cells for summary columns (no group label)
+			firstHeaderRow.push(...new Array(summaryColumns.length).fill(''));
 
 			const secondHeaderRow = baseColumns.slice();
 			exportModelNames.forEach(() => {
 				secondHeaderRow.push('Used Quantity', 'Duty Claimed', 'CIF Claimed');
 			});
-			postExportColumns.forEach(col => secondHeaderRow.push(col));
+			secondHeaderRow.push(...summaryColumns);
 
 			const rowsData = [];
 
@@ -884,22 +1260,22 @@
 					return cell ? cell.textContent.trim() : '';
 				};
 
-				// Base columns first
+				// Add base columns first
 				baseColumns.forEach(header => {
 					const key = headerKeyMap[header];
 					const value = getCellText(key);
 					rowData.push(value || '0');
 				});
 
-				// Export model data
+				// Add export model data
 				const usageMap = {};
 				const exportModelsRow = row.nextElementSibling;
 				if (exportModelsRow && exportModelsRow.classList.contains('export-models-row')) {
 					exportModelsRow.querySelectorAll('tbody tr').forEach(emRow => {
 						const modelNo = emRow.querySelector('td[data-field="modelNo"]')?.textContent.trim();
 						const usedQty = emRow.querySelector('td[data-field="emUsedQty"]')?.textContent.trim() || '0';
-						const dutyClaimed = emRow.querySelector('td[data-field="emDutyClaimed"]')?.textContent.trim() || '0';
-						const cifClaimed = emRow.querySelector('td[data-field="emCIFClaimed"]')?.textContent.trim() || '0';
+						const dutyClaimed = emRow.querySelector('td[data-field="dutyClaimed"]')?.textContent.trim() || '0';
+						const cifClaimed = emRow.querySelector('td[data-field="cifClaimed"]')?.textContent.trim() || '0';
 						usageMap[modelNo] = {usedQty, dutyClaimed, cifClaimed};
 					});
 				}
@@ -912,8 +1288,8 @@
 					}
 				});
 
-				// Now add post-export fields
-				postExportColumns.forEach(header => {
+				// 🟢 Add summary columns after export models
+				summaryColumns.forEach(header => {
 					const key = headerKeyMap[header];
 					const value = getCellText(key);
 					rowData.push(value || '0');
@@ -933,213 +1309,6 @@
 
 
 	</script>
-
-
-	<script>
-		(() => {
-			// Selectors for rows and classes
-			const selectors = {
-				tableBody: '#worksheetTable tbody',
-				importRowPrefix: 'importRow',
-				exportModelRowClass: 'export-models-row',
-			};
-
-			// Utility function: Parse float safely, fallback 0
-			const parseSafe = val => {
-				const x = parseFloat(val.replace(/,/g, '')) || 0;
-				return isNaN(x) ? 0 : x;
-			};
-
-			// Get cell by data-field in a row
-			const getCell = (row, field) => row.querySelector(`td[data-field="${field}"]`);
-
-			// Set text content of a field cell to formatted value
-			const setCell = (row, field, val) => {
-				const cell = getCell(row, field);
-				if (cell) cell.textContent = isNaN(val) ? '' : val.toFixed(2);
-			};
-
-			// Calculate export model totals and update each export row cells
-			const calcExportModelTotals = (exportRows, importQty, totalDuty, assessableVal) => {
-				let usedQtyTotal = 0, dutyClaimedTotal = 0, cifClaimedTotal = 0;
-
-				exportRows.forEach(emRow => {
-					const emUsedQty = parseSafe(emRow.querySelector('td[data-field="emUsedQty"]')?.textContent || '0');
-					usedQtyTotal += emUsedQty;
-
-
-
-					const emDutyClaimed = emUsedQty * (importQty ? totalDuty / importQty : 0);
-					const emCIFClaimed = emUsedQty * assessableVal;
-
-					const dutyClaimedCell = emRow.querySelector('td[data-field="emDutyClaimed"]');
-					if (dutyClaimedCell) dutyClaimedCell.textContent = emDutyClaimed.toFixed(2);
-
-					const cifClaimedCell = emRow.querySelector('td[data-field="emCIFClaimed"]');
-					if (cifClaimedCell) cifClaimedCell.textContent = emCIFClaimed.toFixed(2);
-
-					dutyClaimedTotal += emDutyClaimed;
-					cifClaimedTotal += emCIFClaimed;
-				});
-
-				return {usedQtyTotal, dutyClaimedTotal, cifClaimedTotal};
-			};
-
-			// Main per-row calculation
-			function calculateRow(row) {
-				const assessableVal = parseSafe(getCell(row, 'assessableValue')?.textContent || '0');
-				setCell(row, 'cifValue', assessableVal);
-
-				const importQty = parseSafe(getCell(row, 'importQty')?.textContent || '0');
-				const bcd = parseSafe(getCell(row, 'bcd')?.textContent || '0');
-				const sws = parseSafe(getCell(row, 'sws')?.textContent || '0');
-				const addDuty = parseSafe(getCell(row, 'addDuty')?.textContent || '0');
-
-				setCell(row, 'perQtyCif', importQty ? assessableVal / importQty : 0);
-
-
-				const totalDuty = bcd + sws + addDuty;
-				setCell(row, 'totalDuty', totalDuty);
-
-				setCell(row, 'dutyPerQty', importQty ? totalDuty / importQty : 0);
-
-				// Get opening and used values:
-				const openingBalanceQtyDef = parseSafe(getCell(row, 'openingBalanceQtyDef')?.textContent || '0');
-				const qtyUsedDef = parseSafe(getCell(row, 'qtyUsedDef')?.textContent || '0');
-
-				// Calculate closing balance:
-				let closingBalance = openingBalanceQtyDef - qtyUsedDef;
-
-				// If negative, set to 0
-				if (closingBalance < 0) {
-					closingBalance = 0;
-				}
-
-				// Set closing balance value:
-				setCell(row, 'closingBalanceDef', closingBalance);
-
-
-				// Get export models row
-				const exportModelsRow = row.nextElementSibling;
-				let usedQtyTotal = 0, dutyClaimedTotal = 0, cifClaimedTotal = 0;
-
-				if (exportModelsRow && exportModelsRow.classList.contains(selectors.exportModelRowClass)) {
-					const exportRows = exportModelsRow.querySelectorAll('tbody tr:not(:empty)');
-					const totals = calcExportModelTotals(exportRows, importQty, totalDuty, assessableVal);
-					usedQtyTotal = totals.usedQtyTotal;
-
-					dutyClaimedTotal = totals.dutyClaimedTotal;
-					cifClaimedTotal = totals.cifClaimedTotal;
-				}
-
-				setCell(row, 'usedQtyTotal', usedQtyTotal);
-				setCell(row, 'qtyUsedDef', usedQtyTotal);
-				setCell(row, 'dutyClaimed', dutyClaimedTotal);
-				setCell(row, 'cifClaimed', cifClaimedTotal);
-
-				setCell(row, 'bcdClaimed', importQty ? (bcd / importQty) * dutyClaimedTotal : 0);
-				setCell(row, 'swsClaimed', importQty ? (sws / importQty) * usedQtyTotal : 0);
-				setCell(row, 'addClaimed', importQty ? (addDuty / importQty) * usedQtyTotal : 0);
-
-				// Additional calculations if needed (e.g. Closing)
-			}
-
-			// Toggle export models display and recalc relevant row
-			function toggleExportModels(rowIndex) {
-				const row = document.getElementById('exportModelsRow' + rowIndex);
-				const icon = document.getElementById('toggleIcon' + rowIndex);
-				if (!row || !icon) return;
-
-				if (row.style.display === 'none') {
-					row.style.display = '';
-					icon.classList.replace('bi-caret-right', 'bi-caret-down');
-				} else {
-					row.style.display = 'none';
-					icon.classList.replace('bi-caret-down', 'bi-caret-right');
-				}
-				const importRow = row.previousElementSibling;
-				if (importRow) calculateRow(importRow);
-			}
-
-			// Remove export model row handler
-			function removeRow(btn) {
-				const tr = btn.closest('tr');
-				if (!tr) return;
-				const exportModelsRow = tr.closest('tr.export-models-row');
-				const importRow = exportModelsRow ? exportModelsRow.previousElementSibling : null;
-				tr.remove();
-				if (importRow) calculateRow(importRow);
-			}
-
-			// Add new export model row handler
-			function addExportModelRow(button) {
-				const table = button.closest('table');
-				const tbody = table.querySelector('tbody');
-				const noDataRow = tbody.querySelector('tr em');
-				if (noDataRow) noDataRow.closest('tr').remove();
-
-				const newRow = document.createElement('tr');
-				newRow.innerHTML = `
-		      <td></td>
-			  <td contenteditable="true" data-field="bomExportModelId">1</td>
-		      <td contenteditable="true" data-field="modelNo">0</td>
-		      <td contenteditable="true" class="text-end" data-field="emUsedQty">0</td>
-		      <td contenteditable="false" data-field="emDutyClaimed"></td>
-		      <td contenteditable="false" data-field="emCIFClaimed"></td>
-		      <td>
-		        <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeRow(this)">Remove</button>
-		      </td>
-		    `;
-				tbody.appendChild(newRow);
-
-				const exportModelsRow = table.closest('tr.export-models-row');
-				const importRow = exportModelsRow ? exportModelsRow.previousElementSibling : null;
-				if (importRow) calculateRow(importRow);
-			}
-
-			// Event delegation for clicks
-			document.querySelector(selectors.tableBody).addEventListener('click', e => {
-				if (e.target.matches('.toggle-export-btn')) {
-					toggleExportModels(e.target.dataset.index);
-				} else if (e.target.matches('.btn-remove-export-model')) {
-					removeRow(e.target);
-				} else if (e.target.matches('.btn-add-export-model')) {
-					addExportModelRow(e.target);
-				}
-			});
-
-			// Event delegation for content editable input
-			document.querySelector(selectors.tableBody).addEventListener('input', e => {
-				if (e.target.isContentEditable) {
-					const row = e.target.closest(`tr[id^="${selectors.importRowPrefix}"]`);
-					if (row) calculateRow(row);
-				}
-			});
-
-			// Initialize calculations on page load
-			document.addEventListener('DOMContentLoaded', () => {
-				document.querySelectorAll(`tbody > tr[id^="${selectors.importRowPrefix}"]`).forEach(calculateRow);
-			});
-
-			// Expose functions globally for inline HTML calls if needed
-			window.removeRow = removeRow;
-			window.addExportModelRow = addExportModelRow;
-			window.toggleExportModels = toggleExportModels;
-			window.calculateRow = calculateRow;
-		})();
-
-
-
-
-	</script>
-
-
-
-
-	<script>
-
-	</script>
-
 
 
 

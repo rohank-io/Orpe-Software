@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -51,7 +52,10 @@ public class WorksheetDTO {
  private LocalDateTime createdAt;
  
  //For Draft deletion:
- private Long draftWorksheetId; 
+ private Long draftWorksheetId;
+ 
+ 
+ private String username;
  
  private List<WorksheetExportModelsDTO> exportModels;
 }

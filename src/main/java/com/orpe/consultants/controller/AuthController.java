@@ -10,6 +10,7 @@ import com.orpe.consultants.model.User;
 import com.orpe.consultants.service.DashboardService;
 import com.orpe.consultants.service.DraftWorksheetService;
 import com.orpe.consultants.service.UserService;
+import com.orpe.consultants.service.WorksheetService;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -38,7 +39,10 @@ public class AuthController {
     private DashboardService dashboardService;
     
     @Autowired
-    private DraftWorksheetService draftService; 
+    private DraftWorksheetService draftService;
+    
+    @Autowired
+    private WorksheetService worksheetService;
 
     // Home/Index Page - Requires Authentication
 //    @GetMapping({"/", "/index"})
@@ -80,6 +84,9 @@ public class AuthController {
         
         List<Map<String, Object>> draftGroups = draftService.getAllDraftGroups();
         model.addAttribute("draftGroups", draftGroups);
+        
+        List<Map<String, Object>> worksheetGroups = worksheetService.getAllWorksheetGroups();
+        model.addAttribute("worksheetGroups", worksheetGroups);
 
 
        

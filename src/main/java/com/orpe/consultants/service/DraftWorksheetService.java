@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import com.orpe.consultants.dto.DraftWorksheetDTO;
 import com.orpe.consultants.dto.WorksheetDTO;
 import com.orpe.consultants.dto.WorksheetDataFilter;
+import com.orpe.consultants.model.DraftWorksheet;
 
 public interface DraftWorksheetService {
 	
@@ -81,5 +82,12 @@ public interface DraftWorksheetService {
     long count(WorksheetDataFilter filter);
     
     List<Map<String, Object>> getAllDraftGroups();
+    
+    /**
+     * Fetch all DraftWorksheet rows for given user + claimRefNo + claimYear
+     * ordered by createdAt desc. Returns empty list if none found.
+     */
+    List<DraftWorksheet> getDraftsByUserAndClaimRefAndYear(String username, String claimRefNo, String claimYear);
+
 
 }

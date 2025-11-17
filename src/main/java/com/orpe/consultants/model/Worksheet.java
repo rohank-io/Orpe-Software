@@ -161,6 +161,9 @@ public class Worksheet {
     @Column(name = "created_at", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime createdAt;
     
+    @Column(name = "username")
+    private String username;
+    
     @OneToMany(mappedBy = "worksheet", cascade = {}, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<WorksheetExportModels> exportModels;
 }
