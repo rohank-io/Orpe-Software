@@ -2,7 +2,9 @@ package com.orpe.consultants.service.impl;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -294,6 +296,30 @@ public class DraftWorksheetServiceImpl implements DraftWorksheetService {
 
 	    return entity;
 	}
+	
+	
+	 @Override
+	    public List<Map<String, Object>> getAllDraftGroups() {
+	        List<Object[]> rows = draftWorksheetRepository.findAllDraftGroups();
+	        List<Map<String, Object>> result = new ArrayList<>(rows.size());
+
+	        for (Object[] r : rows) {
+	            Map<String, Object> m = new HashMap<>(3);
+	            // r[0] = claimRefNo, r[1] = claimYear, r[2] = count (Number)
+	            m.put("claimRefNo", r[0] != null ? r[0].toString() : null);
+	            m.put("claimYear", r[1] != null ? r[1].toString() : null);
+
+	            Long countValue = 0L;
+	            if (r[2] instanceof Number) {
+	                countValue = ((Number) r[2]).longValue();
+	            }
+	            m.put("count", countValue);
+
+	            result.add(m);
+	        }
+
+	        return result;
+	    }
 
 
 	

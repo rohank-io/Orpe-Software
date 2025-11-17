@@ -8,6 +8,7 @@ import com.orpe.consultants.dto.DashboardMetricsDto;
 import com.orpe.consultants.dto.LoginRequest;
 import com.orpe.consultants.model.User;
 import com.orpe.consultants.service.DashboardService;
+import com.orpe.consultants.service.DraftWorksheetService;
 import com.orpe.consultants.service.UserService;
 
 import jakarta.servlet.http.HttpSession;
@@ -15,6 +16,7 @@ import jakarta.validation.Valid;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -34,6 +36,9 @@ public class AuthController {
     
     @Autowired
     private DashboardService dashboardService;
+    
+    @Autowired
+    private DraftWorksheetService draftService; 
 
     // Home/Index Page - Requires Authentication
 //    @GetMapping({"/", "/index"})
@@ -72,13 +77,12 @@ public class AuthController {
         // Dashboard summary metrics (existing)
         var metrics = dashboardService.getDashboardMetrics(fromDate, toDate);
         model.addAttribute("dashboard", metrics);
+        
+        List<Map<String, Object>> draftGroups = draftService.getAllDraftGroups();
+        model.addAttribute("draftGroups", draftGroups);
 
-        // --- NEW: prepare chart points for initial render (server-side) ---
-        // chartService returns List<ChartPointDto> where ChartPointDto has fields: period, imports, exports, sbCount
-        String defaultRange = "week"; // initial chart range (week/month/year)
-        List<ChartPointDto> chartPoints = dashboardService.getChartPoints(defaultRange, fromDate, toDate);
-        model.addAttribute("chartData", chartPoints);
 
+       
         // pass filters back to template
         model.addAttribute("fromDate", fromDate);
         model.addAttribute("toDate", toDate);
@@ -144,10 +148,26 @@ public class AuthController {
 
     // Registration Page 
     @GetMapping("/register")
-    public String showRegistrationPage(Model model) {
+    public String showRegistrationPage(HttpSession session, Model model) {
+
+        // 1) Check session user
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+        if (loggedInUser == null) {
+            return "redirect:/login";
+        }
+
+        // 2) Role check: ADMIN only
+        if (loggedInUser.getRole() != User.Role.ADMIN) {
+            model.addAttribute("user", loggedInUser);
+            return "error/unauthorisedaccess";  // your error page
+        }
+
+        // 3) Normal flow
         model.addAttribute("userDTO", new UserDTO());
+        model.addAttribute("user", loggedInUser);
         return "register";
     }
+
 
     // Registration Processing (POST) - Public access
     @PostMapping("/register")

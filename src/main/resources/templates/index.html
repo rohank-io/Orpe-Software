@@ -447,9 +447,11 @@
 															<div class="col-6 text-right">
 																<div class="counter-card-text">
 																	<!-- show as integer without decimals -->
-																	<h3
-																		th:text="${dashboard.claimedDbkAmount != null ? dashboard.claimedDbkAmount.longValue() : 0}">
-																		0</h3>
+																	<h3>
+																		₹ <span
+																			th:text="${dashboard.claimedDbkAmount != null ? dashboard.claimedDbkAmount.longValue() : 0}">0</span>
+																	</h3>
+
 																	<h4>Claimed DBK Amount</h4>
 																	<p>
 																		<span th:if="${fromDate != null}"
@@ -482,9 +484,11 @@
 															<div class="col-6 text-right">
 																<div class="counter-card-text">
 																	<!-- format with thousand separators and no decimals -->
-																	<h3
-																		th:text="${#numbers.formatDecimal(dashboard.totalAirAmount, 0, 'COMMA', 0, 'POINT')}">
-																		₹ 0</h3>
+																	<h3>
+																		₹ <span
+																			th:text="${#numbers.formatDecimal(dashboard.totalAirAmount, 0, 'COMMA', 0, 'POINT')}">0</span>
+																	</h3>
+
 																	<h4>Total AIR Amount</h4>
 																	<p>
 																		<span th:if="${fromDate != null}"
@@ -516,9 +520,11 @@
 															</div>
 															<div class="col-6 text-right">
 																<div class="counter-card-text">
-																	<h3
-																		th:text="${#numbers.formatDecimal(dashboard.totalSbrAmount, 0, 'COMMA', 0, 'POINT')}">
-																		₹ 0</h3>
+																	<h3>
+																		₹ <span
+																			th:text="${#numbers.formatDecimal(dashboard.totalSbrAmount, 0, 'COMMA', 0, 'POINT')}">0</span>
+																	</h3>
+
 																	<h4>Total SBR</h4>
 																	<p>
 																		<span th:if="${fromDate != null}"
@@ -576,9 +582,129 @@
 
 											<!-- counter-card-3 end -->
 
+											<!-- Draft Groups card -->
+											<div class="col-md-6 col-xl-6">
+												<div class="card" style="height: 300px;"> <!-- 👈 fixed height -->
+													<div
+														class="card-header d-flex justify-content-between align-items-center">
+														<h5 class="m-0">Pending Drafts</h5>
+														<small class="text-muted">Unique groups</small>
+													</div>
+
+													<div class="card-block p-3"
+														style="height: 200px; overflow-y: auto;">
+														<!-- 👈 scroll inside -->
+														<div class="table-responsive">
+															<table class="table table-sm table-hover mb-2">
+																<thead class="thead-light">
+																	<tr class="text-uppercase small">
+																		<th style="width:48px;">Sr No.</th>
+																		<th>Claim Ref No</th>
+																		<th>Claim Year</th>
+																		<th class="text-center">No. of records</th>
+																	</tr>
+																</thead>
+
+																<tbody>
+																	<tr
+																		th:if="${draftGroups == null or #lists.isEmpty(draftGroups)}">
+																		<td colspan="5"
+																			class="text-center text-muted py-4">
+																			No draft worksheets available
+																		</td>
+																	</tr>
+
+																	<tr th:each="g, iterStat : ${draftGroups}">
+																		<td th:text="${iterStat.index + 1}">1</td>
+																		<td th:text="${g.claimRefNo}">f 01</td>
+																		<td th:text="${g.claimYear}">2024</td>
+																		<td class="text-center" th:text="${g.count}">4
+																		</td>
+																	</tr>
+																</tbody>
+															</table>
+														</div>
+
+														<div
+															class="d-flex justify-content-between align-items-center mt-2">
+															<div class="small text-muted">
+																Showing <span
+																	th:text="${draftGroups != null ? draftGroups.size() : 0}">0</span>
+																groups
+															</div>
+
+															<a class="btn btn-primary btn-sm"
+																th:href="@{/draftworksheet/list}">
+																See drafts
+															</a>
+														</div>
+													</div>
+												</div>
+											</div>
+
+											<div class="col-md-6 col-xl-6">
+												<div class="card" style="height: 300px;"> <!-- 👈 fixed height -->
+													<div
+														class="card-header d-flex justify-content-between align-items-center">
+														<h5 class="m-0">Latest SB wise DBK records</h5>
+														<small class="text-muted">Latest 10</small>
+													</div>
+
+													<div class="card-block p-3"
+														style="height: 200px; overflow-y: auto;">
+														<!-- 👈 scroll inside -->
+														<div class="table-responsive">
+															<table class="table table-sm table-hover mb-2">
+																<thead class="thead-light">
+																	<tr class="text-uppercase small">
+																		<th style="width:48px;">Sr No.</th>
+																		<th>SB No</th>
+																		<th>Quantity</th>
+																		<th class="text-center">DBK Amount</th>
+																	</tr>
+																</thead>
+
+																<tbody>
+																	<tr>
+																		<td colspan="5"
+																			class="text-center text-muted py-4">
+																			No Records Available
+																		</td>
+																	</tr>
+
+																	<tr>
+																		<td></td>
+																		<td></td>
+																		<td></td>
+																		<td>
+																		</td>
+																	</tr>
+																</tbody>
+															</table>
+														</div>
+
+														<div
+															class="d-flex justify-content-between align-items-center mt-2">
+															<div class="small text-muted">
+																Showing <span>0</span>
+																groups
+															</div>
+
+															<a class="btn btn-primary btn-sm"
+																th:href="@{/work-in-progress}">
+																See Records
+															</a>
+														</div>
+													</div>
+												</div>
+											</div>
+
+											<!-- End Draft Groups card -->
 
 
-											<!-- Morris chart start -->
+
+
+											<!-- Morris chart start 
 											<div class="col-md-12 col-xl-12">
 												<div class="card">
 													<div
@@ -592,7 +718,7 @@
 																class="btn btn-primary btn-sm">Year</button>
 														</div>
 
-														<!-- Counts area -->
+														
 														<div class="d-flex gap-3 align-items-center">
 															<div class="text-center">
 																<div style="font-size:12px;color:#666">Total Imports
@@ -616,16 +742,7 @@
 												</div>
 											</div>
 
-											<!-- Morris chart end -->
-											<!--Follow block start-->
-											
-											<!--Follow block Ends-->
-
-											<!-- Product table End -->
-											<!-- Reset Message Start -->
-
-
-											<!--user chat box start-->
+											-->
 
 
 										</div>
@@ -641,16 +758,16 @@
 			</div>
 		</div>
 		<div class="fixed-button">
-			<a th:href="@{/register}" class="btn btn-primary" aria-hidden="true">Home</a>
+			<a th:href="@{/}" class="btn btn-primary" aria-hidden="true">Home</a>
 		</div>
 	</div>
-	
-	
+
+
 	<!-- ensure this is placed after you included Morris.js and jQuery -->
-	
 
 
-	
+
+
 
 
 
@@ -721,72 +838,72 @@
 	<!-- Custom js -->
 	<!-- YOUR server-embedded chartData variable -->
 	<script th:inline="javascript">
-		  /*<![CDATA[*/
-		  // chartData is a List<ChartPointDto> in the model
-		  var initialChartData = /*[[${chartData}]]*/ [];
-		  /*]]>*/
-		</script>
+		/*<![CDATA[*/
+		// chartData is a List<ChartPointDto> in the model
+		var initialChartData = /*[[${chartData}]]*/[];
+		/*]]>*/
+	</script>
 
-		<script>
-		  // helper: render Morris with given data
-		  function renderMorris(data) {
-		    // clear container
-		    document.getElementById('morris-extra-area').innerHTML = '';
+	<script>
+		// helper: render Morris with given data
+		function renderMorris(data) {
+			// clear container
+			document.getElementById('morris-extra-area').innerHTML = '';
 
-		    Morris.Area({
-		      element: 'morris-extra-area',
-		      data: data,
-		      xkey: 'period',
-		      ykeys: ['imports', 'exports', 'sbCount'],
-		      labels: ['Imports', 'Exports', 'SB Count'],
-		      lineColors: ['#7E81CB', '#fb9678', '#01C0C8'],
-		      pointSize: 2,
-		      lineWidth: 1,
-		      resize: true,
-		      fillOpacity: 0.6,
-		      behaveLikeLine: true,
-		      gridLineColor: '#eef0f2',
-		      hideHover: 'auto'
-		    });
+			Morris.Area({
+				element: 'morris-extra-area',
+				data: data,
+				xkey: 'period',
+				ykeys: ['imports', 'exports', 'sbCount'],
+				labels: ['Imports', 'Exports', 'SB Count'],
+				lineColors: ['#7E81CB', '#fb9678', '#01C0C8'],
+				pointSize: 2,
+				lineWidth: 1,
+				resize: true,
+				fillOpacity: 0.6,
+				behaveLikeLine: true,
+				gridLineColor: '#eef0f2',
+				hideHover: 'auto'
+			});
 
-		    // update header totals if elements exist
-		    var totalImports = (data || []).reduce(function(acc, p){ return acc + (p.imports||0); }, 0);
-		    var totalExports = (data || []).reduce(function(acc, p){ return acc + (p.exports||0); }, 0);
-		    var elI = document.getElementById('total-imports');
-		    var elE = document.getElementById('total-exports');
-		    if (elI) elI.textContent = totalImports;
-		    if (elE) elE.textContent = totalExports;
-		  }
+			// update header totals if elements exist
+			var totalImports = (data || []).reduce(function (acc, p) {return acc + (p.imports || 0);}, 0);
+			var totalExports = (data || []).reduce(function (acc, p) {return acc + (p.exports || 0);}, 0);
+			var elI = document.getElementById('total-imports');
+			var elE = document.getElementById('total-exports');
+			if (elI) elI.textContent = totalImports;
+			if (elE) elE.textContent = totalExports;
+		}
 
-		  // initial render using server-provided data
-		  renderMorris(initialChartData);
+		// initial render using server-provided data
+		renderMorris(initialChartData);
 
-		  // Hook the buttons to do client-side re-render using the same approach:
-		  document.getElementById('btn-week').addEventListener('click', function() {
-		    // you can call server again via redirect with ?range=week or implement ajax.
-		    // For simplicity, request a reload with the range parameter:
-		    location.href = updateQueryString(window.location.href, 'chartRange', 'week');
-		  });
-		  document.getElementById('btn-month').addEventListener('click', function() {
-		    location.href = updateQueryString(window.location.href, 'chartRange', 'month');
-		  });
-		  document.getElementById('btn-year').addEventListener('click', function() {
-		    location.href = updateQueryString(window.location.href, 'chartRange', 'year');
-		  });
+		// Hook the buttons to do client-side re-render using the same approach:
+		document.getElementById('btn-week').addEventListener('click', function () {
+			// you can call server again via redirect with ?range=week or implement ajax.
+			// For simplicity, request a reload with the range parameter:
+			location.href = updateQueryString(window.location.href, 'chartRange', 'week');
+		});
+		document.getElementById('btn-month').addEventListener('click', function () {
+			location.href = updateQueryString(window.location.href, 'chartRange', 'month');
+		});
+		document.getElementById('btn-year').addEventListener('click', function () {
+			location.href = updateQueryString(window.location.href, 'chartRange', 'year');
+		});
 
-		  // small helper to update query string param (keeps existing params like fromDate/toDate)
-		  function updateQueryString(uri, key, value) {
-		    var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
-		    var separator = uri.indexOf('?') !== -1 ? "&" : "?";
-		    if (uri.match(re)) {
-		      return uri.replace(re, '$1' + key + "=" + value + '$2');
-		    }
-		    else {
-		      return uri + separator + key + "=" + value;
-		    }
-		  }
-		</script>
-	
+		// small helper to update query string param (keeps existing params like fromDate/toDate)
+		function updateQueryString(uri, key, value) {
+			var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
+			var separator = uri.indexOf('?') !== -1 ? "&" : "?";
+			if (uri.match(re)) {
+				return uri.replace(re, '$1' + key + "=" + value + '$2');
+			}
+			else {
+				return uri + separator + key + "=" + value;
+			}
+		}
+	</script>
+
 	<script type="text/javascript" src="assets/js/script.js"></script>
 	<script src="assets/js/pcoded.min.js"></script>
 	<script src="assets/js/demo-12.js"></script>

@@ -40,29 +40,36 @@ public class UserController {
     // Display User List
     @GetMapping("/users")
     public String getUserList(HttpSession session, Model model) {
-        // Check if user is logged in
+
+        // 1) Check if user is logged in
         User loggedInUser = (User) session.getAttribute("loggedInUser");
         if (loggedInUser == null) {
             log.info("User not authenticated, redirecting to login page");
             return "redirect:/login";
         }
-        
+
+        // 2) Role check: only ADMIN can access
+        if (loggedInUser.getRole() != User.Role.ADMIN) {
+            model.addAttribute("user", loggedInUser);
+            return "error/unauthorisedaccess";
+        }
+
         try {
-            // Fetch all users
+            // 3) Fetch all users
             List<User> users = userService.findAllUsers();
             model.addAttribute("users", users);
             model.addAttribute("loggedInUser", loggedInUser);
-            
-            log.info("User list displayed for logged in user: {}", loggedInUser.getUsername());
+
+            log.info("User list displayed for ADMIN user: {}", loggedInUser.getUsername());
             return "userList";
-            
+
         } catch (Exception e) {
             log.error("Error fetching user list: {}", e.getMessage());
             model.addAttribute("errorMessage", "Error loading users. Please try again.");
             return "userList";
         }
     }
-    
+
     // View Single User Details
     @GetMapping("/users/{id}")
     public String viewUser(@PathVariable Long id, HttpSession session, Model model) {
