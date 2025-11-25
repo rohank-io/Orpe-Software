@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 
 @Entity
@@ -49,6 +50,10 @@ public class DraftWorksheet {
 
     @Column(name = "bom_part_no")
     private String bomPartNo;
+    
+    @Column(name = "alt_boe_part_no", length = 200)
+    @Size(max = 200)
+    private String altBoePartNo;
 
     @Column(name = "dbk_part_no", length = 100)
     private String dbkPartNo;

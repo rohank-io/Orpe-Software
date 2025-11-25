@@ -201,9 +201,17 @@
 										</li>
 
 										<li class=" ">
-											<a th:href="@{/worksheet/list}">
+											<a th:href="@{/worksheets/claims/list}">
 												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
 												<span class="pcoded-mtext">Worksheet</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+										</li>
+
+										<li class=" ">
+											<a th:href="@{/sb-consumption/groups}">
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">SB Qty Consumption</span>
 												<span class="pcoded-mcaret"></span>
 											</a>
 										</li>
@@ -418,6 +426,7 @@
 																		<th>Claim Year</th>
 																		<th>Item Description</th>
 																		<th>BOM Part No</th>
+																		<th>BOE No</th>
 																		<th>DBK Part No</th>
 																		<th>Import Qty</th>
 																		<th>UOM</th>
@@ -484,6 +493,9 @@
 																			<td contenteditable="true"
 																				data-field="bomPartNo"
 																				th:text="${ws.bomPartNo}"></td>
+																			<td contenteditable="true"
+																				data-field="altBoePartNo"
+																				th:text="${ws.altBoePartNo}"></td>
 																			<td contenteditable="true"
 																				data-field="dbkPartNo"
 																				th:text="${ws.dbkPartNo}"></td>
@@ -1079,6 +1091,8 @@
 				worksheet.beDate = convertToISODate(row.querySelector('[data-field=beDate]')?.innerText.trim()) || null;
 				worksheet.itemDescription = row.querySelector('[data-field=itemDescription]')?.innerText.trim() || null;
 				worksheet.bomPartNo = row.querySelector('[data-field=bomPartNo]')?.innerText.trim() || null;
+				worksheet.altBoePartNo = row.querySelector('[data-field=altBoePartNo]')?.innerText.trim() || null;
+							
 				worksheet.dbkPartNo = row.querySelector('[data-field=dbkPartNo]')?.innerText.trim() || null;
 				worksheet.importQty = parseFloat(row.querySelector('[data-field=importQty]')?.innerText.replace(/,/g, '')) || 0;
 				worksheet.uom = row.querySelector('[data-field=uom]')?.innerText.trim() || null;
@@ -1100,7 +1114,7 @@
 				worksheet.qtyUsedDef = parseFloat(row.querySelector('[data-field=qtyUsedDef]')?.innerText.replace(/,/g, '')) || 0;
 				worksheet.closingBalanceDef = parseFloat(row.querySelector('[data-field=closingBalanceDef]')?.innerText.replace(/,/g, '')) || 0;
 				worksheet.username = row.querySelector('[data-field=username]')?.innerText.trim() || null;
-								
+
 				// collect export models only for valid worksheet
 				const exportModels = [];
 				const button = row.querySelector('button[data-index]');
@@ -1174,7 +1188,7 @@
 		// Excel generation can be extracted to a function and called after save success
 		function generateExcelFile() {
 			const baseColumns = [
-				'Sr No.', 'BE No', 'BE Date', 'Item Description', 'BOM Part No', 'DBK Part No.',
+				'Sr No.', 'BE No', 'BE Date', 'Item Description', 'BOM Part No','BOE No', 'DBK Part No.',
 				'Import Qty', 'UOM', 'Assessable Value', 'CIF Value', 'Per Qty CIF', 'BCD',
 				'SWS', 'Add Duty', 'Total Duty', 'Duty Per Qty'
 			];
@@ -1191,6 +1205,7 @@
 				'BE Date': 'beDate',
 				'Item Description': 'itemDescription',
 				'BOM Part No': 'bomPartNo',
+				'BOE No': 'altBoePartNo',
 				'DBK Part No.': 'dbkPartNo',
 				'Import Qty': 'importQty',
 				'UOM': 'uom',

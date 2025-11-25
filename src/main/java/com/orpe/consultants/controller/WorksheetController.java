@@ -1,6 +1,7 @@
 package com.orpe.consultants.controller;
 
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -179,6 +180,25 @@ public class WorksheetController {
 
 		return "worksheetDataList";
 	}
+	
+	
+	@GetMapping("/worksheets/claims/list")
+    public String viewWorksheetGroups(Model model,HttpSession session) {
+		User loggedInUser = (User) session.getAttribute("loggedInUser");
+		if (loggedInUser == null) {
+			return "redirect:/login";
+		}
+		model.addAttribute("user", loggedInUser);
+        try {
+            List<Map<String, Object>> groups = worksheetService.getAllWorksheetGroups();
+            model.addAttribute("worksheetGroups", groups != null ? groups : Collections.emptyList());
+        } catch (Exception ex) {
+            log.error("Error loading worksheet groups for view", ex);
+            model.addAttribute("worksheetGroups", Collections.emptyList());
+            model.addAttribute("errorMessage", "Unable to load worksheet groups at the moment.");
+        }
+        return "worksheetDataClaimWise"; // adjust to your Thymeleaf template path: src/main/resources/templates/worksheets/groups.html
+    }
 
 	@PostMapping("/worksheet/saveDraft")
 	public ResponseEntity<?> saveDraft(@RequestBody List<DraftWorksheetDTO> draftWorksheetDTOList,
@@ -216,39 +236,66 @@ public class WorksheetController {
 	}
 	
 	
-	@GetMapping("/worksheet/selected")
-    public String listWorksheetsForGroup(@RequestParam String username,
-                                     @RequestParam String claimRefNo,
-                                     @RequestParam String claimYear,
-                                     HttpSession session,
-                                     Model model) {
+    @GetMapping("/worksheet/selected")
+    public String listWorksheetsForGroup(
+            @RequestParam String username,
+            @RequestParam String claimRefNo,
+            @RequestParam String claimYear,
+            @RequestParam(required = false) String filterField,
+            @RequestParam(required = false) String filterValue,
+            @RequestParam(required = false)
+            @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fromDate,
+            @RequestParam(required = false)
+            @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate toDate,
+            HttpSession session,
+            Model model) {
 
         // 1. LOGIN CHECK
         User loggedInUser = (User) session.getAttribute("loggedInUser");
         if (loggedInUser == null) {
-            log.warn("Unauthenticated access to /draftworksheet/list — redirecting to login.");
+            log.warn("Unauthenticated access to /worksheet/selected — redirecting to login.");
             return "redirect:/login";
         }
 
-        // 2. ROLE CHECK (optional)
-        // Allow ADMIN or the owner (username match)
-       
-        // 3. Fetch the draft records
-        List<Worksheet> worksheetList = worksheetService.getWorksheetByUserAndClaimRefAndYear(username, claimRefNo, claimYear);
+        // 2. ROLE CHECK (optional but recommended)
+        // If not admin, force username = loggedInUser.getUsername()
+        if (loggedInUser.getRole() != User.Role.ADMIN) {
+            username = loggedInUser.getUsername();
+        }
 
-        // 4. Add data to model
+        // 3. Build filter object
+        WorksheetDataFilter filter = new WorksheetDataFilter();
+        filter.setFilterField(filterField);
+        filter.setFilterValue(filterValue);
+        filter.setFromDate(fromDate);
+        filter.setToDate(toDate);
+
+        // 4. Fetch records with filters
+        List<WorksheetDTO> worksheetList =
+                worksheetService.getWorksheetByUserAndClaimRefAndYear(username, claimRefNo, claimYear, filter);
+
+        int count = worksheetList != null ? worksheetList.size() : 0;
+
+        // 5. Add data to model
         model.addAttribute("worksheetList", worksheetList);
         model.addAttribute("selectedUsername", username);
         model.addAttribute("claimRefNo", claimRefNo);
         model.addAttribute("claimYear", claimYear);
-        model.addAttribute("count", worksheetList != null ? worksheetList.size() : 0);
+        model.addAttribute("count", count);
 
-        log.info("Loaded {}  worksheet(s) for user={}, refNo={}, year={}", 
-        		worksheetList.size(), username, claimRefNo, claimYear);
+        // Also pass filter values back to the view so UI remembers them
+        model.addAttribute("filterField", filterField);
+        model.addAttribute("filterValue", filterValue);
+        model.addAttribute("fromDate", fromDate);
+        model.addAttribute("toDate", toDate);
 
-        // 5. Return the list page
+        log.info("Loaded {} worksheet(s) for user={}, refNo={}, year={} with filterField='{}', filterValue='{}', fromDate={}, toDate={}",
+                count, username, claimRefNo, claimYear, filterField, filterValue, fromDate, toDate);
+
+        // 6. Return the view
         return "worksheetDataUserwise";
     }
+
 
 	@PostMapping("/draftworksheet/updateBulk")
 	public ResponseEntity<?> updateBulkDrafts(@RequestBody List<DraftWorksheetDTO> drafts) {

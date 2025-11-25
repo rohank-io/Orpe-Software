@@ -91,12 +91,12 @@ public class ImportData {
  )
  private Material material; // maps materials.bom_part_no
 
- @Column(name = "alt_boe_part_no", length = 100)
- @Size(max = 100)
+ @Column(name = "alt_boe_part_no", length = 200)
+ @Size(max = 200)
  private String altBoePartNo;
 
- @Column(name = "dbk_part_no", length = 100)
- @Size(max = 100)
+ @Column(name = "dbk_part_no", length = 200)
+ @Size(max = 200)
  private String dbkPartNo;
 
  @Column(name = "quantity", precision = 18, scale = 6, nullable = false)

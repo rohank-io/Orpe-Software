@@ -201,9 +201,17 @@
 										</li>
 
 										<li class=" ">
-											<a th:href="@{/worksheet/list}">
+											<a th:href="@{/worksheets/claims/list}">
 												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
 												<span class="pcoded-mtext">Worksheet</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+										</li>
+
+										<li class=" ">
+											<a th:href="@{/sb-consumption/groups}">
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">SB Qty Consumption</span>
 												<span class="pcoded-mcaret"></span>
 											</a>
 										</li>
@@ -392,12 +400,99 @@
 														<span>List of all Worksheet</span>
 														<div class="card-header-right">
 															<i class="icofont icofont-rounded-down"></i>
-															<a th:href="@{/worksheet/list}">
+
+															<!-- REFRESH BUTTON -->
+															<a th:href="@{/worksheet/selected(
+													            username=${selectedUsername},
+													            claimRefNo=${claimRefNo},
+													            claimYear=${claimYear}
+													        )}">
 																<i class="icofont icofont-refresh"></i>
 															</a>
+
 														</div>
 													</div>
+
 													<div class="card-block table-border-style">
+														<div class="d-flex justify-content-end">
+															<form th:action="@{/worksheet/selected}" method="get"
+																class="d-flex align-items-center gap-2 m-3 flex-nowrap"
+																style="max-width: 700px;">
+
+																<!-- Hidden mandatory params for selected group -->
+																<input type="hidden" name="username"
+																	th:value="${selectedUsername}" />
+																<input type="hidden" name="claimRefNo"
+																	th:value="${claimRefNo}" />
+																<input type="hidden" name="claimYear"
+																	th:value="${claimYear}" />
+
+																<select name="filterField" id="filterField"
+																	class="form-control form-control-sm mr-2"
+																	style="width: 150px;" onchange="updateInputType();">
+
+																	<option th:selected="${filterField == null}"
+																		value="" disabled>Sort By</option>
+
+																	<option th:selected="${filterField == 'beNo'}"
+																		value="beNo">BE No</option>
+																	<option th:selected="${filterField == 'claimYear'}"
+																		value="claimYear">Claim Year</option>
+																	<option th:selected="${filterField == 'claimRefNo'}"
+																		value="claimRefNo">Claim Ref</option>
+																	<option th:selected="${filterField == 'username'}"
+																		value="username">Created By</option>
+
+																	<!-- Newly Added Fields -->
+																	<option
+																		th:selected="${filterField == 'supplierNameAddress'}"
+																		value="supplierNameAddress">Supplier
+																		Name/Address</option>
+
+																	<option
+																		th:selected="${filterField == 'countryOfOrigin'}"
+																		value="countryOfOrigin">Country of Origin
+																	</option>
+
+																	<option th:selected="${filterField == 'bomPartNo'}"
+																		value="bomPartNo">BOM Part No</option>
+
+																	<option
+																		th:selected="${filterField == 'altBoePartNo'}"
+																		value="altBoePartNo">BOE Part No</option>
+
+																	<option th:selected="${filterField == 'dbkPartNo'}"
+																		value="dbkPartNo">DBK Part No</option>
+
+																	<option th:selected="${filterField == 'itchsCode'}"
+																		value="itchsCode">ITCHS Code</option>
+
+																	<option th:selected="${filterField == 'portCode'}"
+																		value="portCode">Port Code</option>
+																</select>
+
+																<input type="text" name="filterValue" id="filterValue"
+																	th:value="${filterValue}" placeholder="Value"
+																	class="form-control form-control-sm mr-2"
+																	style="width: 140px;" />
+
+																<input type="date" name="fromDate" id="fromDate"
+																	th:value="${fromDate}"
+																	class="form-control form-control-sm mr-2"
+																	style="width: 120px;" />
+
+																<input type="date" name="toDate" id="toDate"
+																	th:value="${toDate}"
+																	class="form-control form-control-sm mr-2"
+																	style="width: 120px;" />
+
+																<button type="submit" class="btn btn-sm btn-primary"
+																	title="Filter" style="height: 32px;">
+																	<i class="icofont icofont-search"></i>
+																</button>
+															</form>
+
+														</div>
 
 
 
@@ -420,6 +515,7 @@
 																		<th>Claim Year</th>
 																		<th>Item Description</th>
 																		<th>BOM Part No</th>
+																		<th>BOE Part No</th>
 																		<th>DBK Part No</th>
 																		<th>Import Qty</th>
 																		<th>UOM</th>
@@ -466,9 +562,8 @@
 																			<td th:text="${ws.claimRefNo}"></td>
 																			<td th:text="${ws.claimYear}"></td>
 																			<td th:text="${ws.itemDescription}"></td>
-																			<td
-																				th:text="${ws.material != null ? ws.material.bomPartNo : ''}">
-																				BOM</td>
+																			<td th:text="${ws.bomPartNo ?: ''}">BOM</td>
+																			<td th:text="${ws.altBoePartNo}">BOE</td>
 
 																			<td th:text="${ws.dbkPartNo}"></td>
 																			<td
@@ -609,6 +704,43 @@
 		<a th:href="@{/index}" class="btn btn-primary" aria-hidden="true">Home</a>
 	</div>
 	</div>
+
+	<script>
+		function updateInputType() {
+			const filterField = document.getElementById('filterField').value;
+			const filterValueInput = document.getElementById('filterValue');
+			const fromDateInput = document.getElementById('fromDate');
+			const toDateInput = document.getElementById('toDate');
+
+			if (!filterField) {
+				// Hide all inputs if no filterField selected
+				filterValueInput.style.display = 'none';
+				filterValueInput.required = false;
+
+				fromDateInput.style.display = 'none';
+				fromDateInput.required = false;
+
+				toDateInput.style.display = 'none';
+				toDateInput.required = false;
+			} else {
+				// Show all inputs when a filterField is selected
+				filterValueInput.style.display = 'inline-block';
+				filterValueInput.required = true;
+
+				fromDateInput.style.display = 'inline-block';
+				fromDateInput.required = false;
+
+				toDateInput.style.display = 'inline-block';
+				toDateInput.required = false;
+			}
+		}
+
+		// Initialize on page load
+		document.addEventListener('DOMContentLoaded', () => {
+			updateInputType();
+		});
+
+	</script>
 
 	<script>
 

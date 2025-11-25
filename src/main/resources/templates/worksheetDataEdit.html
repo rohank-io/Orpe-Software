@@ -203,9 +203,17 @@
 										</li>
 
 										<li class=" ">
-											<a th:href="@{/worksheet/list}">
+											<a th:href="@{/worksheets/claims/list}">
 												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
 												<span class="pcoded-mtext">Worksheet</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+										</li>
+
+										<li class=" ">
+											<a th:href="@{/sb-consumption/groups}">
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">SB Qty Consumption</span>
 												<span class="pcoded-mcaret"></span>
 											</a>
 										</li>
@@ -224,7 +232,7 @@
 									</a>
 									<ul class="pcoded-submenu">
 										<li class=" ">
-											<a th:href="@{/worksheet/list}">
+											<a th:href="@{/worksheet/importdata/select}">
 												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
 												<span class="pcoded-mtext">Worksheet</span>
 												<span class="pcoded-mcaret"></span>
@@ -406,6 +414,7 @@
 																		<th>BE Date</th>
 																		<th>Item Description</th>
 																		<th>BOM Part No</th>
+																		<th>BOE No.</th>
 																		<th>DBK Part No.</th>
 																		<th>Import Qty</th>
 																		<th>UOM</th>
@@ -460,6 +469,11 @@
 																			<td contenteditable="true"
 																				th:text="${detail.importData.material != null ? detail.importData.material.bomPartNo : ''}"
 																				data-field="bomPartNo"></td>
+
+																			<td contenteditable="true"
+																				th:text="${detail.importData.altBoePartNo}"
+																				data-field="altBoePartNo"></td>
+
 																			<td contenteditable="true"
 																				th:text="${detail.importData.dbkPartNo}"
 																				data-field="dbkPartNo"></td>
@@ -524,8 +538,8 @@
 																				th:text="${detail.importData.importId}"
 																				data-field="importId"></td>
 
-																			<td
-																				th:text="${session.loggedInUser.username}" data-field="username">
+																			<td th:text="${session.loggedInUser.username}"
+																				data-field="username">
 																			</td>
 
 
@@ -679,6 +693,8 @@
 				worksheet.beDate = convertToISODate(row.querySelector('[data-field=beDate]')?.innerText.trim()) || null;
 				worksheet.itemDescription = row.querySelector('[data-field=itemDescription]')?.innerText.trim() || null;
 				worksheet.bomPartNo = row.querySelector('[data-field=bomPartNo]')?.innerText.trim() || null;
+				worksheet.altBoePartNo = row.querySelector('[data-field=altBoePartNo]')?.innerText.trim() || null;
+
 				worksheet.dbkPartNo = row.querySelector('[data-field=dbkPartNo]')?.innerText.trim() || null;
 				worksheet.importQty = parseFloat(row.querySelector('[data-field=importQty]')?.innerText.replace(/,/g, '')) || 0;
 				worksheet.uom = row.querySelector('[data-field=uom]')?.innerText.trim() || null;
@@ -806,7 +822,7 @@
 		// Excel generation can be extracted to a function and called after save success
 		function generateExcelFile() {
 			const baseColumns = [
-				'Sr No.', 'BE No', 'BE Date', 'Item Description', 'BOM Part No', 'DBK Part No.',
+				'Sr No.', 'BE No', 'BE Date', 'Item Description', 'BOM Part No','BOE No' ,'DBK Part No.',
 				'Import Qty', 'UOM', 'Assessable Value', 'CIF Value', 'Per Qty CIF', 'BCD',
 				'SWS', 'Add Duty', 'Total Duty', 'Duty Per Qty'
 			];
@@ -824,6 +840,7 @@
 				'BE Date': 'beDate',
 				'Item Description': 'itemDescription',
 				'BOM Part No': 'bomPartNo',
+				'BOE No': 'altBoePartNo',
 				'DBK Part No.': 'dbkPartNo',
 				'Import Qty': 'importQty',
 				'UOM': 'uom',

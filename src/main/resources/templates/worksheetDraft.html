@@ -203,9 +203,17 @@
 										</li>
 
 										<li class=" ">
-											<a th:href="@{/worksheet/list}">
+											<a th:href="@{/worksheets/claims/list}">
 												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
 												<span class="pcoded-mtext">Worksheet</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+										</li>
+
+										<li class=" ">
+											<a th:href="@{/sb-consumption/groups}">
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">SB Qty Consumption</span>
 												<span class="pcoded-mcaret"></span>
 											</a>
 										</li>
@@ -224,7 +232,7 @@
 									</a>
 									<ul class="pcoded-submenu">
 										<li class=" ">
-											<a th:href="@{/worksheet/list}">
+											<a th:href="@{/worksheet/importdata/select}">
 												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
 												<span class="pcoded-mtext">Worksheet</span>
 												<span class="pcoded-mcaret"></span>
@@ -348,7 +356,7 @@
 								<div class="page-wrapper">
 									<div class="page-header">
 										<div class="page-header-title">
-											<h3>Edit Worksheet</h3>
+											<h3>Select Draft</h3>
 											<span>Edit required worksheet details</span>
 										</div>
 										<div class="page-header-breadcrumb">
@@ -394,49 +402,49 @@
 														<div class="d-flex justify-content-end"></div>
 
 														<div class="table-responsive">
-																													<table class="table table-sm table-hover mb-2">
-																														<thead class="thead-light">
-																															<tr class="text-uppercase small">
-																																<th style="width:48px;">Sr No.</th>
-																																<th>Username</th>
-																																<th>Claim Ref No</th>
-																																<th>Claim Year</th>
-																																<th class="text-center">No. of records</th>
-																																<th class="text-center">Action</th>
-																															</tr>
-																														</thead>
+															<table class="table table-sm table-hover mb-2">
+																<thead class="thead-light">
+																	<tr class="text-uppercase small">
+																		<th style="width:48px;">Sr No.</th>
+																		<th>Username</th>
+																		<th>Claim Ref No</th>
+																		<th>Claim Year</th>
+																		<th class="text-center">No. of records</th>
+																		<th class="text-center">Action</th>
+																	</tr>
+																</thead>
 
-																														<tbody>
-																															<tr
-																																th:if="${draftGroups == null or #lists.isEmpty(draftGroups)}">
-																																<td colspan="5"
-																																	class="text-center text-muted py-4">
-																																	No draft worksheets available
-																																</td>
-																															</tr>
+																<tbody>
+																	<tr
+																		th:if="${draftGroups == null or #lists.isEmpty(draftGroups)}">
+																		<td colspan="5"
+																			class="text-center text-muted py-4">
+																			No draft worksheets available
+																		</td>
+																	</tr>
 
-																															<tr th:each="g, iterStat : ${draftGroups}">
-																																<td th:text="${iterStat.index + 1}">1</td>
-																																<td th:text="${g.username}"></td>
-																																<td th:text="${g.claimRefNo}">f 01</td>
-																																<td th:text="${g.claimYear}">2024</td>
-																																<td class="text-center" th:text="${g.count}">4
-																																</td>
-																																<td class="text-center">
-																																          <a class="btn btn-sm btn-primary"
-																																             th:href="@{'/draftworksheet/selected'(
+																	<tr th:each="g, iterStat : ${draftGroups}">
+																		<td th:text="${iterStat.index + 1}">1</td>
+																		<td th:text="${g.username}"></td>
+																		<td th:text="${g.claimRefNo}">f 01</td>
+																		<td th:text="${g.claimYear}">2024</td>
+																		<td class="text-center" th:text="${g.count}">4
+																		</td>
+																		<td class="text-center">
+																			<a class="btn btn-sm btn-primary" th:href="@{'/draftworksheet/selected'(
 																																                          username=${g.username},
 																																                          claimRefNo=${g.claimRefNo},
 																																                          claimYear=${g.claimYear}
 																																                        )}">
-																																            <i class="icofont icofont-simple-right"></i>
-																																          </a>
-																																        </td>
-																															</tr>
-																														</tbody>
-																													</table>
-																												</div>
-														
+																				<i
+																					class="icofont icofont-simple-right"></i>
+																			</a>
+																		</td>
+																	</tr>
+																</tbody>
+															</table>
+														</div>
+
 													</div>
 												</div>
 											</div>
@@ -465,7 +473,7 @@
 	</div>
 	</div>
 
-	
+
 
 
 

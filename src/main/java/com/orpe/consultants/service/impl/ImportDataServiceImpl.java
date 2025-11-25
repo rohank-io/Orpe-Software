@@ -11,7 +11,11 @@ import com.orpe.consultants.repository.ImportDataRepository;
 import com.orpe.consultants.repository.MaterialRepository;
 import com.orpe.consultants.service.ImportDataService;
 
+import jakarta.persistence.criteria.Join;
+import jakarta.persistence.criteria.JoinType;
 import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
+import jakarta.persistence.criteria.Subquery;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -106,14 +110,68 @@ public class ImportDataServiceImpl implements ImportDataService {
   
   @Override
   public Page<ImportDataDTO> findWithPositiveClosingBalance(ImportDataFilter filter, Pageable pageable) {
+
+      // 1) Existing dynamic filters
       Specification<ImportData> baseSpec = buildSpecification(filter);
-      Specification<ImportData> closingBalanceSpec = (root, query, cb) ->
+
+      // 2) closingBalance > 0
+      Specification<ImportData> positiveClosingSpec = (root, query, cb) ->
               cb.greaterThan(root.get("closingBalance"), BigDecimal.ZERO);
 
-      Specification<ImportData> finalSpec = baseSpec.and(closingBalanceSpec);
-      Page<ImportData> page = importRepo.findAll(finalSpec, pageable);
+      // 3) FIFO: only the oldest record per (material.bomPartNo, altBoePartNo)
+              Specification<ImportData> fifoSpec = (root, query, cb) -> {
+
+            	    // Join material for BOM part no
+            	    Join<ImportData, Material> rootMaterial = root.join("material", JoinType.LEFT);
+
+            	    // Subquery for finding older records
+            	    Subquery<Long> sub = query.subquery(Long.class);
+            	    Root<ImportData> subRoot = sub.from(ImportData.class);
+            	    Join<ImportData, Material> subMaterial = subRoot.join("material", JoinType.LEFT);
+
+            	    sub.select(cb.literal(1L))
+            	       .where(
+            	           // SAME BOM PART NO (JOIN!)
+            	           cb.equal(subMaterial.get("bomPartNo"), rootMaterial.get("bomPartNo")),
+
+            	           // SAME ALT BOE (or altBoePartNo)
+            	           cb.equal(subRoot.get("altBoePartNo"), root.get("altBoePartNo")),
+
+            	           // OLDER BE DATE
+            	           cb.lessThan(subRoot.get("beDate"), root.get("beDate")),
+
+            	           // STILL positive closing balance
+            	           cb.greaterThan(subRoot.get("closingBalance"), BigDecimal.ZERO)
+            	       );
+
+            	    // FIFO: keep only rows where no older record exists
+            	    return cb.not(cb.exists(sub));
+            	};
+
+
+      // 4) Combine all specs using non-deprecated API
+      Specification<ImportData> finalSpec = Specification.allOf(
+              baseSpec,
+              positiveClosingSpec,
+              fifoSpec
+      );
+
+      // 5) Force sort by beDate ASC (oldest first)
+      Sort sort = Sort.by(Sort.Direction.ASC, "beDate")
+                      .and(pageable.getSort());
+
+      Pageable sortedPageable = PageRequest.of(
+              pageable.getPageNumber(),
+              pageable.getPageSize(),
+              sort
+      );
+
+      // 6) Run query
+      Page<ImportData> page = importRepo.findAll(finalSpec, sortedPageable);
+
       return page.map(this::entityToDto);
   }
+
 
 
 
@@ -177,32 +235,47 @@ public class ImportDataServiceImpl implements ImportDataService {
 	                "clientName",
 	                "supplierNameAddress",
 	                "countryOfOrigin",
-	                "bomPartNo",
+	                // ⚠️ REMOVE "bomPartNo" from here
 	                "dbkPartNo",
 	                "itchsCode",
 	                "portCode",
-	                "claimRefNo"
+	                "claimRefNo",
+	                "altBoePartNo"
 	            );
 
-	            if (stringFields.contains(field)) {
-	                predicates.add(cb.like(cb.lower(root.get(field)), "%" + value.toLowerCase() + "%"));
+	            if ("bomPartNo".equals(field)) {
+	                // join with material and filter on its bomPartNo
+	                Join<ImportData, Material> materialJoin = root.join("material", JoinType.LEFT);
+	                predicates.add(
+	                    cb.like(
+	                        cb.lower(materialJoin.get("bomPartNo")),
+	                        "%" + value.toLowerCase() + "%"
+	                    )
+	                );
+	            } else if (stringFields.contains(field)) {
+	                predicates.add(
+	                    cb.like(
+	                        cb.lower(root.get(field)),
+	                        "%" + value.toLowerCase() + "%"
+	                    )
+	                );
 	            } else if ("stockWiseEligibility".equals(field)) {
 	                predicates.add(cb.equal(root.get(field), value));
 	            }
 	        }
 
-	     // Apply date range filtering on beDate independently regardless of filterField
+	        // Date range on beDate
 	        if (filter.getFromDate() != null) {
 	            predicates.add(cb.greaterThanOrEqualTo(root.get("beDate"), filter.getFromDate()));
 	        }
 	        if (filter.getToDate() != null) {
 	            predicates.add(cb.lessThanOrEqualTo(root.get("beDate"), filter.getToDate()));
 	        }
-	        
 
 	        return cb.and(predicates.toArray(new Predicate[0]));
 	    };
 	}
+
 
 
 

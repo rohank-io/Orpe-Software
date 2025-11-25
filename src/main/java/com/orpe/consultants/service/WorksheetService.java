@@ -82,11 +82,26 @@ public interface WorksheetService {
     
     List<Map<String, Object>> getAllWorksheetGroups();
     
+    
     /**
-     * Fetch all DraftWorksheet rows for given user + claimRefNo + claimYear
-     * ordered by createdAt desc. Returns empty list if none found.
+     * Get all worksheets for a specific user + claimRef + claimYear
+     * without additional filters.
      */
-    List<Worksheet> getWorksheetByUserAndClaimRefAndYear(String username, String claimRefNo, String claimYear);
+    List<WorksheetDTO> getWorksheetByUserAndClaimRefAndYear(
+            String username,
+            String claimRefNo,
+            String claimYear
+    );
 
+    /**
+     * Get all worksheets for a specific user + claimRef + claimYear
+     * with additional filter conditions (field, value, date range, etc.).
+     */
+    List<WorksheetDTO> getWorksheetByUserAndClaimRefAndYear(
+            String username,
+            String claimRefNo,
+            String claimYear,
+            WorksheetDataFilter filter
+    );
 
 }

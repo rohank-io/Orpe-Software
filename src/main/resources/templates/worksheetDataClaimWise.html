@@ -43,6 +43,8 @@
 	<link rel="stylesheet" type="text/css" href="/assets/css/jquery.mCustomScrollbar.css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" />
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+
 </head>
 
 <body>
@@ -163,7 +165,7 @@
 								</li>
 							</ul>
 							<ul class="pcoded-item pcoded-left-item">
-								<li class="pcoded-hasmenu active">
+								<li class="pcoded-hasmenu">
 									<a href="javascript:void(0)">
 										<span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i></span>
 										<span class="pcoded-mtext">All Data</span>
@@ -215,6 +217,7 @@
 												<span class="pcoded-mcaret"></span>
 											</a>
 										</li>
+										
 
 
 
@@ -222,7 +225,7 @@
 
 									</ul>
 								</li>
-								<li class="pcoded-hasmenu ">
+								<li class="pcoded-hasmenu active">
 									<a href="javascript:void(0)">
 										<span class="pcoded-micon"><i class="ti-crown"></i></span>
 										<span class="pcoded-mtext">Advance Calculations</span>
@@ -354,8 +357,8 @@
 								<div class="page-wrapper">
 									<div class="page-header">
 										<div class="page-header-title">
-											<h3>Worksheet Data List</h3>
-											<span>List of all created worksheets</span>
+											<h3>Worksheet List</h3>
+											<span>List of worksheets created</span>
 										</div>
 										<div class="page-header-breadcrumb">
 											<ul class="breadcrumb-title">
@@ -364,10 +367,9 @@
 														<i class="icofont icofont-home"></i>
 													</a>
 												</li>
-												<li class="breadcrumb-item"><a
-														th:href="@{/worksheet/importdata/select}">Worksheet</a>
+												<li class="breadcrumb-item"><a th:href="@{/}">Worksheet</a>
 												</li>
-												<li class="breadcrumb-item"><a href="#!">List</a>
+												<li class="breadcrumb-item"><a href="#!">Claims</a>
 												</li>
 
 											</ul>
@@ -381,307 +383,80 @@
 												class="btn btn-primary m-r-10 m-b-5">
 												<i class="icofont icofont-reply"></i> Back
 											</button>
-
-											<a class="btn btn-primary m-b-5 m-r-5" th:href="@{/drafts}">
-												<i class="icofont icofont-save"></i> Saved Drafts
-											</a>
+											<a class="btn btn-primary m-b-5 m-r-5" th:href="@{/worksheets/claims/list}">
+																							<i class="icofont icofont-save"></i> Saved Drafts
+																						</a>
 										</div>
 
 										<div class="row">
 											<div class="col-xs-12 col-sm-12 col-lg-12">
-
-
 												<div class="card">
 													<!-- personal card start -->
 													<div class="card-header">
-														<h5>Worksheet Data List</h5>
-														<span>List of all Worksheet</span>
+														<h5>Worksheet Claims</h5>
+														<span>List of created worksheets</span>
 														<div class="card-header-right">
 															<i class="icofont icofont-rounded-down"></i>
-															<a th:href="@{/worksheet/list}">
+															<a th:href="@{/worksheets/claims/list}">
 																<i class="icofont icofont-refresh"></i>
 															</a>
 														</div>
 													</div>
 													<div class="card-block table-border-style">
-														<div class="d-flex justify-content-end">
-															<form th:action="@{/worksheet/list}" method="get"
-																class="d-flex align-items-center gap-2 m-3 flex-nowrap"
-																style="max-width: 700px;">
-																<select name="filterField" id="filterField"
-																	class="form-control form-control-sm mr-2"
-																	style="width: 150px;" onchange="updateInputType();">
+														<div class="d-flex justify-content-end"></div>
 
-																	<option th:selected="${filterField == null}"
-																		value="" disabled>Sort By</option>
-
-																	<option th:selected="${filterField == 'beNo'}"
-																		value="beNo">BE No</option>
-																	<option th:selected="${filterField == 'claimYear'}"
-																		value="claimYear">Claim Year</option>
-																	<option th:selected="${filterField == 'claimRefNo'}"
-																		value="claimRefNo">Claim Ref</option>
-																	<option th:selected="${filterField == 'username'}"
-																		value="username">Created By</option>
-
-																	<!-- Newly Added Fields -->
-																	
-																	<option
-																		th:selected="${filterField == 'supplierNameAddress'}"
-																		value="supplierNameAddress">Supplier
-																		Name/Address</option>
-																	<option
-																		th:selected="${filterField == 'countryOfOrigin'}"
-																		value="countryOfOrigin">Country of Origin
-																	</option>
-																	<option th:selected="${filterField == 'bomPartNo'}"
-																		value="bomPartNo">BOM Part No</option>
-																	<option
-																		th:selected="${filterField == 'altBoePartNo'}"
-																		value="altBoePartNo"> BOE Part No</option>
-																	<option th:selected="${filterField == 'dbkPartNo'}"
-																		value="dbkPartNo">DBK Part No</option>
-																	<option th:selected="${filterField == 'itchsCode'}"
-																		value="itchsCode">ITCHS Code</option>
-																	<option th:selected="${filterField == 'portCode'}"
-																		value="portCode">Port Code</option>
-
-																</select>
-
-
-																<input type="text" name="filterValue" id="filterValue"
-																	th:value="${filterValue}" placeholder="Value"
-																	class="form-control form-control-sm mr-2"
-																	style="width: 140px;" />
-
-																<input type="date" name="fromDate" id="fromDate"
-																	th:value="${fromDate}"
-																	class="form-control form-control-sm mr-2"
-																	style="width: 120px;" />
-
-																<input type="date" name="toDate" id="toDate"
-																	th:value="${toDate}"
-																	class="form-control form-control-sm mr-2"
-																	style="width: 120px;" />
-
-																<button type="submit" class="btn btn-sm btn-primary"
-																	title="Filter" style="height: 32px;">
-																	<i class="icofont icofont-search"></i>
-																</button>
-															</form>
-														</div>
-
-
-
-
-
-														<!-- Data Table style="max-height: 520px; overflow:auto;" -->
-														<div class="table-responsive"
-															style="max-height: 520px; overflow:auto;">
-															<table class="table table-hover table-sm table-bordered">
-																<thead class="table-light sticky-top"
-																	style="background-color:#fff;">
-																	<tr>
-																		<th></th>
-																		<th>Sr No.</th>
-																		<th>BE No</th>
-																		<th>BE Date</th>
-																		<th>Created By</th>
-																		<th>Claim Ref</th>
+														<div class="table-responsive">
+															<table class="table table-sm table-hover mb-2">
+																<thead class="thead-light">
+																	<tr class="text-uppercase small">
+																		<th style="width:48px;">Sr No.</th>
+																		<th>Username</th>
+																		<th>Claim Ref No</th>
 																		<th>Claim Year</th>
-																		<th>Item Description</th>
-																		<th>BOM Part No</th>
-																		<th>BOE No</th>
-																		<th>DBK Part No</th>
-																		<th>Import Qty</th>
-																		<th>UOM</th>
-																		<th>Assessable Value</th>
-																		<th>CIF Value</th>
-																		<th>Per Qty CIF</th>
-																		<th>BCD</th>
-																		<th>SWS</th>
-																		<th>Add Duty</th>
-																		<th>Total Duty</th>
-																		<th>Duty Per Qty</th>
-																		<th>Used Qty</th>
-																		<th>Duty Claimed</th>
-																		<th>CIF Claimed</th>
-																		<th>BCD Claimed</th>
-																		<th>SWS Claimed</th>
-																		<th>Add Claimed</th>
-																		<th>Opening</th>
-																		<th>Used</th>
-																		<th>Closing</th>
-
+																		<th class="text-center">No. of records</th>
+																		<th class="text-center"></th>
 																	</tr>
 																</thead>
 
 																<tbody>
-																	<th:block
-																		th:each="ws, stat : ${importDataPage.content}">
-																		<tr th:id="'wsRow' + ${stat.index}">
-																			<td class="text-center">
-																				<button type="button"
-																					class="btn btn-sm btn-link p-0"
-																					th:data-index="${stat.index}"
-																					onclick="toggleExportModels(this.getAttribute('data-index'))">
-																					<i th:id="'toggleIcon' + ${stat.index}"
-																						class="bi bi-caret-right"></i>
-																				</button>
-																			</td>
+																	<tr
+																		th:if="${worksheetGroups == null or #lists.isEmpty(worksheetGroups)}">
+																		<td colspan="5"
+																			class="text-center text-muted py-4">
+																			No worksheets available
+																		</td>
+																	</tr>
 
-																			<td th:text="${stat.index + 1}"></td>
-																			<td th:text="${ws.beNo}"></td>
-																			<td
-																				th:text="${#temporals.format(ws.beDate, 'dd-MM-yyyy')}">
-																			</td>
-																			<td th:text="${ws.username}"></td>
-																			<td th:text="${ws.claimRefNo}"></td>
-																			<td th:text="${ws.claimYear}"></td>
-																			<td th:text="${ws.itemDescription}"></td>
-																			<td th:text="${ws.bomPartNo}"></td>
-																			<td th:text="${ws.altBoePartNo}"></td>
-																			<td th:text="${ws.dbkPartNo}"></td>
-																			<td
-																				th:text="${#numbers.formatDecimal(ws.importQty, 0, 'COMMA', 2, 'POINT')}">
-																			</td>
-																			<td th:text="${ws.uom}"></td>
-																			<td
-																				th:text="${#numbers.formatDecimal(ws.assessableValue, 0, 'COMMA', 2, 'POINT')}">
-																			</td>
-																			<td
-																				th:text="${#numbers.formatDecimal(ws.cifValue, 0, 'COMMA', 2, 'POINT')}">
-																			</td>
-																			<td
-																				th:text="${#numbers.formatDecimal(ws.perQtyCif, 0, 'COMMA', 2, 'POINT')}">
-																			</td>
-																			<td
-																				th:text="${#numbers.formatDecimal(ws.bcd, 0, 'COMMA', 2, 'POINT')}">
-																			</td>
-																			<td
-																				th:text="${#numbers.formatDecimal(ws.sws, 0, 'COMMA', 2, 'POINT')}">
-																			</td>
-																			<td
-																				th:text="${#numbers.formatDecimal(ws.addDuty, 0, 'COMMA', 2, 'POINT')}">
-																			</td>
-																			<td
-																				th:text="${#numbers.formatDecimal(ws.totalDuty, 0, 'COMMA', 2, 'POINT')}">
-																			</td>
-																			<td
-																				th:text="${#numbers.formatDecimal(ws.dutyPerQty, 0, 'COMMA', 6, 'POINT')}">
-																			</td>
-																			<td
-																				th:text="${#numbers.formatDecimal(ws.usedQtyTotal, 0, 'COMMA', 6, 'POINT')}">
-																			</td>
-																			<td
-																				th:text="${#numbers.formatDecimal(ws.dutyClaimedTotal, 0, 'COMMA', 2, 'POINT')}">
-																			</td>
-																			<td
-																				th:text="${#numbers.formatDecimal(ws.cifClaimedTotal, 0, 'COMMA', 2, 'POINT')}">
-																			</td>
-																			<td
-																				th:text="${#numbers.formatDecimal(ws.bcdClaimed, 0, 'COMMA', 2, 'POINT')}">
-																			</td>
-																			<td
-																				th:text="${#numbers.formatDecimal(ws.swsClaimed, 0, 'COMMA', 2, 'POINT')}">
-																			</td>
-																			<td
-																				th:text="${#numbers.formatDecimal(ws.addClaimed, 0, 'COMMA', 2, 'POINT')}">
-																			</td>
-																			<td
-																				th:text="${#numbers.formatDecimal(ws.openingBalanceQtyDef, 0, 'COMMA', 2, 'POINT')}">
-																			</td>
-																			<td
-																				th:text="${#numbers.formatDecimal(ws.qtyUsedDef, 0, 'COMMA', 2, 'POINT')}">
-																			</td>
-																			<td
-																				th:text="${#numbers.formatDecimal(ws.closingBalanceDef, 0, 'COMMA', 2, 'POINT')}">
-																			</td>
-
-																		</tr>
-
-																		<!-- Nested Export Models -->
-																		<tr th:id="'exportModelsRow' + ${stat.index}"
-																			class="export-models-row"
-																			style="display:none;">
-																			<td colspan="28" class="p-0 border-0">
-																				<table
-																					class="table table-sm table-bordered m-0">
-																					<thead>
-																						<tr>
-																							<th>Export Model No</th>
-																							<th>Used Qty</th>
-																							<th>Duty Claimed</th>
-																							<th>CIF Claimed</th>
-																						</tr>
-																					</thead>
-																					<tbody>
-																						<tr th:if="${ws.exportModels != null and !#lists.isEmpty(ws.exportModels)}"
-																							th:each="em : ${ws.exportModels}">
-																							<td th:text="${em.modelNo}">
-																							</td>
-																							<td
-																								th:text="${#numbers.formatDecimal(em.emUsedQty, 0, 'COMMA', 6, 'POINT')}">
-																							</td>
-																							<td
-																								th:text="${#numbers.formatDecimal(em.dutyClaimed, 0, 'COMMA', 2, 'POINT')}">
-																							</td>
-																							<td
-																								th:text="${#numbers.formatDecimal(em.cifClaimed, 0, 'COMMA', 2, 'POINT')}">
-																							</td>
-																						</tr>
-																						<tr
-																							th:if="${ws.exportModels == null or #lists.isEmpty(ws.exportModels)}">
-																							<td colspan="4"
-																								class="text-center">
-																								<em>No export model
-																									data</em>
-																							</td>
-																						</tr>
-																					</tbody>
-																				</table>
-																			</td>
-																		</tr>
-																	</th:block>
+																	<tr th:each="w, iterStat : ${worksheetGroups}">
+																		<td th:text="${iterStat.index + 1}">1</td>
+																		<td th:text="${w.username}"></td>
+																		<td th:text="${w.claimRefNo}">f 01</td>
+																		<td th:text="${w.claimYear}">2024</td>
+																		<td class="text-center" th:text="${w.count}">4
+																		</td>
+																		<td class="text-center">
+																			<a class="btn btn-sm btn-primary" th:href="@{'/worksheet/selected'(
+																																																			                          username=${w.username},
+																																																			                          claimRefNo=${w.claimRefNo},
+																																																			                          claimYear=${w.claimYear}
+																																																			                        )}">
+																				<i
+																					class="icofont icofont-simple-right"></i>
+																			</a>
+																		</td>
+																	</tr>
 																</tbody>
 															</table>
 														</div>
 
-
-														<!-- Pagination controls -->
-														<!-- Pagination -->
-														<nav aria-label="Page navigation" class="mt-3">
-															<ul class="pagination justify-content-center">
-																<li class="page-item"
-																	th:classappend="${importDataPage.first}? 'disabled'">
-																	<a class="page-link"
-																		th:href="@{/worksheet/list(page=${importDataPage.number - 1}, size=${importDataPage.size})}">
-																		Previous</a>
-																</li>
-																<li th:each="i : ${#numbers.sequence(0, importDataPage.totalPages - 1)}"
-																	th:classappend="${i == importDataPage.number}? 'active'">
-																	<a class="page-link"
-																		th:href="@{/worksheet/list(page=${i}, size=${importDataPage.size})}"
-																		th:text="${i + 1}"></a>
-																</li>
-																<li class="page-item"
-																	th:classappend="${importDataPage.last}? 'disabled'">
-																	<a class="page-link"
-																		th:href="@{/worksheet/list(page=${importDataPage.number + 1}, size=${importDataPage.size})}">
-																		Next</a>
-																</li>
-															</ul>
-														</nav>
-
-
-
 													</div>
-
 												</div>
 											</div>
 											<!-- tab content end -->
-
 										</div>
+
+
+
 									</div>
 
 								</div>
@@ -702,66 +477,16 @@
 	</div>
 	</div>
 
-	<script>
 
-		function toggleExportModels(rowIndex) {
-			const row = document.getElementById('exportModelsRow' + rowIndex);
-			const icon = document.getElementById('toggleIcon' + rowIndex);
-			if (!row || !icon) return;
-			if (row.style.display === 'none') {
-				row.style.display = '';
-				icon.classList.remove('bi-caret-right');
-				icon.classList.add('bi-caret-down');
-			} else {
-				row.style.display = 'none';
-				icon.classList.remove('bi-caret-down');
-				icon.classList.add('bi-caret-right');
-			}
-		}
 
-	</script>
 
-	<script>
-		function updateInputType() {
-			const filterField = document.getElementById('filterField').value;
-			const filterValueInput = document.getElementById('filterValue');
-			const fromDateInput = document.getElementById('fromDate');
-			const toDateInput = document.getElementById('toDate');
-
-			if (!filterField) {
-				// Hide all inputs if no filterField selected
-				filterValueInput.style.display = 'none';
-				filterValueInput.required = false;
-
-				fromDateInput.style.display = 'none';
-				fromDateInput.required = false;
-
-				toDateInput.style.display = 'none';
-				toDateInput.required = false;
-			} else {
-				// Show all inputs when a filterField is selected
-				filterValueInput.style.display = 'inline-block';
-				filterValueInput.required = true;
-
-				fromDateInput.style.display = 'inline-block';
-				fromDateInput.required = false;
-
-				toDateInput.style.display = 'inline-block';
-				toDateInput.required = false;
-			}
-		}
-
-		// Initialize on page load
-		document.addEventListener('DOMContentLoaded', () => {
-			updateInputType();
-		});
-
-	</script>
 
 
 	<script>
 
 	</script>
+
+
 
 
 
@@ -787,6 +512,7 @@
 	<script src="/assets/js/demo-12.js"></script>
 	<script src="/assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
 	<script src="/assets/js/jquery.mousewheel.min.js"></script>
+	<script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
 
 
 </body>

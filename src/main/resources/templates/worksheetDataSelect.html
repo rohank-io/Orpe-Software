@@ -42,6 +42,13 @@
 	<link rel="stylesheet" type="text/css" href="/assets/css/ionicons.css">
 	<link rel="stylesheet" type="text/css" href="/assets/css/jquery.mCustomScrollbar.css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+	<style>
+		.row-select {
+			transform: scale(1.1);
+			cursor: pointer;
+		}
+	</style>
+
 </head>
 
 <body>
@@ -190,19 +197,27 @@
 												<span class="pcoded-mcaret"></span>
 											</a>
 										</li>
-										
-										<li class=" ">
-																					<a th:href="@{/bomclaimdata/list}">
-																																<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-																																<span class="pcoded-mtext">BOM 2</span>
-																																<span class="pcoded-mcaret"></span>
-																															</a>
-																														</li>
 
 										<li class=" ">
-											<a th:href="@{/worksheet/list}">
+											<a th:href="@{/bomclaimdata/list}">
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">BOM 2</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+										</li>
+
+										<li class=" ">
+											<a th:href="@{/worksheets/claims/list}">
 												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
 												<span class="pcoded-mtext">Worksheet</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+										</li>
+
+										<li class=" ">
+											<a th:href="@{/sb-consumption/groups}">
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">SB Qty Consumption</span>
 												<span class="pcoded-mcaret"></span>
 											</a>
 										</li>
@@ -262,10 +277,10 @@
 							<ul class="pcoded-item pcoded-left-item">
 								<li>
 									<a th:href="@{/export/all-zip}">
-																			<span class="pcoded-micon"><i class="ti-bar-chart-alt"></i></span>
-																			<span class="pcoded-mtext">Download Data</span>
-																			<span class="pcoded-mcaret"></span>
-																		</a>
+										<span class="pcoded-micon"><i class="ti-bar-chart-alt"></i></span>
+										<span class="pcoded-mtext">Download Data</span>
+										<span class="pcoded-mcaret"></span>
+									</a>
 								</li>
 							</ul>
 
@@ -394,15 +409,59 @@
 																	class="form-control form-control-sm mr-2"
 																	style="width:110px; min-width:90px;" required
 																	onchange="updateInputType();">
+
 																	<option th:selected="${filterField == null}"
 																		value="" disabled>Sort By</option>
+
+																	<!-- Existing fields -->
 																	<option th:selected="${filterField == 'beNo'}"
 																		value="beNo">BE No</option>
+
 																	<option th:selected="${filterField == 'claimYear'}"
 																		value="claimYear">Claim Year</option>
+
 																	<option th:selected="${filterField == 'clientName'}"
 																		value="clientName">Client Name</option>
-																	<!-- add more fields as needed -->
+
+																	<!-- 🔹 New fields from your Specification -->
+
+																	<option
+																		th:selected="${filterField == 'supplierNameAddress'}"
+																		value="supplierNameAddress">Supplier Name /
+																		Address</option>
+
+																	<option
+																		th:selected="${filterField == 'countryOfOrigin'}"
+																		value="countryOfOrigin">Country of Origin
+																	</option>
+
+																	<option th:selected="${filterField == 'bomPartNo'}"
+																		value="bomPartNo">BOM Part No</option>
+
+																	<option th:selected="${filterField == 'dbkPartNo'}"
+																		value="dbkPartNo">DBK Part No</option>
+
+																	<option th:selected="${filterField == 'itchsCode'}"
+																		value="itchsCode">ITCHS Code</option>
+
+																	<option th:selected="${filterField == 'portCode'}"
+																		value="portCode">Port Code</option>
+
+																	<option th:selected="${filterField == 'claimRefNo'}"
+																		value="claimRefNo">Claim Ref No</option>
+
+																	<option
+																		th:selected="${filterField == 'altBoePartNo'}"
+																		value="altBoePartNo">ALT BOE Part No</option>
+
+																	<!-- Special non-like field -->
+																	<option
+																		th:selected="${filterField == 'stockWiseEligibility'}"
+																		value="stockWiseEligibility">Stock-wise
+																		Eligibility</option>
+
+
+
 																</select>
 
 																<input type="text" name="filterValue" id="filterValue"
@@ -456,6 +515,8 @@
 																			<th>Claim Year</th>
 
 																			<th>Item Description</th>
+																			<th>BOM Part No</th>
+																			<th>Alt BOE No</th>
 
 																			<th>DBK Part</th>
 																			<th class="text-end">Qty</th>
@@ -510,7 +571,11 @@
 																			<td th:text="${row.itemDescription}">
 																				Item Description</td>
 
-																			<td th:text="${row.dbkPartNo}">DBK Part No.
+																			<td th:text="${row.bomPartNo}">BOM Part
+																			</td>
+																			<td th:text="${row.altBoePartNo}">Alt
+																				BOE Part</td>
+																			<td th:text="${row.dbkPartNo}">DBK Part
 																			</td>
 																			<td class="text-end"
 																				th:text="${#numbers.formatDecimal(row.quantity,1,'COMMA',2,'POINT')}">

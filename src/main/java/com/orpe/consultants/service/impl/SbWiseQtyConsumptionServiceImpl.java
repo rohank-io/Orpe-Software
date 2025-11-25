@@ -4,7 +4,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,6 +70,84 @@ public class SbWiseQtyConsumptionServiceImpl implements SbWiseQtyConsumptionServ
 
     private SbWiseQuantityConsumptionDTO entityToDto(SbWiseQuantityConsumption entity) {
         return modelMapper.map(entity, SbWiseQuantityConsumptionDTO.class);
+    }
+    
+    /**
+     * Returns grouped records:
+     * - grouped by claimRefNo + claimYear
+     * - createdAt = min(createdAt) in that group
+     * - usedQty   = total used qty (sum)
+     */
+    @Override
+    @Transactional
+    public List<SbWiseQuantityConsumptionDTO> getGroupedByClaimRefNoAndClaimYear() {
+        List<Object[]> rows = sbWiseQuantityConsumptionRepository.findGroupedByClaimRefNoAndClaimYear();
+        List<SbWiseQuantityConsumptionDTO> result = new ArrayList<>(rows.size());
+
+        for (Object[] r : rows) {
+            if (r == null || r.length < 4) {
+                continue; // defensive: skip malformed row
+            }
+
+            String claimRefNo = (r[0] != null) ? r[0].toString() : null;
+            String claimYear  = (r[1] != null) ? r[1].toString() : null;
+
+            LocalDateTime createdAt = null;
+            if (r[2] instanceof LocalDateTime time) {
+                createdAt = time;
+            } else if (r[2] != null) {
+                // fallback if dialect returns Timestamp or other type
+                createdAt = LocalDateTime.parse(r[2].toString());
+            }
+
+            BigDecimal totalUsedQty = BigDecimal.ZERO;
+            if (r[3] instanceof BigDecimal bd) {
+                totalUsedQty = bd;
+            } else if (r[3] instanceof Number num) {
+                totalUsedQty = BigDecimal.valueOf(num.doubleValue());
+            }
+
+            SbWiseQuantityConsumptionDTO dto = new SbWiseQuantityConsumptionDTO();
+            dto.setClaimRefNo(claimRefNo);
+            dto.setClaimYear(claimYear);
+            dto.setCreatedAt(createdAt);
+            dto.setUsedQty(totalUsedQty);
+
+            // other DTO fields (dbkPartNo, sbNo, exportModelNo, etc.) 
+            // are not meaningful for a grouped row, so we leave them null.
+
+            result.add(dto);
+        }
+
+        log.debug("Grouped SB quantity: {} rows", result.size());
+        return result;
+    }
+    
+    
+    
+    @Override
+    @Transactional
+    public List<SbWiseQuantityConsumptionDTO> getDetailsByClaimRefNoAndClaimYear(String claimRefNo, String claimYear) {
+
+        if (claimRefNo == null || claimRefNo.isBlank() ||
+            claimYear == null || claimYear.isBlank()) {
+            log.warn("getDetailsByClaimRefNoAndClaimYear called with invalid args: claimRefNo='{}', claimYear='{}'",
+                     claimRefNo, claimYear);
+            return List.of();
+        }
+
+        List<SbWiseQuantityConsumption> entities =
+                sbWiseQuantityConsumptionRepository
+                        .findByClaimRefNoAndClaimYearOrderByBoeNoAscDbkPartNoAscSbNoAscExportModelNoAsc(
+                                claimRefNo.trim(), claimYear.trim()
+                        );
+
+        log.debug("Loaded {} SB-wise rows for claimRefNo={}, claimYear={}",
+                  entities.size(), claimRefNo, claimYear);
+
+        return entities.stream()
+                .map(this::entityToDto)
+                .collect(Collectors.toList());
     }
 
     

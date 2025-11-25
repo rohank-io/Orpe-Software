@@ -191,21 +191,29 @@
 												<span class="pcoded-mcaret"></span>
 											</a>
 										</li>
-										
+
 										<li class=" ">
-																					<a th:href="@{/bomclaimdata/list}">
-																																<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-																																<span class="pcoded-mtext">BOM 2</span>
-																																<span class="pcoded-mcaret"></span>
-																															</a>
-																														</li>
+											<a th:href="@{/bomclaimdata/list}">
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">BOM 2</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+										</li>
 										<li class=" ">
-																					<a th:href="@{/worksheet/list}">
-																						<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-																						<span class="pcoded-mtext">Worksheet</span>
-																						<span class="pcoded-mcaret"></span>
-																					</a>
-																				</li>
+											<a th:href="@{/worksheets/claims/list}">
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">Worksheet</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+										</li>
+
+										<li class=" ">
+											<a th:href="@{/sb-consumption/groups}">
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">SB Qty Consumption</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+										</li>
 
 
 
@@ -262,10 +270,10 @@
 							<ul class="pcoded-item pcoded-left-item">
 								<li>
 									<a th:href="@{/export/all-zip}">
-																			<span class="pcoded-micon"><i class="ti-bar-chart-alt"></i></span>
-																			<span class="pcoded-mtext">Download Data</span>
-																			<span class="pcoded-mcaret"></span>
-																		</a>
+										<span class="pcoded-micon"><i class="ti-bar-chart-alt"></i></span>
+										<span class="pcoded-mtext">Download Data</span>
+										<span class="pcoded-mcaret"></span>
+									</a>
 								</li>
 							</ul>
 
@@ -367,11 +375,11 @@
 										<!-- Profile Header Section (unchanged) -->
 										<div class="">
 
-																					<button type="button" onclick="window.history.back()"
-																						class="btn btn-primary m-r-10 m-b-5">
-																						<i class="icofont icofont-reply"></i> Back
-																					</button>
-																				</div>
+											<button type="button" onclick="window.history.back()"
+												class="btn btn-primary m-r-10 m-b-5">
+												<i class="icofont icofont-reply"></i> Back
+											</button>
+										</div>
 
 										<div class="row">
 											<div class="col-xs-12 col-sm-12 col-lg-12">
@@ -400,10 +408,12 @@
 																	onchange="updateInputType();">
 																	<option th:selected="${filterField == null}"
 																		value="" disabled selected>Sort By</option>
-																	<option th:selected="${filterField == 'bomPartNo'}" value="bomPartNo">BOM Part No</option>
-																	<option th:selected="${filterField == 'clientName'}" value="clientName">Client Name</option>	
+																	<option th:selected="${filterField == 'bomPartNo'}"
+																		value="bomPartNo">BOM Part No</option>
+																	<option th:selected="${filterField == 'clientName'}"
+																		value="clientName">Client Name</option>
 
-																	
+
 																	<!-- add more fields as needed -->
 																</select>
 
@@ -430,9 +440,10 @@
 															style="max-height: 520px; overflow:auto;">
 															<table id="bomTable"
 																class="table table-hover table-sm table-bordered">
-																<thead class="table-light sticky-top" style="background-color: #fff; z-index: 1020;">
+																<thead class="table-light sticky-top"
+																	style="background-color: #fff; z-index: 1020;">
 																	<tr>
-																		
+
 																		<th></th> <!-- Toggle Button -->
 																		<th>Sr No. </th> <!-- Serial Number -->
 																		<th>Claim Ref No</th>
@@ -444,18 +455,18 @@
 																		<th>Imported\Indigenous</th>
 																		<th>Grand Total</th>
 																		<th>Net Weight (Kg)</th>
-																		
+
 																		<th>Unit</th>
 																		<th>Client Name</th>
-																		
-																		
+
+
 																	</tr>
 																</thead>
 																<tbody>
 																	<th:block
 																		th:each="bom, stat : ${bomDataPage.content}">
 																		<tr th:id="'bomRow' + ${stat.index}">
-																			
+
 
 																			<td class="text-center">
 																				<button type="button"
@@ -466,8 +477,10 @@
 																						class="bi bi-caret-right"></i>
 																				</button>
 																			</td>
-																			
-																			<td th:text="${bomDataPage.number * bomDataPage.size + stat.index + 1}"></td>
+
+																			<td
+																				th:text="${bomDataPage.number * bomDataPage.size + stat.index + 1}">
+																			</td>
 
 
 																			<td th:text="${bom.claimRefNo}"></td>
@@ -475,9 +488,11 @@
 																			<td th:text="${bom.materialDesc}"></td>
 																			<td th:text="${bom.bomPartNo}"></td>
 
-																			<td th:text="${bom.alternateBoePartNo}"></td>
+																			<td th:text="${bom.alternateBoePartNo}">
+																			</td>
 																			<td th:text="${bom.dbkPartNo}"></td>
-																			<td th:text="${bom.importedIndigenous}"></td>
+																			<td th:text="${bom.importedIndigenous}">
+																			</td>
 																			<td
 																				th:text="${#numbers.formatDecimal(bom.grandTotal, 0, 'COMMA', 3, 'POINT')}">
 																			</td>
@@ -485,10 +500,10 @@
 																				th:text="${#numbers.formatDecimal(bom.netWeightKg, 0, 'COMMA', 6, 'POINT')}">
 																			</td>
 
-																			
+
 																			<td th:text="${bom.unit}"></td>
 																			<td th:text="${bom.clientName}"></td>
-																			
+
 																		</tr>
 																		<tr th:id="'exportModelsRow' + ${stat.index}"
 																			class="export-models-row"
@@ -499,9 +514,9 @@
 																					<thead>
 																						<tr>
 																							<th>Export Model</th>
-																							<th >
+																							<th>
 																								Quantity</th>
-																								<th>Status</th>
+																							<th>Status</th>
 																						</tr>
 																					</thead>
 																					<tbody>
@@ -509,10 +524,11 @@
 																							th:each="em : ${bom.exportModels}">
 																							<td th:text="${em.modelNo}">
 																							</td>
-																							<td 
+																							<td
 																								th:text="${#numbers.formatDecimal(em.quantity, 0, 'COMMA', 3, 'POINT')}">
 																							</td>
-																							<td th:text="${em.status}"></td>
+																							<td th:text="${em.status}">
+																							</td>
 																						</tr>
 																						<tr
 																							th:if="${bom.exportModels == null or #lists.isEmpty(bom.exportModels)}">
@@ -586,26 +602,26 @@
 		<a th:href="@{/index}" class="btn btn-primary" aria-hidden="true">Home</a>
 	</div>
 	</div>
-	
+
 	<script>
-		
+
 		function toggleExportModels(rowIndex) {
-		    const row = document.getElementById('exportModelsRow' + rowIndex);
-		    const icon = document.getElementById('toggleIcon' + rowIndex);
-		    if (!row || !icon) return;
-		    if (row.style.display === 'none') {
-		        row.style.display = '';
-		        icon.classList.remove('bi-caret-right');
-		        icon.classList.add('bi-caret-down');
-		    } else {
-		        row.style.display = 'none';
-		        icon.classList.remove('bi-caret-down');
-		        icon.classList.add('bi-caret-right');
-		    }
+			const row = document.getElementById('exportModelsRow' + rowIndex);
+			const icon = document.getElementById('toggleIcon' + rowIndex);
+			if (!row || !icon) return;
+			if (row.style.display === 'none') {
+				row.style.display = '';
+				icon.classList.remove('bi-caret-right');
+				icon.classList.add('bi-caret-down');
+			} else {
+				row.style.display = 'none';
+				icon.classList.remove('bi-caret-down');
+				icon.classList.add('bi-caret-right');
+			}
 		}
 
 	</script>
-	
+
 
 	<script>
 		function updateInputType() {

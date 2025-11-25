@@ -28,6 +28,7 @@ public class WorksheetDTO {
  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
  private LocalDate beDate;
  private String bomPartNo;
+ private String altBoePartNo;
  private String dbkPartNo;
  private String itemDescription;
  private String uom;

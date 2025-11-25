@@ -42,6 +42,12 @@
 	<link rel="stylesheet" type="text/css" href="/assets/css/ionicons.css">
 	<link rel="stylesheet" type="text/css" href="/assets/css/jquery.mCustomScrollbar.css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+	<style>
+			.row-select {
+				transform: scale(1.1);
+				cursor: pointer;
+			}
+		</style>
 </head>
 
 <body>
@@ -190,22 +196,30 @@
 												<span class="pcoded-mcaret"></span>
 											</a>
 										</li>
-										
+
 										<li class=" ">
-																					<a th:href="@{/bomclaimdata/list}">
-																																<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-																																<span class="pcoded-mtext">BOM 2</span>
-																																<span class="pcoded-mcaret"></span>
-																															</a>
-																														</li>
-										
+											<a th:href="@{/bomclaimdata/list}">
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">BOM 2</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+										</li>
+
 										<li class=" ">
-																					<a th:href="@{/worksheet/list}">
-																						<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-																						<span class="pcoded-mtext">Worksheet</span>
-																						<span class="pcoded-mcaret"></span>
-																					</a>
-																				</li>
+											<a th:href="@{/worksheets/claims/list}">
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">Worksheet</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+										</li>
+
+										<li class=" ">
+											<a th:href="@{/sb-consumption/groups}">
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">SB Qty Consumption</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+										</li>
 
 
 
@@ -262,10 +276,10 @@
 							<ul class="pcoded-item pcoded-left-item">
 								<li>
 									<a th:href="@{/export/all-zip}">
-																			<span class="pcoded-micon"><i class="ti-bar-chart-alt"></i></span>
-																			<span class="pcoded-mtext">Download Data</span>
-																			<span class="pcoded-mcaret"></span>
-																		</a>
+										<span class="pcoded-micon"><i class="ti-bar-chart-alt"></i></span>
+										<span class="pcoded-mtext">Download Data</span>
+										<span class="pcoded-mcaret"></span>
+									</a>
 								</li>
 							</ul>
 
@@ -441,7 +455,8 @@
 																<div th:if="${exportRows != null}"
 																	class="table-responsive"
 																	style="max-height: 520px; overflow:auto;">
-																	<table id="exportTable" style="background-color: #fff; z-index: 1020;"
+																	<table id="exportTable"
+																		style="background-color: #fff; z-index: 1020;"
 																		class="table table-sm table-striped table-bordered align-middle">
 																		<thead class="table-light sticky-top">
 																			<tr>
@@ -620,9 +635,9 @@
 																				</td>
 																				<td contenteditable="true"
 																					th:text="${r.sbUtilization}"></td>
-																					<td contenteditable="true"
-																					    th:text="${exportFileName.contains('.') ? exportFileName.substring(0, exportFileName.lastIndexOf('.')) : exportFileName}">
-																					</td>
+																				<td contenteditable="true"
+																					th:text="${exportFileName.contains('.') ? exportFileName.substring(0, exportFileName.lastIndexOf('.')) : exportFileName}">
+																				</td>
 
 																				<td class="text-center">
 																					<button type="button"
@@ -715,7 +730,7 @@
 																		netRealisedValue: parseDecimal(nth(tr, 38)),
 																		netRealisedCurrency: nth(tr, 39),
 																		sbUtilization: nth(tr, 40),
-																		clientName: nth(tr,41)
+																		clientName: nth(tr, 41)
 																	};
 																	out.push(dto);
 																});
@@ -805,97 +820,97 @@
 															});
 
 														</script>
-														
+
 														<script>
 															document.addEventListener('DOMContentLoaded', () => {
-															    const table = document.getElementById("exportTable");
+																const table = document.getElementById("exportTable");
 
-															    // Utility to parse numbers removing commas and handling empty values
-															    function parseNumber(text) {
-															        if (!text) return 0;
-															        text = text.replace(/,/g, '');
-															        let num = parseFloat(text);
-															        return isNaN(num) ? 0 : num;
-															    }
+																// Utility to parse numbers removing commas and handling empty values
+																function parseNumber(text) {
+																	if (!text) return 0;
+																	text = text.replace(/,/g, '');
+																	let num = parseFloat(text);
+																	return isNaN(num) ? 0 : num;
+																}
 
-															    // Utility to format decimal with your formatting: 1 decimal, comma thousands, point decimal
-															    function formatDecimal(num, decimals = 1) {
-															        return num.toLocaleString('en-IN', {
-															            minimumFractionDigits: decimals,
-															            maximumFractionDigits: decimals
-															        });
-															    }
+																// Utility to format decimal with your formatting: 1 decimal, comma thousands, point decimal
+																function formatDecimal(num, decimals = 1) {
+																	return num.toLocaleString('en-IN', {
+																		minimumFractionDigits: decimals,
+																		maximumFractionDigits: decimals
+																	});
+																}
 
-															    // Recalculate all computed columns for a given row element
-															    function recalculateRow(row) {
-															        const qtyCell = row.querySelector('td:nth-child(17)');       // Quantity
-															        const pmvPerQtyCell = row.querySelector('td:nth-child(22)'); // PMV Per Qty
-															        const pmvActualCell = row.querySelector('td:nth-child(23)'); // PMV Actual
+																// Recalculate all computed columns for a given row element
+																function recalculateRow(row) {
+																	const qtyCell = row.querySelector('td:nth-child(17)');       // Quantity
+																	const pmvPerQtyCell = row.querySelector('td:nth-child(22)'); // PMV Per Qty
+																	const pmvActualCell = row.querySelector('td:nth-child(23)'); // PMV Actual
 
-															        const fobInrCell = row.querySelector('td:nth-child(21)');    // FOB INR
-															        const rateCell = row.querySelector('td:nth-child(27)');      // RATE
-															        const airGivenCell = row.querySelector('td:nth-child(28)');  // AIR Given in SB
-															        const airAmountCell = row.querySelector('td:nth-child(29)'); // AIR Amount
+																	const fobInrCell = row.querySelector('td:nth-child(21)');    // FOB INR
+																	const rateCell = row.querySelector('td:nth-child(27)');      // RATE
+																	const airGivenCell = row.querySelector('td:nth-child(28)');  // AIR Given in SB
+																	const airAmountCell = row.querySelector('td:nth-child(29)'); // AIR Amount
 
-															        const differenceCell = row.querySelector('td:nth-child(30)');// Difference
+																	const differenceCell = row.querySelector('td:nth-child(30)');// Difference
 
-															        const dbkSnoCell = row.querySelector('td:nth-child(25)');    // DBK SNO
-															        const dbkApplicabilityCell = row.querySelector('td:nth-child(26)'); // DBK Applicability
+																	const dbkSnoCell = row.querySelector('td:nth-child(25)');    // DBK SNO
+																	const dbkApplicabilityCell = row.querySelector('td:nth-child(26)'); // DBK Applicability
 
-															        const totalDbkCell = row.querySelector('td:nth-child(31)');  // Total DBK
-															        const sbrCell = row.querySelector('td:nth-child(32)');       // SBR
+																	const totalDbkCell = row.querySelector('td:nth-child(31)');  // Total DBK
+																	const sbrCell = row.querySelector('td:nth-child(32)');       // SBR
 
-															        // Calculate PMV Actual = PMV Per Qty * Quantity
-															        let quantity = parseNumber(qtyCell.innerText);
-															        let pmvPerQty = parseNumber(pmvPerQtyCell.innerText);
-															        let pmvActual = pmvPerQty * quantity;
-															        pmvActualCell.innerText = formatDecimal(pmvActual, 1);
+																	// Calculate PMV Actual = PMV Per Qty * Quantity
+																	let quantity = parseNumber(qtyCell.innerText);
+																	let pmvPerQty = parseNumber(pmvPerQtyCell.innerText);
+																	let pmvActual = pmvPerQty * quantity;
+																	pmvActualCell.innerText = formatDecimal(pmvActual, 1);
 
-															        // Calculate AIR Amount = FOB INR * RATE
-															        let fobInr = parseNumber(fobInrCell.innerText);
-															        let rate = parseNumber(rateCell.innerText);
-															        let airAmount = fobInr * rate;
-															        airAmountCell.innerText = formatDecimal(airAmount, 3);
+																	// Calculate AIR Amount = FOB INR * RATE
+																	let fobInr = parseNumber(fobInrCell.innerText);
+																	let rate = parseNumber(rateCell.innerText);
+																	let airAmount = fobInr * rate;
+																	airAmountCell.innerText = formatDecimal(airAmount, 3);
 
-															        // Calculate Difference = AIR Given in SB - AIR Amount
-															        let airGiven = parseNumber(airGivenCell.innerText);
-															        let difference = airGiven - airAmount;
-															        differenceCell.innerText = formatDecimal(difference, 1);
+																	// Calculate Difference = AIR Given in SB - AIR Amount
+																	let airGiven = parseNumber(airGivenCell.innerText);
+																	let difference = airGiven - airAmount;
+																	differenceCell.innerText = formatDecimal(difference, 1);
 
-															        // Calculate DBK Applicability = YES if DBK SNO = 98078483B else NO
-															        let dbkSno = dbkSnoCell.innerText.trim();
-															        dbkApplicabilityCell.innerText = (dbkSno === "98078483B") ? "YES" : "NO";
+																	// Calculate DBK Applicability = YES if DBK SNO = 98078483B else NO
+																	let dbkSno = dbkSnoCell.innerText.trim();
+																	dbkApplicabilityCell.innerText = (dbkSno === "98078483B") ? "YES" : "NO";
 
-															        // Calculate SBR = Total DBK - AIR Amount
-															        let totalDbk = parseNumber(totalDbkCell.innerText);
-															        let sbr = totalDbk - airAmount;
-															        sbrCell.innerText = formatDecimal(sbr, 1);
-															    }
+																	// Calculate SBR = Total DBK - AIR Amount
+																	let totalDbk = parseNumber(totalDbkCell.innerText);
+																	let sbr = totalDbk - airAmount;
+																	sbrCell.innerText = formatDecimal(sbr, 1);
+																}
 
-															    // Bind recalculate to contenteditable fields which affect calculations,
-															    // i.e. Quantity, PMV Per Qty, FOB INR, RATE, AIR Given in SB, DBK SNO, Total DBK
-															    function bindRecalculate(row) {
-															        ['td:nth-child(17)', 'td:nth-child(22)', 'td:nth-child(21)', 'td:nth-child(27)', 'td:nth-child(28)', 'td:nth-child(25)', 'td:nth-child(31)'].forEach(selector => {
-															            const cell = row.querySelector(selector);
-															            if (cell) {
-															                ['input', 'blur', 'keyup'].forEach(evt => {
-															                    cell.addEventListener(evt, () => {
-															                        recalculateRow(row);
-															                    });
-															                });
-															            }
-															        });
-															    }
+																// Bind recalculate to contenteditable fields which affect calculations,
+																// i.e. Quantity, PMV Per Qty, FOB INR, RATE, AIR Given in SB, DBK SNO, Total DBK
+																function bindRecalculate(row) {
+																	['td:nth-child(17)', 'td:nth-child(22)', 'td:nth-child(21)', 'td:nth-child(27)', 'td:nth-child(28)', 'td:nth-child(25)', 'td:nth-child(31)'].forEach(selector => {
+																		const cell = row.querySelector(selector);
+																		if (cell) {
+																			['input', 'blur', 'keyup'].forEach(evt => {
+																				cell.addEventListener(evt, () => {
+																					recalculateRow(row);
+																				});
+																			});
+																		}
+																	});
+																}
 
-															    // Initial calculation on all rows and bind event listeners
-															    const rows = table.querySelectorAll('tbody tr');
-															    rows.forEach(row => {
-															        recalculateRow(row);
-															        bindRecalculate(row);
-															    });
+																// Initial calculation on all rows and bind event listeners
+																const rows = table.querySelectorAll('tbody tr');
+																rows.forEach(row => {
+																	recalculateRow(row);
+																	bindRecalculate(row);
+																});
 															});
 
-															
+
 														</script>
 
 

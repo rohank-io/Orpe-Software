@@ -16,7 +16,8 @@ import java.time.LocalDateTime;
 indexes = {
     @Index(name = "idx_sb_no", columnList = "sb_no"),
     @Index(name = "idx_export_model_no", columnList = "export_model_no"),
-    @Index(name = "idx_claim_id", columnList = "claim_id")
+    @Index(name = "idx_claim_id", columnList = "claim_id"),
+    @Index(name = "idx_claim_ref_no", columnList = "claim_ref_no")
 })
 @Getter
 @Setter

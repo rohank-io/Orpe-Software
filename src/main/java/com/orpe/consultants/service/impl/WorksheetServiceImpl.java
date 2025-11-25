@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -46,6 +47,8 @@ import com.orpe.consultants.repository.WorksheetExportModelsRepository;
 import com.orpe.consultants.repository.WorksheetRepository;
 import com.orpe.consultants.service.WorksheetService;
 
+import jakarta.persistence.criteria.Join;
+import jakarta.persistence.criteria.JoinType;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.transaction.Transactional;
 import jakarta.validation.ConstraintViolation;
@@ -255,18 +258,34 @@ public class WorksheetServiceImpl implements WorksheetService {
 	                "clientName",
 	                "supplierNameAddress",
 	                "countryOfOrigin",
-	                "bomPartNo",
+	                "altBoePartNo",
 	                "dbkPartNo",
 	                "itchsCode",
 	                "portCode",
 	                "claimRefNo",
 	                "username"
-	                
 	            );
 
-	            if (stringFields.contains(field)) {
-	                predicates.add(cb.like(cb.lower(root.get(field)), "%" + value.toLowerCase() + "%"));
-	            } else if ("stockWiseEligibility".equals(field)) {
+	            if ("bomPartNo".equals(field)) {
+	                // JOIN ImportData → Material
+	                Join<ImportData, Material> materialJoin = root.join("material", JoinType.LEFT);
+
+	                predicates.add(
+	                    cb.like(
+	                        cb.lower(materialJoin.get("bomPartNo")),
+	                        "%" + value.toLowerCase() + "%"
+	                    )
+	                );
+	            }
+	            else if (stringFields.contains(field)) {
+	                predicates.add(
+	                    cb.like(
+	                        cb.lower(root.get(field)),
+	                        "%" + value.toLowerCase() + "%"
+	                    )
+	                );
+	            }
+	            else if ("stockWiseEligibility".equals(field)) {
 	                predicates.add(cb.equal(root.get(field), value));
 	            }
 	        }
@@ -361,30 +380,73 @@ public class WorksheetServiceImpl implements WorksheetService {
 
 
 
-	@Override
-    public List<Worksheet> getWorksheetByUserAndClaimRefAndYear(String username, String claimRefNo, String claimYear) {
-        if (username == null || username.isBlank() || claimRefNo == null || claimRefNo.isBlank() || claimYear == null || claimYear.isBlank()) {
-            log.debug("Invalid params for getWorksheetByUserAndClaimRefAndYear: username='{}', claimRefNo='{}', claimYear='{}'",
-                      username, claimRefNo, claimYear);
-            return Collections.emptyList();
-        }
 
-        try {
-            List<Worksheet> rows = worksheetRepository
-                    .findByUsernameAndClaimRefNoAndClaimYearOrderByCreatedAtDesc(username, claimRefNo, claimYear);
 
-            if (rows == null || rows.isEmpty()) {
-                log.debug("No  worksheets found for user={}, claimRefNo={}, claimYear={}", username, claimRefNo, claimYear);
-                return Collections.emptyList();
-            }
+	@Transactional
+	public List<WorksheetDTO> getWorksheetByUserAndClaimRefAndYear(
+	        String username,
+	        String claimRefNo,
+	        String claimYear
+	) {
+	    // no extra filters → pass an empty filter object
+	    WorksheetDataFilter filter = new WorksheetDataFilter();
+	    return getWorksheetByUserAndClaimRefAndYear(username, claimRefNo, claimYear, filter);
+	}
 
-            log.debug("Found {}  worksheets for user={}, claimRefNo={}, claimYear={}", rows.size(), username, claimRefNo, claimYear);
-            return rows;
-        } catch (Exception ex) {
-            log.error("Error fetching  worksheets for user={}, claimRefNo={}, claimYear={}: {}", username, claimRefNo, claimYear, ex.getMessage(), ex);
-            return Collections.emptyList();
-        }
-    }
+	@Transactional
+	public List<WorksheetDTO> getWorksheetByUserAndClaimRefAndYear(
+	        String username,
+	        String claimRefNo,
+	        String claimYear,
+	        WorksheetDataFilter filter
+	) {
+	    if (username == null || username.isBlank() ||
+	        claimRefNo == null || claimRefNo.isBlank() ||
+	        claimYear == null || claimYear.isBlank()) {
+
+	        log.debug("Invalid parameters for getWorksheetByUserAndClaimRefAndYear: username='{}', claimRefNo='{}', claimYear='{}'",
+	                username, claimRefNo, claimYear);
+	        return Collections.emptyList();
+	    }
+
+	    // Mandatory filters
+	    Specification<Worksheet> baseSpec = (root, query, cb) -> cb.and(
+	            cb.equal(root.get("username"), username),
+	            cb.equal(root.get("claimRefNo"), claimRefNo),
+	            cb.equal(root.get("claimYear"), claimYear)
+	    );
+
+	    // Modern, NON-DEPRECATED way
+	    Specification<Worksheet> spec = Specification.allOf(
+	            baseSpec,
+	            buildSpecification(filter)
+	    );
+
+	    List<Worksheet> rows = worksheetRepository.findAll(
+	            spec,
+	            Sort.by(Sort.Direction.ASC, "beDate")
+	    );
+
+	    if (rows.isEmpty()) {
+	        return Collections.emptyList();
+	    }
+
+	    rows.forEach(w -> {
+	        if (w.getMaterial() != null) {
+	            w.getMaterial().getBomPartNo();
+	        }
+	    });
+
+	    return rows.stream()
+	            .map(this::toDto)
+	            .collect(Collectors.toList());
+	}
+
+
+
+
+
+	
 	
 
 }

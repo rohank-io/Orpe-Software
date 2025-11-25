@@ -191,18 +191,26 @@
 												<span class="pcoded-mcaret"></span>
 											</a>
 										</li>
-										
+
 										<li class=" ">
 											<a th:href="@{/bomclaimdata/list}">
-																						<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-																						<span class="pcoded-mtext">BOM 2</span>
-																						<span class="pcoded-mcaret"></span>
-																					</a>
-																				</li>
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">BOM 2</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+										</li>
 										<li class=" ">
-											<a th:href="@{/worksheet/list}">
+											<a th:href="@{/worksheets/claims/list}">
 												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
 												<span class="pcoded-mtext">Worksheet</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+										</li>
+
+										<li class=" ">
+											<a th:href="@{/sb-consumption/groups}">
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">SB Qty Consumption</span>
 												<span class="pcoded-mcaret"></span>
 											</a>
 										</li>
@@ -500,8 +508,8 @@
 																			<td th:text="${bom.clientName}"></td>
 																			<td>
 																				<a th:href="@{/bomclaimdata/delete/{id}(id=${bom.claimId}, filterField=${filterField}, filterValue=${filterValue}, page=${currentPage}, size=${pageSize})}"
-																																								onclick="return confirm('Are you sure you want to delete this record?')"
-																																								class="btn btn-danger btn-sm btn-round btn-outline-danger">Delete</a>
+																					onclick="return confirm('Are you sure you want to delete this record?')"
+																					class="btn btn-danger btn-sm btn-round btn-outline-danger">Delete</a>
 																			</td>
 
 

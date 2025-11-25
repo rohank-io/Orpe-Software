@@ -13,6 +13,11 @@ public interface SbWiseQtyConsumptionService {
 	int saveBulk(List<SbWiseQuantityConsumptionDTO> rows);
 	
 	List<SbWiseQuantityConsumptionDTO> search(BomClaimFilter filter);
+	
+	List<SbWiseQuantityConsumptionDTO> getGroupedByClaimRefNoAndClaimYear();
+	
+	
+	 List<SbWiseQuantityConsumptionDTO> getDetailsByClaimRefNoAndClaimYear(String claimRefNo, String claimYear);
     
 	
 	

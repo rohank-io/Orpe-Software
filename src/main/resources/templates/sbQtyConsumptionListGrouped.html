@@ -187,7 +187,7 @@
 										<li class=" ">
 											<a th:href="@{/bomdata/list}">
 												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-												<span class="pcoded-mtext">BOM</span>
+												<span class="pcoded-mtext">BOM 1</span>
 												<span class="pcoded-mcaret"></span>
 											</a>
 										</li>
@@ -199,7 +199,6 @@
 												<span class="pcoded-mcaret"></span>
 											</a>
 										</li>
-
 										<li class=" ">
 											<a th:href="@{/worksheets/claims/list}">
 												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
@@ -219,10 +218,9 @@
 
 
 
-
 									</ul>
 								</li>
-								<li class="pcoded-hasmenu ">
+								<li class="pcoded-hasmenu">
 									<a href="javascript:void(0)">
 										<span class="pcoded-micon"><i class="ti-crown"></i></span>
 										<span class="pcoded-mtext">Advance Calculations</span>
@@ -354,8 +352,8 @@
 								<div class="page-wrapper">
 									<div class="page-header">
 										<div class="page-header-title">
-											<h3>Worksheet Data List</h3>
-											<span>List of all created worksheets</span>
+											<h3>SB Wise Qty Consumption Data</h3>
+											<span>List of all Qty Consumption</span>
 										</div>
 										<div class="page-header-breadcrumb">
 											<ul class="breadcrumb-title">
@@ -364,8 +362,7 @@
 														<i class="icofont icofont-home"></i>
 													</a>
 												</li>
-												<li class="breadcrumb-item"><a
-														th:href="@{/worksheet/importdata/select}">Worksheet</a>
+												<li class="breadcrumb-item"><a th:href="@{/}">SbWiseQtyConsumption</a>
 												</li>
 												<li class="breadcrumb-item"><a href="#!">List</a>
 												</li>
@@ -381,10 +378,6 @@
 												class="btn btn-primary m-r-10 m-b-5">
 												<i class="icofont icofont-reply"></i> Back
 											</button>
-
-											<a class="btn btn-primary m-b-5 m-r-5" th:href="@{/drafts}">
-												<i class="icofont icofont-save"></i> Saved Drafts
-											</a>
 										</div>
 
 										<div class="row">
@@ -394,284 +387,104 @@
 												<div class="card">
 													<!-- personal card start -->
 													<div class="card-header">
-														<h5>Worksheet Data List</h5>
-														<span>List of all Worksheet</span>
+														<h5>Qty Consumption List</h5>
+														<span>List of all SB Wise Qty Consumption</span>
 														<div class="card-header-right">
 															<i class="icofont icofont-rounded-down"></i>
-															<a th:href="@{/worksheet/list}">
+															<a th:href="@{/sb-consumption/groups}">
 																<i class="icofont icofont-refresh"></i>
 															</a>
 														</div>
 													</div>
 													<div class="card-block table-border-style">
-														<div class="d-flex justify-content-end">
-															<form th:action="@{/worksheet/list}" method="get"
-																class="d-flex align-items-center gap-2 m-3 flex-nowrap"
-																style="max-width: 700px;">
-																<select name="filterField" id="filterField"
-																	class="form-control form-control-sm mr-2"
-																	style="width: 150px;" onchange="updateInputType();">
 
-																	<option th:selected="${filterField == null}"
-																		value="" disabled>Sort By</option>
-
-																	<option th:selected="${filterField == 'beNo'}"
-																		value="beNo">BE No</option>
-																	<option th:selected="${filterField == 'claimYear'}"
-																		value="claimYear">Claim Year</option>
-																	<option th:selected="${filterField == 'claimRefNo'}"
-																		value="claimRefNo">Claim Ref</option>
-																	<option th:selected="${filterField == 'username'}"
-																		value="username">Created By</option>
-
-																	<!-- Newly Added Fields -->
-																	
-																	<option
-																		th:selected="${filterField == 'supplierNameAddress'}"
-																		value="supplierNameAddress">Supplier
-																		Name/Address</option>
-																	<option
-																		th:selected="${filterField == 'countryOfOrigin'}"
-																		value="countryOfOrigin">Country of Origin
-																	</option>
-																	<option th:selected="${filterField == 'bomPartNo'}"
-																		value="bomPartNo">BOM Part No</option>
-																	<option
-																		th:selected="${filterField == 'altBoePartNo'}"
-																		value="altBoePartNo"> BOE Part No</option>
-																	<option th:selected="${filterField == 'dbkPartNo'}"
-																		value="dbkPartNo">DBK Part No</option>
-																	<option th:selected="${filterField == 'itchsCode'}"
-																		value="itchsCode">ITCHS Code</option>
-																	<option th:selected="${filterField == 'portCode'}"
-																		value="portCode">Port Code</option>
-
-																</select>
-
-
-																<input type="text" name="filterValue" id="filterValue"
-																	th:value="${filterValue}" placeholder="Value"
-																	class="form-control form-control-sm mr-2"
-																	style="width: 140px;" />
-
-																<input type="date" name="fromDate" id="fromDate"
-																	th:value="${fromDate}"
-																	class="form-control form-control-sm mr-2"
-																	style="width: 120px;" />
-
-																<input type="date" name="toDate" id="toDate"
-																	th:value="${toDate}"
-																	class="form-control form-control-sm mr-2"
-																	style="width: 120px;" />
-
-																<button type="submit" class="btn btn-sm btn-primary"
-																	title="Filter" style="height: 32px;">
-																	<i class="icofont icofont-search"></i>
-																</button>
-															</form>
-														</div>
 
 
 
 
 
 														<!-- Data Table style="max-height: 520px; overflow:auto;" -->
-														<div class="table-responsive"
-															style="max-height: 520px; overflow:auto;">
-															<table class="table table-hover table-sm table-bordered">
-																<thead class="table-light sticky-top"
-																	style="background-color:#fff;">
+														<div class="table-responsive mt-3">
+															<table
+																class="table table-bordered table-hover table-striped table-sm align-middle text-center">
+
+																<thead class="table-dark sticky-top"
+																	style="z-index: 5;">
 																	<tr>
-																		<th></th>
-																		<th>Sr No.</th>
-																		<th>BE No</th>
-																		<th>BE Date</th>
-																		<th>Created By</th>
-																		<th>Claim Ref</th>
-																		<th>Claim Year</th>
-																		<th>Item Description</th>
-																		<th>BOM Part No</th>
-																		<th>BOE No</th>
-																		<th>DBK Part No</th>
-																		<th>Import Qty</th>
-																		<th>UOM</th>
-																		<th>Assessable Value</th>
-																		<th>CIF Value</th>
-																		<th>Per Qty CIF</th>
-																		<th>BCD</th>
-																		<th>SWS</th>
-																		<th>Add Duty</th>
-																		<th>Total Duty</th>
-																		<th>Duty Per Qty</th>
-																		<th>Used Qty</th>
-																		<th>Duty Claimed</th>
-																		<th>CIF Claimed</th>
-																		<th>BCD Claimed</th>
-																		<th>SWS Claimed</th>
-																		<th>Add Claimed</th>
-																		<th>Opening</th>
-																		<th>Used</th>
-																		<th>Closing</th>
+																		<th class="text-center" style="width: 8%;">Sr No
+																		</th>
+																		<th class="text-center" style="width: 20%;">
+																			Claim Ref No</th>
+																		<th class="text-center" style="width: 15%;">
+																			Claim Year</th>
+																		<th class="text-center" style="width: 25%;">
+																			Created On</th>
+																		<th class="text-center" style="width: 20%;">
+																			Total Used Qty</th>
+																		<th class="text-center" style="width: 10%;">
+																			Action</th>
 
 																	</tr>
 																</thead>
 
 																<tbody>
-																	<th:block
-																		th:each="ws, stat : ${importDataPage.content}">
-																		<tr th:id="'wsRow' + ${stat.index}">
-																			<td class="text-center">
-																				<button type="button"
-																					class="btn btn-sm btn-link p-0"
-																					th:data-index="${stat.index}"
-																					onclick="toggleExportModels(this.getAttribute('data-index'))">
-																					<i th:id="'toggleIcon' + ${stat.index}"
-																						class="bi bi-caret-right"></i>
-																				</button>
-																			</td>
 
-																			<td th:text="${stat.index + 1}"></td>
-																			<td th:text="${ws.beNo}"></td>
-																			<td
-																				th:text="${#temporals.format(ws.beDate, 'dd-MM-yyyy')}">
-																			</td>
-																			<td th:text="${ws.username}"></td>
-																			<td th:text="${ws.claimRefNo}"></td>
-																			<td th:text="${ws.claimYear}"></td>
-																			<td th:text="${ws.itemDescription}"></td>
-																			<td th:text="${ws.bomPartNo}"></td>
-																			<td th:text="${ws.altBoePartNo}"></td>
-																			<td th:text="${ws.dbkPartNo}"></td>
-																			<td
-																				th:text="${#numbers.formatDecimal(ws.importQty, 0, 'COMMA', 2, 'POINT')}">
-																			</td>
-																			<td th:text="${ws.uom}"></td>
-																			<td
-																				th:text="${#numbers.formatDecimal(ws.assessableValue, 0, 'COMMA', 2, 'POINT')}">
-																			</td>
-																			<td
-																				th:text="${#numbers.formatDecimal(ws.cifValue, 0, 'COMMA', 2, 'POINT')}">
-																			</td>
-																			<td
-																				th:text="${#numbers.formatDecimal(ws.perQtyCif, 0, 'COMMA', 2, 'POINT')}">
-																			</td>
-																			<td
-																				th:text="${#numbers.formatDecimal(ws.bcd, 0, 'COMMA', 2, 'POINT')}">
-																			</td>
-																			<td
-																				th:text="${#numbers.formatDecimal(ws.sws, 0, 'COMMA', 2, 'POINT')}">
-																			</td>
-																			<td
-																				th:text="${#numbers.formatDecimal(ws.addDuty, 0, 'COMMA', 2, 'POINT')}">
-																			</td>
-																			<td
-																				th:text="${#numbers.formatDecimal(ws.totalDuty, 0, 'COMMA', 2, 'POINT')}">
-																			</td>
-																			<td
-																				th:text="${#numbers.formatDecimal(ws.dutyPerQty, 0, 'COMMA', 6, 'POINT')}">
-																			</td>
-																			<td
-																				th:text="${#numbers.formatDecimal(ws.usedQtyTotal, 0, 'COMMA', 6, 'POINT')}">
-																			</td>
-																			<td
-																				th:text="${#numbers.formatDecimal(ws.dutyClaimedTotal, 0, 'COMMA', 2, 'POINT')}">
-																			</td>
-																			<td
-																				th:text="${#numbers.formatDecimal(ws.cifClaimedTotal, 0, 'COMMA', 2, 'POINT')}">
-																			</td>
-																			<td
-																				th:text="${#numbers.formatDecimal(ws.bcdClaimed, 0, 'COMMA', 2, 'POINT')}">
-																			</td>
-																			<td
-																				th:text="${#numbers.formatDecimal(ws.swsClaimed, 0, 'COMMA', 2, 'POINT')}">
-																			</td>
-																			<td
-																				th:text="${#numbers.formatDecimal(ws.addClaimed, 0, 'COMMA', 2, 'POINT')}">
-																			</td>
-																			<td
-																				th:text="${#numbers.formatDecimal(ws.openingBalanceQtyDef, 0, 'COMMA', 2, 'POINT')}">
-																			</td>
-																			<td
-																				th:text="${#numbers.formatDecimal(ws.qtyUsedDef, 0, 'COMMA', 2, 'POINT')}">
-																			</td>
-																			<td
-																				th:text="${#numbers.formatDecimal(ws.closingBalanceDef, 0, 'COMMA', 2, 'POINT')}">
-																			</td>
+																	<!-- Empty case -->
+																	<tr th:if="${#lists.isEmpty(groups)}">
+																		<td colspan="6"
+																			class="text-center text-muted py-3">
+																			No records found.
+																		</td>
+																	</tr>
 
-																		</tr>
+																	<!-- Data rows -->
+																	<tr th:each="g, iter : ${groups}">
+																		<!-- Sr No -->
+																		<td th:text="${iter.index + 1}">1</td>
 
-																		<!-- Nested Export Models -->
-																		<tr th:id="'exportModelsRow' + ${stat.index}"
-																			class="export-models-row"
-																			style="display:none;">
-																			<td colspan="28" class="p-0 border-0">
-																				<table
-																					class="table table-sm table-bordered m-0">
-																					<thead>
-																						<tr>
-																							<th>Export Model No</th>
-																							<th>Used Qty</th>
-																							<th>Duty Claimed</th>
-																							<th>CIF Claimed</th>
-																						</tr>
-																					</thead>
-																					<tbody>
-																						<tr th:if="${ws.exportModels != null and !#lists.isEmpty(ws.exportModels)}"
-																							th:each="em : ${ws.exportModels}">
-																							<td th:text="${em.modelNo}">
-																							</td>
-																							<td
-																								th:text="${#numbers.formatDecimal(em.emUsedQty, 0, 'COMMA', 6, 'POINT')}">
-																							</td>
-																							<td
-																								th:text="${#numbers.formatDecimal(em.dutyClaimed, 0, 'COMMA', 2, 'POINT')}">
-																							</td>
-																							<td
-																								th:text="${#numbers.formatDecimal(em.cifClaimed, 0, 'COMMA', 2, 'POINT')}">
-																							</td>
-																						</tr>
-																						<tr
-																							th:if="${ws.exportModels == null or #lists.isEmpty(ws.exportModels)}">
-																							<td colspan="4"
-																								class="text-center">
-																								<em>No export model
-																									data</em>
-																							</td>
-																						</tr>
-																					</tbody>
-																				</table>
-																			</td>
-																		</tr>
-																	</th:block>
+																		<!-- Claim Ref No -->
+																		<td th:text="${g.claimRefNo}">CLAIM_REF</td>
+
+																		<!-- Claim Year -->
+																		<td th:text="${g.claimYear}">YEAR</td>
+
+																		<!-- Created At -->
+																		<td
+																			th:text="${#temporals.format(g.createdAt, 'dd-MM-yyyy HH:mm')}">
+																			DATE</td>
+
+																		<!-- Total Qty -->
+																		<td
+																			th:text="${#numbers.formatDecimal(g.usedQty, 0, 'COMMA', 2, 'POINT')}">
+																			0.00
+																		</td>
+
+																		<!-- Arrow Button -->
+																		<td>
+																			<button
+																				class="btn btn-primary view-sb-details"
+																				style="padding: 4px 10px;"
+																				th:attr="data-claim-ref=${g.claimRefNo}, data-claim-year=${g.claimYear}">
+																				<i class="icofont icofont-arrow-down"
+																					style="font-size: 22px;"></i>
+																			</button>
+																		</td>
+
+
+																	</tr>
+
 																</tbody>
 															</table>
 														</div>
 
 
+
+
+
+
 														<!-- Pagination controls -->
-														<!-- Pagination -->
-														<nav aria-label="Page navigation" class="mt-3">
-															<ul class="pagination justify-content-center">
-																<li class="page-item"
-																	th:classappend="${importDataPage.first}? 'disabled'">
-																	<a class="page-link"
-																		th:href="@{/worksheet/list(page=${importDataPage.number - 1}, size=${importDataPage.size})}">
-																		Previous</a>
-																</li>
-																<li th:each="i : ${#numbers.sequence(0, importDataPage.totalPages - 1)}"
-																	th:classappend="${i == importDataPage.number}? 'active'">
-																	<a class="page-link"
-																		th:href="@{/worksheet/list(page=${i}, size=${importDataPage.size})}"
-																		th:text="${i + 1}"></a>
-																</li>
-																<li class="page-item"
-																	th:classappend="${importDataPage.last}? 'disabled'">
-																	<a class="page-link"
-																		th:href="@{/worksheet/list(page=${importDataPage.number + 1}, size=${importDataPage.size})}">
-																		Next</a>
-																</li>
-															</ul>
-														</nav>
+
+
 
 
 
@@ -682,6 +495,25 @@
 											<!-- tab content end -->
 
 										</div>
+										<!-- Scrollable Pivot Table Container -->
+										<div class="row" id="pivotRow" style="display:none;">
+											<div class="col-xs-12 col-sm-12 col-lg-12">
+
+												<div class="card">
+													<div id="sbPivotContainer" class="mt-4" style="
+										                max-height: 500px;
+										                overflow-x: auto;
+										                overflow-y: auto;
+										                border: 1px solid #ccc;
+										                padding: 10px;
+										            ">
+													</div>
+												</div>
+
+											</div>
+										</div>
+
+
 									</div>
 
 								</div>
@@ -703,65 +535,354 @@
 	</div>
 
 	<script>
-
-		function toggleExportModels(rowIndex) {
-			const row = document.getElementById('exportModelsRow' + rowIndex);
-			const icon = document.getElementById('toggleIcon' + rowIndex);
-			if (!row || !icon) return;
-			if (row.style.display === 'none') {
-				row.style.display = '';
-				icon.classList.remove('bi-caret-right');
-				icon.classList.add('bi-caret-down');
-			} else {
-				row.style.display = 'none';
-				icon.classList.remove('bi-caret-down');
-				icon.classList.add('bi-caret-right');
-			}
-		}
-
-	</script>
-
-	<script>
-		function updateInputType() {
-			const filterField = document.getElementById('filterField').value;
-			const filterValueInput = document.getElementById('filterValue');
-			const fromDateInput = document.getElementById('fromDate');
-			const toDateInput = document.getElementById('toDate');
-
-			if (!filterField) {
-				// Hide all inputs if no filterField selected
-				filterValueInput.style.display = 'none';
-				filterValueInput.required = false;
-
-				fromDateInput.style.display = 'none';
-				fromDateInput.required = false;
-
-				toDateInput.style.display = 'none';
-				toDateInput.required = false;
-			} else {
-				// Show all inputs when a filterField is selected
-				filterValueInput.style.display = 'inline-block';
-				filterValueInput.required = true;
-
-				fromDateInput.style.display = 'inline-block';
-				fromDateInput.required = false;
-
-				toDateInput.style.display = 'inline-block';
-				toDateInput.required = false;
-			}
-		}
-
-		// Initialize on page load
 		document.addEventListener('DOMContentLoaded', () => {
-			updateInputType();
+
+			const DETAIL_ENDPOINT = '/sb-consumption/detail'; // <-- change if needed
+			let lastPivotRaw = null; // optional: store last data if you later want a separate "Export" button
+
+			// ---------- Helpers ----------
+			function safeTrim(s) {return s == null ? '' : String(s).trim();}
+
+			function parseUsedQtyToNumber(val) {
+				if (val === null || val === undefined || val === '') return 0;
+				const cleaned = String(val).replace(/,/g, '').trim();
+				const n = parseFloat(cleaned);
+				return Number.isFinite(n) ? n : 0;
+			}
+
+			// Build groups & SB/model pairs (your Excel logic)
+			function buildGroupMapAndPairs(raw, {sortPairs = false} = {}) {
+				const pairKeyToPair = new Map();
+
+				raw.forEach(item => {
+					const sb = safeTrim(item.sbNo);
+					const model = safeTrim(item.exportModelNo);
+					const key = sb + '|' + model;
+					if (!pairKeyToPair.has(key)) pairKeyToPair.set(key, {sb, model});
+				});
+
+				let pairList = Array.from(pairKeyToPair.values());
+
+				if (sortPairs) {
+					pairList.sort((a, b) => a.sb.localeCompare(b.sb, undefined, {numeric: true}));
+				}
+
+				const pairIndexMap = new Map();
+				pairList.forEach((p, i) => pairIndexMap.set(p.sb + '|' + p.model, i));
+
+				const groupMap = new Map();
+
+				raw.forEach(item => {
+					const imp = safeTrim(item.dbkPartNo);
+					const boe = safeTrim(item.boeNo);
+					const groupKey = boe + '|' + imp;
+
+					if (!groupMap.has(groupKey)) {
+						groupMap.set(groupKey, {
+							first: {
+								claimRefNo: safeTrim(item.claimRefNo),
+								claimYear: safeTrim(item.claimYear),
+								impPartNo: imp,
+								boeNo: boe
+							},
+							sums: new Array(pairList.length).fill(0)
+						});
+					}
+
+					const entry = groupMap.get(groupKey);
+					const used = parseUsedQtyToNumber(item.usedQty);
+
+					const pairKey = safeTrim(item.sbNo) + '|' + safeTrim(item.exportModelNo);
+					const pIdx = pairIndexMap.get(pairKey);
+
+					if (typeof pIdx === 'number') {
+						entry.sums[pIdx] = (entry.sums[pIdx] || 0) + used;
+					}
+				});
+
+				return {pairList, groupMap};
+			}
+
+			// ---------- Render Pivot Table ----------
+			function renderPivotTable(raw) {
+				const container = document.getElementById('sbPivotContainer');
+				container.innerHTML = '';
+
+				if (!Array.isArray(raw) || raw.length === 0) {
+					container.innerHTML = '<div class="alert alert-info">No detail data found.</div>';
+					return;
+				}
+
+				const {pairList, groupMap} = buildGroupMapAndPairs(raw);
+
+				// Create table
+				const table = document.createElement('table');
+				table.className = 'table table-bordered table-hover table-striped table-sm align-middle text-center';
+
+				const thead = document.createElement('thead');
+				const tbody = document.createElement('tbody');
+
+				// ================================
+				// HEADER ROW 1
+				// ================================
+				const headerRow1 = document.createElement('tr');
+				['Claim Ref No', 'Claim Year', 'IMP Part No', 'BOE No'].forEach(text => {
+					const th = document.createElement('th');
+					th.className = 'text-center';
+					th.textContent = text;
+					headerRow1.appendChild(th);
+				});
+
+				// SB no Columns
+				pairList.forEach(p => {
+					const th = document.createElement('th');
+					th.className = 'text-center';
+					th.textContent = p.sb;
+					headerRow1.appendChild(th);
+				});
+
+				// Row Total
+				const thRowTotal = document.createElement('th');
+				thRowTotal.className = 'text-center';
+				thRowTotal.textContent = 'Row Total';
+				headerRow1.appendChild(thRowTotal);
+
+				thead.appendChild(headerRow1);
+
+				// ================================
+				// HEADER ROW 2 — Export Models
+				// ================================
+				const headerRow2 = document.createElement('tr');
+				for (let i = 0; i < 4; i++) {
+					const th = document.createElement('th');
+					headerRow2.appendChild(th);
+				}
+
+				pairList.forEach(p => {
+					const th = document.createElement('th');
+					th.className = 'text-center';
+					th.textContent = p.model || '';
+					headerRow2.appendChild(th);
+				});
+
+				const thBlank = document.createElement('th');
+				headerRow2.appendChild(thBlank);
+
+				thead.appendChild(headerRow2);
+
+				// ================================
+				// BODY ROWS
+				// ================================
+				const pairTotals = new Array(pairList.length).fill(0);
+				let grandTotal = 0;
+
+				for (const [, entry] of groupMap.entries()) {
+					const tr = document.createElement('tr');
+
+					// Fixed columns
+					const fixed = [
+						entry.first.claimRefNo,
+						entry.first.claimYear,
+						entry.first.impPartNo,
+						entry.first.boeNo
+					];
+					fixed.forEach(v => {
+						const td = document.createElement('td');
+						td.className = 'text-center';
+						td.textContent = v || '';
+						tr.appendChild(td);
+					});
+
+					// SB-wise values
+					let rowSum = 0;
+					for (let i = 0; i < pairList.length; i++) {
+						const n = Number(entry.sums[i] || 0);
+
+						rowSum += n;
+						pairTotals[i] += n;
+
+						const td = document.createElement('td');
+						td.className = 'text-center';
+						td.textContent = n;  // ALWAYS show 0 instead of blank
+						tr.appendChild(td);
+					}
+
+					// Row total
+					const tdTotal = document.createElement('td');
+					tdTotal.className = 'text-center fw-bold';
+					tdTotal.textContent = rowSum;
+					tr.appendChild(tdTotal);
+
+					grandTotal += rowSum;
+
+					tbody.appendChild(tr);
+				}
+
+				// ================================
+				// TOTAL ROW
+				// ================================
+				const trTotals = document.createElement('tr');
+				['TOTAL', '', '', ''].forEach(text => {
+					const td = document.createElement('td');
+					td.className = 'text-center fw-bold';
+					td.textContent = text;
+					trTotals.appendChild(td);
+				});
+
+				pairTotals.forEach(v => {
+					const td = document.createElement('td');
+					td.className = 'text-center fw-bold';
+					td.textContent = v;
+					trTotals.appendChild(td);
+				});
+
+				const tdGrand = document.createElement('td');
+				tdGrand.className = 'text-center fw-bold';
+				tdGrand.textContent = grandTotal;
+				trTotals.appendChild(tdGrand);
+
+				tbody.appendChild(trTotals);
+
+				// Append table
+				table.appendChild(thead);
+				table.appendChild(tbody);
+				container.appendChild(table);
+			}
+
+			// ---------- Excel Export (same grouping logic, AOA -> XLSX) ----------
+			function exportPivotToExcel(raw, claimRefNo, claimYear) {
+				if (typeof XLSX === 'undefined') {
+					alert('XLSX library not found. Include SheetJS before this script.');
+					return;
+				}
+				if (!Array.isArray(raw) || raw.length === 0) {
+					alert('No data to export.');
+					return;
+				}
+
+				const {pairList, groupMap} = buildGroupMapAndPairs(raw);
+
+				const aoa = [];
+
+				// Row 1: Claim Ref No, Claim Year, blank, SB NO, SBs..., Total
+				const row1 = [];
+				row1[0] = 'Claim Ref No';
+				row1[1] = 'Claim Year';
+				row1[2] = '';
+				row1[3] = 'SB NO.';
+				pairList.forEach((p, idx) => row1[4 + idx] = p.sb);
+				row1[4 + pairList.length] = 'Total';
+				aoa.push(row1);
+
+				// Row 2: empty, then "EXPORT MODEL NO." row
+				const row2 = [];
+				row2[3] = 'EXPORT MODEL NO.';
+				pairList.forEach((p, idx) => row2[4 + idx] = p.model || '');
+				aoa.push(row2);
+
+				// Row 3: IMP PART NO / BOE NO labels
+				const row3 = [];
+				row3[2] = 'IMP. PART NO.';
+				row3[3] = 'BOE NO.';
+				aoa.push(row3);
+
+				// Data rows
+				const pairTotals = new Array(pairList.length).fill(0);
+				let grandTotal = 0;
+
+				for (const [, entry] of groupMap.entries()) {
+					const dataRow = [];
+
+					dataRow[0] = entry.first.claimRefNo;
+					dataRow[1] = entry.first.claimYear;
+					dataRow[2] = entry.first.impPartNo;
+					dataRow[3] = entry.first.boeNo;
+
+					let rowSum = 0;
+					for (let i = 0; i < pairList.length; i++) {
+						const val = Number(entry.sums[i] || 0);
+						dataRow[4 + i] = val;
+						pairTotals[i] += val;
+						rowSum += val;
+					}
+
+					dataRow[4 + pairList.length] = rowSum;
+					grandTotal += rowSum;
+
+					aoa.push(dataRow);
+				}
+
+				// Totals row
+				const totalsRow = [];
+				totalsRow[0] = 'TOTAL';
+				totalsRow[1] = '';
+				totalsRow[2] = '';
+				totalsRow[3] = '';
+				for (let i = 0; i < pairList.length; i++) {
+					totalsRow[4 + i] = pairTotals[i];
+				}
+				totalsRow[4 + pairList.length] = grandTotal;
+				aoa.push(totalsRow);
+
+				// Create worksheet
+				const ws = XLSX.utils.aoa_to_sheet(aoa);
+
+				// Column widths
+				const cols = [
+					{wpx: 140}, // Claim Ref
+					{wpx: 110}, // Claim Year
+					{wpx: 220}, // IMP
+					{wpx: 130}  // BOE
+				];
+				for (let i = 0; i < pairList.length; i++) cols.push({wpx: 100});
+				cols.push({wpx: 110}); // Total
+				ws['!cols'] = cols;
+
+				const wb = XLSX.utils.book_new();
+				XLSX.utils.book_append_sheet(wb, ws, 'SB Qty Pivot');
+
+				const fileNameSafeRef = (claimRefNo || 'SB_Qty').replace(/[^\w\-]+/g, '_');
+				const fileNameSafeYear = (claimYear || '').replace(/[^\w\-]+/g, '_');
+				const filename = `SB-wise-qty-${fileNameSafeRef}-${fileNameSafeYear}.xlsx`;
+
+				XLSX.writeFile(wb, filename);
+			}
+
+			// ---------- Click Handler ----------
+			async function handleViewClick(e) {
+				const btn = e.currentTarget;
+				const claimRefNo = btn.dataset.claimRef;
+				const claimYear = btn.dataset.claimYear;
+
+				const url = `${DETAIL_ENDPOINT}?claimRefNo=${encodeURIComponent(claimRefNo)}&claimYear=${encodeURIComponent(claimYear)}`;
+
+				const resp = await fetch(url);
+				const data = await resp.json();
+
+				lastPivotRaw = data; // store if needed later
+
+				// show hidden row
+				const rowEl = document.getElementById("pivotRow");
+				if (rowEl) rowEl.style.display = "block";
+
+				// 1) render on page
+				renderPivotTable(data);
+
+				// 2) ALSO generate Excel immediately
+				exportPivotToExcel(data, claimRefNo, claimYear);
+			}
+
+			// Bind buttons
+			document.querySelectorAll('.view-sb-details').forEach(btn => {
+				btn.addEventListener('click', handleViewClick);
+			});
+
 		});
-
 	</script>
 
 
-	<script>
 
-	</script>
+
 
 
 
@@ -787,6 +908,8 @@
 	<script src="/assets/js/demo-12.js"></script>
 	<script src="/assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
 	<script src="/assets/js/jquery.mousewheel.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
 
 
 </body>

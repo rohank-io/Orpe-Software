@@ -201,9 +201,17 @@
 										</li>
 
 										<li class=" ">
-											<a th:href="@{/worksheet/list}">
+											<a th:href="@{/worksheets/claims/list}">
 												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
 												<span class="pcoded-mtext">Worksheet</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+										</li>
+
+										<li class=" ">
+											<a th:href="@{/sb-consumption/groups}">
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">SB Qty Consumption</span>
 												<span class="pcoded-mcaret"></span>
 											</a>
 										</li>
@@ -417,6 +425,7 @@
 																		<th>Claim Year</th>
 																		<th>Item Description</th>
 																		<th>BOM Part No</th>
+																		<th>BOE Part No</th>
 																		<th>DBK Part No</th>
 																		<th>Import Qty</th>
 																		<th>UOM</th>
@@ -483,6 +492,11 @@
 																			<td contenteditable="true"
 																				data-field="bomPartNo"
 																				th:text="${ws.bomPartNo}"></td>
+
+																			<td contenteditable="true"
+																				data-field="altBoePartNo"
+																				th:text="${ws.altBoePartNo}"></td>
+
 																			<td contenteditable="true"
 																				data-field="dbkPartNo"
 																				th:text="${ws.dbkPartNo}"></td>
@@ -612,11 +626,11 @@
 																								th:text="${#numbers.formatDecimal(em.emUsedQty, 0, 'COMMA', 6, 'POINT')}">
 																							</td>
 																							<td contenteditable="true"
-																								data-field="dutyClaimed"
+																								data-field="emDutyClaimed"
 																								th:text="${#numbers.formatDecimal(em.dutyClaimed, 0, 'COMMA', 2, 'POINT')}">
 																							</td>
 																							<td contenteditable="true"
-																								data-field="cifClaimed"
+																								data-field="emCIFClaimed"
 																								th:text="${#numbers.formatDecimal(em.cifClaimed, 0, 'COMMA', 2, 'POINT')}">
 																							</td>
 																							<td th:text="${em.bomExportModelId}"
@@ -898,22 +912,26 @@
 			};
 
 			// Calculate export model totals
-			const calcExportModelTotals = (exportRows, importQty, totalDuty, assessableVal) => {
+			// Calculate export model totals
+			const calcExportModelTotals = (exportRows, dutyPerQty, perQtyCif) => {
 				let usedQtyTotal = 0, dutyClaimedTotal = 0, cifClaimedTotal = 0;
 
 				exportRows.forEach(emRow => {
-					const emUsedQty = parseSafe(emRow.querySelector('td[data-field="emUsedQty"]')?.textContent || '0');
+					const emUsedQty = parseSafe(
+						emRow.querySelector('td[data-field="emUsedQty"]')?.textContent || '0'
+					);
 					usedQtyTotal += emUsedQty;
 
-					// ✅ Corrected per-unit formulas
-					const emDutyClaimed = emUsedQty * (importQty ? totalDuty / importQty : 0);
-					const emCIFClaimed = emUsedQty * (importQty ? assessableVal / importQty : 0);
+					// ✅ Correct formulas:
+					// Duty per qty and per qty CIF come from main row
+					const emDutyClaimed = emUsedQty * dutyPerQty;
+					const emCIFClaimed = emUsedQty * perQtyCif;
 
-					// ✅ Update duty/cif claimed cells (field names match your table)
-					const dutyCell = emRow.querySelector('td[data-field="dutyClaimed"]');
+					// ✅ Update cells with correct data-field names
+					const dutyCell = emRow.querySelector('td[data-field="emDutyClaimed"]');
 					if (dutyCell) dutyCell.textContent = emDutyClaimed.toFixed(2);
 
-					const cifCell = emRow.querySelector('td[data-field="cifClaimed"]');
+					const cifCell = emRow.querySelector('td[data-field="emCIFClaimed"]');
 					if (cifCell) cifCell.textContent = emCIFClaimed.toFixed(2);
 
 					dutyClaimedTotal += emDutyClaimed;
@@ -922,6 +940,7 @@
 
 				return {usedQtyTotal, dutyClaimedTotal, cifClaimedTotal};
 			};
+
 
 			// Main row calculation
 			function calculateRow(row) {
@@ -933,36 +952,31 @@
 				const sws = parseSafe(getCell(row, 'sws')?.textContent);
 				const addDuty = parseSafe(getCell(row, 'addDuty')?.textContent);
 
-				// ✅ Corrected Per Qty CIF formula
-				setCell(row, 'perQtyCif', importQty ? assessableVal / importQty : 0, 6);
+				// Per Qty CIF
+				const perQtyCif = importQty ? assessableVal / importQty : 0;
+				setCell(row, 'perQtyCif', perQtyCif, 6);
 
 				const totalDuty = bcd + sws + addDuty;
 				setCell(row, 'totalDuty', totalDuty);
 
-				setCell(row, 'dutyPerQty', importQty ? totalDuty / importQty : 0, 6);
+				const dutyPerQty = importQty ? totalDuty / importQty : 0;
+				setCell(row, 'dutyPerQty', dutyPerQty, 6);
 
-				// Get opening and used values:
+				// Opening / Used / Closing
 				const openingBalanceQtyDef = parseSafe(getCell(row, 'openingBalanceQtyDef')?.textContent || '0');
 				const qtyUsedDef = parseSafe(getCell(row, 'qtyUsedDef')?.textContent || '0');
 
-				// Calculate closing balance:
 				let closingBalance = openingBalanceQtyDef - qtyUsedDef;
-
-				// If negative, set to 0
-				if (closingBalance < 0) {
-					closingBalance = 0;
-				}
-
-				// Set closing balance value:
+				if (closingBalance < 0) closingBalance = 0;
 				setCell(row, 'closingBalanceDef', closingBalance);
 
-				// Get export model rows
+				// Export models
 				const exportModelsRow = row.nextElementSibling;
 				let usedQtyTotal = 0, dutyClaimedTotal = 0, cifClaimedTotal = 0;
 
 				if (exportModelsRow && exportModelsRow.classList.contains(selectors.exportModelRowClass)) {
-					const exportRows = exportModelsRow.querySelectorAll('tbody tr:not(:empty)');
-					const totals = calcExportModelTotals(exportRows, importQty, totalDuty, assessableVal);
+					const exportRows = exportModelsRow.querySelectorAll('tbody tr');
+					const totals = calcExportModelTotals(exportRows, dutyPerQty, perQtyCif);
 					usedQtyTotal = totals.usedQtyTotal;
 					dutyClaimedTotal = totals.dutyClaimedTotal;
 					cifClaimedTotal = totals.cifClaimedTotal;
@@ -1015,8 +1029,8 @@
 				<td></td>
 				<td contenteditable="true" data-field="modelNo"></td>
 				<td contenteditable="true" class="text-end" data-field="emUsedQty">0</td>
-				<td contenteditable="false" data-field="dutyClaimed">0.00</td>
-				<td contenteditable="false" data-field="cifClaimed">0.00</td>
+				<td contenteditable="false" data-field="emDutyClaimed">0.00</td>
+				<td contenteditable="false" data-field="emCifClaimed">0.00</td>
 				<td contenteditable="false" data-field="bomExportModelId"></td>
 				<td>
 					<button type="button" class="btn btn-sm btn-outline-danger" onclick="removeRow(this)">Remove</button>
@@ -1085,6 +1099,8 @@
 				worksheet.beDate = convertToISODate(row.querySelector('[data-field=beDate]')?.innerText.trim()) || null;
 				worksheet.itemDescription = row.querySelector('[data-field=itemDescription]')?.innerText.trim() || null;
 				worksheet.bomPartNo = row.querySelector('[data-field=bomPartNo]')?.innerText.trim() || null;
+				worksheet.altBoePartNo = row.querySelector('[data-field=altBoePartNo]')?.innerText.trim() || null;
+
 				worksheet.dbkPartNo = row.querySelector('[data-field=dbkPartNo]')?.innerText.trim() || null;
 				worksheet.importQty = parseFloat(row.querySelector('[data-field=importQty]')?.innerText.replace(/,/g, '')) || 0;
 				worksheet.uom = row.querySelector('[data-field=uom]')?.innerText.trim() || null;
@@ -1141,6 +1157,7 @@
 
 
 		// Your existing save button stays unchanged
+		
 		// ===== SAVE BUTTON =====
 		document.getElementById('saveBtn').addEventListener('click', async function () {
 			const btn = document.getElementById('saveBtn');
@@ -1151,6 +1168,58 @@
 				const saveData = await collectWorksheetData();
 				const filteredData = saveData.filter(ws => ws.importId !== null);
 
+				// 🛑 1) VALIDATION: Used qty should not be greater than opening balance
+				const invalidQtyRecords = filteredData.filter(ws =>
+					ws.qtyUsedDef > ws.openingBalanceQtyDef
+				);
+
+				// 🛑 2) VALIDATION: Claimed duty / CIF should not exceed total duty / CIF
+				const invalidClaimRecords = filteredData.filter(ws =>
+					ws.dutyClaimedTotal > ws.totalDuty ||
+					ws.cifClaimedTotal > ws.cifValue
+				);
+
+				const totalInvalid =
+					invalidQtyRecords.length + invalidClaimRecords.length;
+
+				if (invalidQtyRecords.length > 0 || invalidClaimRecords.length > 0) {
+					let msg = '';
+
+					// 🔢 Overall count info
+					msg += `Total records checked: ${filteredData.length}\n`;
+					msg += `Total invalid records: ${totalInvalid}\n\n`;
+
+					if (invalidQtyRecords.length > 0) {
+						msg += `⚠ Used quantity > Opening quantity ` +
+							`(${invalidQtyRecords.length} record(s)):\n\n`;
+
+						invalidQtyRecords.forEach((ws, index) => {
+							msg += `${index + 1}. BE No: ${ws.beNo || '-'} | BOM Part No: ${ws.bomPartNo || '-'} | `
+								+ `Opening: ${ws.openingBalanceQtyDef} | Used: ${ws.qtyUsedDef}\n`;
+						});
+						msg += '\n';
+					}
+
+					if (invalidClaimRecords.length > 0) {
+						msg += `⚠ Duty / CIF claimed > Total Duty / CIF ` +
+							`(${invalidClaimRecords.length} record(s)):\n\n`;
+
+						invalidClaimRecords.forEach((ws, index) => {
+							msg += `${index + 1}. BE No: ${ws.beNo || '-'} | BOM Part No: ${ws.bomPartNo || '-'}\n`
+								+ `   Total Duty: ${ws.totalDuty} | Duty Claimed(Total): ${ws.dutyClaimedTotal}\n`
+								+ `   Total CIF: ${ws.cifValue} | CIF Claimed(Total): ${ws.cifClaimedTotal}\n\n`;
+						});
+					}
+
+					alert(msg.trim());
+
+					// Re-enable button & don't call API
+					btn.disabled = false;
+					btn.style.display = 'inline-block';
+					return;
+				}
+
+				// ✅ Only reaches here if all records are valid
 				const response = await fetch('/worksheet/saveBulk', {
 					method: 'POST',
 					headers: {'Content-Type': 'application/json'},
@@ -1166,7 +1235,7 @@
 
 				alert('Save successful');
 				generateExcelFile();
-				window.location.href = '/worksheet/list';
+				window.location.href = '/worksheets/claims/list';
 
 			} catch (error) {
 				console.error('Save error:', error);
@@ -1177,10 +1246,12 @@
 		});
 
 
+
+
 		// Excel generation can be extracted to a function and called after save success
 		function generateExcelFile() {
 			const baseColumns = [
-				'Sr No.', 'BE No', 'BE Date', 'Item Description', 'BOM Part No', 'DBK Part No.',
+				'Sr No.', 'BE No', 'BE Date', 'Item Description', 'BOM Part No', 'BOE Part No', 'DBK Part No.',
 				'Import Qty', 'UOM', 'Assessable Value', 'CIF Value', 'Per Qty CIF', 'BCD',
 				'SWS', 'Add Duty', 'Total Duty', 'Duty Per Qty'
 			];
@@ -1197,6 +1268,7 @@
 				'BE Date': 'beDate',
 				'Item Description': 'itemDescription',
 				'BOM Part No': 'bomPartNo',
+				'BOE Part No': 'altBoePartNo',
 				'DBK Part No.': 'dbkPartNo',
 				'Import Qty': 'importQty',
 				'UOM': 'uom',
