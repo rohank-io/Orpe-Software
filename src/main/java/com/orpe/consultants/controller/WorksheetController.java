@@ -1,5 +1,6 @@
 package com.orpe.consultants.controller;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
@@ -34,6 +35,7 @@ import com.orpe.consultants.service.DraftWorksheetService;
 import com.orpe.consultants.service.ImportDataService;
 import com.orpe.consultants.service.WorksheetService;
 
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.ConstraintViolationException;
 import lombok.RequiredArgsConstructor;
@@ -83,6 +85,24 @@ public class WorksheetController {
 
 		return "worksheetDataSelect";
 	}
+	
+	 @PostMapping("/worksheet/importdata/export")
+	    public void exportImportDataToExcel(
+	            @RequestParam("importIds") List<Long> importIds,
+	            HttpServletResponse response,
+	            HttpSession session) throws IOException {
+
+
+
+	        if (importIds == null || importIds.isEmpty()) {
+	            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "No import IDs provided");
+	            return;
+	        }
+
+	        // Delegate to service
+	        importDataService.exportImportDataToExcel(importIds, response);
+	    }
+	
 
 	@PostMapping("/worksheet/importdata/edit")
 	public String editSelectedImportData(

@@ -24,4 +24,6 @@ public interface BomDataRepository extends JpaRepository<BomData, Long>, JpaSpec
 	List<BomData> findAllWithExportModelsJoinFetch();
 	
 	List<BomData> findAllByMaterial_BomPartNoIn(Collection<String> partNos);
+	
+	 List<BomData> findByClaimRefNoAndClaimYear(String claimRefNo, String claimYear);
 }

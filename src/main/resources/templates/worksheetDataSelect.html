@@ -493,7 +493,8 @@
 
 
 														<!-- Data Table style="max-height: 520px; overflow:auto;" -->
-														<form th:action="@{/worksheet/importdata/edit}" method="post">
+														<form id="importSelectForm"
+															th:action="@{/worksheet/importdata/edit}" method="post">
 
 															<div class="table-responsive"
 																style="max-height: 520px; overflow:auto;">
@@ -670,8 +671,15 @@
 																	style="width: 150px;">
 																	Calculate
 																</button>
+
+																<button id="exportExcelBtn" type="button"
+																	class="btn btn-success btn-smm-b-5 ml-3"
+																	style="width: 150px;">
+																	Export To Excel
+																</button>
 															</div>
 														</form>
+
 
 
 													</div>
@@ -700,6 +708,76 @@
 		<a th:href="@{/index}" class="btn btn-primary" aria-hidden="true">Home</a>
 	</div>
 	</div>
+
+	<script th:inline="javascript">
+	document.addEventListener("DOMContentLoaded", function () {
+
+	    const exportBtn = document.getElementById("exportExcelBtn");
+	    if (!exportBtn) return;
+
+	    // Safe CSRF extraction (will not break if _csrf is null)
+	    const csrfToken = /*[[${_csrf} != null ? _csrf.token : '' ]]*/ '';
+	    const csrfParam = /*[[${_csrf} != null ? _csrf.parameterName : '' ]]*/ '';
+
+	    exportBtn.addEventListener("click", function () {
+
+	        // ✅ Only SELECTED rows now
+	        const selectedCheckboxes = document.querySelectorAll("#importTable .row-select:checked");
+	        const ids = [];
+
+	        selectedCheckboxes.forEach(cb => {
+	            const id = cb.value;
+	            if (id && !isNaN(id)) {
+	                ids.push(id);
+	            }
+	        });
+
+	        if (ids.length === 0) {
+	            if (typeof Swal !== "undefined") {
+	                Swal.fire({
+	                    icon: 'warning',
+	                    title: 'No Rows Selected',
+	                    text: 'Please select at least one record to export.',
+	                });
+	            } else {
+	                alert("Please select at least one record to export.");
+	            }
+	            return;
+	        }
+
+	        // Build a temporary form to POST the IDs
+	        const form = document.createElement("form");
+	        form.method = "post";
+	        form.action = /*[[@{/worksheet/importdata/export}]]*/ "/worksheet/importdata/export";
+
+	        // Add CSRF if present
+	        if (csrfToken && csrfParam) {
+	            const csrfInput = document.createElement("input");
+	            csrfInput.type = "hidden";
+	            csrfInput.name = csrfParam;
+	            csrfInput.value = csrfToken;
+	            form.appendChild(csrfInput);
+	        }
+
+	        // Add all selected importIds
+	        ids.forEach(id => {
+	            const input = document.createElement("input");
+	            input.type = "hidden";
+	            input.name = "importIds";
+	            input.value = id;
+	            form.appendChild(input);
+	        });
+
+	        document.body.appendChild(form);
+	        form.submit();
+	    });
+	});
+	</script>
+
+
+
+
+
 
 	<script>
 		function toggleAll(master) {
@@ -748,6 +826,41 @@
 
 
 	</script>
+
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+
+			const form = document.getElementById("importSelectForm");
+			const calculateBtn = document.getElementById("calculateBtn");
+
+			if (!form || !calculateBtn) {
+				console.warn("Form or calculate button not found on page.");
+				return;
+			}
+
+			calculateBtn.addEventListener("click", function (e) {
+				const selected = form.querySelectorAll(".row-select:checked");
+
+				if (selected.length === 0) {
+					e.preventDefault(); // stop form submission
+
+					if (typeof Swal !== "undefined") {
+						Swal.fire({
+							icon: 'warning',
+							title: 'No Rows Selected',
+							text: 'Please select at least one record before calculating.',
+						});
+					} else {
+						alert("Please select at least one record before calculating.");
+					}
+
+					return false;
+				}
+			});
+		});
+	</script>
+
+
 
 
 

@@ -4,9 +4,13 @@ package com.orpe.consultants.service;
 
 import com.orpe.consultants.dto.ImportDataDTO;
 import com.orpe.consultants.dto.ImportDataFilter;  // Optional DTO for search/filter criteria
+
+import jakarta.servlet.http.HttpServletResponse;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -80,5 +84,7 @@ public interface ImportDataService {
     
     
     List<ImportDataDTO> fetchImportDataWithExportModels(List<Long> importIds);
+    
+    void exportImportDataToExcel(List<Long> importIds, HttpServletResponse response) throws IOException;
 
 }
