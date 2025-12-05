@@ -55,4 +55,6 @@ public class SbWiseDbkCalculationDTO {
     private BigDecimal diffBrodAndAir;
 
     private BigDecimal valueAddition;
+    
+    private Long exportId;
 }

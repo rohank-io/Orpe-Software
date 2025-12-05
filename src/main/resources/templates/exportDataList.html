@@ -242,7 +242,7 @@
 											</a>
 										</li>
 										<li class=" ">
-											<a th:href="@{/work-in-progress}">
+											<a th:href="@{/dbkcalculation/dataselect}">
 												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
 												<span class="pcoded-mtext">SB wise DBK Calculation</span>
 												<span class="pcoded-mcaret"></span>
@@ -393,28 +393,42 @@
 														<div class="d-flex justify-content-end">
 															<form th:action="@{/exportdata/list}" method="get"
 																class="d-flex align-items-center gap-2 m-3 flex-nowrap"
-																style="max-width:400px;">
+																style="max-width:460px;">
 																<select name="filterField" id="filterField"
 																	class="form-control form-control-sm mr-2"
-																	style="width:110px; min-width:90px;" required
+																	style="width:150px; min-width:120px;" required
 																	onchange="updateInputType();">
 																	<option th:selected="${filterField == null}"
-																		value="" disabled selected>Sort By</option>
+																		value="" disabled selected>Filter By</option>
+
 																	<option th:selected="${filterField == 'sbNo'}"
 																		value="sbNo">SB No</option>
-
 																	<option th:selected="${filterField == 'sbDateFrom'}"
 																		value="sbDateFrom">From Date</option>
-
 																	<option th:selected="${filterField == 'sbDateTo'}"
 																		value="sbDateTo">To Date</option>
-																	<!-- add more fields as needed -->
+																	<option th:selected="${filterField == 'claimYear'}"
+																		value="claimYear">Claim Year</option>
+																	<option
+																		th:selected="${filterField == 'customerName'}"
+																		value="customerName">Customer</option>
+																	<option th:selected="${filterField == 'portCode'}"
+																		value="portCode">Port Code</option>
+																	<option th:selected="${filterField == 'claimRefNo'}"
+																		value="claimRefNo">Claim Ref No</option>
+																	<option th:selected="${filterField == 'modelNo'}"
+																		value="modelNo">Model No</option>
+																	<option th:selected="${filterField == 'dbkSno'}"
+																		value="dbkSno">DBK S.No</option>
+																	<option
+																		th:selected="${filterField == 'sbUtilization'}"
+																		value="sbUtilization">SB Utilization</option>
 																</select>
 
 																<input type="text" name="filterValue" id="filterValue"
 																	th:value="${filterValue}" placeholder="Value"
 																	class="form-control form-control-sm mr-2"
-																	style="width:140px; min-width:120px;" required />
+																	style="width:180px; min-width:140px;" required />
 
 																<button type="submit"
 																	class="btn btn-sm btn-primary waves-effect waves-light f-right"

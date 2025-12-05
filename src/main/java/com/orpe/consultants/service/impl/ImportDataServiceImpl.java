@@ -7,6 +7,7 @@ import com.orpe.consultants.model.BomExportModelQuantity;
 import com.orpe.consultants.model.ImportData;
 import com.orpe.consultants.model.Material;
 import com.orpe.consultants.repository.BomDataRepository;
+import com.orpe.consultants.repository.ExportDataRepository;
 import com.orpe.consultants.repository.ImportDataRepository;
 import com.orpe.consultants.repository.MaterialRepository;
 import com.orpe.consultants.service.ImportDataService;
@@ -42,6 +43,7 @@ public class ImportDataServiceImpl implements ImportDataService {
 
 	private final MaterialRepository materialRepo;
 	private final ImportDataRepository importRepo;
+	private final ExportDataRepository exportDataRepository;
 	private final BomDataRepository bomDataRepository;
 	private final ModelMapper modelMapper;
 
@@ -176,42 +178,50 @@ public class ImportDataServiceImpl implements ImportDataService {
 
 	@Override
 	public Page<ImportDataDTO> findWithPositiveClosingBalance(ImportDataFilter filter, Pageable pageable) {
-		// 1) Normal filters (beNo, client, etc.)
-		Specification<ImportData> baseSpec = buildSpecification(filter);
+	    // 1) Normal filters (beNo, client, etc.)
+	    Specification<ImportData> baseSpec = buildSpecification(filter);
 
-		// 2) closingBalance > 0
-		Specification<ImportData> positiveClosingSpec = (root, query, cb) -> cb.greaterThan(root.get("closingBalance"),
-				BigDecimal.ZERO);
+	    // 2) closingBalance > 0
+	    Specification<ImportData> positiveClosingSpec = (root, query, cb) ->
+	            cb.greaterThan(root.get("closingBalance"), BigDecimal.ZERO);
 
-		// 3) Combine
-		Specification<ImportData> finalSpec = Specification.allOf(baseSpec, positiveClosingSpec);
+	    // 3) Combine
+	    Specification<ImportData> finalSpec = Specification.allOf(baseSpec, positiveClosingSpec);
 
-		// 4) FIFO sorting:
-	    //    - beDate ASC      (older first)
+	    // 4) FIFO sorting:
+	    //    - beDate ASC         (older first)
 	    //    - closingBalance ASC (for same day, smaller lot first)
-	    //    - importId ASC    (stable tie-breaker)
-		Sort sort = Sort.by(
+	    //    - importId ASC       (stable tie-breaker)
+	    Sort sort = Sort.by(
 	            Sort.Order.asc("beDate"),
 	            Sort.Order.asc("closingBalance"),
 	            Sort.Order.asc("importId")
 	    );
 
-		Pageable sortedPageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), sort);
+	    Pageable sortedPageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), sort);
 
-		// 5) Fetch (page-level FIFO – good enough for your screen)
-		Page<ImportData> page = importRepo.findAll(finalSpec, sortedPageable);
+	    // 5) Fetch (page-level FIFO – good enough for your screen)
+	    Page<ImportData> page = importRepo.findAll(finalSpec, sortedPageable);
 
-		// 6) Apply FIFO against BOM requirements
-		Map<String, BigDecimal> requiredByBomPartNo = computeRequiredBomQuantities();
+	    // 6) BOM requirements (how much quantity needed per BOM part)
+	    Map<String, BigDecimal> requiredByBomPartNo = computeRequiredBomQuantities();
 
-		List<ImportData> fifoSelected = applyFifoSelection(page.getContent(), requiredByBomPartNo);
+	    // 7) FIFO against BOM requirements
+	    List<ImportData> fifoSelected = applyFifoSelection(page.getContent(), requiredByBomPartNo);
 
-		// 7) Map to DTOs
-		List<ImportDataDTO> dtoList = fifoSelected.stream().map(this::entityToDto).toList();
+	    // 8) NEW RULE: beDate must NOT exceed last export invoiceDate for that claim
+	    Map<String, LocalDate> lastInvoiceByClaim = computeLastInvoiceDatePerClaim();
+	    List<ImportData> finalFiltered = filterByLastInvoiceDate(fifoSelected, lastInvoiceByClaim);
 
-		return new PageImpl<>(dtoList, sortedPageable, page.getTotalElements() // you can adjust total if needed
-		);
+	    // 9) Map to DTOs
+	    List<ImportDataDTO> dtoList = finalFiltered.stream()
+	            .map(this::entityToDto)
+	            .toList();
+
+	    // totalElements is a bit subjective now; using finalFiltered.size() to reflect
+	    return new PageImpl<>(dtoList, sortedPageable, finalFiltered.size());
 	}
+
 
 	/**
 	 * Build a map of required quantity per BOM part number based on BomData +
@@ -221,47 +231,43 @@ public class ImportDataServiceImpl implements ImportDataService {
 	 * for that material.
 	 */
 	private Map<String, BigDecimal> computeRequiredBomQuantities() {
+	    List<BomData> bomRows = bomDataRepository.findAll();
+	    Map<String, BigDecimal> requiredMap = new HashMap<>();
 
-		List<BomData> bomRows = bomDataRepository.findAll();
-		Map<String, BigDecimal> requiredMap = new HashMap<>();
+	    for (BomData bom : bomRows) {
+	        if (bom.getMaterial() == null || bom.getMaterial().getBomPartNo() == null) {
+	            continue;
+	        }
+	        String bomPartNo = bom.getMaterial().getBomPartNo();
 
-		for (BomData bom : bomRows) {
-			if (bom.getMaterial() == null || bom.getMaterial().getBomPartNo() == null) {
-				continue;
-			}
-			String bomPartNo = bom.getMaterial().getBomPartNo();
+	        BigDecimal totalForThisBomRow = BigDecimal.ZERO;
+	        boolean hasActiveExportModels = false;
 
-			BigDecimal totalForThisBomRow = BigDecimal.ZERO;
-			boolean hasActiveExportModels = false;
+	        // 1) If export models exist, prefer ACTIVE ones
+	        if (bom.getExportModels() != null && !bom.getExportModels().isEmpty()) {
+	            for (BomExportModelQuantity em : bom.getExportModels()) {
+	                if (em == null) continue;
+	                if (em.getStatus() == null || !em.getStatus().equalsIgnoreCase("ACTIVE")) continue;
+	                if (em.getQuantity() == null) continue;
 
-			// 1) If export models exist, prefer ACTIVE ones
-			if (bom.getExportModels() != null && !bom.getExportModels().isEmpty()) {
-				for (BomExportModelQuantity em : bom.getExportModels()) {
-					if (em == null)
-						continue;
-					if (em.getStatus() == null || !em.getStatus().equalsIgnoreCase("ACTIVE")) {
-						continue;
-					}
-					if (em.getQuantity() == null)
-						continue;
+	                totalForThisBomRow = totalForThisBomRow.add(em.getQuantity());
+	                hasActiveExportModels = true;
+	            }
+	        }
 
-					totalForThisBomRow = totalForThisBomRow.add(em.getQuantity());
-					hasActiveExportModels = true;
-				}
-			}
+	        // 2) If no active export models, fall back to grandTotal
+	        if (!hasActiveExportModels && bom.getGrandTotal() != null) {
+	            totalForThisBomRow = totalForThisBomRow.add(bom.getGrandTotal());
+	        }
 
-			// 2) If no active export models, fall back to grandTotal
-			if (!hasActiveExportModels && bom.getGrandTotal() != null) {
-				totalForThisBomRow = totalForThisBomRow.add(bom.getGrandTotal());
-			}
+	        if (totalForThisBomRow.compareTo(BigDecimal.ZERO) > 0) {
+	            requiredMap.merge(bomPartNo, totalForThisBomRow, BigDecimal::add);
+	        }
+	    }
 
-			if (totalForThisBomRow.compareTo(BigDecimal.ZERO) > 0) {
-				requiredMap.merge(bomPartNo, totalForThisBomRow, BigDecimal::add);
-			}
-		}
-
-		return requiredMap;
+	    return requiredMap;
 	}
+
 
 	/**
 	 * FIFO selection: - Inputs: all import rows for the claim, sorted by beDate
@@ -269,48 +275,128 @@ public class ImportDataServiceImpl implements ImportDataService {
 	 * until cumulative closingBalance >= required BOM quantity for that material. -
 	 * Rows beyond the required quantity are dropped.
 	 */
-	private List<ImportData> applyFifoSelection(List<ImportData> allImports,
-			Map<String, BigDecimal> requiredByBomPartNo) {
+	private List<ImportData> applyFifoSelection(
+	        List<ImportData> allImports,
+	        Map<String, BigDecimal> requiredByBomPartNo
+	) {
+	    // If absolutely no BOM requirement, keep all imports
+	    if (requiredByBomPartNo == null || requiredByBomPartNo.isEmpty()) {
+	        return allImports;
+	    }
 
-// If absolutely no BOM requirement, you can either:
-// return allImports OR return empty list. I'll keep allImports to avoid breaking things.
-		if (requiredByBomPartNo == null || requiredByBomPartNo.isEmpty()) {
-			return allImports;
-		}
+	    Map<String, BigDecimal> usedSoFar = new HashMap<>();
+	    List<ImportData> result = new ArrayList<>();
 
-		Map<String, BigDecimal> usedSoFar = new HashMap<>();
-		List<ImportData> result = new ArrayList<>();
+	    for (ImportData imp : allImports) {
+	        if (imp.getMaterial() == null || imp.getMaterial().getBomPartNo() == null) {
+	            continue; // cannot map to BOM
+	        }
 
-		for (ImportData imp : allImports) {
-			if (imp.getMaterial() == null || imp.getMaterial().getBomPartNo() == null) {
-				continue; // cannot map to BOM
-			}
+	        String bomPartNo = imp.getMaterial().getBomPartNo();
 
-			String bomPartNo = imp.getMaterial().getBomPartNo();
+	        BigDecimal required = requiredByBomPartNo.get(bomPartNo);
+	        if (required == null) {
+	            // this material not required by BOM → skip it
+	            continue;
+	        }
 
-			BigDecimal required = requiredByBomPartNo.get(bomPartNo);
-			if (required == null) {
-// this material not required by BOM → skip it
-				continue;
-			}
+	        BigDecimal alreadyUsed = usedSoFar.getOrDefault(bomPartNo, BigDecimal.ZERO);
 
-			BigDecimal alreadyUsed = usedSoFar.getOrDefault(bomPartNo, BigDecimal.ZERO);
+	        // Requirement for this material already satisfied → skip newer rows
+	        if (alreadyUsed.compareTo(required) >= 0) {
+	            continue;
+	        }
 
-// Requirement for this material already satisfied → skip newer rows
-			if (alreadyUsed.compareTo(required) >= 0) {
-				continue;
-			}
+	        // Include this import row
+	        result.add(imp);
 
-// Include this import row
-			result.add(imp);
+	        BigDecimal closing = imp.getClosingBalance() != null
+	                ? imp.getClosingBalance()
+	                : BigDecimal.ZERO;
 
-			BigDecimal closing = imp.getClosingBalance() != null ? imp.getClosingBalance() : BigDecimal.ZERO;
+	        usedSoFar.put(bomPartNo, alreadyUsed.add(closing));
+	    }
 
-			usedSoFar.put(bomPartNo, alreadyUsed.add(closing));
-		}
-
-		return result;
+	    return result;
 	}
+	
+	// Key format: claimRefNo + '|' + claimYear
+	private String buildClaimKey(String claimRefNo, String claimYear) {
+	    return (claimRefNo == null ? "" : claimRefNo.trim()) + "|" +
+	           (claimYear == null ? "" : claimYear.trim());
+	}
+
+	/**
+	 * Build a map:
+	 *   key   = claimRefNo + '|' + claimYear
+	 *   value = MAX(invoiceDate) for that claim
+	 */
+	private Map<String, LocalDate> computeLastInvoiceDatePerClaim() {
+	    Map<String, LocalDate> result = new HashMap<>();
+
+	    // Custom query in ExportDataRepository
+	    List<Object[]> rows = exportDataRepository.findMaxInvoiceDatesByClaim();
+
+	    for (Object[] row : rows) {
+	        String claimRefNo = (String) row[0];
+	        String claimYear  = (String) row[1];
+	        LocalDate maxDate = (LocalDate) row[2];
+
+	        if (maxDate != null) {
+	            String key = buildClaimKey(claimRefNo, claimYear);
+	            result.put(key, maxDate);
+	        }
+	    }
+
+	    return result;
+	}
+	
+	/**
+	 * Business rule:
+	 * For each ImportData row:
+	 *   - Look up the last export invoiceDate for its (claimRefNo, claimYear)
+	 *   - If none exists → keep the row (we allow imports when no export yet)
+	 *   - If beDate is AFTER that last invoiceDate → DROP the row
+	 *   - Else keep it.
+	 */
+	private List<ImportData> filterByLastInvoiceDate(
+	        List<ImportData> imports,
+	        Map<String, LocalDate> lastInvoiceByClaim
+	) {
+	    if (imports == null || imports.isEmpty()) {
+	        return imports;
+	    }
+	    if (lastInvoiceByClaim == null || lastInvoiceByClaim.isEmpty()) {
+	        // no export data: keep everything
+	        return imports;
+	    }
+
+	    List<ImportData> result = new ArrayList<>();
+
+	    for (ImportData imp : imports) {
+	        String key = buildClaimKey(imp.getClaimRefNo(), imp.getClaimYear());
+	        LocalDate maxInvoiceDate = lastInvoiceByClaim.get(key);
+
+	        // If no export exists for this claim → allow
+	        if (maxInvoiceDate == null) {
+	            result.add(imp);
+	            continue;
+	        }
+
+	        LocalDate beDate = imp.getBeDate();
+
+	        // If beDate is null or NOT after maxInvoiceDate → allow
+	        if (beDate == null || !beDate.isAfter(maxInvoiceDate)) {
+	            result.add(imp);
+	        }
+	        // else: drop (beDate > last invoice date)
+	    }
+
+	    return result;
+	}
+
+
+
 
 	@Override
 	public byte[] exportData(ImportDataFilter filter) {
@@ -461,81 +547,146 @@ public class ImportDataServiceImpl implements ImportDataService {
 	@Transactional
 	public void exportImportDataToExcel(List<Long> importIds, HttpServletResponse response) throws IOException {
 
-		if (importIds == null || importIds.isEmpty()) {
-			throw new IllegalArgumentException("importIds must not be null or empty");
-		}
+	    if (importIds == null || importIds.isEmpty()) {
+	        throw new IllegalArgumentException("importIds must not be null or empty");
+	    }
 
-		List<ImportData> rows = importRepo.findAllById(importIds);
+	    List<ImportData> rows = importRepo.findAllById(importIds);
 
-		try (XSSFWorkbook workbook = new XSSFWorkbook()) {
-			Sheet sheet = workbook.createSheet("Import Data");
+	    try (XSSFWorkbook workbook = new XSSFWorkbook()) {
+	        Sheet sheet = workbook.createSheet("Import Data");
 
-			int rowIdx = 0;
-			int col;
+	        int rowIdx = 0;
+	        int col;
 
-			// ===== HEADER ROW =====
-			Row header = sheet.createRow(rowIdx++);
-			col = 0;
-			header.createCell(col++).setCellValue("BE No");
-			header.createCell(col++).setCellValue("BE Date");
-			header.createCell(col++).setCellValue("Claim Ref No");
-			header.createCell(col++).setCellValue("Claim Year");
-			header.createCell(col++).setCellValue("Item Description");
-			header.createCell(col++).setCellValue("BOM Part No");
-			header.createCell(col++).setCellValue("Alt BOE No");
-			header.createCell(col++).setCellValue("DBK Part");
-			header.createCell(col++).setCellValue("Qty");
-			header.createCell(col++).setCellValue("UOM");
-			header.createCell(col++).setCellValue("Assessable");
-			header.createCell(col++).setCellValue("BCD");
-			header.createCell(col++).setCellValue("SWS");
-			header.createCell(col++).setCellValue("Add Duty");
-			header.createCell(col++).setCellValue("Opening");
-			header.createCell(col++).setCellValue("Used");
-			header.createCell(col++).setCellValue("Closing");
+	        // ===== HEADER ROW =====
+	        Row header = sheet.createRow(rowIdx++);
+	        col = 0;
 
-			// ===== DATA ROWS =====
-			for (ImportData d : rows) {
-				Row excelRow = sheet.createRow(rowIdx++);
-				col = 0;
+	        header.createCell(col++).setCellValue("BE No");
+	        header.createCell(col++).setCellValue("BE Date");
+	        header.createCell(col++).setCellValue("Month");
+	        header.createCell(col++).setCellValue("Year");
+	        // Client Name REMOVED
+	        header.createCell(col++).setCellValue("Claim Ref No");
+	        header.createCell(col++).setCellValue("Claim Year");
+	        header.createCell(col++).setCellValue("Port Code");
+	        header.createCell(col++).setCellValue("Country of Origin");
+	        header.createCell(col++).setCellValue("Supplier");
+	        header.createCell(col++).setCellValue("ITCHS");
+	        header.createCell(col++).setCellValue("Item Description");
+	        header.createCell(col++).setCellValue("BOM Part");
+	        header.createCell(col++).setCellValue("Alt BOE Part");
+	        header.createCell(col++).setCellValue("DBK Part");
+	        header.createCell(col++).setCellValue("Qty");
+	        header.createCell(col++).setCellValue("UOM");
+	        header.createCell(col++).setCellValue("Assessable");
+	        header.createCell(col++).setCellValue("BCD Rate (%)");
+	        header.createCell(col++).setCellValue("BCD");
+	        header.createCell(col++).setCellValue("SWS Rate (%)");
+	        header.createCell(col++).setCellValue("SWS");
+	        header.createCell(col++).setCellValue("Add Rate (%)");
+	        header.createCell(col++).setCellValue("Add Duty");
+	        header.createCell(col++).setCellValue("IGST Rate (%)");
+	        header.createCell(col++).setCellValue("IGST");
+	        header.createCell(col++).setCellValue("Total Duty");
+	        header.createCell(col++).setCellValue("Notification No");
+	        header.createCell(col++).setCellValue("Eligibility");
+	        header.createCell(col++).setCellValue("Opening");
+	        header.createCell(col++).setCellValue("Used");
+	        header.createCell(col++).setCellValue("Closing");
+	        
+	        header.createCell(col++).setCellValue("Duty Claimed");
+	        // Import ID REMOVED
 
-				excelRow.createCell(col++).setCellValue(ns(d.getBeNo()));
-				excelRow.createCell(col++).setCellValue(d.getBeDate() != null ? d.getBeDate().toString() : "");
+	        // ===== DATA ROWS =====
+	        for (ImportData d : rows) {
+	            Row excelRow = sheet.createRow(rowIdx++);
+	            col = 0;
 
-				excelRow.createCell(col++).setCellValue(ns(d.getClaimRefNo()));
-				excelRow.createCell(col++).setCellValue(ns(d.getClaimYear()));
-				excelRow.createCell(col++).setCellValue(ns(d.getItemDescription()));
-				excelRow.createCell(col++)
-						.setCellValue(d.getMaterial() != null ? ns(d.getMaterial().getBomPartNo()) : "");
-				excelRow.createCell(col++).setCellValue(ns(d.getAltBoePartNo()));
-				excelRow.createCell(col++).setCellValue(ns(d.getDbkPartNo()));
-				excelRow.createCell(col++).setCellValue(d.getQuantity() != null ? d.getQuantity().doubleValue() : 0d);
-				excelRow.createCell(col++).setCellValue(ns(d.getUom()));
-				excelRow.createCell(col++)
-						.setCellValue(d.getAssessableValue() != null ? d.getAssessableValue().doubleValue() : 0d);
-				excelRow.createCell(col++).setCellValue(d.getBcd() != null ? d.getBcd().doubleValue() : 0d);
-				excelRow.createCell(col++).setCellValue(d.getSws() != null ? d.getSws().doubleValue() : 0d);
-				excelRow.createCell(col++).setCellValue(d.getAddDuty() != null ? d.getAddDuty().doubleValue() : 0d);
-				excelRow.createCell(col++)
-						.setCellValue(d.getQtyOpeningBalance() != null ? d.getQtyOpeningBalance().doubleValue() : 0d);
-				excelRow.createCell(col++).setCellValue(d.getQtyUsed() != null ? d.getQtyUsed().doubleValue() : 0d);
-				excelRow.createCell(col++)
-						.setCellValue(d.getClosingBalance() != null ? d.getClosingBalance().doubleValue() : 0d);
+	            excelRow.createCell(col++).setCellValue(ns(d.getBeNo()));
+	            excelRow.createCell(col++).setCellValue(d.getBeDate() != null ? d.getBeDate().toString() : "");
+	            excelRow.createCell(col++).setCellValue(ns(d.getBeMonth()));
+	            excelRow.createCell(col++).setCellValue((d.getBeYear()));
+	            excelRow.createCell(col++).setCellValue(ns(d.getClaimRefNo()));
+	            excelRow.createCell(col++).setCellValue(ns(d.getClaimYear()));
+	            excelRow.createCell(col++).setCellValue(ns(d.getPortCode()));
+	            excelRow.createCell(col++).setCellValue(ns(d.getCountryOfOrigin()));
+	            excelRow.createCell(col++).setCellValue(ns(d.getSupplierNameAddress()));
+	            excelRow.createCell(col++).setCellValue(ns(d.getItchsCode()));
+	            excelRow.createCell(col++).setCellValue(ns(d.getItemDescription()));
 
-			}
+	            excelRow.createCell(col++)
+	                .setCellValue(d.getMaterial() != null ? ns(d.getMaterial().getBomPartNo()) : "");
 
-			// Auto-size columns
-			for (int i = 0; i < col; i++) {
-				sheet.autoSizeColumn(i);
-			}
+	            excelRow.createCell(col++).setCellValue(ns(d.getAltBoePartNo()));
+	            excelRow.createCell(col++).setCellValue(ns(d.getDbkPartNo()));
+	            excelRow.createCell(col++)
+	                .setCellValue(d.getQuantity() != null ? d.getQuantity().doubleValue() : 0d);
 
-			String filename = "PreWorksheet-boeRecords-" + java.time.LocalDate.now() + ".xlsx";
-			response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-			response.setHeader("Content-Disposition", "attachment; filename=\"" + filename + "\"");
+	            excelRow.createCell(col++).setCellValue(ns(d.getUom()));
+	            excelRow.createCell(col++)
+	                .setCellValue(d.getAssessableValue() != null ? d.getAssessableValue().doubleValue() : 0d);
 
-			workbook.write(response.getOutputStream());
-		}
+	            excelRow.createCell(col++)
+	                .setCellValue(d.getBcdRate() != null ? d.getBcdRate().doubleValue() : 0d);
+
+	            excelRow.createCell(col++)
+	                .setCellValue(d.getBcd() != null ? d.getBcd().doubleValue() : 0d);
+
+	            excelRow.createCell(col++)
+	                .setCellValue(d.getSwsRate() != null ? d.getSwsRate().doubleValue() : 0d);
+
+	            excelRow.createCell(col++)
+	                .setCellValue(d.getSws() != null ? d.getSws().doubleValue() : 0d);
+
+	            excelRow.createCell(col++)
+	                .setCellValue(d.getAddRate() != null ? d.getAddRate().doubleValue() : 0d);
+
+	            excelRow.createCell(col++)
+	                .setCellValue(d.getAddDuty() != null ? d.getAddDuty().doubleValue() : 0d);
+
+	            excelRow.createCell(col++)
+	                .setCellValue(d.getIgstRate() != null ? d.getIgstRate().doubleValue() : 0d);
+
+	            excelRow.createCell(col++)
+	                .setCellValue(d.getIgst() != null ? d.getIgst().doubleValue() : 0d);
+
+	            excelRow.createCell(col++)
+	                .setCellValue(d.getTotalDuty() != null ? d.getTotalDuty().doubleValue() : 0d);
+
+	            excelRow.createCell(col++).setCellValue(ns(d.getNotnNo()));
+	            excelRow.createCell(col++).setCellValue(ns(d.getNotnEligibility()));
+
+	            excelRow.createCell(col++)
+	                .setCellValue(d.getQtyOpeningBalance() != null ? d.getQtyOpeningBalance().doubleValue() : 0d);
+
+	            excelRow.createCell(col++)
+	                .setCellValue(d.getQtyUsed() != null ? d.getQtyUsed().doubleValue() : 0d);
+
+	            excelRow.createCell(col++)
+	                .setCellValue(d.getClosingBalance() != null ? d.getClosingBalance().doubleValue() : 0d);
+
+	            
+	            excelRow.createCell(col++)
+	                .setCellValue(d.getDutyClaimedAmt() != null ? d.getDutyClaimedAmt().doubleValue() : 0d);
+
+	            // Import ID intentionally NOT exported
+	        }
+
+	        // Auto-size columns
+	        for (int i = 0; i < col; i++) {
+	            sheet.autoSizeColumn(i);
+	        }
+
+	        String filename = "PreWorksheet-boeRecords-" + java.time.LocalDate.now() + ".xlsx";
+	        response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+	        response.setHeader("Content-Disposition", "attachment; filename=\"" + filename + "\"");
+
+	        workbook.write(response.getOutputStream());
+	    }
 	}
+
 
 	private String ns(String s) {
 		return (s == null) ? "" : s;

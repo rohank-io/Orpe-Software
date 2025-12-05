@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Orpe Consultants</title>
+	<!-- HTML5 Shim and Respond.js IE9 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+      <![endif]-->
+	<!-- Meta -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="description" content="Phoenixcoded">
+	<meta name="keywords"
+		content=", Flat ui, Admin , Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app">
+	<meta name="author" content="Phoenixcoded">
+	<!-- Favicon icon -->
+
+	<link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
+	<!-- Google font-->
+	<link href="https://fonts.googleapis.com/css?family=Mada:300,400,500,600,700" rel="stylesheet">
+	<!-- Required Fremwork -->
+	<link rel="stylesheet" type="text/css" href="/assets/plugins/bootstrap/dist/css/bootstrap.min.css">
+	<!-- Date-time picker css -->
+	<link rel="stylesheet" type="text/css" href="/assets/pages/advance-elements/css/bootstrap-datetimepicker.css">
+	<!-- themify-icons line icon -->
+	<link rel="stylesheet" type="text/css" href="/assets/icon/themify-icons/themify-icons.css">
+	<!-- ico font -->
+	<link rel="stylesheet" type="text/css" href="/assets/icon/icofont/css/icofont.css">
+	<!-- flag icon framework css -->
+	<link rel="stylesheet" type="text/css" href="/assets/pages/flag-icon/flag-icon.min.css">
+	<!-- Menu-Search css -->
+	<link rel="stylesheet" type="text/css" href="/assets/pages/menu-search/css/component.css">
+	<!-- Style.css -->
+	<link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+
+	<link rel="stylesheet" type="text/css" href="/assets/css/linearicons.css">
+	<link rel="stylesheet" type="text/css" href="/assets/css/simple-line-icons.css">
+	<link rel="stylesheet" type="text/css" href="/assets/css/ionicons.css">
+	<link rel="stylesheet" type="text/css" href="/assets/css/jquery.mCustomScrollbar.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+</head>
+
+<body>
+	<!-- Pre-loader start -->
+	<div class="theme-loader">
+		<div class="ball-scale">
+			<div></div>
+		</div>
+	</div>
+	<!-- Pre-loader end -->
+
+	<div id="pcoded" class="pcoded">
+		<div class="pcoded-overlay-box"></div>
+		<div class="pcoded-container navbar-wrapper">
+
+			<nav class="navbar header-navbar pcoded-header">
+				<div class="navbar-wrapper">
+					<div class="navbar-logo" navbar-theme="theme4">
+						<a class="mobile-menu" id="mobile-collapse" href="#!">
+							<i class="ti-menu"></i>
+						</a>
+						<a href="#!">
+							<img class="img-fluid" src="/assets/images/logo.png" alt="Theme-Logo" />
+						</a>
+						<a class="mobile-options">
+							<i class="ti-more"></i>
+						</a>
+					</div>
+					<div class="navbar-container container-fluid">
+						<div>
+							<ul class="nav-left">
+								<li>
+									<div class="sidebar_toggle"><a href="javascript:void(0)"><i class="ti-menu"></i></a>
+									</div>
+								</li>
+								<li>
+									<a class="main-search morphsearch-search" href="#">
+										<!-- themify icon -->
+										<i class="ti-search"></i>
+									</a>
+								</li>
+								<li>
+									<a href="#!" onclick="javascript:toggleFullScreen()">
+										<i class="ti-fullscreen"></i>
+									</a>
+								</li>
+
+							</ul>
+
+
+							<ul class="nav-right">
+								<!--<li>-->
+								<!--<a href="#" class="btn btn-primary">Upgrade To Pro</a>-->
+								<!--</li>-->
+
+
+
+								<li class="user-profile header-notification" th:if="${session.loggedInUser != null}">
+									<a href="#!">
+										<img th:src="@{/assets/images/user.png}" alt="User-Profile-Image">
+										<span th:text="${session.loggedInUser.username}">Username</span>
+										<i class="ti-angle-down"></i>
+									</a>
+									<ul class="show-notification profile-notification">
+										<li>
+											<a href="#!">
+												<i class="ti-settings"></i> Settings
+											</a>
+										</li>
+										<li>
+											<a th:href="@{/user-profile}">
+												<i class="ti-user"></i> Profile
+											</a>
+										</li>
+										<li>
+											<a href="#!">
+												<i class="ti-email"></i> My Messages
+											</a>
+										</li>
+										<li>
+											<a th:href="@{/auth-lock-screen}">
+												<i class="ti-lock"></i> Lock Screen
+											</a>
+										</li>
+										<li>
+											<a th:href="@{/logout}">
+												<i class="ti-layout-sidebar-left"></i> Logout
+											</a>
+										</li>
+									</ul>
+								</li>
+
+								<!-- Show login/register buttons when user is not logged in -->
+
+
+							</ul>
+
+						</div>
+					</div>
+				</div>
+			</nav>
+
+
+			<div class="pcoded-main-container">
+				<div class="pcoded-wrapper">
+					<nav class="pcoded-navbar">
+						<div class="sidebar_toggle"><a href="#"><i class="icon-close icons"></i></a></div>
+						<div class="pcoded-inner-navbar main-menu">
+
+							<div class="pcoded-navigatio-lavel">Main</div>
+							<ul class="pcoded-item pcoded-left-item">
+								<li class="pcoded-trigger ">
+									<a th:href="@{/index}">
+										<span class="pcoded-micon"><i class="ti-comments"></i></span>
+										<span class="pcoded-mtext">Dashboard</span>
+										<span class="pcoded-mcaret"></span>
+									</a>
+								</li>
+							</ul>
+							<ul class="pcoded-item pcoded-left-item">
+								<li class="pcoded-hasmenu active">
+									<a href="javascript:void(0)">
+										<span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i></span>
+										<span class="pcoded-mtext">All Data</span>
+										<span class="pcoded-mcaret"></span>
+									</a>
+									<ul class="pcoded-submenu">
+										<li class="  ">
+											<a th:href="@{/importdata/list}">
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">Import</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+										</li>
+										<li class=" ">
+											<a th:href="@{/exportdata/list}">
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">Export</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+										</li>
+										<li class=" ">
+											<a th:href="@{/bomdata/list}">
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">BOM</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+										</li>
+
+										<li class=" ">
+											<a th:href="@{/bomclaimdata/list}">
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">BOM 2</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+										</li>
+
+										<li class=" ">
+											<a th:href="@{/worksheets/claims/list}">
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">Worksheet</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+										</li>
+
+										<li class=" ">
+											<a th:href="@{/sb-consumption/groups}">
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">SB Qty Consumption</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+										</li>
+
+
+
+
+
+									</ul>
+								</li>
+								<li class="pcoded-hasmenu">
+									<a href="javascript:void(0)">
+										<span class="pcoded-micon"><i class="ti-crown"></i></span>
+										<span class="pcoded-mtext">Advance Calculations</span>
+										<span class="pcoded-mcaret"></span>
+									</a>
+									<ul class="pcoded-submenu">
+										<li class=" ">
+											<a th:href="@{/worksheet/importdata/select}">
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">Worksheet</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+										</li>
+										<li class=" ">
+											<a th:href="@{/sbwiseqtyconsumption/bomclaimdata/select}">
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">SB wise Qty Consumption</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+										</li>
+										<li class=" ">
+											<a th:href="@{/dbkcalculation/dataselect}">
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">SB wise DBK Calculation</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+										</li>
+									</ul>
+								</li>
+
+							</ul>
+							<div class="pcoded-navigatio-lavel">Data Import </div>
+
+
+
+							<ul class="pcoded-item pcoded-left-item">
+								<li>
+									<a th:href="@{/exceldataimport}">
+										<span class="pcoded-micon"><i class="ti-receipt"></i></span>
+										<span class="pcoded-mtext">Excel</span>
+										<span class="pcoded-mcaret"></span>
+									</a>
+								</li>
+							</ul>
+							<div class="pcoded-navigatio-lavel">Chart And Reports</div>
+							<ul class="pcoded-item pcoded-left-item">
+								<li>
+									<a th:href="@{/export/all-zip}">
+										<span class="pcoded-micon"><i class="ti-bar-chart-alt"></i></span>
+										<span class="pcoded-mtext">Download Data</span>
+										<span class="pcoded-mcaret"></span>
+									</a>
+								</li>
+							</ul>
+
+
+							<ul class="pcoded-item pcoded-left-item">
+								<li class="pcoded-hasmenu ">
+									<a href="javascript:void(0)">
+										<span class="pcoded-micon"><i class="icofont icofont-cloud-download"></i></span>
+										<span class="pcoded-mtext">Reports</span>
+										<span class="pcoded-mcaret"></span>
+									</a>
+									<ul class="pcoded-submenu">
+
+										<li class="">
+											<a href="auth-sign-in-social.html" target="_blank">
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">Report 1</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+										</li>
+
+										<li class="">
+											<a href="auth-sign-up-social.html" target="_blank">
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">Report 2</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+										</li>
+										<li class="">
+											<a href="auth-reset-password.html" target="_blank">
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">Report 3</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+										</li>
+
+
+									</ul>
+								</li>
+							</ul>
+							<div class="pcoded-navigatio-lavel">Other</div>
+							<ul class="pcoded-item pcoded-left-item">
+								<li class="pcoded-hasmenu ">
+									<a href="javascript:void(0)">
+										<span class="pcoded-micon"><i class="icofont icofont-businessman"></i></span>
+										<span class="pcoded-mtext">User</span>
+										<span class="pcoded-mcaret"></span>
+									</a>
+									<ul class="pcoded-submenu">
+										<li class="">
+											<a th:href="@{/register}">
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">Add User</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+										</li>
+										<li class="">
+											<a th:href="@{/users}">
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">User List</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+
+										</li>
+
+
+									</ul>
+								</li>
+							</ul>
+
+						</div>
+					</nav>
+					<div class="pcoded-content">
+						<div class="pcoded-inner-content">
+
+							<div class="main-body">
+								<div class="page-wrapper">
+									<div class="page-header">
+										<div class="page-header-title">
+											<h3>Edit Worksheet</h3>
+											<span>Edit the required worksheet data</span>
+										</div>
+										<div class="page-header-breadcrumb">
+											<ul class="breadcrumb-title">
+												<li class="breadcrumb-item">
+													<a th:href="@{/index}">
+														<i class="icofont icofont-home"></i>
+													</a>
+												</li>
+												<li class="breadcrumb-item"><a th:href="@{/}">Worksheet</a>
+												</li>
+												<li class="breadcrumb-item"><a href="#!">Edit</a>
+												</li>
+
+											</ul>
+										</div>
+									</div>
+									<div class="page-body">
+										<!-- Profile Header Section (unchanged) -->
+										<div class="">
+
+
+										</div>
+
+
+										<div class="row">
+											<div class="col-xs-12 col-sm-12 col-lg-12">
+
+
+												<div class="card">
+													<!-- personal card start -->
+													<div class="card-header">
+														<h5>Edit Worksheet</h5>
+														<span>Update record and add reason for update in remark</span>
+														<div class="card-header-right">
+															<i class="icofont icofont-rounded-down"></i>
+															<a th:href="@{/importdata/list}">
+																<i class="icofont icofont-refresh"></i>
+															</a>
+														</div>
+													</div>
+													<div class="card-block table-border-style">
+
+														<div class="mt-4 ml-3 mr-3" th:object="${worksheet}">
+															<form th:action="@{|/worksheetdata/edit/${worksheetId}|}"
+																th:object="${worksheet}" method="post">
+
+																<div class="card mb-3">
+
+
+																	<div class="card-body">
+																		<div class="card-header">
+																			<h5>BOE Data</h5>
+																		</div>
+																		<input type="hidden"
+																			th:field="*{worksheetId}" />
+																		<input type="hidden" th:field="*{importId}" />
+
+
+																		<!-- Row 1: Claim / BE -->
+																		<div class="row mb-2">
+																			<div class="col-md-3">
+																				<label>Claim Ref No</label>
+																				<input type="text"
+																					class="form-control form-control-sm"
+																					th:field="*{claimRefNo}">
+																			</div>
+																			<div class="col-md-3">
+																				<label>Claim Year</label>
+																				<input type="text"
+																					class="form-control form-control-sm"
+																					th:field="*{claimYear}">
+																			</div>
+																			<div class="col-md-3">
+																				<label>BE No</label>
+																				<input type="text"
+																					class="form-control form-control-sm"
+																					th:field="*{beNo}">
+																			</div>
+																			<div class="col-md-3">
+																				<label>BE Date</label>
+																				<input type="text"
+																					class="form-control form-control-sm"
+																					th:field="*{beDate}" readonly>
+
+
+
+
+																			</div>
+																		</div>
+
+																		<!-- Row 2: Description / UOM / Import Qty / BOM -->
+																		<div class="row mb-2">
+																			<div class="col-md-6">
+																				<label>Item Description</label>
+																				<textarea
+																					class="form-control form-control-sm"
+																					th:field="*{itemDescription}"
+																					rows="2"></textarea>
+																			</div>
+																			<div class="col-md-2">
+																				<label>UOM</label>
+																				<input type="text"
+																					class="form-control form-control-sm"
+																					th:field="*{uom}">
+																			</div>
+																			<div class="col-md-2">
+																				<label>Import Qty</label>
+																				<input type="number" step="0.000001"
+																					class="form-control form-control-sm"
+																					th:field="*{importQty}">
+																			</div>
+																			<div class="col-md-2">
+																				<label>BOM Part No</label>
+																				<input type="text"
+																					class="form-control form-control-sm"
+																					th:field="*{bomPartNo}">
+																			</div>
+																		</div>
+
+																		<!-- Row 3: BOE / DBK / Assessable / CIF -->
+																		<div class="row mb-2">
+																			<div class="col-md-3">
+																				<label>BOE Part No</label>
+																				<input type="text"
+																					class="form-control form-control-sm"
+																					th:field="*{altBoePartNo}">
+																			</div>
+																			<div class="col-md-3">
+																				<label>DBK Part No</label>
+																				<input type="text"
+																					class="form-control form-control-sm"
+																					th:field="*{dbkPartNo}">
+																			</div>
+																			<div class="col-md-3">
+																				<label>Assessable Value</label>
+																				<input type="number" step="0.01"
+																					class="form-control form-control-sm"
+																					th:field="*{assessableValue}">
+																			</div>
+																			<div class="col-md-3">
+																				<label>CIF Value</label>
+																				<input type="number" step="0.01"
+																					class="form-control form-control-sm"
+																					th:field="*{cifValue}">
+																			</div>
+																		</div>
+
+																		<!-- Row 4: Per Qty CIF / BCD / SWS / Add Duty -->
+																		<div class="row mb-2">
+																			<div class="col-md-3">
+																				<label>Per Qty CIF</label>
+																				<input type="number" step="0.000001"
+																					class="form-control form-control-sm"
+																					th:field="*{perQtyCif}">
+																			</div>
+																			<div class="col-md-3">
+																				<label>BCD</label>
+																				<input type="number" step="0.01"
+																					class="form-control form-control-sm"
+																					th:field="*{bcd}">
+																			</div>
+																			<div class="col-md-3">
+																				<label>SWS</label>
+																				<input type="number" step="0.01"
+																					class="form-control form-control-sm"
+																					th:field="*{sws}">
+																			</div>
+																			<div class="col-md-3">
+																				<label>Add Duty</label>
+																				<input type="number" step="0.01"
+																					class="form-control form-control-sm"
+																					th:field="*{addDuty}">
+																			</div>
+																		</div>
+
+																		<!-- Row 5: Total Duty / Duty per Qty / Used Qty / Username -->
+																		<div class="row mb-2">
+																			<div class="col-md-3">
+																				<label>Total Duty</label>
+																				<input type="number" step="0.01"
+																					class="form-control form-control-sm"
+																					th:field="*{totalDuty}">
+																			</div>
+																			<div class="col-md-3">
+																				<label>Duty Per Qty</label>
+																				<input type="number" step="0.000001"
+																					class="form-control form-control-sm"
+																					th:field="*{dutyPerQty}">
+																			</div>
+																			<div class="col-md-3">
+																				<label>Used Qty (Total)</label>
+																				<input type="number" step="0.000001"
+																					class="form-control form-control-sm"
+																					th:field="*{usedQtyTotal}">
+																			</div>
+																			<div class="col-md-3">
+																				<label>Created By</label>
+																				<input type="text"
+																					class="form-control form-control-sm"
+																					th:field="*{session.loggedInUser.username}}">
+																			</div>
+																		</div>
+
+																		<!-- Row 6: Claimed totals -->
+																		<div class="row mb-2">
+																			<div class="col-md-3">
+																				<label>Duty Claimed (Total)</label>
+																				<input type="number" step="0.01"
+																					class="form-control form-control-sm"
+																					th:field="*{dutyClaimedTotal}">
+																			</div>
+																			<div class="col-md-3">
+																				<label>CIF Claimed (Total)</label>
+																				<input type="number" step="0.01"
+																					class="form-control form-control-sm"
+																					th:field="*{cifClaimedTotal}">
+																			</div>
+																			<div class="col-md-2">
+																				<label>BCD Claimed</label>
+																				<input type="number" step="0.01"
+																					class="form-control form-control-sm"
+																					th:field="*{bcdClaimed}">
+																			</div>
+																			<div class="col-md-2">
+																				<label>SWS Claimed</label>
+																				<input type="number" step="0.01"
+																					class="form-control form-control-sm"
+																					th:field="*{swsClaimed}">
+																			</div>
+																			<div class="col-md-2">
+																				<label>Add Claimed</label>
+																				<input type="number" step="0.01"
+																					class="form-control form-control-sm"
+																					th:field="*{addClaimed}">
+																			</div>
+																		</div>
+
+																		<!-- Row 7: Opening / Used / Closing -->
+																		<div class="row mb-2">
+																			<div class="col-md-4">
+																				<label>Opening</label>
+																				<input type="number" step="0.01"
+																					class="form-control form-control-sm"
+																					th:field="*{openingBalanceQtyDef}">
+																			</div>
+																			<div class="col-md-4">
+																				<label>Used (DEF)</label>
+																				<input type="number" step="0.01"
+																					class="form-control form-control-sm"
+																					th:field="*{qtyUsedDef}">
+																			</div>
+																			<div class="col-md-4">
+																				<label>Closing</label>
+																				<input type="number" step="0.01"
+																					class="form-control form-control-sm"
+																					th:field="*{closingBalanceDef}">
+																			</div>
+																		</div>
+
+																		<div class="col-md-12">
+																			<small id="usedWarning"
+																				style="color: red; font-weight: bold; display: none;">
+																				⚠ Used quantity cannot be greater than
+																				Opening balance.
+																			</small>
+																		</div>
+
+
+																		<!-- Last: Remark (editable) -->
+																		<div class="row mb-2">
+																			<div class="col-md-12">
+																				<label>Remark</label>
+																				<input type="text"
+																					class="form-control form-control-sm"
+																					th:field="*{remark}" required>
+																			</div>
+																		</div>
+
+																	</div>
+																</div>
+
+																<!-- Export models table (unchanged except context) -->
+																<div class="card">
+																	<div class="card-header">
+																		<h5>Export Models</h5>
+																	</div>
+																	<div class="card-body p-0">
+																		<div class="table-responsive">
+																			<table
+																				class="table table-sm table-bordered mb-0">
+																				<thead class="table-light">
+																					<tr>
+																						<th>#</th>
+																						<th>Model No</th>
+
+																						<th>Used Qty</th>
+																						<th>Duty Claimed</th>
+																						<th>CIF Claimed</th>
+																					</tr>
+																				</thead>
+																				<tbody>
+																					<tr
+																						th:each="em, stat : *{exportModels}">
+																						<td>
+																							<span
+																								th:text="${stat.index + 1}"></span>
+																							<input type="hidden"
+																								th:field="*{exportModels[__${stat.index}__].wsModelId}" />
+																							<input type="hidden"
+																								th:field="*{exportModels[__${stat.index}__].worksheetId}" />
+																							<input type="hidden"
+																								th:field="*{exportModels[__${stat.index}__].bomExportModelId}" />
+																						</td>
+																						<td>
+																							<input type="text"
+																								class="form-control form-control-sm"
+																								th:field="*{exportModels[__${stat.index}__].modelNo}"
+																								readonly>
+																						</td>
+
+																						<td>
+																							<input type="number"
+																								step="0.000001"
+																								class="form-control form-control-sm"
+																								th:field="*{exportModels[__${stat.index}__].emUsedQty}">
+																						</td>
+																						<td>
+																							<input type="number"
+																								step="0.01"
+																								class="form-control form-control-sm"
+																								th:field="*{exportModels[__${stat.index}__].dutyClaimed}">
+																						</td>
+																						<td>
+																							<input type="number"
+																								step="0.01"
+																								class="form-control form-control-sm"
+																								th:field="*{exportModels[__${stat.index}__].cifClaimed}">
+																						</td>
+																					</tr>
+																					<tr
+																						th:if="*{exportModels == null or #lists.isEmpty(exportModels)}">
+																						<td colspan="6"
+																							class="text-center">
+																							<em>No export models</em>
+																						</td>
+																					</tr>
+																				</tbody>
+																			</table>
+																		</div>
+																	</div>
+
+																	<div class="text-center">
+																		<button id="saveBtn" type="submit"
+																			class="btn btn-primary waves-effect waves-light m-b-5"
+																			style="width: 150px;">
+																			Update
+																		</button>
+																		<button type="button"
+																			onclick="window.history.back()"
+																			class="btn btn-secondary m-r-10 m-b-5">
+																			<i class="icofont icofont-reply"></i> Cancel
+																		</button>
+
+																	</div>
+																</div>
+
+															</form>
+														</div>
+
+													</div>
+
+												</div>
+												<!-- tab content end -->
+
+											</div>
+										</div>
+
+									</div>
+
+
+								</div>
+							</div>
+							<!--<div id="styleSelector">-->
+
+							<!--</div>-->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="fixed-button">
+			<a th:href="@{/index}" class="btn btn-primary" aria-hidden="true">Home</a>
+		</div>
+	</div>
+
+
+
+	<script>
+		(() => {
+			// Safe number parsing
+			const parseSafe = (val) => {
+				const x = parseFloat((val || '').toString().replace(/,/g, ''));
+				return isNaN(x) ? 0 : x;
+			};
+
+			let isUsedValid = true;
+
+
+			// Main recalculation for the edit form
+			function recalcWorksheetFromExports() {
+				const form = document.querySelector('form[th\\:object], form[th-object]') ||
+					document.querySelector('form[th\\:object="${worksheet}"]') ||
+					document.querySelector('form');
+
+				if (!form) return;
+
+				// Get main inputs
+				const importQtyEl = form.querySelector('input[name$="importQty"]');
+				const assessableValEl = form.querySelector('input[name$="assessableValue"]');
+				const cifValueEl = form.querySelector('input[name$="cifValue"]');
+				const perQtyCifEl = form.querySelector('input[name$="perQtyCif"]');
+				const bcdEl = form.querySelector('input[name$="bcd"]');
+				const swsEl = form.querySelector('input[name$="sws"]');
+				const addDutyEl = form.querySelector('input[name$="addDuty"]');
+				const totalDutyEl = form.querySelector('input[name$="totalDuty"]');
+				const dutyPerQtyEl = form.querySelector('input[name$="dutyPerQty"]');
+				const usedQtyTotalEl = form.querySelector('input[name$="usedQtyTotal"]');
+				const dutyClaimedTotEl = form.querySelector('input[name$="dutyClaimedTotal"]');
+				const cifClaimedTotEl = form.querySelector('input[name$="cifClaimedTotal"]');
+				const bcdClaimedEl = form.querySelector('input[name$="bcdClaimed"]');
+				const swsClaimedEl = form.querySelector('input[name$="swsClaimed"]');
+				const addClaimedEl = form.querySelector('input[name$="addClaimed"]');
+				const openingBalEl = form.querySelector('input[name$="openingBalanceQtyDef"]');
+				const qtyUsedDefEl = form.querySelector('input[name$="qtyUsedDef"]');
+				const closingBalEl = form.querySelector('input[name$="closingBalanceDef"]');
+
+				const importQty = parseSafe(importQtyEl?.value);
+				const assessableVal = parseSafe(assessableValEl?.value);
+				const bcd = parseSafe(bcdEl?.value);
+				const sws = parseSafe(swsEl?.value);
+				const addDuty = parseSafe(addDutyEl?.value);
+
+				// CIF = Assessable
+				if (cifValueEl) cifValueEl.value = assessableVal.toFixed(2);
+
+				// Per Qty CIF
+				const perQtyCif = importQty ? assessableVal / importQty : 0;
+				if (perQtyCifEl) perQtyCifEl.value = perQtyCif.toFixed(6);
+
+				// Total duty and duty per qty
+				const totalDuty = bcd + sws + addDuty;
+				if (totalDutyEl) totalDutyEl.value = totalDuty.toFixed(2);
+
+				const dutyPerQty = importQty ? totalDuty / importQty : 0;
+				if (dutyPerQtyEl) dutyPerQtyEl.value = dutyPerQty.toFixed(6);
+
+				// Export models
+				const exportRows = form.querySelectorAll('tbody tr[th\\:each*="exportModels"], tbody tr input[name*="exportModels["][name$=".emUsedQty"] ~ *');
+				// Better: just select by any emUsedQty input
+				const emUsedInputs = form.querySelectorAll('input[name*="exportModels["][name$=".emUsedQty"]');
+
+				let usedQtyTotal = 0;
+				let dutyClaimedTotal = 0;
+				let cifClaimedTotal = 0;
+
+				emUsedInputs.forEach(emUsedInput => {
+					const row = emUsedInput.closest('tr');
+					if (!row) return;
+
+					const emDutyInput = row.querySelector('input[name*=".dutyClaimed"]');
+					const emCifInput = row.querySelector('input[name*=".cifClaimed"]');
+
+					const emUsedQty = parseSafe(emUsedInput.value);
+					usedQtyTotal += emUsedQty;
+
+					const emDuty = emUsedQty * dutyPerQty;
+					const emCif = emUsedQty * perQtyCif;
+
+					if (emDutyInput) emDutyInput.value = emDuty.toFixed(2);
+					if (emCifInput) emCifInput.value = emCif.toFixed(2);
+
+					dutyClaimedTotal += emDuty;
+					cifClaimedTotal += emCif;
+				});
+
+				// Update main totals
+				if (usedQtyTotalEl) usedQtyTotalEl.value = usedQtyTotal.toFixed(6);
+				if (qtyUsedDefEl) qtyUsedDefEl.value = usedQtyTotal.toFixed(6);
+				if (dutyClaimedTotEl) dutyClaimedTotEl.value = dutyClaimedTotal.toFixed(2);
+				if (cifClaimedTotEl) cifClaimedTotEl.value = cifClaimedTotal.toFixed(2);
+
+				// Claimed split per duty component
+				const bcdClaimed = importQty ? (bcd / importQty) * usedQtyTotal : 0;
+				const swsClaimed = importQty ? (sws / importQty) * usedQtyTotal : 0;
+				const addClaimed = importQty ? (addDuty / importQty) * usedQtyTotal : 0;
+
+				if (bcdClaimedEl) bcdClaimedEl.value = bcdClaimed.toFixed(2);
+				if (swsClaimedEl) swsClaimedEl.value = swsClaimed.toFixed(2);
+				if (addClaimedEl) addClaimedEl.value = addClaimed.toFixed(2);
+
+				// Opening / Used / Closing
+				const opening = parseSafe(openingBalEl?.value);
+				const usedDef = parseSafe(qtyUsedDefEl?.value);
+				// Validate Used <= Opening
+				// ===== WARNING CHECK =====
+				const warningEl = document.getElementById('usedWarning');
+				if (warningEl) {
+					if (usedDef > opening) {
+						warningEl.style.display = 'block';
+						isUsedValid = false;
+					} else {
+						warningEl.style.display = 'none';
+						isUsedValid = true;
+					}
+				}
+				// =========================
+
+
+				let closing = opening - usedDef;
+				if (closing < 0) closing = 0;
+				if (closingBalEl) closingBalEl.value = closing.toFixed(2);
+			}
+
+			// Recalc when export model values change
+			document.addEventListener('input', (e) => {
+				const target = e.target;
+				if (!(target instanceof HTMLInputElement)) return;
+
+				if (target.name && target.name.includes('exportModels[') &&
+					(target.name.endsWith('.emUsedQty') ||
+						target.name.endsWith('.dutyClaimed') ||
+						target.name.endsWith('.cifClaimed'))) {
+
+					recalcWorksheetFromExports();
+				}
+			});
+
+			// Initial calculation on load
+			document.addEventListener('DOMContentLoaded', recalcWorksheetFromExports);
+
+			// Prevent form submit if Used > Opening
+			document.addEventListener("DOMContentLoaded", () => {
+				const form = document.querySelector('form');
+				if (!form) return;
+
+				form.addEventListener("submit", function (e) {
+					if (!isUsedValid) {
+						e.preventDefault();
+						alert("Used Quantity cannot be greater than Opening Balance!");
+					}
+				});
+			});
+
+		})();
+	</script>
+
+
+
+
+
+	<script type="text/javascript" src="/assets/plugins/jquery/dist/jquery.min.js"></script>
+	<script type="text/javascript" src="/assets/plugins/jquery-ui/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="/assets/plugins/tether/dist/js/tether.min.js"></script>
+	<script type="text/javascript" src="/assets/plugins/bootstrap/dist/js/bootstrap.min.js"></script>
+	<!-- jquery slimscroll js -->
+	<script type="text/javascript" src="/assets/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
+	<!-- modernizr js -->
+	<script type="text/javascript" src="/assets/plugins/modernizr/modernizr.js"></script>
+	<script type="text/javascript" src="/assets/plugins/modernizr/feature-detects/css-scrollbars.js"></script>
+	<!-- Bootstrap date-time-picker js -->
+	<script type="text/javascript" src="/assets/pages/advance-elements/moment-with-locales.min.js"></script>
+	<!--<script type="text/javascript" src="assets/pages/advance-elements/bootstrap-datetimepicker.min.js"></script>-->
+	<!-- Custom js -->
+	<script type="text/javascript" src="/assets/js/script.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+	<script src="/assets/pages/user-profile.js"></script>
+	<script src="/assets/js/pcoded.min.js"></script>
+	<script src="/assets/js/demo-12.js"></script>
+	<script src="/assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
+	<script src="/assets/js/jquery.mousewheel.min.js"></script>
+
+
+</body>
+
+</html>

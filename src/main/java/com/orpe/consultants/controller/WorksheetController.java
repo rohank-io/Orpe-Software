@@ -16,10 +16,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.orpe.consultants.dto.DraftWorksheetDTO;
@@ -38,6 +42,7 @@ import com.orpe.consultants.service.WorksheetService;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.ConstraintViolationException;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -85,24 +90,19 @@ public class WorksheetController {
 
 		return "worksheetDataSelect";
 	}
-	
-	 @PostMapping("/worksheet/importdata/export")
-	    public void exportImportDataToExcel(
-	            @RequestParam("importIds") List<Long> importIds,
-	            HttpServletResponse response,
-	            HttpSession session) throws IOException {
 
+	@PostMapping("/worksheet/importdata/export")
+	public void exportImportDataToExcel(@RequestParam("importIds") List<Long> importIds, HttpServletResponse response,
+			HttpSession session) throws IOException {
 
+		if (importIds == null || importIds.isEmpty()) {
+			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "No import IDs provided");
+			return;
+		}
 
-	        if (importIds == null || importIds.isEmpty()) {
-	            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "No import IDs provided");
-	            return;
-	        }
-
-	        // Delegate to service
-	        importDataService.exportImportDataToExcel(importIds, response);
-	    }
-	
+		// Delegate to service
+		importDataService.exportImportDataToExcel(importIds, response);
+	}
 
 	@PostMapping("/worksheet/importdata/edit")
 	public String editSelectedImportData(
@@ -200,25 +200,25 @@ public class WorksheetController {
 
 		return "worksheetDataList";
 	}
-	
-	
+
 	@GetMapping("/worksheets/claims/list")
-    public String viewWorksheetGroups(Model model,HttpSession session) {
+	public String viewWorksheetGroups(Model model, HttpSession session) {
 		User loggedInUser = (User) session.getAttribute("loggedInUser");
 		if (loggedInUser == null) {
 			return "redirect:/login";
 		}
 		model.addAttribute("user", loggedInUser);
-        try {
-            List<Map<String, Object>> groups = worksheetService.getAllWorksheetGroups();
-            model.addAttribute("worksheetGroups", groups != null ? groups : Collections.emptyList());
-        } catch (Exception ex) {
-            log.error("Error loading worksheet groups for view", ex);
-            model.addAttribute("worksheetGroups", Collections.emptyList());
-            model.addAttribute("errorMessage", "Unable to load worksheet groups at the moment.");
-        }
-        return "worksheetDataClaimWise"; // adjust to your Thymeleaf template path: src/main/resources/templates/worksheets/groups.html
-    }
+		try {
+			List<Map<String, Object>> groups = worksheetService.getAllWorksheetGroups();
+			model.addAttribute("worksheetGroups", groups != null ? groups : Collections.emptyList());
+		} catch (Exception ex) {
+			log.error("Error loading worksheet groups for view", ex);
+			model.addAttribute("worksheetGroups", Collections.emptyList());
+			model.addAttribute("errorMessage", "Unable to load worksheet groups at the moment.");
+		}
+		return "worksheetDataClaimWise"; // adjust to your Thymeleaf template path:
+											// src/main/resources/templates/worksheets/groups.html
+	}
 
 	@PostMapping("/worksheet/saveDraft")
 	public ResponseEntity<?> saveDraft(@RequestBody List<DraftWorksheetDTO> draftWorksheetDTOList,
@@ -254,68 +254,61 @@ public class WorksheetController {
 					.body("Error during draft save: " + e.getMessage());
 		}
 	}
-	
-	
-    @GetMapping("/worksheet/selected")
-    public String listWorksheetsForGroup(
-            @RequestParam String username,
-            @RequestParam String claimRefNo,
-            @RequestParam String claimYear,
-            @RequestParam(required = false) String filterField,
-            @RequestParam(required = false) String filterValue,
-            @RequestParam(required = false)
-            @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fromDate,
-            @RequestParam(required = false)
-            @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate toDate,
-            HttpSession session,
-            Model model) {
 
-        // 1. LOGIN CHECK
-        User loggedInUser = (User) session.getAttribute("loggedInUser");
-        if (loggedInUser == null) {
-            log.warn("Unauthenticated access to /worksheet/selected — redirecting to login.");
-            return "redirect:/login";
-        }
+	@GetMapping("/worksheet/selected")
+	public String listWorksheetsForGroup(@RequestParam String username, @RequestParam String claimRefNo,
+			@RequestParam String claimYear, @RequestParam(required = false) String filterField,
+			@RequestParam(required = false) String filterValue,
+			@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fromDate,
+			@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate toDate,
+			HttpSession session, Model model) {
 
-        // 2. ROLE CHECK (optional but recommended)
-        // If not admin, force username = loggedInUser.getUsername()
-        if (loggedInUser.getRole() != User.Role.ADMIN) {
-            username = loggedInUser.getUsername();
-        }
+		// 1. LOGIN CHECK
+		User loggedInUser = (User) session.getAttribute("loggedInUser");
+		if (loggedInUser == null) {
+			log.warn("Unauthenticated access to /worksheet/selected — redirecting to login.");
+			return "redirect:/login";
+		}
 
-        // 3. Build filter object
-        WorksheetDataFilter filter = new WorksheetDataFilter();
-        filter.setFilterField(filterField);
-        filter.setFilterValue(filterValue);
-        filter.setFromDate(fromDate);
-        filter.setToDate(toDate);
+		// 2. ROLE CHECK (optional but recommended)
+		// If not admin, force username = loggedInUser.getUsername()
+		if (loggedInUser.getRole() != User.Role.ADMIN) {
+			username = loggedInUser.getUsername();
+		}
 
-        // 4. Fetch records with filters
-        List<WorksheetDTO> worksheetList =
-                worksheetService.getWorksheetByUserAndClaimRefAndYear(username, claimRefNo, claimYear, filter);
+		// 3. Build filter object
+		WorksheetDataFilter filter = new WorksheetDataFilter();
+		filter.setFilterField(filterField);
+		filter.setFilterValue(filterValue);
+		filter.setFromDate(fromDate);
+		filter.setToDate(toDate);
 
-        int count = worksheetList != null ? worksheetList.size() : 0;
+		// 4. Fetch records with filters
+		List<WorksheetDTO> worksheetList = worksheetService.getWorksheetByUserAndClaimRefAndYear(username, claimRefNo,
+				claimYear, filter);
 
-        // 5. Add data to model
-        model.addAttribute("worksheetList", worksheetList);
-        model.addAttribute("selectedUsername", username);
-        model.addAttribute("claimRefNo", claimRefNo);
-        model.addAttribute("claimYear", claimYear);
-        model.addAttribute("count", count);
+		int count = worksheetList != null ? worksheetList.size() : 0;
 
-        // Also pass filter values back to the view so UI remembers them
-        model.addAttribute("filterField", filterField);
-        model.addAttribute("filterValue", filterValue);
-        model.addAttribute("fromDate", fromDate);
-        model.addAttribute("toDate", toDate);
+		// 5. Add data to model
+		model.addAttribute("worksheetList", worksheetList);
+		model.addAttribute("selectedUsername", username);
+		model.addAttribute("claimRefNo", claimRefNo);
+		model.addAttribute("claimYear", claimYear);
+		model.addAttribute("count", count);
 
-        log.info("Loaded {} worksheet(s) for user={}, refNo={}, year={} with filterField='{}', filterValue='{}', fromDate={}, toDate={}",
-                count, username, claimRefNo, claimYear, filterField, filterValue, fromDate, toDate);
+		// Also pass filter values back to the view so UI remembers them
+		model.addAttribute("filterField", filterField);
+		model.addAttribute("filterValue", filterValue);
+		model.addAttribute("fromDate", fromDate);
+		model.addAttribute("toDate", toDate);
 
-        // 6. Return the view
-        return "worksheetDataUserwise";
-    }
+		log.info(
+				"Loaded {} worksheet(s) for user={}, refNo={}, year={} with filterField='{}', filterValue='{}', fromDate={}, toDate={}",
+				count, username, claimRefNo, claimYear, filterField, filterValue, fromDate, toDate);
 
+		// 6. Return the view
+		return "worksheetDataUserwise";
+	}
 
 	@PostMapping("/draftworksheet/updateBulk")
 	public ResponseEntity<?> updateBulkDrafts(@RequestBody List<DraftWorksheetDTO> drafts) {
@@ -345,46 +338,41 @@ public class WorksheetController {
 
 		return "worksheetDraftList"; // or whichever Thymeleaf view you use for drafts
 	}
-	
-	
+
 	// --- LIST PAGE FOR A SINGLE GROUP ---
-    @GetMapping("/draftworksheet/selected")
-    public String listDraftsForGroup(@RequestParam String username,
-                                     @RequestParam String claimRefNo,
-                                     @RequestParam String claimYear,
-                                     HttpSession session,
-                                     Model model) {
+	@GetMapping("/draftworksheet/selected")
+	public String listDraftsForGroup(@RequestParam String username, @RequestParam String claimRefNo,
+			@RequestParam String claimYear, HttpSession session, Model model) {
 
-        // 1. LOGIN CHECK
-        User loggedInUser = (User) session.getAttribute("loggedInUser");
-        if (loggedInUser == null) {
-            log.warn("Unauthenticated access to /draftworksheet/list — redirecting to login.");
-            return "redirect:/login";
-        }
+		// 1. LOGIN CHECK
+		User loggedInUser = (User) session.getAttribute("loggedInUser");
+		if (loggedInUser == null) {
+			log.warn("Unauthenticated access to /draftworksheet/list — redirecting to login.");
+			return "redirect:/login";
+		}
 
-        // 2. ROLE CHECK (optional)
-        // Allow ADMIN or the owner (username match)
-       
-        // 3. Fetch the draft records
-        List<DraftWorksheet> draftList = draftWorksheetService.getDraftsByUserAndClaimRefAndYear(username, claimRefNo, claimYear);
+		// 2. ROLE CHECK (optional)
+		// Allow ADMIN or the owner (username match)
 
-        // 4. Add data to model
-        model.addAttribute("draftList", draftList);
-        model.addAttribute("selectedUsername", username);
-        model.addAttribute("claimRefNo", claimRefNo);
-        model.addAttribute("claimYear", claimYear);
-        model.addAttribute("count", draftList != null ? draftList.size() : 0);
+		// 3. Fetch the draft records
+		List<DraftWorksheet> draftList = draftWorksheetService.getDraftsByUserAndClaimRefAndYear(username, claimRefNo,
+				claimYear);
 
-        log.info("Loaded {} draft worksheet(s) for user={}, refNo={}, year={}", 
-        		draftList.size(), username, claimRefNo, claimYear);
+		// 4. Add data to model
+		model.addAttribute("draftList", draftList);
+		model.addAttribute("selectedUsername", username);
+		model.addAttribute("claimRefNo", claimRefNo);
+		model.addAttribute("claimYear", claimYear);
+		model.addAttribute("count", draftList != null ? draftList.size() : 0);
 
-        // 5. Return the list page
-        return "worksheetDraftSelected";
-    }
-    
-    
-    
-    @GetMapping("/drafts")
+		log.info("Loaded {} draft worksheet(s) for user={}, refNo={}, year={}", draftList.size(), username, claimRefNo,
+				claimYear);
+
+		// 5. Return the list page
+		return "worksheetDraftSelected";
+	}
+
+	@GetMapping("/drafts")
 	public String draftWorksheet(HttpSession session, Model model) {
 		// Authentication check
 		User loggedInUser = (User) session.getAttribute("loggedInUser");
@@ -393,12 +381,44 @@ public class WorksheetController {
 		}
 		model.addAttribute("user", loggedInUser);
 
-		 List<Map<String, Object>> draftGroups = draftWorksheetService.getAllDraftGroups();
-	        model.addAttribute("draftGroups", draftGroups);
-
+		List<Map<String, Object>> draftGroups = draftWorksheetService.getAllDraftGroups();
+		model.addAttribute("draftGroups", draftGroups);
 
 		return "worksheetDraft"; // or whichever Thymeleaf view you use for drafts
 	}
+
+	// Edit Worksheet ********************
+	@GetMapping("/worksheetdata/edit/{id}")
+	public String showEditForm(@PathVariable("id") Long worksheetId, Model model) {
+
+		WorksheetDTO worksheet = worksheetService.getWorksheetWithExportModels(worksheetId);
+		model.addAttribute("worksheet", worksheet);
+		model.addAttribute("worksheetId", worksheetId); 
+		return "editWorksheetData";
+	}
+
+	@PostMapping("/worksheetdata/edit/{id}")
+	public String updateWorksheet(@PathVariable("id") Long worksheetId,
+	                              @Valid @ModelAttribute("worksheet") WorksheetDTO worksheetDto,
+	                              BindingResult bindingResult,
+	                              @RequestParam("username") String username,
+	                              @RequestParam("claimRefNo") String claimRefNo,
+	                              @RequestParam("claimYear") String claimYear,
+	                              RedirectAttributes redirectAttributes) {
+
+	    if (bindingResult.hasErrors()) {
+	        return "worksheet/edit";
+	    }
+
+	    worksheetDto.setWorksheetId(worksheetId);
+	    worksheetService.updateWorksheet(worksheetDto);
+
+	    redirectAttributes.addFlashAttribute("successMessage", "Worksheet updated successfully");
+
+	    return "redirect:/worksheet/selected?username=" + username
+	           + "&claimRefNo=" + claimRefNo
+	           + "&claimYear=" + claimYear;
+	}
+
+
 }
-
-

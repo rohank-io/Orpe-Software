@@ -66,6 +66,10 @@ public class Worksheet {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "bom_part_no", nullable = false)
     private Material material;
+    
+    @Column(name = "alt_boe_part_no", length = 100)
+    @Size(max = 100)
+    private String altBoePartNo;
 
     @Column(name = "dbk_part_no", length = 100)
     @Size(max = 100)
@@ -160,6 +164,9 @@ public class Worksheet {
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime createdAt;
+    
+    @Column(name = "remark",length = 500)
+    private String remark;
     
     @Column(name = "username")
     private String username;

@@ -41,8 +41,14 @@
 	<link rel="stylesheet" type="text/css" href="/assets/css/simple-line-icons.css">
 	<link rel="stylesheet" type="text/css" href="/assets/css/ionicons.css">
 	<link rel="stylesheet" type="text/css" href="/assets/css/jquery.mCustomScrollbar.css">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" />
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+	<style>
+		.row-select {
+			transform: scale(1.1);
+			cursor: pointer;
+		}
+	</style>
+
 </head>
 
 <body>
@@ -163,7 +169,7 @@
 								</li>
 							</ul>
 							<ul class="pcoded-item pcoded-left-item">
-								<li class="pcoded-hasmenu active">
+								<li class="pcoded-hasmenu ">
 									<a href="javascript:void(0)">
 										<span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i></span>
 										<span class="pcoded-mtext">All Data</span>
@@ -187,7 +193,7 @@
 										<li class=" ">
 											<a th:href="@{/bomdata/list}">
 												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-												<span class="pcoded-mtext">BOM 1</span>
+												<span class="pcoded-mtext">BOM</span>
 												<span class="pcoded-mcaret"></span>
 											</a>
 										</li>
@@ -221,7 +227,7 @@
 
 									</ul>
 								</li>
-								<li class="pcoded-hasmenu">
+								<li class="pcoded-hasmenu active">
 									<a href="javascript:void(0)">
 										<span class="pcoded-micon"><i class="ti-crown"></i></span>
 										<span class="pcoded-mtext">Advance Calculations</span>
@@ -353,8 +359,8 @@
 								<div class="page-wrapper">
 									<div class="page-header">
 										<div class="page-header-title">
-											<h3>All BOM Claim Data</h3>
-											<span>List of all BOM2</span>
+											<h3>Sb Wise DBK Calculation</h3>
+											<span>List of all exported materials</span>
 										</div>
 										<div class="page-header-breadcrumb">
 											<ul class="breadcrumb-title">
@@ -363,9 +369,9 @@
 														<i class="icofont icofont-home"></i>
 													</a>
 												</li>
-												<li class="breadcrumb-item"><a th:href="@{/}">BOM2</a>
+												<li class="breadcrumb-item"><a th:href="@{/}">DBK Calculation</a>
 												</li>
-												<li class="breadcrumb-item"><a href="#!">List</a>
+												<li class="breadcrumb-item"><a href="#!">Edit</a>
 												</li>
 
 											</ul>
@@ -373,13 +379,6 @@
 									</div>
 									<div class="page-body">
 										<!-- Profile Header Section (unchanged) -->
-										<div class="">
-
-											<button type="button" onclick="window.history.back()"
-												class="btn btn-primary m-r-10 m-b-5">
-												<i class="icofont icofont-reply"></i> Back
-											</button>
-										</div>
 
 										<div class="row">
 											<div class="col-xs-12 col-sm-12 col-lg-12">
@@ -388,52 +387,18 @@
 												<div class="card">
 													<!-- personal card start -->
 													<div class="card-header">
-														<h5>BOM 2 List</h5>
-														<span>List of all BOM 2</span>
+														<h5>DBK Calculation</h5>
+														<span>Edit Selected Data</span>
 														<div class="card-header-right">
 															<i class="icofont icofont-rounded-down"></i>
-															<a th:href="@{/bomclaimdata/list}">
-																<i class="icofont icofont-refresh"></i>
+															<a th:href="@{/}">
+
 															</a>
 														</div>
 													</div>
 													<div class="card-block table-border-style">
 														<div class="d-flex justify-content-end">
-															<form th:action="@{/bomclaimdata/list}" method="get"
-																class="d-flex align-items-center gap-2 m-3 flex-nowrap"
-																style="max-width:400px;">
-																<select name="filterField" id="filterField"
-																	class="form-control form-control-sm mr-2"
-																	style="width:110px; min-width:90px;" required
-																	onchange="updateInputType();">
-																	<option th:selected="${filterField == null}"
-																		value="" disabled selected>Sort By</option>
-																	<option th:selected="${filterField == 'bomPartNo'}"
-																		value="bomPartNo">BOM Part No</option>
-																	<option th:selected="${filterField == 'clientName'}"
-																		value="clientName">Client Name</option>
-																	<option th:selected="${filterField == 'claimRefNo'}"
-																		value="claimRefNo">ClaimRefNo</option>
 
-																	<option th:selected="${filterField == 'claimYear'}"
-																		value="claimYear">Claim Year</option>
-
-
-																	<!-- add more fields as needed -->
-																</select>
-
-																<input type="text" name="filterValue" id="filterValue"
-																	th:value="${filterValue}" placeholder="Value"
-																	class="form-control form-control-sm mr-2"
-																	style="width:140px; min-width:120px;" required />
-
-																<button type="submit"
-																	class="btn btn-sm btn-primary waves-effect waves-light f-right"
-																	title="Filter" style="height:32px;">
-																	<i class="icofont icofont-search"
-																		style="font-size: 1.2rem;"></i>
-																</button>
-															</form>
 														</div>
 
 
@@ -443,133 +408,205 @@
 														<!-- Data Table style="max-height: 520px; overflow:auto;" -->
 														<div class="table-responsive"
 															style="max-height: 520px; overflow:auto;">
-															<table id="bomTable"
+
+															<table id="calculationTable"
 																class="table table-hover table-sm table-bordered">
 																<thead class="table-light sticky-top"
-																	style="background-color: #fff; z-index: 1020;">
+																	style="background-color:#fff; z-index:1020;">
 																	<tr>
-
-																		<!-- Toggle Button -->
-																		<th>Sr No. </th> <!-- Serial Number -->
-																		<th>Claim Ref No</th>
-																		<th>Claim Year</th>
-
-																		<th>Material Description</th>
-																		<th>BOM Part No.</th>
-																		<th>Alt BOE Part</th>
-																		<th>DBK Part No.</th>
-																		<th>Imp\Indg</th>
-																		<th>Unit</th>
-																		<th>BOE No</th>
-																		<th>Used QTY</th>
-																		<th>Model No.</th>
-																		<th>SB No.</th>
-
-
-
-																		<th>Client Name</th>
-
-																		<!-- Action -->
-																		<th class="text-center">Action</th>
-
-
+																		<th>SL NO</th>
+																		<th>Port Code</th>
+																		<th>Shipping Bill No</th>
+																		<th>Date</th>
+																		<th>LEO Date</th>
+																		<th>Description of Export product</th>
+																		<th>QUANTITY</th>
+																		<th>UNIT</th>
+																		<th>DBK SNO.</th>
+																		<th>FOB Value</th>
+																		<th>PMV Value</th>
+																		<th>Imp Quantity</th>
+																		<th>Consumption for 1 Exp.Qty</th>
+																		<th>Total Duty</th>
+																		<th>Total CIF Value</th>
+																		<th>DBK Amt</th>
+																		<th>CIF Value</th>
+																		<th>AIR Rate</th>
+																		<th>Air Amount</th>
+																		<th>SBR</th>
+																		<th>4/5 of BRoD(Main Claim)</th>
+																		<th>Diff BRoD - AIR</th>
+																		<th>Value addition</th>
 																	</tr>
 																</thead>
+
 																<tbody>
-																	<th:block
-																		th:each="bom, stat : ${bomDataPage.content}">
-																		<tr th:id="'bomRow' + ${stat.index}">
+																	<tr
+																		th:if="${calculationRows == null || #lists.isEmpty(calculationRows)}">
+																		<td colspan="23" class="text-center text-muted">
+																			No records found.</td>
+																	</tr>
 
+																	<tr th:each="row, stat : ${calculationRows}">
+																		<!-- SL NO -->
+																		<td class="text-center"
+																			th:text="${stat.index + 1}">1</td>
 
+																		<td data-col="portCode" contenteditable="true"
+																			th:text="${row.portCode}">Port Code</td>
+																		<td data-col="sbNo" contenteditable="true"
+																			th:text="${row.shippingBillNo}">SB No</td>
+																		<td data-col="sbDate" contenteditable="true"
+																			th:text="${row.shippingBillDate != null ? #temporals.format(row.shippingBillDate, 'dd-MM-yyyy') : ''}">
+																			Date</td>
+																		<td data-col="leoDate" contenteditable="true"
+																			th:text="${row.leoDate != null ? #temporals.format(row.leoDate, 'dd-MM-yyyy') : ''}">
+																			LEO</td>
+																		<td data-col="description"
+																			contenteditable="true"
+																			th:text="${row.exportDescription}">
+																			Description</td>
 
-																			<td
-																				th:text="${bomDataPage.number * bomDataPage.size + stat.index + 1}">
-																			</td>
+																		<td class="text-end" data-col="quantity"
+																			contenteditable="true"
+																			th:text="${#numbers.formatDecimal(row.quantity, 1, 'COMMA', 2, 'POINT')}">
+																			Qty</td>
 
+																		<td data-col="unit" contenteditable="true"
+																			th:text="${row.unit}">Unit</td>
+																		<td data-col="dbkSno" contenteditable="true"
+																			th:text="${row.dbkSno}">DBK SNO</td>
 
-																			<td th:text="${bom.claimRefNo}"></td>
-																			<td th:text="${bom.claimYear}"></td>
-																			<td th:text="${bom.materialDescription}">
-																			</td>
-																			<td th:text="${bom.bomPartNo}"></td>
+																		<!-- J: FOB Value -->
+																		<td class="text-end" data-col="fob"
+																			contenteditable="true"
+																			th:text="${#numbers.formatDecimal(row.fobValue, 2, 'COMMA', 2, 'POINT')}">
+																			FOB</td>
 
+																		<!-- K: PMV Value -->
+																		<td class="text-end" data-col="pmv"
+																			contenteditable="true"
+																			th:text="${#numbers.formatDecimal(row.pmvValue, 2, 'COMMA', 2, 'POINT')}">
+																			PMV</td>
 
-																			<td th:text="${bom.altBoePartNo}">
-																			</td>
-																			<td th:text="${bom.dbkPartNo}"></td>
-																			<td th:text="${bom.importedOrIndigenous}">
-																			</td>
-																			<td th:text="${bom.unit}">
-																			</td>
-																			<td th:text="${bom.boeNo}"></td>
-																			<td th:text="${bom.usedQty}"></td>
-																			<td th:text="${bom.exportModelNo}"></td>
-																			<td th:text="${bom.sbNo}"></td>
-																			<td th:text="${bom.clientName}"></td>
-																			<td>
-																				<a th:href="@{/bomclaimdata/delete/{id}(id=${bom.claimId}, filterField=${filterField}, filterValue=${filterValue}, page=${currentPage}, size=${pageSize})}"
-																					onclick="return confirm('Are you sure you want to delete this record?')"
-																					class="btn btn-danger btn-sm btn-round btn-outline-danger">Delete</a>
-																			</td>
+																		<!-- L: Imp Quantity -->
+																		<td class="text-end" data-col="impQty"
+																			contenteditable="true"
+																			th:text="${#numbers.formatDecimal(row.importQuantity, 2, 'COMMA', 2, 'POINT')}">
+																			Imp Qty</td>
 
+																		<!-- M: Consumption per Export Qty -->
+																		<td class="text-end" data-col="consumption"
+																			contenteditable="true"
+																			th:text="${#numbers.formatDecimal(row.consumptionPerExportQty, 6, 'COMMA', 6, 'POINT')}">
+																			Consumption</td>
 
-																		</tr>
+																		<!-- N: Total Duty -->
+																		<td class="text-end" data-col="totalDuty"
+																			contenteditable="true"
+																			th:text="${#numbers.formatDecimal(row.totalDuty, 2, 'COMMA', 2, 'POINT')}">
+																			Total Duty</td>
 
-																	</th:block>
+																		<!-- O: Total CIF -->
+																		<td class="text-end" data-col="totalCif"
+																			contenteditable="true"
+																			th:text="${#numbers.formatDecimal(row.totalCifValue, 2, 'COMMA', 2, 'POINT')}">
+																			Total CIF</td>
+
+																		<!-- P: DBK Amt (computed) -->
+																		<td class="text-end" data-col="dbkAmt"
+																			contenteditable="true"
+																			th:text="${#numbers.formatDecimal(row.dbkAmount, 2, 'COMMA', 2, 'POINT')}">
+																			DBK Amt</td>
+
+																		<!-- Q: CIF Value (computed) -->
+																		<td class="text-end" data-col="cifValue"
+																			contenteditable="true"
+																			th:text="${#numbers.formatDecimal(row.cifValue, 2, 'COMMA', 2, 'POINT')}">
+																			CIF Value</td>
+
+																		<!-- R: AIR Rate -->
+																		<td class="text-end" data-col="airRate"
+																			contenteditable="true"
+																			th:text="${#numbers.formatDecimal(row.airRate, 4, 'COMMA', 4, 'POINT')}">
+																			AIR Rate</td>
+
+																		<!-- S: Air Amount -->
+																		<td class="text-end" data-col="airAmount"
+																			contenteditable="true"
+																			th:text="${#numbers.formatDecimal(row.airAmount, 2, 'COMMA', 2, 'POINT')}">
+																			Air Amount</td>
+
+																		<!-- T: SBR (computed) -->
+																		<td class="text-end" data-col="sbr"
+																			contenteditable="true"
+																			th:text="${#numbers.formatDecimal(row.sbr, 6, 'COMMA', 6, 'POINT')}">
+																			SBR</td>
+
+																		<!-- U: 4/5 of BRoD (computed) -->
+																		<td class="text-end" data-col="brodFourFifth"
+																			contenteditable="true"
+																			th:text="${#numbers.formatDecimal(row.fourFifthOfBrodMainClaim, 2, 'COMMA', 2, 'POINT')}">
+																			4/5 BRoD</td>
+
+																		<!-- V: Diff BRoD - AIR (computed) -->
+																		<td class="text-end" data-col="diffBrodAir"
+																			contenteditable="true"
+																			th:text="${#numbers.formatDecimal(row.diffBrodAndAir, 2, 'COMMA', 2, 'POINT')}">
+																			Diff</td>
+
+																		<!-- W: Value Addition (computed % or amount as your formula) -->
+																		<td class="text-end" data-col="valueAddition"
+																			contenteditable="true"
+																			th:text="${#numbers.formatDecimal(row.valueAddition, 2, 'COMMA', 2, 'POINT')}">
+																			Value Addition</td>
+																	</tr>
+
 																</tbody>
 															</table>
-
 														</div>
 
+													</div>
 
-														<!-- Pagination controls -->
-														<nav aria-label="Page navigation" class="mt-3 ml-3">
-															<ul class="pagination justify-content-center">
 
-																<!-- Previous button -->
-																<li class="page-item"
-																	th:classappend="${bomDataPage.first} ? 'disabled'">
-																	<a class="page-link"
-																		th:href="@{/bomclaimdata/list(page=${bomDataPage.number - 1}, size=${bomDataPage.size})}">Previous</a>
-																</li>
-																<li class="page-item"
-																	th:each="i : ${#numbers.sequence(0, bomDataPage.totalPages - 1)}"
-																	th:classappend="${i == bomDataPage.number} ? 'active'">
-																	<a class="page-link"
-																		th:href="@{/bomclaimdata/list(page=${i}, size=${bomDataPage.size})}"
-																		th:text="${i + 1}">1</a>
-																</li>
-																<li class="page-item"
-																	th:classappend="${bomDataPage.last} ? 'disabled'">
-																	<a class="page-link"
-																		th:href="@{/bomclaimdata/list(page=${bomDataPage.number + 1}, size=${bomDataPage.size})}">Next</a>
-																</li>
-															</ul>
-														</nav>
+													<!-- Pagination controls -->
 
+
+													<div class="text-center">
+
+														<button type="button"
+															class="btn btn-info waves-effect waves-light m-r-5 m-b-5"
+															style="width: 150px;"> <i
+																class="bi bi-file-earmark-excel"></i> Save
+														</button>
 
 
 													</div>
 
+
+
+
 												</div>
+
 											</div>
-											<!-- tab content end -->
-
 										</div>
-									</div>
+										<!-- tab content end -->
 
+									</div>
 								</div>
 
-
 							</div>
-						</div>
-						<!--<div id="styleSelector">-->
 
-						<!--</div>-->
+
+						</div>
 					</div>
+					<!--<div id="styleSelector">-->
+
+					<!--</div>-->
 				</div>
 			</div>
 		</div>
+	</div>
 	</div>
 	<div class="fixed-button">
 		<a th:href="@{/index}" class="btn btn-primary" aria-hidden="true">Home</a>
@@ -577,9 +614,146 @@
 	</div>
 
 	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+
+			// helper: parse number from cell text (handles commas). returns BigDecimal-like JS Number
+			function parseNum(str) {
+				if (str === null || str === undefined) return 0;
+				const s = String(str).trim().replace(/,/g, '');
+				if (s === '' || s === '-') return 0;
+				const n = Number(s);
+				return isNaN(n) ? 0 : n;
+			}
+
+			// helper: format number for display (2 decimals default, allow customizing)
+			function fmt(n) {
+				if (n === null || n === undefined) n = 0;
+				return Number(n).toLocaleString(undefined, {
+					minimumFractionDigits: 2,
+					maximumFractionDigits: 2
+				});
+			}
 
 
+			// compute per row using your formulas
+			function recomputeRow(tr) {
+				// find cells by data-col
+				const get = (name) => tr.querySelector('[data-col="' + name + '"]');
 
+				const cellJ = get('fob');     // J
+				const cellL = get('impQty');  // L
+				const cellM = get('consumption'); // M
+				const cellN = get('totalDuty');   // N
+				const cellO = get('totalCif');    // O
+				const cellP = get('dbkAmt');      // P (computed)
+				const cellQ = get('cifValue');    // Q (computed)
+				const cellS = get('airAmount');   // S
+				const cellT = get('sbr');         // T (computed per requested formula)
+				const cellU = get('brodFourFifth');
+				const cellV = get('diffBrodAir');
+				const cellW = get('valueAddition');
+
+				// read numeric values (raw)
+				const J = parseNum(cellJ.textContent || cellJ.dataset.value);
+				const L = parseNum(cellL.textContent || cellL.dataset.value);
+				const M = parseNum(cellM.textContent || cellM.dataset.value);
+				const N = parseNum(cellN.textContent || cellN.dataset.value);
+				const O = parseNum(cellO.textContent || cellO.dataset.value);
+				const S = parseNum(cellS.textContent || cellS.dataset.value);
+
+				// compute P = (N / L) * M
+				let Pval = 0;
+				if (L !== 0) Pval = (N / L) * M;
+
+				// compute Q = (O / L) * M
+				let Qval = 0;
+				if (L !== 0) Qval = (O / L) * M;
+
+				// T = P - S
+				let Tval = Pval - S;
+
+				// U = P * 4/5
+				let Uval = Pval * 0.8;
+
+				// V = U - S
+				let Vval = Uval - S;
+
+				// W = (J - Q) / Q * 100  (guard Q != 0)
+				let Wval = 0;
+				if (Qval !== 0) Wval = ((J - Qval) / Qval) * 100;
+
+				// write back (update both data-value and displayed text formatted)
+				const write = (cell, value, decimals = 2) => {
+					if (!cell) return;
+					cell.dataset.value = String(value ?? 0);
+					cell.textContent = fmt(value ?? 0, decimals);
+				};
+
+				write(cellP, Pval);
+				write(cellQ, Qval);
+				write(cellT, Tval);
+				write(cellU, Uval);
+				write(cellV, Vval);
+				write(cellW, Wval);
+
+			}
+
+			// initialize: set data-value from the current text of all rows
+			function initRowData(tr) {
+				tr.querySelectorAll('td[data-col]').forEach(td => {
+					// store raw numeric if td looks numeric; else keep text also in data-value
+					const txt = td.textContent.trim();
+					const num = parseNum(txt);
+					// If the original text has non-digit characters (letters) we still store text and number 0
+					td.dataset.value = String(num);
+					// keep formatted text as-is (don't change)
+				});
+
+				// compute derived columns for initial display
+				recomputeRow(tr);
+			}
+
+			// wire events: when any contenteditable cell changes, recompute the row
+			function wireRowListeners(tr) {
+				tr.querySelectorAll('td[data-col]').forEach(td => {
+					// ignore SL NO cell as it has no data-col; all td with data-col are editable here
+					// listen to 'input' (for contentEditable) and 'blur' (user finished)
+					td.addEventListener('input', function () {
+						// update dataset value for the edited cell
+						const v = this.textContent.trim();
+						this.dataset.value = String(parseNum(v));
+						recomputeRow(tr);
+					});
+
+					// optional: format on blur
+					td.addEventListener('blur', function () {
+						// if this is a numeric column, reformat display to 2 decimals / 6 decimals for consumption
+						const col = this.dataset.col;
+						const val = parseNum(this.dataset.value);
+						if (col === 'consumption') {
+							this.textContent = fmt(val, 6);
+						} else if (['quantity'].includes(col)) {
+							this.textContent = fmt(val, 2);
+						} else {
+							this.textContent = fmt(val, 2);
+						}
+					});
+				});
+			}
+
+			// apply to all rows
+			const rows = Array.from(document.querySelectorAll('#calculationTable tbody tr'))
+				.filter(tr => tr.querySelector('[data-col]')); // skip "no records" row
+			rows.forEach(tr => {initRowData(tr); wireRowListeners(tr);});
+
+			// convenience: recalc all
+			window.recomputeAllCalculationRows = function () {
+				document.querySelectorAll('#calculationTable tbody tr').forEach(tr => {
+					if (tr.querySelector('[data-col]')) recomputeRow(tr);
+				});
+			};
+
+		});
 	</script>
 
 

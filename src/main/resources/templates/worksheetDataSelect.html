@@ -250,7 +250,7 @@
 											</a>
 										</li>
 										<li class=" ">
-											<a th:href="@{/work-in-progress}">
+											<a th:href="@{/dbkcalculation/dataselect}">
 												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
 												<span class="pcoded-mtext">SB wise DBK Calculation</span>
 												<span class="pcoded-mcaret"></span>
@@ -510,29 +510,38 @@
 																			</th>
 																			<th>BE No</th>
 																			<th>BE Date</th>
+																			<th>Month</th>
+																			<th>Year</th>
 																			<th>Client Name</th>
-
 																			<th>Claim Ref No</th>
 																			<th>Claim Year</th>
-
+																			<th>Port Code</th>
+																			<th>Country of Origin</th>
+																			<th>Supplier</th>
+																			<th>ITCHS</th>
 																			<th>Item Description</th>
-																			<th>BOM Part No</th>
-																			<th>Alt BOE No</th>
-
+																			<th>BOM Part</th>
+																			<th>Alt BOE Part</th>
 																			<th>DBK Part</th>
 																			<th class="text-end">Qty</th>
 																			<th>UOM</th>
 																			<th class="text-end">Assessable</th>
-
+																			<th class="text-end">BCD Rate(%)</th>
 																			<th class="text-end">BCD</th>
-
+																			<th class="text-end">SWS Rate(%)</th>
 																			<th class="text-end">SWS</th>
-
+																			<th class="text-end">Add Rate(%)</th>
 																			<th class="text-end">Add Duty</th>
-
+																			<th class="text-end">IGST Rate(%)</th>
+																			<th class="text-end">IGST</th>
+																			<th class="text-end">Total Duty</th>
+																			<th>Notification No</th>
+																			<th>Eligibility</th>
 																			<th class="text-end">Opening</th>
 																			<th class="text-end">Used</th>
 																			<th class="text-end">Closing</th>
+																			<th>Stock Eligibility</th>
+																			<th class="text-end">Duty Claimed</th>
 																			<th>Import ID</th>
 
 																		</tr>
@@ -562,16 +571,25 @@
 																			<td
 																				th:text="${#temporals.format(row.beDate, 'dd-MM-yyyy')}">
 																			</td>
-																			<td th:text="${row.clientName}">Clientname
+																			<td th:text="${row.beMonth}">Month</td>
+																			<td th:text="${row.beYear}">Year</td>
+																			<td th:text="${row.clientName}">Client Name
 																			</td>
 																			<td th:text="${row.claimRefNo}">Claim
 																				Ref No</td>
 																			<td th:text="${row.claimYear}">Claim
 																				Year</td>
 
+																			<td th:text="${row.portCode}">Port Code
+																			</td>
+																			<td th:text="${row.countryOfOrigin}">
+																				Country of Origin</td>
+																			<td th:text="${row.supplierNameAddress}">
+																				Supplier</td>
+																			<td th:text="${row.itchsCode}">ITCHS
+																			</td>
 																			<td th:text="${row.itemDescription}">
 																				Item Description</td>
-
 																			<td th:text="${row.bomPartNo}">BOM Part
 																			</td>
 																			<td th:text="${row.altBoePartNo}">Alt
@@ -585,20 +603,37 @@
 																			<td class="text-end"
 																				th:text="${#numbers.formatDecimal(row.assessableValue,1,'COMMA',2,'POINT')}">
 																				Assessable</td>
-
+																			<td class="text-end"
+																				th:text="${#numbers.formatDecimal(row.bcdRate,1,'COMMA',2,'POINT')}">
+																				BCD Rate</td>
 																			<td class="text-end"
 																				th:text="${#numbers.formatDecimal(row.bcd,1,'COMMA',2,'POINT')}">
 																				BCD</td>
-
+																			<td class="text-end"
+																				th:text="${#numbers.formatDecimal(row.swsRate,1,'COMMA',2,'POINT')}">
+																				SWS Rate</td>
 																			<td class="text-end"
 																				th:text="${#numbers.formatDecimal(row.sws,1,'COMMA',2,'POINT')}">
 																				SWS</td>
-
+																			<td class="text-end"
+																				th:text="${#numbers.formatDecimal(row.addRate,1,'COMMA',2,'POINT')}">
+																				Add Rate</td>
 																			<td class="text-end"
 																				th:text="${#numbers.formatDecimal(row.addDuty,1,'COMMA',2,'POINT')}">
 																				Add Duty</td>
-
-
+																			<td class="text-end"
+																				th:text="${#numbers.formatDecimal(row.igstRate,1,'COMMA',2,'POINT')}">
+																				IGST Rate</td>
+																			<td class="text-end"
+																				th:text="${#numbers.formatDecimal(row.igst,1,'COMMA',2,'POINT')}">
+																				IGST</td>
+																			<td class="text-end"
+																				th:text="${#numbers.formatDecimal(row.totalDuty,1,'COMMA',2,'POINT')}">
+																				Total Duty</td>
+																			<td th:text="${row.notnNo}">Notification
+																				No</td>
+																			<td th:text="${row.notnEligibility}">
+																				Eligibility</td>
 																			<td class="text-end"
 																				th:text="${#numbers.formatDecimal(row.qtyOpeningBalance,1,'COMMA',2,'POINT')}">
 																				Opening</td>
@@ -608,6 +643,11 @@
 																			<td class="text-end"
 																				th:text="${#numbers.formatDecimal(row.closingBalance,1,'COMMA',2,'POINT')}">
 																				Closing</td>
+																			<td th:text="${row.stockWiseEligibility}">
+																				Stock Eligibility</td>
+																			<td class="text-end"
+																				th:text="${#numbers.formatDecimal(row.dutyClaimedAmt,1,'COMMA',2,'POINT')}">
+																				Duty Claimed</td>
 
 																			<td th:text="${row.importId}">ImportId</td>
 
@@ -710,68 +750,68 @@
 	</div>
 
 	<script th:inline="javascript">
-	document.addEventListener("DOMContentLoaded", function () {
+		document.addEventListener("DOMContentLoaded", function () {
 
-	    const exportBtn = document.getElementById("exportExcelBtn");
-	    if (!exportBtn) return;
+			const exportBtn = document.getElementById("exportExcelBtn");
+			if (!exportBtn) return;
 
-	    // Safe CSRF extraction (will not break if _csrf is null)
-	    const csrfToken = /*[[${_csrf} != null ? _csrf.token : '' ]]*/ '';
-	    const csrfParam = /*[[${_csrf} != null ? _csrf.parameterName : '' ]]*/ '';
+			// Safe CSRF extraction (will not break if _csrf is null)
+			const csrfToken = /*[[${_csrf} != null ? _csrf.token : '' ]]*/ '';
+			const csrfParam = /*[[${_csrf} != null ? _csrf.parameterName : '' ]]*/ '';
 
-	    exportBtn.addEventListener("click", function () {
+			exportBtn.addEventListener("click", function () {
 
-	        // ✅ Only SELECTED rows now
-	        const selectedCheckboxes = document.querySelectorAll("#importTable .row-select:checked");
-	        const ids = [];
+				// ✅ Only SELECTED rows now
+				const selectedCheckboxes = document.querySelectorAll("#importTable .row-select:checked");
+				const ids = [];
 
-	        selectedCheckboxes.forEach(cb => {
-	            const id = cb.value;
-	            if (id && !isNaN(id)) {
-	                ids.push(id);
-	            }
-	        });
+				selectedCheckboxes.forEach(cb => {
+					const id = cb.value;
+					if (id && !isNaN(id)) {
+						ids.push(id);
+					}
+				});
 
-	        if (ids.length === 0) {
-	            if (typeof Swal !== "undefined") {
-	                Swal.fire({
-	                    icon: 'warning',
-	                    title: 'No Rows Selected',
-	                    text: 'Please select at least one record to export.',
-	                });
-	            } else {
-	                alert("Please select at least one record to export.");
-	            }
-	            return;
-	        }
+				if (ids.length === 0) {
+					if (typeof Swal !== "undefined") {
+						Swal.fire({
+							icon: 'warning',
+							title: 'No Rows Selected',
+							text: 'Please select at least one record to export.',
+						});
+					} else {
+						alert("Please select at least one record to export.");
+					}
+					return;
+				}
 
-	        // Build a temporary form to POST the IDs
-	        const form = document.createElement("form");
-	        form.method = "post";
-	        form.action = /*[[@{/worksheet/importdata/export}]]*/ "/worksheet/importdata/export";
+				// Build a temporary form to POST the IDs
+				const form = document.createElement("form");
+				form.method = "post";
+				form.action = /*[[@{/worksheet/importdata/export}]]*/ "/worksheet/importdata/export";
 
-	        // Add CSRF if present
-	        if (csrfToken && csrfParam) {
-	            const csrfInput = document.createElement("input");
-	            csrfInput.type = "hidden";
-	            csrfInput.name = csrfParam;
-	            csrfInput.value = csrfToken;
-	            form.appendChild(csrfInput);
-	        }
+				// Add CSRF if present
+				if (csrfToken && csrfParam) {
+					const csrfInput = document.createElement("input");
+					csrfInput.type = "hidden";
+					csrfInput.name = csrfParam;
+					csrfInput.value = csrfToken;
+					form.appendChild(csrfInput);
+				}
 
-	        // Add all selected importIds
-	        ids.forEach(id => {
-	            const input = document.createElement("input");
-	            input.type = "hidden";
-	            input.name = "importIds";
-	            input.value = id;
-	            form.appendChild(input);
-	        });
+				// Add all selected importIds
+				ids.forEach(id => {
+					const input = document.createElement("input");
+					input.type = "hidden";
+					input.name = "importIds";
+					input.value = id;
+					form.appendChild(input);
+				});
 
-	        document.body.appendChild(form);
-	        form.submit();
-	    });
-	});
+				document.body.appendChild(form);
+				form.submit();
+			});
+		});
 	</script>
 
 

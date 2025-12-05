@@ -61,53 +61,80 @@ public class ExportDataController {
 		return "uploadExportData"; // ✅ make sure this matches your template filename
 	}
 
+	/**
+	 * Show export data list with a single-field filter (filterField + filterValue).
+	 * Supported filterField values: sbNo, sbDateFrom, sbDateTo, claimYear,
+	 * customerName, portCode, claimRefNo, modelNo, dbkSno, sbUtilization
+	 */
 	@GetMapping("/exportdata/list")
-	public String showImportDataList(@RequestParam(required = false) String filterField,
+	public String showExportDataList(@RequestParam(required = false) String filterField,
 			@RequestParam(required = false) String filterValue, @RequestParam(defaultValue = "0") int page,
 			@RequestParam(defaultValue = "100") int size, HttpSession session, Model model) {
 
+		// Auth check
 		User loggedInUser = (User) session.getAttribute("loggedInUser");
 		if (loggedInUser == null) {
 			log.info("User not authenticated, redirecting to login page");
 			return "redirect:/login";
 		}
-
 		model.addAttribute("user", loggedInUser);
 
-		ExportDataFilter.ExportDataFilterBuilder filterBuilder = ExportDataFilter.builder();
+		// Build filter using builder pattern
+		ExportDataFilter.ExportDataFilterBuilder builder = ExportDataFilter.builder();
 
-		if (filterField != null && filterValue != null && !filterValue.isBlank()) {
-			switch (filterField) {
-			case "sbNo":
-				filterBuilder.sbNo(filterValue);
-				break;
-
-			case "sbDateFrom":
-				try {
-					LocalDate dateValue = LocalDate.parse(filterValue, DateTimeFormatter.ISO_DATE);
-					filterBuilder.sbDateFrom(dateValue);
-				} catch (DateTimeParseException e) {
-					// Log or handle invalid date format gracefully
-					log.warn("Invalid beDate format: " + filterValue);
+		if (filterField != null && filterValue != null) {
+			String v = filterValue.trim();
+			if (!v.isBlank()) {
+				switch (filterField) {
+				case "sbNo":
+					builder.sbNo(v);
+					break;
+				case "sbDateFrom":
+					try {
+						LocalDate from = LocalDate.parse(v, DateTimeFormatter.ISO_DATE);
+						builder.sbDateFrom(from);
+					} catch (DateTimeParseException ex) {
+						log.warn("Invalid sbDateFrom value: {}", v);
+					}
+					break;
+				case "sbDateTo":
+					try {
+						LocalDate to = LocalDate.parse(v, DateTimeFormatter.ISO_DATE);
+						builder.sbDateTo(to);
+					} catch (DateTimeParseException ex) {
+						log.warn("Invalid sbDateTo value: {}", v);
+					}
+					break;
+				case "claimYear":
+					builder.claimYear(v);
+					break;
+				case "customerName":
+					builder.customerName(v);
+					break;
+				case "portCode":
+					builder.portCode(v);
+					break;
+				case "claimRefNo":
+					builder.claimRefNo(v);
+					break;
+				case "modelNo":
+					builder.modelNo(v);
+					break;
+				case "dbkSno":
+					builder.dbkSno(v);
+					break;
+				case "sbUtilization":
+					builder.sbUtilization(v);
+					break;
+				default:
+					log.debug("Unknown filterField requested: {}", filterField);
 				}
-				break;
-				
-			case "sbDateTo":
-				try {
-					LocalDate dateValue = LocalDate.parse(filterValue, DateTimeFormatter.ISO_DATE);
-					filterBuilder.sbDateTo(dateValue);
-				} catch (DateTimeParseException e) {
-					// Log or handle invalid date format gracefully
-					log.warn("Invalid beDate format: " + filterValue);
-				}
-				break;
-			// Add more supported filters here
 			}
 		}
 
-		ExportDataFilter filter = filterBuilder.build();
+		ExportDataFilter filter = builder.build();
 
-		Pageable pageable = PageRequest.of(page, size, Sort.by("sbDate").descending());
+		Pageable pageable = PageRequest.of(Math.max(0, page), Math.max(1, size), Sort.by("sbDate").descending());
 		Page<ExportDataDTO> resultPage = exportDataService.search(filter, pageable);
 
 		model.addAttribute("exportDataPage", resultPage);

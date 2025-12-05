@@ -6,9 +6,9 @@
 	<!-- HTML5 Shim and Respond.js IE9 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	<!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-      <![endif]-->
+	      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+	      <![endif]-->
 	<!-- Meta -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
@@ -249,7 +249,7 @@
 											</a>
 										</li>
 										<li class=" ">
-											<a th:href="@{/work-in-progress}">
+											<a th:href="@{/dbkcalculation/dataselect}">
 												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
 												<span class="pcoded-mtext">SB wise DBK Calculation</span>
 												<span class="pcoded-mcaret"></span>
@@ -398,37 +398,37 @@
 													</div>
 													<div class="card-block table-border-style">
 														<div class="d-flex justify-content-end">
-															<form th:action="@{/exportdata/list}" method="get"
-																class="d-flex align-items-center gap-2 m-3 flex-nowrap"
-																style="max-width:400px;">
-																<select name="filterField" id="filterField"
-																	class="form-control form-control-sm mr-2"
-																	style="width:110px; min-width:90px;" required
-																	onchange="updateInputType();">
-																	<option th:selected="${filterField == null}"
-																		value="" disabled selected>Sort By</option>
-																	<option th:selected="${filterField == 'sbNo'}"
-																		value="sbNo">SB No</option>
+															<form th:action="@{/dbkcalculation/dataselect}" method="get"
+															      class="d-flex align-items-center gap-2 m-3 flex-nowrap"
+															      style="max-width:460px;">
+															    <select name="filterField" id="filterField"
+															            class="form-control form-control-sm mr-2"
+															            style="width:150px; min-width:120px;"
+															            required onchange="updateInputType();">
+															        <option th:selected="${filterField == null}" value="" disabled selected>Filter By</option>
 
-																	<option th:selected="${filterField == 'sbDateFrom'}"
-																		value="sbDateFrom">From Date</option>
+															        <option th:selected="${filterField == 'sbNo'}" value="sbNo">SB No</option>
+															        <option th:selected="${filterField == 'sbDateFrom'}" value="sbDateFrom">From Date</option>
+															        <option th:selected="${filterField == 'sbDateTo'}" value="sbDateTo">To Date</option>
+															        <option th:selected="${filterField == 'claimYear'}" value="claimYear">Claim Year</option>
+															        <option th:selected="${filterField == 'customerName'}" value="customerName">Customer</option>
+															        <option th:selected="${filterField == 'portCode'}" value="portCode">Port Code</option>
+															        <option th:selected="${filterField == 'claimRefNo'}" value="claimRefNo">Claim Ref No</option>
+															        <option th:selected="${filterField == 'modelNo'}" value="modelNo">Model No</option>
+															        <option th:selected="${filterField == 'dbkSno'}" value="dbkSno">DBK S.No</option>
+															        <option th:selected="${filterField == 'sbUtilization'}" value="sbUtilization">SB Utilization</option>
+															    </select>
 
-																	<option th:selected="${filterField == 'sbDateTo'}"
-																		value="sbDateTo">To Date</option>
-																	<!-- add more fields as needed -->
-																</select>
+															    <input type="text" name="filterValue" id="filterValue"
+															           th:value="${filterValue}" placeholder="Value"
+															           class="form-control form-control-sm mr-2"
+															           style="width:180px; min-width:140px;" required />
 
-																<input type="text" name="filterValue" id="filterValue"
-																	th:value="${filterValue}" placeholder="Value"
-																	class="form-control form-control-sm mr-2"
-																	style="width:140px; min-width:120px;" required />
-
-																<button type="submit"
-																	class="btn btn-sm btn-primary waves-effect waves-light f-right"
-																	title="Filter" style="height:32px;">
-																	<i class="icofont icofont-search"
-																		style="font-size: 1.2rem;"></i>
-																</button>
+															    <button type="submit"
+															            class="btn btn-sm btn-primary waves-effect waves-light f-right"
+															            title="Filter" style="height:32px;">
+															        <i class="icofont icofont-search" style="font-size: 1.2rem;"></i>
+															    </button>
 															</form>
 														</div>
 
@@ -444,7 +444,11 @@
 																<thead class="table-light sticky-top"
 																	style="background-color: #fff; z-index: 1020;">
 																	<tr>
-																		<th>Sr No</th>
+																		<th class="text-center">
+																			<input type="checkbox" id="select-all" /> Sr
+																			No
+																		</th>
+
 																		<th>SB No</th>
 																		<th>SB Date</th>
 																		<th>Month</th>
@@ -502,6 +506,7 @@
 																				class="row-select mr-1"
 																				th:id="'cb-' + ${row.exportId}"
 																				th:value="${row.exportId}" />
+
 
 																			<!-- Sr No -->
 																			<span
@@ -590,12 +595,7 @@
 																		<td th:text="${row.sbUtilization}">SB
 																			Utilization</td>
 
-																		<td>
 
-																			<a th:href="@{/exportdata/delete/{id}(id=${row.exportId}, filterField=${filterField}, filterValue=${filterValue}, page=${currentPage}, size=${pageSize})}"
-																				onclick="return confirm('Are you sure you want to delete this record?')"
-																				class="btn btn-danger btn-sm btn-round btn-outline-danger">Delete</a>
-																		</td>
 																	</tr>
 																</tbody>
 															</table>
@@ -609,22 +609,22 @@
 																<!-- Previous button -->
 																<li class="page-item"
 																	th:classappend="${exportDataPage.first} ? 'disabled'">
-																	<a class="page-link" th:href="@{/exportdata/list(
-														                    page=${exportDataPage.number - 1},
-														                    size=${exportDataPage.size},
-														                    filterField=${filterField},
-														                    filterValue=${filterValue})}" tabindex="-1">Previous</a>
+																	<a class="page-link" th:href="@{/dbkcalculation/dataselect(
+															                    page=${exportDataPage.number - 1},
+															                    size=${exportDataPage.size},
+															                    filterField=${filterField},
+															                    filterValue=${filterValue})}" tabindex="-1">Previous</a>
 																</li>
 
 																<!-- Page numbers -->
 																<li class="page-item"
 																	th:each="pageNum : ${#numbers.sequence(0, exportDataPage.totalPages - 1)}"
 																	th:classappend="${pageNum == exportDataPage.number} ? 'active'">
-																	<a class="page-link" th:href="@{/exportdata/list(
-														                           page=${pageNum},
-														                           size=${exportDataPage.size},
-														                           filterField=${filterField},
-														                           filterValue=${filterValue})}" th:text="${pageNum + 1}">1</a>
+																	<a class="page-link" th:href="@{/dbkcalculation/dataselect(
+															                           page=${pageNum},
+															                           size=${exportDataPage.size},
+															                           filterField=${filterField},
+															                           filterValue=${filterValue})}" th:text="${pageNum + 1}">1</a>
 																	<span class="sr-only"
 																		th:if="${pageNum == exportDataPage.number}">(current)</span>
 																</li>
@@ -632,15 +632,25 @@
 																<!-- Next button -->
 																<li class="page-item"
 																	th:classappend="${exportDataPage.last} ? 'disabled'">
-																	<a class="page-link" th:href="@{/exportdata/list(
-														                    page=${exportDataPage.number + 1},
-														                    size=${exportDataPage.size},
-														                    filterField=${filterField},
-														                    filterValue=${filterValue})}">Next</a>
+																	<a class="page-link" th:href="@{/dbkcalculation/dataselect(
+															                    page=${exportDataPage.number + 1},
+															                    size=${exportDataPage.size},
+															                    filterField=${filterField},
+															                    filterValue=${filterValue})}">Next</a>
 																</li>
 
 															</ul>
 														</nav>
+
+														<div class="text-center">
+
+															<button id="calculateSelectedBtn" type="button"
+																class="btn btn-info" style="width:150px;">
+																<i class="bi bi-calculator"></i> Calculate
+															</button>
+
+														</div>
+
 
 
 
@@ -688,6 +698,103 @@
 			updateInputType();
 		});
 	</script>
+
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+
+			const selectAll = document.getElementById('select-all');
+			const rowCheckboxes = () => document.querySelectorAll('#exportTable .row-select');
+
+			// 1) When SELECT ALL is clicked
+			selectAll.addEventListener('change', function () {
+				const checked = this.checked;
+				rowCheckboxes().forEach(cb => cb.checked = checked);
+			});
+
+			// 2) When any row is clicked → update SELECT ALL state
+			document.addEventListener('change', function (e) {
+				if (!e.target.classList.contains('row-select')) return;
+
+				const boxes = rowCheckboxes();
+				const allChecked = Array.from(boxes).every(cb => cb.checked);
+
+				selectAll.checked = allChecked;
+			});
+
+		});
+	</script>
+
+
+
+
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+		document.addEventListener('DOMContentLoaded', function () {
+			const btn = document.getElementById('calculateSelectedBtn');
+			if (!btn) return;
+
+			const csrfParam = /*[[${_csrf} != null ? _csrf.parameterName : '' ]]*/ '';
+			const csrfToken = /*[[${_csrf} != null ? _csrf.token : '' ]]*/ '';
+
+			btn.addEventListener('click', function (e) {
+				e.preventDefault();      // <- stop default form submit
+				e.stopPropagation();     // <- stop bubbling
+
+				console.log('Calculate button clicked');
+
+				const checked = Array.from(document.querySelectorAll('#exportTable .row-select:checked'));
+				console.log('checked count =', checked.length);
+
+				if (!checked.length) {
+					if (typeof Swal !== 'undefined') {
+						Swal.fire({icon: 'warning', title: 'No rows selected', text: 'Please select at least one export row.'});
+					} else {
+						alert('Please select at least one export row.');
+					}
+					return;
+				}
+
+				// optional nicer confirm with Swal
+				if (!confirm('Calculate DBK for ' + checked.length + ' selected export(s)?')) {
+					console.log('user cancelled');
+					return;
+				}
+
+				const form = document.createElement('form');
+				form.method = 'post';
+				form.action = /*[[@{/dbkcalculation/datacalculate}]]*/ '/dbkcalculation/datacalculate';
+
+				if (csrfParam && csrfToken) {
+					const csf = document.createElement('input');
+					csf.type = 'hidden';
+					csf.name = csrfParam;
+					csf.value = csrfToken;
+					form.appendChild(csf);
+					console.log('appended csrf', csrfParam, csrfToken ? 'present' : 'empty');
+				} else {
+					console.log('no csrf available in template variables; ensure Spring CSRF token is exposed if required');
+				}
+
+				checked.forEach(cb => {
+					console.log('adding id', cb.value);
+					const input = document.createElement('input');
+					input.type = 'hidden';
+					input.name = 'selectedExportIds'; // must match controller @RequestParam
+					input.value = cb.value;
+					form.appendChild(input);
+				});
+
+				// append and submit
+				document.body.appendChild(form);
+				console.log('submitting temp form to', form.action);
+				form.submit();
+			});
+		});
+		/*]]>*/
+	</script>
+
+
+
 
 
 

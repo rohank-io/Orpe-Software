@@ -244,7 +244,7 @@
 											</a>
 										</li>
 										<li class=" ">
-											<a th:href="@{/work-in-progress}">
+											<a th:href="@{/dbkcalculation/dataselect}">
 												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
 												<span class="pcoded-mtext">SB wise DBK Calculation</span>
 												<span class="pcoded-mcaret"></span>
@@ -425,7 +425,7 @@
 																		value="username">Created By</option>
 
 																	<!-- Newly Added Fields -->
-																	
+
 																	<option
 																		th:selected="${filterField == 'supplierNameAddress'}"
 																		value="supplierNameAddress">Supplier
@@ -512,7 +512,7 @@
 																		<th>Opening</th>
 																		<th>Used</th>
 																		<th>Closing</th>
-
+																		
 																	</tr>
 																</thead>
 
@@ -597,6 +597,8 @@
 																			<td
 																				th:text="${#numbers.formatDecimal(ws.closingBalanceDef, 0, 'COMMA', 2, 'POINT')}">
 																			</td>
+
+																			
 
 																		</tr>
 

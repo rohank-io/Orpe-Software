@@ -34,6 +34,9 @@ public class SbWiseDbkCalculation {
 
     @Column(name = "port_code", length = 50)
     private String portCode;
+    
+    @Column(name = "export_id")
+    private Long exportId;
 
     @Column(name = "shipping_bill_no", length = 100)
     private String shippingBillNo;

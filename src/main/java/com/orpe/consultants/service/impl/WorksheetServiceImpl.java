@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
@@ -28,11 +29,13 @@ import com.orpe.consultants.dto.WorksheetDTO;
 import com.orpe.consultants.dto.WorksheetDataFilter;
 import com.orpe.consultants.dto.WorksheetExportModelsDTO;
 import com.orpe.consultants.model.BomData;
+import com.orpe.consultants.model.BomExportModelQuantity;
 import com.orpe.consultants.model.DraftWorksheet;
 import com.orpe.consultants.model.ExportData;
 //import com.orpe.consultants.model.BomData;
 import com.orpe.consultants.model.ImportData;
 import com.orpe.consultants.model.Material;
+import com.orpe.consultants.model.Models;
 //import com.orpe.consultants.model.Models;
 import com.orpe.consultants.model.Worksheet;
 import com.orpe.consultants.model.WorksheetExportModels;
@@ -47,6 +50,7 @@ import com.orpe.consultants.repository.WorksheetExportModelsRepository;
 import com.orpe.consultants.repository.WorksheetRepository;
 import com.orpe.consultants.service.WorksheetService;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.JoinType;
 import jakarta.persistence.criteria.Predicate;
@@ -164,25 +168,7 @@ public class WorksheetServiceImpl implements WorksheetService {
                             });
                         }
                         
-                        // Feature: Update sbUtilization in ExportData to "CLOSED" by matching claimRefNo & modelNo.
-                        String claimRefNo = worksheetDTO.getClaimRefNo();
-                        String modelNo = exportModelDTO.getModelNo();
-                        if (claimRefNo != null && modelNo != null) {
-                        	List<ExportData> exportDataList = exportDataRepository.findByClaimRefNoAndModels_ModelNo(claimRefNo, modelNo);
-
-                        	if (exportDataList != null && !exportDataList.isEmpty()) {
-                        	    for (ExportData exportData : exportDataList) {
-                        	        exportData.setSbUtilization("CLOSED");
-                        	        exportDataRepository.save(exportData);
-                        	    }
-                        	    System.out.println("ExportData sbUtilization set to CLOSED for claimRefNo: "
-                        	        + claimRefNo + ", modelNo: " + modelNo + " (" + exportDataList.size() + " records)");
-                        	} else {
-                        	    System.err.println("No ExportData found for claimRefNo=" + claimRefNo + ", modelNo=" + modelNo);
-                        	}
-                        	
-
-                        }
+                        
                     } catch (Exception e) {
                         System.err.println("Failed to save export model for worksheet " + worksheetDTO.getBeNo() + ": " + e.getMessage());
                         // handle error gracefully or rethrow as needed
@@ -441,6 +427,173 @@ public class WorksheetServiceImpl implements WorksheetService {
 	            .map(this::toDto)
 	            .collect(Collectors.toList());
 	}
+	
+	
+	
+	
+	@Override
+    @Transactional
+    public WorksheetDTO getWorksheetWithExportModels(Long worksheetId) {
+        Worksheet worksheet = worksheetRepository.findByWorksheetId(worksheetId)
+                .orElseThrow(() -> new EntityNotFoundException("Worksheet not found: " + worksheetId));
+
+        // exportModels should be initialized due to @EntityGraph
+        return toDto(worksheet);
+    }
+	
+	
+	
+	@Transactional
+	public void updateWorksheet(WorksheetDTO worksheetDTO) {
+
+	    // Validate DTO
+	    Set<ConstraintViolation<WorksheetDTO>> violations = validator.validate(worksheetDTO);
+	    if (!violations.isEmpty()) {
+	        violations.forEach(v ->
+	            System.err.println("Validation failed on " + v.getPropertyPath() + ": " + v.getMessage()));
+	        throw new ConstraintViolationException(violations);
+	    }
+
+	    Worksheet existing = worksheetRepository.findById(worksheetDTO.getWorksheetId())
+	            .orElseThrow(() -> new RuntimeException("Worksheet not found with ID " + worksheetDTO.getWorksheetId()));
+
+	    // Map scalar properties from DTO (e.g., remark)
+	    existing.setClaimRefNo(worksheetDTO.getClaimRefNo());
+	    existing.setClaimYear(worksheetDTO.getClaimYear());
+	    existing.setBeNo(worksheetDTO.getBeNo());
+	    existing.setBeDate(worksheetDTO.getBeDate());
+	    
+	    existing.setAltBoePartNo(worksheetDTO.getAltBoePartNo());
+	    existing.setDbkPartNo(worksheetDTO.getDbkPartNo());
+	    existing.setItemDescription(worksheetDTO.getItemDescription());
+	    existing.setUom(worksheetDTO.getUom());
+	    existing.setImportQty(worksheetDTO.getImportQty());
+	    existing.setAssessableValue(worksheetDTO.getAssessableValue());
+	    existing.setCifValue(worksheetDTO.getCifValue());
+	    existing.setPerQtyCif(worksheetDTO.getPerQtyCif());
+	    existing.setBcd(worksheetDTO.getBcd());
+	    existing.setSws(worksheetDTO.getSws());
+	    existing.setAddDuty(worksheetDTO.getAddDuty());
+	    existing.setTotalDuty(worksheetDTO.getTotalDuty());
+	    existing.setDutyPerQty(worksheetDTO.getDutyPerQty());
+	    existing.setUsedQtyTotal(worksheetDTO.getUsedQtyTotal());
+	    existing.setDutyClaimedTotal(worksheetDTO.getDutyClaimedTotal());
+	    existing.setCifClaimedTotal(worksheetDTO.getCifClaimedTotal());
+	    existing.setBcdClaimed(worksheetDTO.getBcdClaimed());
+	    existing.setSwsClaimed(worksheetDTO.getSwsClaimed());
+	    existing.setAddClaimed(worksheetDTO.getAddClaimed());
+	    existing.setOpeningBalanceQtyDef(worksheetDTO.getOpeningBalanceQtyDef());
+	    existing.setQtyUsedDef(worksheetDTO.getQtyUsedDef());
+	    existing.setClosingBalanceDef(worksheetDTO.getClosingBalanceDef());
+	    existing.setCreatedAt(worksheetDTO.getCreatedAt());
+	    existing.setRemark(worksheetDTO.getRemark());
+	    existing.setUsername(worksheetDTO.getUsername());
+
+	    // Update ImportData relations and balances if importId present
+	    if (worksheetDTO.getImportId() != null) {
+	        ImportData importData = importDataRepository.findById(worksheetDTO.getImportId())
+	                .orElseThrow(() -> new RuntimeException("ImportData not found with id " + worksheetDTO.getImportId()));
+	        existing.setImportData(importData);
+
+	        if (existing.getOpeningBalanceQtyDef() != null)
+	            importData.setQtyOpeningBalance(existing.getOpeningBalanceQtyDef());
+	        if (existing.getQtyUsedDef() != null)
+	            importData.setQtyUsed(existing.getQtyUsedDef());
+	        if (existing.getClosingBalanceDef() != null) {
+	            importData.setClosingBalance(existing.getClosingBalanceDef());
+
+	            if (BigDecimal.ZERO.compareTo(existing.getClosingBalanceDef()) == 0) {
+	                importData.setStockWiseEligibility(StockWiseEligibility.CLOSED);
+	            }
+	        }
+	        importDataRepository.save(importData);
+	    } else {
+	        throw new RuntimeException("ImportDataId must not be null");
+	    }
+
+	    // Update Material if needed
+	    if (worksheetDTO.getBomPartNo() != null) {
+	        Material material = materialRepository.findById(worksheetDTO.getBomPartNo())
+	                .orElseThrow(() -> new RuntimeException("Material not found with BomPartNO: " + worksheetDTO.getBomPartNo()));
+	        existing.setMaterial(material);
+	    }
+
+	    // Handle export models update (existing, new, removed) without replacing collection reference
+	    List<WorksheetExportModelsDTO> exportModelDTOs = worksheetDTO.getExportModels();
+	    if (exportModelDTOs == null) exportModelDTOs = Collections.emptyList();
+
+	    Map<Long, WorksheetExportModels> existingExportModelsMap = existing.getExportModels().stream()
+	            .filter(em -> em.getWsModelId() != null)
+	            .collect(Collectors.toMap(WorksheetExportModels::getWsModelId, Function.identity()));
+
+	    // Prepare a list to track processed export models (whether updated or new)
+	    List<WorksheetExportModels> modelsToRetain = new ArrayList<>();
+
+	    for (WorksheetExportModelsDTO emDto : exportModelDTOs) {
+	        WorksheetExportModels emEntity;
+
+	        if (emDto.getWsModelId() != null && existingExportModelsMap.containsKey(emDto.getWsModelId())) {
+	            emEntity = existingExportModelsMap.remove(emDto.getWsModelId());
+	        } else {
+	            emEntity = new WorksheetExportModels();
+	            emEntity.setWorksheet(existing);
+	        }
+
+	        // Set bomExportModelData
+	        final Long bomExportModelIdToUse = (emDto.getBomExportModelId() != null && emDto.getBomExportModelId() == 0)
+	                                          ? 1L : emDto.getBomExportModelId();
+
+	        BomExportModelQuantity bomExportData = bomExportModelRepository.findById(bomExportModelIdToUse)
+	                .orElseThrow(() -> new RuntimeException("BomExportModelQuantity not found"));
+
+	        emEntity.setBomExportModelData(bomExportData);
+
+	        // Set Model entity by modelNo
+	        Models model = modelsRepository.findById(emDto.getModelNo())
+	                .orElseThrow(() -> new RuntimeException("Model not found with modelNo " + emDto.getModelNo()));
+	        emEntity.setModel(model);
+
+	        // Set scalar fields
+	        emEntity.setEmUsedQty(emDto.getEmUsedQty());
+	        emEntity.setDutyClaimed(emDto.getDutyClaimed());
+	        emEntity.setCifClaimed(emDto.getCifClaimed());
+	        emEntity.setColNo(emDto.getColNo() != null ? emDto.getColNo() : 1);
+
+	        // Track this model to retain
+	        modelsToRetain.add(emEntity);
+
+	        // Update bomExportModel status to CLOSED
+	        if (bomExportModelIdToUse != null) {
+	            bomExportModelRepository.findById(bomExportModelIdToUse).ifPresent(bom -> {
+	                bom.setStatus("CLOSED");
+	                bomExportModelRepository.save(bom);
+	            });
+	        }
+	    }
+
+	    // Remove export models that were deleted (leftover in map)
+	    existingExportModelsMap.values().forEach(emToRemove -> {
+	        existing.getExportModels().remove(emToRemove);
+	    });
+
+	    // Add or update processed export models in-place
+	    for (WorksheetExportModels modelToRetain : modelsToRetain) {
+	        if (!existing.getExportModels().contains(modelToRetain)) {
+	            existing.getExportModels().add(modelToRetain);
+	        }
+	    }
+
+	    // Save worksheet (cascades to export models)
+	    worksheetRepository.save(existing);
+
+	    // Optionally delete draft worksheet if applicable
+	    if (worksheetDTO.getDraftWorksheetId() != null) {
+	        draftWorksheetRepository.deleteById(worksheetDTO.getDraftWorksheetId());
+	    }
+	}
+
+
+
 
 
 

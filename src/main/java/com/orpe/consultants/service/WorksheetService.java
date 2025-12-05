@@ -103,5 +103,9 @@ public interface WorksheetService {
             String claimYear,
             WorksheetDataFilter filter
     );
+    
+    WorksheetDTO getWorksheetWithExportModels(Long worksheetId);
+
+    void updateWorksheet(WorksheetDTO worksheetDto);
 
 }

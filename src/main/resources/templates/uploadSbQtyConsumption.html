@@ -243,7 +243,7 @@
 											</a>
 										</li>
 										<li class=" ">
-											<a th:href="@{/work-in-progress}">
+											<a th:href="@{/dbkcalculation/dataselect}">
 												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
 												<span class="pcoded-mtext">SB wise DBK Calculation</span>
 												<span class="pcoded-mcaret"></span>
@@ -931,6 +931,7 @@
 
 					// Popup success
 					alert(`✅ Data saved successfully!\nSaved records: ${savedCount}`);
+					window.location.href="/sb-consumption/groups";
 
 					// highlight saved rows (add class .saved-row) and disable their checkboxes
 					selectedRows.forEach(tr => {

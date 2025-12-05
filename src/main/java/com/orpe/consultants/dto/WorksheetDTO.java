@@ -55,6 +55,8 @@ public class WorksheetDTO {
  //For Draft deletion:
  private Long draftWorksheetId;
  
+ private String remark;
+ 
  
  private String username;
  
