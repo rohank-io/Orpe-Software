@@ -1,25 +1,32 @@
 package com.orpe.consultants.controller;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.orpe.consultants.dto.ExportDataDTO;
 import com.orpe.consultants.dto.ExportDataFilter;
 import com.orpe.consultants.dto.SbWiseDbkCalculationDTO;
+import com.orpe.consultants.model.SbWiseDbkCalculation;
 import com.orpe.consultants.model.User;
 import com.orpe.consultants.service.ExportDataService;
 import com.orpe.consultants.service.SbWiseDbkCalculationService;
@@ -161,6 +168,76 @@ public class SbWiseDbkCalculationController {
             return "redirect:/dbkcalculation/dataselect";
         }
     }
+	
+	
+	@PostMapping("/dbkcalculation/save")
+	public ResponseEntity<?> saveDbkCalculations(
+            @RequestBody List<SbWiseDbkCalculationDTO> rows,
+            HttpSession session) {
+
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+        if (loggedInUser == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error", "Unauthenticated"));
+        }
+
+        if (rows == null || rows.isEmpty()) {
+            return ResponseEntity.badRequest().body(Map.of("error", "No rows provided"));
+        }
+
+        try {
+            List<Long> savedIds = dbkCalculationService.saveAll(rows, loggedInUser);
+            return ResponseEntity.ok(Map.of(
+                    "savedCount", savedIds.size(),
+                    "savedIds", savedIds
+            ));
+        } catch (Exception ex) {
+            log.error("Error saving DBK calculation rows", ex);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("error", "Unable to save rows", "message", ex.getMessage()));
+        }
+    }
+	
+	
+	
+	
+	@GetMapping("/dbkcalculation/list/claimwise")
+	public String showClaimwiseList(Model model, HttpSession session) {
+		User loggedInUser = (User) session.getAttribute("loggedInUser");
+		if (loggedInUser == null) {
+			return "redirect:/login";
+		}
+		model.addAttribute("user", loggedInUser);
+		try {
+			List<Map<String, Object>> groups = dbkCalculationService.getAllDbkGroups();
+			model.addAttribute("groups", groups != null ? groups : Collections.emptyList());
+		} catch (Exception ex) {
+			log.error("Error loading worksheet groups for view", ex);
+			model.addAttribute("groups", Collections.emptyList());
+			model.addAttribute("errorMessage", "Unable to load worksheet groups at the moment.");
+		}
+		return "dbkDataClaimwise"; 
+	}
+	
+	
+	@GetMapping("/dbkcalculation/list/claim")
+	public String showClaimRecords(@RequestParam String claimRefNo,
+	                               @RequestParam String claimYear,
+	                               HttpSession session,
+	                               Model model) {
+		
+		User loggedInUser = (User) session.getAttribute("loggedInUser");
+		if (loggedInUser == null) {
+			return "redirect:/login";
+		}
+		model.addAttribute("user", loggedInUser);
+	    List<SbWiseDbkCalculationDTO> pageResult = dbkCalculationService.findByClaimRefAndYear(claimRefNo, claimYear);
+	    model.addAttribute("recordsPage", pageResult);
+	    model.addAttribute("claimRefNo", claimRefNo);
+	    model.addAttribute("claimYear", claimYear);
+	    return "dbkCalculationClaimRecords";
+	}
+
+
 	
 	
 

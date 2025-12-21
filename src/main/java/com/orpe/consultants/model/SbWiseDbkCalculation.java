@@ -100,4 +100,12 @@ public class SbWiseDbkCalculation {
 
     @Column(name = "value_addition", precision = 18, scale = 6)
     private BigDecimal valueAddition;
+    
+ // inside SbWiseDbkCalculation class
+    @Column(name = "claim_ref_no", length = 50)
+    private String claimRefNo;
+
+    @Column(name = "claim_year", length = 32)
+    private String claimYear;
+
 }

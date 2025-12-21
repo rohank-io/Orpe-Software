@@ -1,5 +1,7 @@
 package com.orpe.consultants.service;
 
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.List;
 import java.util.Optional;
 
@@ -75,5 +77,9 @@ public interface ExportDataService {
      * @return count of matching rows
      */
     long count(ExportDataFilter filter);
+    
+    
+    void writeExportExcel(List<Long> exportIds, OutputStream outputStream)
+            throws IOException;
 
 }

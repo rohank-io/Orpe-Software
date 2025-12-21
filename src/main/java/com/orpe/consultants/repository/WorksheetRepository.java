@@ -19,7 +19,7 @@ public interface WorksheetRepository extends JpaRepository<Worksheet, Long>, Jpa
 	@EntityGraph(attributePaths = { "exportModels" })
 	Page<Worksheet> findAll(Specification<Worksheet> spec, Pageable pageable);
 
-	@Query("""
+	@	Query("""
 			   SELECT d.username, d.claimRefNo, d.claimYear, COUNT(d)
 			   FROM Worksheet d
 			   GROUP BY d.username, d.claimRefNo, d.claimYear
@@ -33,5 +33,8 @@ public interface WorksheetRepository extends JpaRepository<Worksheet, Long>, Jpa
 
 	@EntityGraph(attributePaths = "exportModels")
 	Optional<Worksheet> findByWorksheetId(Long worksheetId);
+	
+	List<Worksheet> findByClaimRefNoAndClaimYear(String claimRefNo, String claimYear);
+
 
 }

@@ -1,8 +1,10 @@
 package com.orpe.consultants.controller;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -29,6 +31,7 @@ import com.orpe.consultants.service.ExportDataService;
 
 import com.orpe.consultants.utils.ExportDataExtractor;
 
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -174,4 +177,105 @@ public class ExportDataController {
 		int saved = exportDataService.saveBulk(rows);
 		return Map.of("savedCount", saved);
 	}
+	
+	
+	//*****************TO DOWNLOAD THE EXCEL FILE OF EXPORT MATERIAL**************
+	@GetMapping("/exportdata/excel/download")
+	public String downloadExportDataList(@RequestParam(required = false) String filterField,
+			@RequestParam(required = false) String filterValue, @RequestParam(defaultValue = "0") int page,
+			@RequestParam(defaultValue = "100") int size, HttpSession session, Model model) {
+
+		// Auth check
+		User loggedInUser = (User) session.getAttribute("loggedInUser");
+		if (loggedInUser == null) {
+			log.info("User not authenticated, redirecting to login page");
+			return "redirect:/login";
+		}
+		model.addAttribute("user", loggedInUser);
+
+		// Build filter using builder pattern
+		ExportDataFilter.ExportDataFilterBuilder builder = ExportDataFilter.builder();
+
+		if (filterField != null && filterValue != null) {
+			String v = filterValue.trim();
+			if (!v.isBlank()) {
+				switch (filterField) {
+				case "sbNo":
+					builder.sbNo(v);
+					break;
+				case "sbDateFrom":
+					try {
+						LocalDate from = LocalDate.parse(v, DateTimeFormatter.ISO_DATE);
+						builder.sbDateFrom(from);
+					} catch (DateTimeParseException ex) {
+						log.warn("Invalid sbDateFrom value: {}", v);
+					}
+					break;
+				case "sbDateTo":
+					try {
+						LocalDate to = LocalDate.parse(v, DateTimeFormatter.ISO_DATE);
+						builder.sbDateTo(to);
+					} catch (DateTimeParseException ex) {
+						log.warn("Invalid sbDateTo value: {}", v);
+					}
+					break;
+				case "claimYear":
+					builder.claimYear(v);
+					break;
+				case "customerName":
+					builder.customerName(v);
+					break;
+				case "portCode":
+					builder.portCode(v);
+					break;
+				case "claimRefNo":
+					builder.claimRefNo(v);
+					break;
+				case "modelNo":
+					builder.modelNo(v);
+					break;
+				case "dbkSno":
+					builder.dbkSno(v);
+					break;
+				case "sbUtilization":
+					builder.sbUtilization(v);
+					break;
+				default:
+					log.debug("Unknown filterField requested: {}", filterField);
+				}
+			}
+		}
+
+		ExportDataFilter filter = builder.build();
+
+		Pageable pageable = PageRequest.of(Math.max(0, page), Math.max(1, size), Sort.by("sbDate").descending());
+		Page<ExportDataDTO> resultPage = exportDataService.search(filter, pageable);
+
+		model.addAttribute("exportDataPage", resultPage);
+		model.addAttribute("filterField", filterField);
+		model.addAttribute("filterValue", filterValue);
+		model.addAttribute("currentPage", page);
+		model.addAttribute("pageSize", size);
+
+		return "exportDataExcelDownload";
+	}
+	
+	
+	@PostMapping("/exportdata/downloadExcel")
+	public void downloadExcel(
+	        @RequestParam String selectedIds,
+	        HttpServletResponse response) throws IOException {
+
+	    List<Long> ids = Arrays.stream(selectedIds.split(","))
+	            .map(Long::valueOf)
+	            .toList();
+
+	    response.setContentType(
+	        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+	    response.setHeader(
+	        "Content-Disposition", "attachment; filename=Export_Data.xlsx");
+
+	    exportDataService.writeExportExcel(ids, response.getOutputStream());
+	}
+
 }

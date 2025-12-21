@@ -14,6 +14,8 @@ import org.springframework.stereotype.Repository;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.List;
 
 @Repository
 public interface ImportDataRepository extends JpaRepository<ImportData, Long>, JpaSpecificationExecutor<ImportData> {
@@ -58,6 +60,12 @@ public interface ImportDataRepository extends JpaRepository<ImportData, Long>, J
     
     Page<ImportData> findByClosingBalanceGreaterThan(BigDecimal value, Pageable pageable);
     
+    
+    List<ImportData> findByBeDateBetweenAndClaimRefNoInOrderByBeDateAsc(
+            LocalDate from,
+            LocalDate to,
+            Collection<String> claimRefNos
+    );
     
     @Query("""
     	    SELECT COUNT(i)

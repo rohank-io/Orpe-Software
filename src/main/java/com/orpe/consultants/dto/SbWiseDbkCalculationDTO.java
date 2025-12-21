@@ -57,4 +57,11 @@ public class SbWiseDbkCalculationDTO {
     private BigDecimal valueAddition;
     
     private Long exportId;
+    
+    
+    private String claimRefNo;
+
+   
+    private String claimYear;
+
 }

@@ -43,6 +43,8 @@
 	<link rel="stylesheet" type="text/css" href="/assets/css/jquery.mCustomScrollbar.css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" />
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+
 </head>
 
 <body>
@@ -163,7 +165,7 @@
 								</li>
 							</ul>
 							<ul class="pcoded-item pcoded-left-item">
-								<li class="pcoded-hasmenu active">
+								<li class="pcoded-hasmenu">
 									<a href="javascript:void(0)">
 										<span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i></span>
 										<span class="pcoded-mtext">All Data</span>
@@ -187,7 +189,7 @@
 										<li class=" ">
 											<a th:href="@{/bomdata/list}">
 												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-												<span class="pcoded-mtext">BOM 1</span>
+												<span class="pcoded-mtext">BOM</span>
 												<span class="pcoded-mcaret"></span>
 											</a>
 										</li>
@@ -199,6 +201,7 @@
 												<span class="pcoded-mcaret"></span>
 											</a>
 										</li>
+
 										<li class=" ">
 											<a th:href="@{/worksheets/claims/list}">
 												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
@@ -227,9 +230,11 @@
 
 
 
+
+
 									</ul>
 								</li>
-								<li class="pcoded-hasmenu">
+								<li class="pcoded-hasmenu active">
 									<a href="javascript:void(0)">
 										<span class="pcoded-micon"><i class="ti-crown"></i></span>
 										<span class="pcoded-mtext">Advance Calculations</span>
@@ -361,8 +366,8 @@
 								<div class="page-wrapper">
 									<div class="page-header">
 										<div class="page-header-title">
-											<h3>All BOM Claim Data</h3>
-											<span>List of all BOM2</span>
+											<h3>SB Wise DBK Consumptions List</h3>
+											<span>List of dbk calculated</span>
 										</div>
 										<div class="page-header-breadcrumb">
 											<ul class="breadcrumb-title">
@@ -371,9 +376,9 @@
 														<i class="icofont icofont-home"></i>
 													</a>
 												</li>
-												<li class="breadcrumb-item"><a th:href="@{/}">BOM2</a>
+												<li class="breadcrumb-item"><a th:href="@{/}">DBK</a>
 												</li>
-												<li class="breadcrumb-item"><a href="#!">List</a>
+												<li class="breadcrumb-item"><a href="#!">Claims</a>
 												</li>
 
 											</ul>
@@ -387,183 +392,77 @@
 												class="btn btn-primary m-r-10 m-b-5">
 												<i class="icofont icofont-reply"></i> Back
 											</button>
+											<a class="btn btn-primary m-b-5 m-r-5" th:href="@{/worksheets/claims/list}">
+												<i class="icofont icofont-save"></i> Saved Drafts
+											</a>
 										</div>
 
 										<div class="row">
 											<div class="col-xs-12 col-sm-12 col-lg-12">
-
-
 												<div class="card">
 													<!-- personal card start -->
 													<div class="card-header">
-														<h5>BOM 2 List</h5>
-														<span>List of all BOM 2</span>
+														<h5>DBK Claims</h5>
+														<span>List of dbk consumptions worksheets</span>
 														<div class="card-header-right">
 															<i class="icofont icofont-rounded-down"></i>
-															<a th:href="@{/bomclaimdata/list}">
+															<a th:href="@{/dbkcalculation/list/claimwise}">
 																<i class="icofont icofont-refresh"></i>
 															</a>
 														</div>
 													</div>
 													<div class="card-block table-border-style">
-														<div class="d-flex justify-content-end">
-															<form th:action="@{/bomclaimdata/list}" method="get"
-																class="d-flex align-items-center gap-2 m-3 flex-nowrap"
-																style="max-width:400px;">
-																<select name="filterField" id="filterField"
-																	class="form-control form-control-sm mr-2"
-																	style="width:110px; min-width:90px;" required
-																	onchange="updateInputType();">
-																	<option th:selected="${filterField == null}"
-																		value="" disabled selected>Sort By</option>
-																	<option th:selected="${filterField == 'bomPartNo'}"
-																		value="bomPartNo">BOM Part No</option>
-																	<option th:selected="${filterField == 'clientName'}"
-																		value="clientName">Client Name</option>
-																	<option th:selected="${filterField == 'claimRefNo'}"
-																		value="claimRefNo">ClaimRefNo</option>
+														<div class="d-flex justify-content-end"></div>
 
-																	<option th:selected="${filterField == 'claimYear'}"
-																		value="claimYear">Claim Year</option>
+														<div class="table-responsive">
+															<table class="table table-sm table-hover mb-2">
+																<thead class="thead-light">
+																	<tr class="text-uppercase small">
+																		<th style="width:48px;">Sr No.</th>
 
-
-																	<!-- add more fields as needed -->
-																</select>
-
-																<input type="text" name="filterValue" id="filterValue"
-																	th:value="${filterValue}" placeholder="Value"
-																	class="form-control form-control-sm mr-2"
-																	style="width:140px; min-width:120px;" required />
-
-																<button type="submit"
-																	class="btn btn-sm btn-primary waves-effect waves-light f-right"
-																	title="Filter" style="height:32px;">
-																	<i class="icofont icofont-search"
-																		style="font-size: 1.2rem;"></i>
-																</button>
-															</form>
-														</div>
-
-
-
-
-
-														<!-- Data Table style="max-height: 520px; overflow:auto;" -->
-														<div class="table-responsive"
-															style="max-height: 520px; overflow:auto;">
-															<table id="bomTable"
-																class="table table-hover table-sm table-bordered">
-																<thead class="table-light sticky-top"
-																	style="background-color: #fff; z-index: 1020;">
-																	<tr>
-
-																		<!-- Toggle Button -->
-																		<th>Sr No. </th> <!-- Serial Number -->
 																		<th>Claim Ref No</th>
 																		<th>Claim Year</th>
-
-																		<th>Material Description</th>
-																		<th>BOM Part No.</th>
-																		<th>Alt BOE Part</th>
-																		<th>DBK Part No.</th>
-																		<th>Imp\Indg</th>
-																		<th>Unit</th>
-																		<th>BOE No</th>
-																		<th>Used QTY</th>
-																		<th>Model No.</th>
-																		<th>SB No.</th>
-
-
-
-																		<th>Client Name</th>
-
-																		<!-- Action -->
-																		<th class="text-center">Action</th>
-
-
+																		<th class="text-center">No. of records</th>
+																		<th class="text-center"></th>
 																	</tr>
 																</thead>
+
 																<tbody>
-																	<th:block
-																		th:each="bom, stat : ${bomDataPage.content}">
-																		<tr th:id="'bomRow' + ${stat.index}">
+																	<tr
+																		th:if="${groups == null or #lists.isEmpty(groups)}">
+																		<td colspan="5"
+																			class="text-center text-muted py-4">
+																			No worksheets available
+																		</td>
+																	</tr>
 
+																	<tr th:each="w, iterStat : ${groups}">
+																		<td th:text="${iterStat.index + 1}">1</td>
 
+																		<td th:text="${w.claimRefNo}">f 01</td>
+																		<td th:text="${w.claimYear}">2024</td>
+																		<td class="text-center" th:text="${w.count}">4
+																		</td>
+																		<td class="text-center">
+																			<a class="btn btn-sm btn-primary"
+																				th:href="@{/dbkcalculation/list/claim(claimRefNo=${w.claimRefNo},claimYear=${w.claimYear})}">
+																				Show records
+																			</a>
 
-																			<td
-																				th:text="${bomDataPage.number * bomDataPage.size + stat.index + 1}">
-																			</td>
-
-
-																			<td th:text="${bom.claimRefNo}"></td>
-																			<td th:text="${bom.claimYear}"></td>
-																			<td th:text="${bom.materialDescription}">
-																			</td>
-																			<td th:text="${bom.bomPartNo}"></td>
-
-
-																			<td th:text="${bom.altBoePartNo}">
-																			</td>
-																			<td th:text="${bom.dbkPartNo}"></td>
-																			<td th:text="${bom.importedOrIndigenous}">
-																			</td>
-																			<td th:text="${bom.unit}">
-																			</td>
-																			<td th:text="${bom.boeNo}"></td>
-																			<td th:text="${bom.usedQty}"></td>
-																			<td th:text="${bom.exportModelNo}"></td>
-																			<td th:text="${bom.sbNo}"></td>
-																			<td th:text="${bom.clientName}"></td>
-																			<td>
-																				<a th:href="@{/bomclaimdata/delete/{id}(id=${bom.claimId}, filterField=${filterField}, filterValue=${filterValue}, page=${currentPage}, size=${pageSize})}"
-																					onclick="return confirm('Are you sure you want to delete this record?')"
-																					class="btn btn-danger btn-sm btn-round btn-outline-danger">Delete</a>
-																			</td>
-
-
-																		</tr>
-
-																	</th:block>
+																		</td>
+																	</tr>
 																</tbody>
 															</table>
-
 														</div>
 
-
-														<!-- Pagination controls -->
-														<nav aria-label="Page navigation" class="mt-3 ml-3">
-															<ul class="pagination justify-content-center">
-
-																<!-- Previous button -->
-																<li class="page-item"
-																	th:classappend="${bomDataPage.first} ? 'disabled'">
-																	<a class="page-link"
-																		th:href="@{/bomclaimdata/list(page=${bomDataPage.number - 1}, size=${bomDataPage.size})}">Previous</a>
-																</li>
-																<li class="page-item"
-																	th:each="i : ${#numbers.sequence(0, bomDataPage.totalPages - 1)}"
-																	th:classappend="${i == bomDataPage.number} ? 'active'">
-																	<a class="page-link"
-																		th:href="@{/bomclaimdata/list(page=${i}, size=${bomDataPage.size})}"
-																		th:text="${i + 1}">1</a>
-																</li>
-																<li class="page-item"
-																	th:classappend="${bomDataPage.last} ? 'disabled'">
-																	<a class="page-link"
-																		th:href="@{/bomclaimdata/list(page=${bomDataPage.number + 1}, size=${bomDataPage.size})}">Next</a>
-																</li>
-															</ul>
-														</nav>
-
-
-
 													</div>
-
 												</div>
 											</div>
 											<!-- tab content end -->
-
 										</div>
+
+
+
 									</div>
 
 								</div>
@@ -584,30 +483,16 @@
 	</div>
 	</div>
 
+
+
+
+
+
 	<script>
-
-
 
 	</script>
 
 
-	<script>
-		function updateInputType() {
-			var field = document.getElementById('filterField').value;
-			var input = document.getElementById('filterValue');
-			if (field === 'sbDateFrom' || field === 'sbDateTo') {
-				input.type = 'date';
-				input.placeholder = '';
-			} else {
-				input.type = 'text';
-				input.placeholder = 'Value';
-			}
-		}
-		// Optionally, call on page load if preselected
-		document.addEventListener("DOMContentLoaded", function () {
-			updateInputType();
-		});
-	</script>
 
 
 
@@ -633,6 +518,7 @@
 	<script src="/assets/js/demo-12.js"></script>
 	<script src="/assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
 	<script src="/assets/js/jquery.mousewheel.min.js"></script>
+	<script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
 
 
 </body>

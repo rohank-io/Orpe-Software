@@ -415,8 +415,7 @@
 
 														<!-- Data Table style="max-height: 520px; overflow:auto;" -->
 														<div class="table-responsive"
-															style="max-height: 520px; overflow:auto;">
-
+															style="max-height:520px; overflow:auto;">
 															<table id="calculationTable"
 																class="table table-hover table-sm table-bordered">
 																<thead class="table-light sticky-top"
@@ -447,163 +446,156 @@
 																		<th>Value addition</th>
 																		<th>Claim Ref No</th>
 																		<th>Claim Year</th>
+																		<th>Actions</th>
 																	</tr>
 																</thead>
 
 																<tbody>
+																	<!-- No records row -->
 																	<tr
-																		th:if="${calculationRows == null || #lists.isEmpty(calculationRows)}">
-																		<td colspan="23" class="text-center text-muted">
-																			No records found.</td>
+																		th:if="${recordsPage == null || #lists.isEmpty(recordsPage)}">
+																		<td th:colspan="26"
+																			class="text-center text-muted">No records
+																			found.</td>
 																	</tr>
 
-																	<tr th:each="row, stat : ${calculationRows}"
-																		th:attr="data-export-id=${row.exportId}">
+																	<!-- Data rows -->
+																	<tr th:each="row, stat : ${recordsPage}">
 																		<!-- SL NO -->
 																		<td class="text-center"
 																			th:text="${stat.index + 1}">1</td>
 
-																		<td data-col="portCode" contenteditable="true"
+																		<td data-col="portCode"
 																			th:text="${row.portCode}">Port Code</td>
-																		<td data-col="sbNo" contenteditable="true"
+																		<td data-col="sbNo"
 																			th:text="${row.shippingBillNo}">SB No</td>
-																		<td data-col="sbDate" contenteditable="true"
+																		<td data-col="sbDate"
 																			th:text="${row.shippingBillDate != null ? #temporals.format(row.shippingBillDate, 'dd-MM-yyyy') : ''}">
 																			Date</td>
-																		<td data-col="leoDate" contenteditable="true"
+																		<td data-col="leoDate"
 																			th:text="${row.leoDate != null ? #temporals.format(row.leoDate, 'dd-MM-yyyy') : ''}">
 																			LEO</td>
 																		<td data-col="description"
-																			contenteditable="true"
 																			th:text="${row.exportDescription}">
 																			Description</td>
 
 																		<td class="text-end" data-col="quantity"
-																			contenteditable="true"
 																			th:text="${#numbers.formatDecimal(row.quantity, 1, 'COMMA', 2, 'POINT')}">
 																			Qty</td>
 
-																		<td data-col="unit" contenteditable="true"
-																			th:text="${row.unit}">Unit</td>
-																		<td data-col="dbkSno" contenteditable="true"
-																			th:text="${row.dbkSno}">DBK SNO</td>
+																		<td data-col="unit" th:text="${row.unit}">Unit
+																		</td>
+																		<td data-col="dbkSno" th:text="${row.dbkSno}">
+																			DBK SNO</td>
 
 																		<!-- J: FOB Value -->
 																		<td class="text-end" data-col="fob"
-																			contenteditable="true"
 																			th:text="${#numbers.formatDecimal(row.fobValue, 2, 'COMMA', 2, 'POINT')}">
 																			FOB</td>
 
 																		<!-- K: PMV Value -->
 																		<td class="text-end" data-col="pmv"
-																			contenteditable="true"
 																			th:text="${#numbers.formatDecimal(row.pmvValue, 2, 'COMMA', 2, 'POINT')}">
 																			PMV</td>
 
 																		<!-- L: Imp Quantity -->
 																		<td class="text-end" data-col="impQty"
-																			contenteditable="true"
 																			th:text="${#numbers.formatDecimal(row.importQuantity, 2, 'COMMA', 2, 'POINT')}">
 																			Imp Qty</td>
 
 																		<!-- M: Consumption per Export Qty -->
 																		<td class="text-end" data-col="consumption"
-																			contenteditable="true"
 																			th:text="${#numbers.formatDecimal(row.consumptionPerExportQty, 2, 'COMMA', 2, 'POINT')}">
 																			Consumption</td>
 
 																		<!-- N: Total Duty -->
 																		<td class="text-end" data-col="totalDuty"
-																			contenteditable="true"
 																			th:text="${#numbers.formatDecimal(row.totalDuty, 2, 'COMMA', 2, 'POINT')}">
 																			Total Duty</td>
 
 																		<!-- O: Total CIF -->
 																		<td class="text-end" data-col="totalCif"
-																			contenteditable="true"
 																			th:text="${#numbers.formatDecimal(row.totalCifValue, 2, 'COMMA', 2, 'POINT')}">
 																			Total CIF</td>
 
 																		<!-- P: DBK Amt (computed) -->
 																		<td class="text-end" data-col="dbkAmt"
-																			contenteditable="true"
 																			th:text="${#numbers.formatDecimal(row.dbkAmount, 2, 'COMMA', 2, 'POINT')}">
 																			DBK Amt</td>
 
 																		<!-- Q: CIF Value (computed) -->
 																		<td class="text-end" data-col="cifValue"
-																			contenteditable="true"
 																			th:text="${#numbers.formatDecimal(row.cifValue, 2, 'COMMA', 2, 'POINT')}">
 																			CIF Value</td>
 
 																		<!-- R: AIR Rate -->
 																		<td class="text-end" data-col="airRate"
-																			contenteditable="true"
-																			th:text="${#numbers.formatDecimal(row.airRate, 4, 'COMMA', 4, 'POINT')}">
+																			th:text="${#numbers.formatDecimal(row.airRate* 100, 1, 'COMMA', 2, 'POINT')} + '%'">
 																			AIR Rate</td>
 
 																		<!-- S: Air Amount -->
 																		<td class="text-end" data-col="airAmount"
-																			contenteditable="true"
 																			th:text="${#numbers.formatDecimal(row.airAmount, 2, 'COMMA', 2, 'POINT')}">
 																			Air Amount</td>
 
 																		<!-- T: SBR (computed) -->
 																		<td class="text-end" data-col="sbr"
-																			contenteditable="true"
 																			th:text="${#numbers.formatDecimal(row.sbr, 6, 'COMMA', 6, 'POINT')}">
 																			SBR</td>
 
 																		<!-- U: 4/5 of BRoD (computed) -->
 																		<td class="text-end" data-col="brodFourFifth"
-																			contenteditable="true"
 																			th:text="${#numbers.formatDecimal(row.fourFifthOfBrodMainClaim, 2, 'COMMA', 2, 'POINT')}">
 																			4/5 BRoD</td>
 
 																		<!-- V: Diff BRoD - AIR (computed) -->
 																		<td class="text-end" data-col="diffBrodAir"
-																			contenteditable="true"
 																			th:text="${#numbers.formatDecimal(row.diffBrodAndAir, 2, 'COMMA', 2, 'POINT')}">
 																			Diff</td>
 
-																		<!-- W: Value Addition (computed % or amount as your formula) -->
+																		<!-- W: Value Addition (computed) -->
 																		<td class="text-end" data-col="valueAddition"
-																			contenteditable="true"
 																			th:text="${#numbers.formatDecimal(row.valueAddition, 2, 'COMMA', 2, 'POINT')}">
 																			Value Addition</td>
 
-
-																		<td data-col="claimRefNo" contenteditable="true"
+																		<!-- Claim fields -->
+																		<td data-col="claimRefNo"
 																			th:text="${row.claimRefNo}">Claim Ref No
 																		</td>
+																		<td data-col="claimYear"
+																			th:text="${row.claimYear}">Claim Year</td>
 
-																		<td data-col="claimYear" contenteditable="true"
-																			th:text="${row.claimYear}">Claim Year
+																		<!-- Actions -->
+																		<td class="text-center">
+																			<a th:href="@{/dbkcalculation/list/claim (claimRefNo=${row.claimRefNo}, claimYear=${row.claimYear})}"
+																				class="btn btn-sm btn-outline-danger"
+																				title="Show claim records">
+																				<i class="bi bi-list-ul"></i> Delete
+																			</a>
 																		</td>
-
-
 																	</tr>
-
 																</tbody>
 															</table>
 														</div>
+
 
 													</div>
 
 
 													<!-- Pagination controls -->
 
-
 													<div class="text-center">
 
 														<button type="button" id="saveBtn"
 															class="btn btn-info waves-effect waves-light m-r-5 m-b-5"
 															style="width: 150px;"> <i
-																class="bi bi-file-earmark-excel"></i> Save
+																class="bi bi-file-earmark-excel"></i> Download Excel
 														</button>
 
 
 													</div>
+
+
 
 
 
@@ -635,271 +627,352 @@
 	</div>
 	</div>
 
-	<script>
-		document.addEventListener('DOMContentLoaded', function () {
-
-			// helper: parse number from cell text (handles commas). returns BigDecimal-like JS Number
-			function parseNum(str) {
-				if (str === null || str === undefined) return 0;
-				const s = String(str).trim().replace(/,/g, '');
-				if (s === '' || s === '-') return 0;
-				const n = Number(s);
-				return isNaN(n) ? 0 : n;
-			}
-
-			// helper: format number for display (2 decimals default, allow customizing)
-			function fmt(n) {
-				if (n === null || n === undefined) n = 0;
-				return Number(n).toLocaleString(undefined, {
-					minimumFractionDigits: 2,
-					maximumFractionDigits: 2
-				});
-			}
-
-
-			// compute per row using your formulas
-			function recomputeRow(tr) {
-				// find cells by data-col
-				const get = (name) => tr.querySelector('[data-col="' + name + '"]');
-
-				const cellJ = get('fob');     // J
-				const cellL = get('impQty');  // L
-				const cellM = get('consumption'); // M
-				const cellN = get('totalDuty');   // N
-				const cellO = get('totalCif');    // O
-				const cellP = get('dbkAmt');      // P (computed)
-				const cellQ = get('cifValue');    // Q (computed)
-				const cellS = get('airAmount');   // S
-				const cellT = get('sbr');         // T (computed per requested formula)
-				const cellU = get('brodFourFifth');
-				const cellV = get('diffBrodAir');
-				const cellW = get('valueAddition');
-
-				// read numeric values (raw)
-				const J = parseNum(cellJ.textContent || cellJ.dataset.value);
-				const L = parseNum(cellL.textContent || cellL.dataset.value);
-				const M = parseNum(cellM.textContent || cellM.dataset.value);
-				const N = parseNum(cellN.textContent || cellN.dataset.value);
-				const O = parseNum(cellO.textContent || cellO.dataset.value);
-				const S = parseNum(cellS.textContent || cellS.dataset.value);
-
-				// compute P = (N / L) * M
-				let Pval = 0;
-				if (L !== 0) Pval = (N / L) * M;
-
-				// compute Q = (O / L) * M
-				let Qval = 0;
-				if (L !== 0) Qval = (O / L) * M;
-
-				// T = P - S
-				let Tval = Pval - S;
-
-				// U = P * 4/5
-				let Uval = Pval * 0.8;
-
-				// V = U - S
-				let Vval = Uval - S;
-
-				// W = (J - Q) / Q * 100  (guard Q != 0)
-				let Wval = 0;
-				if (Qval !== 0) Wval = ((J - Qval) / Qval) * 100;
-
-				// write back (update both data-value and displayed text formatted)
-				const write = (cell, value, decimals = 2) => {
-					if (!cell) return;
-					cell.dataset.value = String(value ?? 0);
-					cell.textContent = fmt(value ?? 0, decimals);
-				};
-
-				write(cellP, Pval);
-				write(cellQ, Qval);
-				write(cellT, Tval);
-				write(cellU, Uval);
-				write(cellV, Vval);
-				write(cellW, Wval);
-
-			}
-
-			// initialize: set data-value from the current text of all rows
-			function initRowData(tr) {
-				tr.querySelectorAll('td[data-col]').forEach(td => {
-					// store raw numeric if td looks numeric; else keep text also in data-value
-					const txt = td.textContent.trim();
-					const num = parseNum(txt);
-					// If the original text has non-digit characters (letters) we still store text and number 0
-					td.dataset.value = String(num);
-					// keep formatted text as-is (don't change)
-				});
-
-				// compute derived columns for initial display
-				recomputeRow(tr);
-			}
-
-			// wire events: when any contenteditable cell changes, recompute the row
-			function wireRowListeners(tr) {
-				tr.querySelectorAll('td[data-col]').forEach(td => {
-					// ignore SL NO cell as it has no data-col; all td with data-col are editable here
-					// listen to 'input' (for contentEditable) and 'blur' (user finished)
-					td.addEventListener('input', function () {
-						// update dataset value for the edited cell
-						const v = this.textContent.trim();
-						this.dataset.value = String(parseNum(v));
-						recomputeRow(tr);
-					});
-
-					// optional: format on blur
-					td.addEventListener('blur', function () {
-						// if this is a numeric column, reformat display to 2 decimals / 6 decimals for consumption
-						const col = this.dataset.col;
-						const val = parseNum(this.dataset.value);
-						if (col === 'consumption') {
-							this.textContent = fmt(val, 6);
-						} else if (['quantity'].includes(col)) {
-							this.textContent = fmt(val, 2);
-						} else {
-							this.textContent = fmt(val, 2);
-						}
-					});
-				});
-			}
-
-			// apply to all rows
-			const rows = Array.from(document.querySelectorAll('#calculationTable tbody tr'))
-				.filter(tr => tr.querySelector('[data-col]')); // skip "no records" row
-			rows.forEach(tr => {initRowData(tr); wireRowListeners(tr);});
-
-			// convenience: recalc all
-			window.recomputeAllCalculationRows = function () {
-				document.querySelectorAll('#calculationTable tbody tr').forEach(tr => {
-					if (tr.querySelector('[data-col]')) recomputeRow(tr);
-				});
-			};
-
-		});
-	</script>
 
 
 
+	<!-- Include SheetJS (xlsx) from CDN -->
+	<script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
 
 	<script>
-		(() => {
-			const parseNum = s => {
-				if (s === null || s === undefined) return 0;
-				const cleaned = ('' + s).replace(/,/g, '').trim();
-				if (cleaned === '' || cleaned === '-') return 0;
-				const n = Number(cleaned);
-				return isNaN(n) ? 0 : n;
+		/*
+		  Updated client-side export:
+		  - Builds Excel as before
+		  - Makes header row bold
+		  - Appends a totals row summing requested numeric columns (bold)
+		  - Keep numeric/date/percent conversions and formats
+		*/
+
+		(function () {
+			const EXCEL_HEADERS = [
+				"SL NO",
+				"Port Code",
+				"Shipping Bill No",
+				"Date",
+				"LEO Date",
+				"Description of Export product",
+				"QUANTITY",
+				"UNIT",
+				"DBK SNO.",
+				"FOB Value",
+				"PMV Value",
+				"Imp Quantity",
+				"Consumption for 1 Exp.Qty",
+				"Total Duty",
+				"Total CIF Value",
+				"DBK Amt",
+				"CIF Value",
+				"AIR Rate",
+				"Air Amount",
+				"SBR",
+				"4/5 of BRoD(Main Claim)",
+				"Diff b/w 4/5th of BRoD and AIR (if Diff is +ve BRoD is eligible",
+				"Value addition",
+				"Claim Ref No",
+				"Claim Year"
+			];
+
+			const DATA_COL_TO_HEADER = {
+				"portCode": "Port Code",
+				"sbNo": "Shipping Bill No",
+				"sbDate": "Date",
+				"leoDate": "LEO Date",
+				"description": "Description of Export product",
+				"quantity": "QUANTITY",
+				"unit": "UNIT",
+				"dbkSno": "DBK SNO.",
+				"fob": "FOB Value",
+				"pmv": "PMV Value",
+				"impQty": "Imp Quantity",
+				"consumption": "Consumption for 1 Exp.Qty",
+				"totalDuty": "Total Duty",
+				"totalCif": "Total CIF Value",
+				"dbkAmt": "DBK Amt",
+				"cifValue": "CIF Value",
+				"airRate": "AIR Rate",
+				"airAmount": "Air Amount",
+				"sbr": "SBR",
+				"brodFourFifth": "4/5 of BRoD(Main Claim)",
+				"diffBrodAir": "Diff b/w 4/5th of BRoD and AIR (if Diff is +ve BRoD is eligible",
+				"valueAddition": "Value addition",
+				"claimRefNo": "Claim Ref No",
+				"claimYear": "Claim Year"
 			};
 
-			const toIsoDate = txt => {
-				if (!txt) return null;
-				const t = txt.trim();
-				if (/^\d{4}-\d{2}-\d{2}$/.test(t)) return t;
-				const m = t.match(/^(\d{2})[-\/](\d{2})[-\/](\d{4})$/);
-				if (m) return `${m[3]}-${m[2]}-${m[1]}`;
-				const d = new Date(t);
-				if (!isNaN(d.valueOf())) {
-					const yyyy = d.getFullYear();
-					const mm = String(d.getMonth() + 1).padStart(2, '0');
-					const dd = String(d.getDate()).padStart(2, '0');
-					return `${yyyy}-${mm}-${dd}`;
+			const HEADER_CONFIG = {
+				"SL NO": {type: "n", z: "0"},
+				"Port Code": {type: "s"},
+				"Shipping Bill No": {type: "s"},
+				"Date": {type: "d", z: "dd-mm-yyyy"},
+				"LEO Date": {type: "d", z: "dd-mm-yyyy"},
+				"Description of Export product": {type: "s"},
+				"QUANTITY": {type: "n", z: "#,##0.###"},
+				"UNIT": {type: "s"},
+				"DBK SNO.": {type: "s"},
+				"FOB Value": {type: "n", z: "#,##0.00"},
+				"PMV Value": {type: "n", z: "#,##0.00"},
+				"Imp Quantity": {type: "n", z: "#,##0.###"},
+				"Consumption for 1 Exp.Qty": {type: "n", z: "#,##0.###"},
+				"Total Duty": {type: "n", z: "#,##0.00"},
+				"Total CIF Value": {type: "n", z: "#,##0.00"},
+				"DBK Amt": {type: "n", z: "#,##0.00"},
+				"CIF Value": {type: "n", z: "#,##0.00"},
+				"AIR Rate": {type: "p", z: "0.00%"},
+				"Air Amount": {type: "n", z: "#,##0.00"},
+				"SBR": {type: "n", z: "0.000000"},
+				"4/5 of BRoD(Main Claim)": {type: "n", z: "#,##0.00"},
+				"Diff b/w 4/5th of BRoD and AIR (if Diff is +ve BRoD is eligible": {type: "n", z: "#,##0.00"},
+				"Value addition": {type: "n", z: "#,##0.00"},
+				"Claim Ref No": {type: "s"},
+				"Claim Year": {type: "s"}
+			};
+
+			// Columns that must show totals (as requested)
+			const TOTAL_HEADERS = [
+				"FOB Value",
+				"PMV Value",
+				"Imp Quantity",
+				"Consumption for 1 Exp.Qty",
+				"Total Duty",
+				"Total CIF Value",
+				"DBK Amt",
+				"CIF Value",
+				"AIR Rate",
+				"Air Amount",
+				"SBR",
+				"4/5 of BRoD(Main Claim)",
+				"Diff b/w 4/5th of BRoD and AIR (if Diff is +ve BRoD is eligible",
+				"Value addition"
+			];
+
+			function parseDate_ddMMyyyy(s) {
+				if (!s || typeof s !== "string") return null;
+				const m = s.trim().match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})$/);
+				if (!m) return null;
+				return new Date(parseInt(m[3], 10), parseInt(m[2], 10) - 1, parseInt(m[1], 10));
+			}
+
+			function parseNumber(text) {
+				if (text == null) return null;
+				const t = ("" + text).trim();
+				if (t === "") return null;
+				if (t.endsWith("%")) {
+					const num = parseFloat(t.replace(/%/g, "").replace(/,/g, ""));
+					if (isNaN(num)) return null;
+					return {value: num / 100, isPercent: true};
 				}
-				return t;
-			};
-
-			const readText = (row, col) => {
-				const el = row.querySelector(`td[data-col="${col}"]`);
-				return el ? (el.textContent || '').trim() : '';
-			};
-			const readNum = (row, col) => parseNum(readText(row, col));
-
-			const buildDto = row => ({
-				exportId: row.getAttribute('data-export-id') ? Number(row.getAttribute('data-export-id')) : null,
-				portCode: readText(row, 'portCode'),
-				shippingBillNo: readText(row, 'sbNo'),
-				shippingBillDate: toIsoDate(readText(row, 'sbDate')),
-				leoDate: toIsoDate(readText(row, 'leoDate')),
-				exportDescription: readText(row, 'description'),
-				quantity: readNum(row, 'quantity'),
-				unit: readText(row, 'unit'),
-				dbkSno: readText(row, 'dbkSno'),
-				fobValue: readNum(row, 'fob'),
-				pmvValue: readNum(row, 'pmv'),
-				importQuantity: readNum(row, 'impQty'),
-				consumptionPerExportQty: readNum(row, 'consumption'),
-				totalDuty: readNum(row, 'totalDuty'),
-				totalCifValue: readNum(row, 'totalCif'),
-				dbkAmount: readNum(row, 'dbkAmt'),
-				cifValue: readNum(row, 'cifValue'),
-				airRate: readNum(row, 'airRate'),
-				airAmount: readNum(row, 'airAmount'),
-				sbr: readNum(row, 'sbr'),
-				fourFifthOfBrodMainClaim: readNum(row, 'brodFourFifth'),
-				diffBrodAndAir: readNum(row, 'diffBrodAir'),
-				valueAddition: readNum(row, 'valueAddition'),
-				claimRefNo: readText(row, 'claimRefNo'),
-				claimYear: readText(row, 'claimYear')
-			});
-
-			const collectAll = () => {
-				const table = document.getElementById('calculationTable');
-				if (!table || !table.tBodies || !table.tBodies[0]) return [];
-				const rows = Array.from(table.tBodies[0].rows)
-					.filter(r => r.querySelector('[data-col]')); // skip "no data" row
-				return rows.map(buildDto);
-			};
-
-			// CSRF (Thymeleaf default meta tags)
-			const getCsrf = () => {
-				const tokenMeta = document.querySelector('meta[name="_csrf"]');
-				const headerMeta = document.querySelector('meta[name="_csrf_header"]');
-				if (tokenMeta && headerMeta) return {header: headerMeta.getAttribute('content'), token: tokenMeta.getAttribute('content')};
+				const raw = t.replace(/,/g, "");
+				if (!isNaN(raw) && raw !== "") {
+					const v = parseFloat(raw);
+					if (!isNaN(v)) return {value: v, isPercent: false};
+				}
 				return null;
-			};
+			}
+
+			function buildAOAFromTable(tbl) {
+				const aoa = [];
+				aoa.push(EXCEL_HEADERS.slice());
+				const tbody = tbl.tBodies[0];
+				if (!tbody) return aoa;
+				const trList = Array.from(tbody.rows);
+				let slNo = 1;
+				for (const tr of trList) {
+					const firstTd = tr.cells[0];
+					if (firstTd && firstTd.colSpan && firstTd.colSpan > 1) continue;
+					const rowArr = [];
+					for (const header of EXCEL_HEADERS) {
+						let value = "";
+						if (header === "SL NO") {
+							value = slNo++;
+							rowArr.push(value);
+							continue;
+						}
+						const dataCol = Object.keys(DATA_COL_TO_HEADER).find(k => DATA_COL_TO_HEADER[k] === header);
+						if (!dataCol) {
+							const headerIndex = EXCEL_HEADERS.indexOf(header);
+							const td = tr.cells[headerIndex];
+							value = td ? td.innerText.trim() : "";
+							rowArr.push(value);
+							continue;
+						}
+						const td = tr.querySelector(`td[data-col="${dataCol}"]`);
+						value = td ? td.innerText.trim() : "";
+						rowArr.push(value);
+					}
+					aoa.push(rowArr);
+				}
+				return aoa;
+			}
+
+			// compute totals for numeric columns; returns object header->sum (sums percent as decimal fractions)
+			function computeTotals(aoa) {
+				const totals = {};
+				// initialize
+				for (const h of TOTAL_HEADERS) totals[h] = 0;
+				// iterate rows 1..n-1
+				for (let r = 1; r < aoa.length; r++) {
+					const row = aoa[r];
+					for (let c = 0; c < EXCEL_HEADERS.length; c++) {
+						const header = EXCEL_HEADERS[c];
+						if (!TOTAL_HEADERS.includes(header)) continue;
+						const raw = row[c];
+						if (raw == null || raw === "") continue;
+						const parsed = parseNumber(String(raw));
+						if (parsed && parsed.value != null) {
+							// for percent headers, store decimal fractions (HEADER_CONFIG indicates type 'p')
+							totals[header] += parsed.value;
+						} else {
+							// try parse date? skip
+							const num = parseFloat(String(raw).replace(/,/g, ''));
+							if (!isNaN(num)) totals[header] += num;
+						}
+					}
+				}
+				return totals;
+			}
+
+			function aoaToWorksheetWithTypesAndTotals(aoa) {
+				// compute totals and append totals row to AOA copy
+				const totals = computeTotals(aoa);
+				// prepare totals row: fill blanks except numeric columns
+				const totalsRow = EXCEL_HEADERS.map(h => {
+					if (h === "SL NO") return "TOTAL";
+					if (TOTAL_HEADERS.includes(h)) {
+						// for 'AIR Rate' (percent) totals currently in decimal form (e.g. 0.37); we keep decimal
+						return totals[h];
+					}
+					return "";
+				});
+
+				// create a new aoaCopy to avoid mutating original
+				const aoaCopy = aoa.slice();
+				aoaCopy.push(totalsRow);
+
+				const ws = XLSX.utils.aoa_to_sheet(aoaCopy);
+				const headerRow = aoaCopy[0] || [];
+				const rowCount = aoaCopy.length;
+
+				// set header cells bold and ensure types/format for data rows and totals row
+				for (let C = 0; C < headerRow.length; C++) {
+					const header = headerRow[C];
+					// header cell (R=0)
+					const headerRef = XLSX.utils.encode_cell({c: C, r: 0});
+					if (!ws[headerRef]) ws[headerRef] = {t: 's', v: header};
+					ws[headerRef].s = ws[headerRef].s || {};
+					ws[headerRef].s.font = Object.assign({}, ws[headerRef].s.font, {bold: true});
+
+					const cfg = HEADER_CONFIG[header] || {type: "s"};
+					// handle data rows (1..rowCount-2) and totals row (rowCount-1)
+					for (let R = 1; R < rowCount; R++) {
+						const cell_ref = XLSX.utils.encode_cell({c: C, r: R});
+						const rawCell = ws[cell_ref];
+						const rawValue = rawCell ? rawCell.v : null;
+
+						// Totals row index
+						const isTotalsRow = (R === rowCount - 1);
+
+						if (rawValue == null || rawValue === "") {
+							if (isTotalsRow && TOTAL_HEADERS.includes(header)) {
+								// if no data, ensure totals cell exists as zero
+								ws[cell_ref] = {t: 'n', v: 0, z: cfg.z || 'General'};
+							} else if (isTotalsRow && header === "SL NO") {
+								ws[cell_ref] = {t: 's', v: 'TOTAL'};
+								ws[cell_ref].s = ws[cell_ref].s || {};
+								ws[cell_ref].s.font = Object.assign({}, ws[cell_ref].s.font, {bold: true});
+							}
+							continue;
+						}
+
+						if (isTotalsRow && TOTAL_HEADERS.includes(header)) {
+							// totalsRow numeric; rawValue is the numeric sum already (JS number)
+							const num = typeof rawValue === 'number' ? rawValue : parseFloat(String(rawValue));
+							if (!isNaN(num)) {
+								if (cfg.type === 'p') {
+									// totals for percent stored as decimal fractions (we treat as decimal)
+									ws[cell_ref] = {t: 'n', v: num, z: cfg.z || '0.00%'};
+								} else {
+									ws[cell_ref] = {t: 'n', v: num, z: cfg.z || 'General'};
+								}
+							} else {
+								ws[cell_ref] = {t: 's', v: String(rawValue)};
+							}
+							// bold totals cell
+							ws[cell_ref].s = ws[cell_ref].s || {};
+							ws[cell_ref].s.font = Object.assign({}, ws[cell_ref].s.font, {bold: true});
+							continue;
+						}
+
+						// regular data rows conversion (same as before)
+						if (cfg.type === "d") {
+							let dateVal = null;
+							if (rawValue instanceof Date) dateVal = rawValue;
+							else dateVal = parseDate_ddMMyyyy(String(rawValue));
+							if (dateVal) {
+								ws[cell_ref] = {t: 'd', v: dateVal, z: cfg.z || 'dd-mm-yyyy'};
+							} else {
+								ws[cell_ref] = {t: 's', v: String(rawValue)};
+							}
+						} else if (cfg.type === "p") {
+							const parsed = parseNumber(String(rawValue));
+							if (parsed && parsed.value != null) {
+								const val = parsed.isPercent ? parsed.value : parsed.value / 100;
+								ws[cell_ref] = {t: 'n', v: val, z: cfg.z || '0.00%'};
+							} else {
+								const num = parseFloat(String(rawValue).replace(/%/g, '').replace(/,/g, ''));
+								if (!isNaN(num)) {
+									ws[cell_ref] = {t: 'n', v: num / 100, z: cfg.z || '0.00%'};
+								} else {
+									ws[cell_ref] = {t: 's', v: String(rawValue)};
+								}
+							}
+						} else if (cfg.type === "n") {
+							const parsed = parseNumber(String(rawValue));
+							if (parsed && parsed.value != null) {
+								ws[cell_ref] = {t: 'n', v: parsed.value, z: cfg.z || 'General'};
+							} else {
+								const num = parseFloat(String(rawValue).replace(/,/g, ''));
+								if (!isNaN(num)) ws[cell_ref] = {t: 'n', v: num, z: cfg.z || 'General'};
+								else ws[cell_ref] = {t: 's', v: String(rawValue)};
+							}
+						} else {
+							ws[cell_ref] = {t: 's', v: String(rawValue)};
+						}
+					}
+				}
+
+				// set column widths
+				ws['!cols'] = headerRow.map(h => {
+					const cfg = HEADER_CONFIG[h] || {};
+					if (cfg.type === 'n') return {wpx: 90};
+					if (cfg.type === 'd') return {wpx: 90};
+					return {wpx: 140};
+				});
+
+				return ws;
+			}
 
 			const saveBtn = document.getElementById('saveBtn');
-			if (!saveBtn) {
-				console.warn('saveBtn not found (id="saveBtn"). Add it to call the save action.');
-				return;
-			}
+			if (!saveBtn) return;
 
-			saveBtn.addEventListener('click', async (ev) => {
-				ev.preventDefault();
-				const payload = collectAll();
-				if (!payload.length) {alert('No rows to save'); return;}
-				if (!confirm('Save ' + payload.length + ' row(s)?')) return;
+			saveBtn.addEventListener('click', function () {
+				const tbl = document.getElementById('calculationTable');
+				if (!tbl) {alert('Table not found'); return;}
 
-				const csrf = getCsrf();
-				const headers = {'Content-Type': 'application/json'};
-				if (csrf && csrf.header) headers[csrf.header] = csrf.token;
-
-				try {
-					const resp = await fetch('/dbkcalculation/save', {
-						method: 'POST',
-						headers,
-						body: JSON.stringify(payload)
-					});
-
-					if (!resp.ok) {
-						const text = await resp.text();
-						console.error('Save failed', resp.status, text);
-						alert('Save failed: ' + resp.status + ' — check console.');
-						return;
-					}
-
-					// assume JSON { savedCount: N } or similar
-					const data = await resp.json().catch(() => null);
-					alert('Saved successfully' + (data && data.savedCount ? ': ' + data.savedCount + ' rows' : '.'));
-					window.location.href = '/dbkcalculation/list/claimwise';
-					// optional: location.reload();
-				} catch (err) {
-					console.error('Save error', err);
-					alert('Unexpected error while saving. See console.');
+				const aoa = buildAOAFromTable(tbl);
+				if (aoa.length <= 1) {
+					if (!confirm('No data rows found. Do you want to export headers and totals only?')) return;
 				}
+
+				const ws = aoaToWorksheetWithTypesAndTotals(aoa);
+				const wb = XLSX.utils.book_new();
+				XLSX.utils.book_append_sheet(wb, ws, 'DBK Calculation');
+
+				const now = new Date();
+				const ts = now.toISOString().slice(0, 19).replace(/:/g, '-');
+				const filename = `Sb Wise DBK Calculation - ${ts}.xlsx`;
+				XLSX.writeFile(wb, filename);
 			});
 		})();
 	</script>
-
 
 
 
