@@ -1,24 +1,284 @@
-2025-12-21 15:24:49 [restartedMain] INFO  c.o.c.OrpeConsultantsApplication - Starting OrpeConsultantsApplication using Java 21.0.5 with PID 14712 (F:\Orpe Softwares\Project\OrpeConsultants\target\classes started by Lenovo in F:\Orpe Softwares\Project\OrpeConsultants)
-2025-12-21 15:24:49 [restartedMain] DEBUG c.o.c.OrpeConsultantsApplication - Running with Spring Boot v3.5.5, Spring v6.2.10
-2025-12-21 15:24:49 [restartedMain] INFO  c.o.c.OrpeConsultantsApplication - No active profile set, falling back to 1 default profile: "default"
-2025-12-21 15:24:49 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-2025-12-21 15:24:49 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-2025-12-21 15:24:51 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-12-21 15:24:51 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 226 ms. Found 15 JPA repository interfaces.
-2025-12-21 15:24:55 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8083 (http)
-2025-12-21 15:24:55 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2025-12-21 15:24:55 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.44]
-2025-12-21 15:24:55 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2025-12-21 15:24:55 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 6329 ms
-2025-12-21 15:24:56 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2025-12-21 15:24:57 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@b3bd87
-2025-12-21 15:24:57 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2025-12-21 15:24:58 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-12-21 15:24:58 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.26.Final
-2025-12-21 15:24:58 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2025-12-21 15:24:59 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-12-21 15:25:00 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2025-12-21 15:25:00 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+2026-01-13 00:00:06 [http-nio-8083-exec-4] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-01-13 00:00:06 [http-nio-8083-exec-4] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-01-13 00:00:06 [http-nio-8083-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Detected StandardServletMultipartResolver
+2026-01-13 00:00:06 [http-nio-8083-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Detected AcceptHeaderLocaleResolver
+2026-01-13 00:00:06 [http-nio-8083-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Detected FixedThemeResolver
+2026-01-13 00:00:06 [http-nio-8083-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@62e30454
+2026-01-13 00:00:06 [http-nio-8083-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.support.SessionFlashMapManager@51e15e3c
+2026-01-13 00:00:06 [http-nio-8083-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2026-01-13 00:00:06 [http-nio-8083-exec-4] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 7 ms
+2026-01-13 00:00:06 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/icon/themify-icons/themify-icons.css", parameters={}
+2026-01-13 00:00:06 [http-nio-8083-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/pages/flag-icon/flag-icon.min.css", parameters={}
+2026-01-13 00:00:06 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/pages/menu-search/css/component.css", parameters={}
+2026-01-13 00:00:06 [http-nio-8083-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/pages/advance-elements/css/bootstrap-datetimepicker.css", parameters={}
+2026-01-13 00:00:06 [http-nio-8083-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/icon/icofont/css/icofont.css", parameters={}
+2026-01-13 00:00:06 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/bootstrap/dist/css/bootstrap.min.css", parameters={}
+2026-01-13 00:00:06 [http-nio-8083-exec-2] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:00:06 [http-nio-8083-exec-6] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:00:06 [http-nio-8083-exec-3] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:00:06 [http-nio-8083-exec-4] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:00:06 [http-nio-8083-exec-5] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:00:06 [http-nio-8083-exec-1] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:00:06 [http-nio-8083-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:00:07 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:00:07 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:00:07 [http-nio-8083-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/css/style.css", parameters={}
+2026-01-13 00:00:07 [http-nio-8083-exec-7] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:00:07 [http-nio-8083-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/css/linearicons.css", parameters={}
+2026-01-13 00:00:07 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/css/simple-line-icons.css", parameters={}
+2026-01-13 00:00:07 [http-nio-8083-exec-8] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:00:07 [http-nio-8083-exec-9] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:00:07 [http-nio-8083-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:00:07 [http-nio-8083-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/css/ionicons.css", parameters={}
+2026-01-13 00:00:07 [http-nio-8083-exec-10] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:00:07 [http-nio-8083-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:00:07 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:00:07 [http-nio-8083-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/css/jquery.mCustomScrollbar.css", parameters={}
+2026-01-13 00:00:07 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/images/logo.png", parameters={}
+2026-01-13 00:00:07 [http-nio-8083-exec-4] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:00:07 [http-nio-8083-exec-3] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:00:07 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:00:07 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/images/user.png", parameters={}
+2026-01-13 00:00:07 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:00:07 [http-nio-8083-exec-6] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:00:07 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/jquery/dist/jquery.min.js", parameters={}
+2026-01-13 00:00:07 [http-nio-8083-exec-3] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:00:07 [http-nio-8083-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:00:07 [http-nio-8083-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/jquery-ui/jquery-ui.min.js", parameters={}
+2026-01-13 00:00:07 [http-nio-8083-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:00:07 [http-nio-8083-exec-5] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:00:07 [http-nio-8083-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/tether/dist/js/tether.min.js", parameters={}
+2026-01-13 00:00:07 [http-nio-8083-exec-2] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:00:07 [http-nio-8083-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:00:07 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/bootstrap/dist/js/bootstrap.min.js", parameters={}
+2026-01-13 00:00:07 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:00:07 [http-nio-8083-exec-1] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:00:07 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/jquery-slimscroll/jquery.slimscroll.js", parameters={}
+2026-01-13 00:00:07 [http-nio-8083-exec-6] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:00:07 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:00:07 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/modernizr/modernizr.js", parameters={}
+2026-01-13 00:00:07 [http-nio-8083-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:00:07 [http-nio-8083-exec-9] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:00:07 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:00:07 [http-nio-8083-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/modernizr/feature-detects/css-scrollbars.js", parameters={}
+2026-01-13 00:00:07 [http-nio-8083-exec-10] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:00:07 [http-nio-8083-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:00:07 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:00:07 [http-nio-8083-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/pages/advance-elements/moment-with-locales.min.js", parameters={}
+2026-01-13 00:00:07 [http-nio-8083-exec-8] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:00:07 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/js/script.js", parameters={}
+2026-01-13 00:00:07 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/pages/user-profile.js", parameters={}
+2026-01-13 00:00:07 [http-nio-8083-exec-6] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:00:07 [http-nio-8083-exec-3] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:00:07 [http-nio-8083-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:00:07 [http-nio-8083-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/js/pcoded.min.js", parameters={}
+2026-01-13 00:00:07 [http-nio-8083-exec-10] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:00:07 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:00:07 [http-nio-8083-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/js/demo-12.js", parameters={}
+2026-01-13 00:00:07 [http-nio-8083-exec-2] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:00:07 [http-nio-8083-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:00:07 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/js/jquery.mCustomScrollbar.concat.min.js", parameters={}
+2026-01-13 00:00:07 [http-nio-8083-exec-1] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:00:07 [http-nio-8083-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:00:07 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:00:07 [http-nio-8083-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:00:07 [http-nio-8083-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/js/jquery.mousewheel.min.js", parameters={}
+2026-01-13 00:00:07 [http-nio-8083-exec-5] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:00:07 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:00:07 [http-nio-8083-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:00:07 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:00:07 [http-nio-8083-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:00:07 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/fonts/Simple-Line-Icons.woff2?v=2.3.2", parameters={masked}
+2026-01-13 00:00:07 [http-nio-8083-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/icon/themify-icons/fonts/themify.woff?-fvbane", parameters={masked}
+2026-01-13 00:00:07 [http-nio-8083-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/icon/icofont/fonts/icofont.ttf?v=1.0.0-beta", parameters={masked}
+2026-01-13 00:00:07 [http-nio-8083-exec-3] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:00:07 [http-nio-8083-exec-4] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:00:07 [http-nio-8083-exec-7] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:00:07 [http-nio-8083-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:00:07 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:00:08 [http-nio-8083-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:00:08 [http-nio-8083-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/images/pattern2.png", parameters={}
+2026-01-13 00:00:08 [http-nio-8083-exec-10] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:00:08 [http-nio-8083-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:00:18 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - GET "/backup/download", parameters={}
+2026-01-13 00:00:18 [http-nio-8083-exec-9] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.orpe.consultants.controller.DatabaseBackupController#downloadBackup()
+2026-01-13 00:00:19 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Failed to complete request: java.lang.RuntimeException: Backup failed
+2026-01-13 00:00:19 [http-nio-8083-exec-9] ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: java.lang.RuntimeException: Backup failed] with root cause
+java.lang.RuntimeException: Database backup failed
+	at com.orpe.consultants.utils.DatabaseBackupUtil.createBackup(DatabaseBackupUtil.java:43)
+	at com.orpe.consultants.service.impl.DatabaseBackupServiceImpl.backupDatabase(DatabaseBackupServiceImpl.java:31)
+	at com.orpe.consultants.controller.DatabaseBackupController.downloadBackup(DatabaseBackupController.java:34)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:258)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:191)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:991)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:896)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.session.web.http.SessionRepositoryFilter.doFilterInternal(SessionRepositoryFilter.java:142)
+	at org.springframework.session.web.http.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:82)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:362)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:278)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:116)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:398)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:903)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1769)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1189)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:658)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2026-01-13 00:00:19 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - "ERROR" dispatch for GET "/error", parameters={}
+2026-01-13 00:00:19 [http-nio-8083-exec-9] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController#errorHtml(HttpServletRequest, HttpServletResponse)
+2026-01-13 00:00:19 [http-nio-8083-exec-9] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, text/html;q=0.8]
+2026-01-13 00:00:19 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Exiting from "ERROR" dispatch, status 500
+2026-01-13 00:07:02 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2026-01-13 00:07:05 [Thread-5] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-01-13 00:07:05 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-01-13 00:07:06 [Thread-5] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-01-13 00:07:08 [Thread-5] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-01-13 00:07:08 [Thread-5] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-01-13 00:07:16 [restartedMain] INFO  c.o.c.OrpeConsultantsApplication - Starting OrpeConsultantsApplication using Java 21.0.5 with PID 17212 (F:\Orpe Softwares\Project\OrpeConsultants\target\classes started by Lenovo in F:\Orpe Softwares\Project\OrpeConsultants)
+2026-01-13 00:07:16 [restartedMain] DEBUG c.o.c.OrpeConsultantsApplication - Running with Spring Boot v3.5.5, Spring v6.2.10
+2026-01-13 00:07:16 [restartedMain] INFO  c.o.c.OrpeConsultantsApplication - No active profile set, falling back to 1 default profile: "default"
+2026-01-13 00:07:20 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-01-13 00:07:21 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 265 ms. Found 15 JPA repository interfaces.
+2026-01-13 00:07:22 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8083 (http)
+2026-01-13 00:07:22 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-01-13 00:07:22 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.44]
+2026-01-13 00:07:22 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-01-13 00:07:22 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 5563 ms
+2026-01-13 00:07:22 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Starting...
+2026-01-13 00:07:22 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Added connection com.mysql.cj.jdbc.ConnectionImpl@619e6413
+2026-01-13 00:07:22 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Start completed.
+2026-01-13 00:07:23 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-01-13 00:07:23 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-01-13 00:07:23 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-01-13 00:07:23 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-01-13 00:07:23 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-2)']
+	Database driver: undefined/unknown
+	Database version: 8.0.39
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-01-13 00:07:24 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-01-13 00:07:24 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-01-13 00:07:26 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-01-13 00:07:26 [restartedMain] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page template: index
+2026-01-13 00:07:26 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 69 mappings in 'requestMappingHandlerMapping'
+2026-01-13 00:07:26 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2026-01-13 00:07:26 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2026-01-13 00:07:26 [restartedMain] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2026-01-13 00:07:26 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2026-01-13 00:07:26 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8083 (http) with context path '/'
+2026-01-13 00:07:26 [restartedMain] INFO  c.o.c.OrpeConsultantsApplication - Started OrpeConsultantsApplication in 11.332 seconds (process running for 555.098)
+2026-01-13 00:07:26 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2026-01-13 00:07:37 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2026-01-13 00:07:37 [Thread-7] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-01-13 00:07:37 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-01-13 00:07:37 [Thread-7] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-01-13 00:07:37 [Thread-7] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
+2026-01-13 00:07:37 [Thread-7] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.
+2026-01-13 00:07:37 [restartedMain] INFO  c.o.c.OrpeConsultantsApplication - Starting OrpeConsultantsApplication using Java 21.0.5 with PID 17212 (F:\Orpe Softwares\Project\OrpeConsultants\target\classes started by Lenovo in F:\Orpe Softwares\Project\OrpeConsultants)
+2026-01-13 00:07:37 [restartedMain] DEBUG c.o.c.OrpeConsultantsApplication - Running with Spring Boot v3.5.5, Spring v6.2.10
+2026-01-13 00:07:37 [restartedMain] INFO  c.o.c.OrpeConsultantsApplication - No active profile set, falling back to 1 default profile: "default"
+2026-01-13 00:07:38 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-01-13 00:07:38 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 88 ms. Found 15 JPA repository interfaces.
+2026-01-13 00:07:38 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8083 (http)
+2026-01-13 00:07:38 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-01-13 00:07:38 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.44]
+2026-01-13 00:07:38 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-01-13 00:07:38 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1198 ms
+2026-01-13 00:07:39 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Starting...
+2026-01-13 00:07:39 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-3 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1503aac9
+2026-01-13 00:07:39 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Start completed.
+2026-01-13 00:07:39 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-01-13 00:07:39 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-01-13 00:07:39 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-01-13 00:07:39 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-01-13 00:07:39 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-3)']
+	Database driver: undefined/unknown
+	Database version: 8.0.39
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-01-13 00:07:39 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-01-13 00:07:40 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-01-13 00:07:40 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-01-13 00:07:40 [restartedMain] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page template: index
+2026-01-13 00:07:41 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 69 mappings in 'requestMappingHandlerMapping'
+2026-01-13 00:07:41 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2026-01-13 00:07:41 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2026-01-13 00:07:41 [restartedMain] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2026-01-13 00:07:41 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2026-01-13 00:07:41 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8083 (http) with context path '/'
+2026-01-13 00:07:41 [restartedMain] INFO  c.o.c.OrpeConsultantsApplication - Started OrpeConsultantsApplication in 3.554 seconds (process running for 569.522)
+2026-01-13 00:07:41 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2026-01-13 00:07:50 [RMI TCP Connection(13)-127.0.0.1] INFO  o.s.b.a.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin - Application shutdown requested.
+2026-01-13 00:07:50 [RMI TCP Connection(13)-127.0.0.1] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-01-13 00:07:50 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-01-13 00:07:50 [RMI TCP Connection(13)-127.0.0.1] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-01-13 00:07:50 [RMI TCP Connection(13)-127.0.0.1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Shutdown initiated...
+2026-01-13 00:07:50 [RMI TCP Connection(13)-127.0.0.1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Shutdown completed.
+2026-01-13 00:08:15 [restartedMain] INFO  c.o.c.OrpeConsultantsApplication - Starting OrpeConsultantsApplication using Java 21.0.5 with PID 13720 (F:\Orpe Softwares\Project\OrpeConsultants\target\classes started by Lenovo in F:\Orpe Softwares\Project\OrpeConsultants)
+2026-01-13 00:08:15 [restartedMain] DEBUG c.o.c.OrpeConsultantsApplication - Running with Spring Boot v3.5.5, Spring v6.2.10
+2026-01-13 00:08:15 [restartedMain] INFO  c.o.c.OrpeConsultantsApplication - No active profile set, falling back to 1 default profile: "default"
+2026-01-13 00:08:16 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-01-13 00:08:16 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-01-13 00:08:19 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-01-13 00:08:19 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 209 ms. Found 15 JPA repository interfaces.
+2026-01-13 00:08:22 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8083 (http)
+2026-01-13 00:08:22 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-01-13 00:08:22 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.44]
+2026-01-13 00:08:22 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-01-13 00:08:22 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 6663 ms
+2026-01-13 00:08:23 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-01-13 00:08:23 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1b5581a8
+2026-01-13 00:08:23 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-01-13 00:08:25 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-01-13 00:08:25 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.26.Final
+2026-01-13 00:08:25 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-01-13 00:08:26 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-01-13 00:08:26 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-01-13 00:08:26 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
 	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
 	Database driver: undefined/unknown
 	Database version: 8.0.39
@@ -26,127 +286,305 @@
 	Isolation level: undefined/unknown
 	Minimum pool size: undefined/unknown
 	Maximum pool size: undefined/unknown
-2025-12-21 15:25:04 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-12-21 15:25:05 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-12-21 15:25:05 [restartedMain] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
-2025-12-21 15:25:15 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2025-12-21 15:25:15 [restartedMain] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page template: index
-2025-12-21 15:25:15 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 65 mappings in 'requestMappingHandlerMapping'
-2025-12-21 15:25:16 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
-2025-12-21 15:25:16 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
-2025-12-21 15:25:16 [restartedMain] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
-2025-12-21 15:25:18 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
-2025-12-21 15:25:19 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8083 (http) with context path '/'
-2025-12-21 15:25:19 [restartedMain] INFO  c.o.c.OrpeConsultantsApplication - Started OrpeConsultantsApplication in 31.65 seconds (process running for 34.824)
-2025-12-21 15:25:22 [http-nio-8083-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2025-12-21 15:25:22 [http-nio-8083-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2025-12-21 15:25:22 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected StandardServletMultipartResolver
-2025-12-21 15:25:22 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected AcceptHeaderLocaleResolver
-2025-12-21 15:25:22 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected FixedThemeResolver
-2025-12-21 15:25:22 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@45313437
-2025-12-21 15:25:22 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.support.SessionFlashMapManager@2744188
-2025-12-21 15:25:22 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
-2025-12-21 15:25:22 [http-nio-8083-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 5 ms
-2025-12-21 15:25:22 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/", parameters={}
-2025-12-21 15:25:22 [http-nio-8083-exec-1] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.orpe.consultants.controller.AuthController#index(HttpSession, Model, LocalDate, LocalDate)
-2025-12-21 15:25:22 [http-nio-8083-exec-1] INFO  c.o.c.controller.AuthController - User not authenticated, redirecting to login page
-2025-12-21 15:25:22 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.view.RedirectView - View name [redirect:], model {}
-2025-12-21 15:25:22 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 302 FOUND
-2025-12-21 15:25:22 [http-nio-8083-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/login", parameters={}
-2025-12-21 15:25:22 [http-nio-8083-exec-2] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.orpe.consultants.controller.AuthController#showLoginPage(Model, String, String, String)
-2025-12-21 15:25:22 [http-nio-8083-exec-2] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
-2025-12-21 15:25:24 [http-nio-8083-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
-2025-12-21 15:25:24 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/bootstrap/dist/css/bootstrap.min.css", parameters={}
-2025-12-21 15:25:24 [http-nio-8083-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/icon/themify-icons/themify-icons.css", parameters={}
-2025-12-21 15:25:24 [http-nio-8083-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/icon/icofont/css/icofont.css", parameters={}
-2025-12-21 15:25:24 [http-nio-8083-exec-5] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
-2025-12-21 15:25:24 [http-nio-8083-exec-4] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
-2025-12-21 15:25:24 [http-nio-8083-exec-3] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
-2025-12-21 15:25:24 [http-nio-8083-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
-2025-12-21 15:25:24 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/css/style.css", parameters={}
-2025-12-21 15:25:24 [http-nio-8083-exec-6] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
-2025-12-21 15:25:24 [http-nio-8083-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
-2025-12-21 15:25:24 [http-nio-8083-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/jquery/dist/jquery.min.js", parameters={}
-2025-12-21 15:25:24 [http-nio-8083-exec-7] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
-2025-12-21 15:25:24 [http-nio-8083-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/images/logo.png", parameters={}
-2025-12-21 15:25:24 [http-nio-8083-exec-8] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
-2025-12-21 15:25:24 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
-2025-12-21 15:25:24 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/jquery-ui/jquery-ui.min.js", parameters={}
-2025-12-21 15:25:24 [http-nio-8083-exec-9] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
-2025-12-21 15:25:24 [http-nio-8083-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
-2025-12-21 15:25:24 [http-nio-8083-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/tether/dist/js/tether.min.js", parameters={}
-2025-12-21 15:25:24 [http-nio-8083-exec-8] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
-2025-12-21 15:25:24 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
-2025-12-21 15:25:25 [http-nio-8083-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
-2025-12-21 15:25:25 [http-nio-8083-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/bootstrap/dist/js/bootstrap.min.js", parameters={}
-2025-12-21 15:25:25 [http-nio-8083-exec-10] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
-2025-12-21 15:25:25 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
-2025-12-21 15:25:25 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/jquery-slimscroll/jquery.slimscroll.js", parameters={}
-2025-12-21 15:25:25 [http-nio-8083-exec-1] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
-2025-12-21 15:25:26 [http-nio-8083-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
-2025-12-21 15:25:26 [http-nio-8083-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/modernizr/modernizr.js", parameters={}
-2025-12-21 15:25:26 [http-nio-8083-exec-2] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
-2025-12-21 15:25:26 [http-nio-8083-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
-2025-12-21 15:25:26 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
-2025-12-21 15:25:26 [http-nio-8083-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
-2025-12-21 15:25:27 [http-nio-8083-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/modernizr/feature-detects/css-scrollbars.js", parameters={}
-2025-12-21 15:25:27 [http-nio-8083-exec-4] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
-2025-12-21 15:25:27 [http-nio-8083-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
-2025-12-21 15:25:27 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/js/common-pages.js", parameters={}
-2025-12-21 15:25:27 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/images/bg.jpg", parameters={}
-2025-12-21 15:25:27 [http-nio-8083-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/js/script.js", parameters={}
-2025-12-21 15:25:27 [http-nio-8083-exec-3] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
-2025-12-21 15:25:27 [http-nio-8083-exec-5] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
-2025-12-21 15:25:27 [http-nio-8083-exec-6] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
-2025-12-21 15:25:27 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
-2025-12-21 15:25:28 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
-2025-12-21 15:25:28 [http-nio-8083-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
-2025-12-21 15:25:36 [http-nio-8083-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - POST "/login", parameters={masked}
-2025-12-21 15:25:36 [http-nio-8083-exec-8] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.orpe.consultants.controller.AuthController#processLogin(LoginRequest, BindingResult, Model, HttpSession)
-2025-12-21 15:25:36 [http-nio-8083-exec-8] INFO  c.o.c.service.impl.UserServiceImpl - Authenticating user: rohank
-2025-12-21 15:25:36 [http-nio-8083-exec-8] DEBUG org.hibernate.SQL - 
-    select
-        u1_0.id,
-        u1_0.created_at,
-        u1_0.email,
-        u1_0.full_name,
-        u1_0.last_login_date,
-        u1_0.notes,
-        u1_0.password,
-        u1_0.phone_number,
-        u1_0.role,
-        u1_0.status,
-        u1_0.updated_at,
-        u1_0.username 
-    from
-        users u1_0 
-    where
-        u1_0.username=? 
-        or u1_0.email=?
-2025-12-21 15:25:37 [http-nio-8083-exec-8] DEBUG c.o.c.service.impl.UserServiceImpl - Last login updated for user ID: 1
-2025-12-21 15:25:37 [http-nio-8083-exec-8] INFO  c.o.c.service.impl.UserServiceImpl - User authenticated successfully: rohank
-2025-12-21 15:25:37 [http-nio-8083-exec-8] DEBUG org.hibernate.SQL - 
-    update
-        users 
-    set
-        email=?,
-        full_name=?,
-        last_login_date=?,
-        notes=?,
-        password=?,
-        phone_number=?,
-        role=?,
-        status=?,
-        updated_at=?,
-        username=? 
-    where
-        id=?
-2025-12-21 15:25:37 [http-nio-8083-exec-8] INFO  c.o.c.controller.AuthController - User logged in successfully: rohank
-2025-12-21 15:25:37 [http-nio-8083-exec-8] DEBUG o.s.web.servlet.view.RedirectView - View name [redirect:], model {}
-2025-12-21 15:25:37 [http-nio-8083-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - Completed 302 FOUND
-2025-12-21 15:25:37 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - GET "/index", parameters={}
-2025-12-21 15:25:37 [http-nio-8083-exec-9] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.orpe.consultants.controller.AuthController#index(HttpSession, Model, LocalDate, LocalDate)
-2025-12-21 15:25:37 [http-nio-8083-exec-9] DEBUG org.hibernate.SQL - 
+2026-01-13 00:08:31 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-01-13 00:08:32 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-01-13 00:08:33 [restartedMain] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-01-13 00:08:39 [restartedMain] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'databaseBackupController' defined in file [F:\Orpe Softwares\Project\OrpeConsultants\target\classes\com\orpe\consultants\controller\DatabaseBackupController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'databaseBackupServiceImpl': Injection of autowired dependencies failed
+2026-01-13 00:08:39 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-01-13 00:08:39 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-01-13 00:08:39 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-01-13 00:08:39 [restartedMain] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+2026-01-13 00:08:39 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-01-13 00:08:39 [restartedMain] ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'databaseBackupController' defined in file [F:\Orpe Softwares\Project\OrpeConsultants\target\classes\com\orpe\consultants\controller\DatabaseBackupController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'databaseBackupServiceImpl': Injection of autowired dependencies failed
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:804)
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:240)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1395)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1232)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:569)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:529)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:373)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.instantiateSingleton(DefaultListableBeanFactory.java:1222)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingleton(DefaultListableBeanFactory.java:1188)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:1123)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:987)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350)
+	at com.orpe.consultants.OrpeConsultantsApplication.main(OrpeConsultantsApplication.java:16)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'databaseBackupServiceImpl': Injection of autowired dependencies failed
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:515)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1459)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:606)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:529)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:373)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1752)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1635)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:913)
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:791)
+	... 24 common frames omitted
+Caused by: org.springframework.util.PlaceholderResolutionException: Could not resolve placeholder 'mysql.dump.path' in value "${mysql.dump.path}"
+	at org.springframework.util.PlaceholderResolutionException.withValue(PlaceholderResolutionException.java:81)
+	at org.springframework.util.PlaceholderParser$ParsedValue.resolve(PlaceholderParser.java:423)
+	at org.springframework.util.PlaceholderParser.replacePlaceholders(PlaceholderParser.java:128)
+	at org.springframework.util.PropertyPlaceholderHelper.parseStringValue(PropertyPlaceholderHelper.java:118)
+	at org.springframework.util.PropertyPlaceholderHelper.replacePlaceholders(PropertyPlaceholderHelper.java:114)
+	at org.springframework.core.env.AbstractPropertyResolver.doResolvePlaceholders(AbstractPropertyResolver.java:293)
+	at org.springframework.core.env.AbstractPropertyResolver.resolveRequiredPlaceholders(AbstractPropertyResolver.java:264)
+	at org.springframework.context.support.PropertySourcesPlaceholderConfigurer.lambda$processProperties$0(PropertySourcesPlaceholderConfigurer.java:186)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.resolveEmbeddedValue(AbstractBeanFactory.java:971)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1657)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1635)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:785)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:768)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:146)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:509)
+	... 36 common frames omitted
+2026-01-13 00:10:36 [restartedMain] INFO  c.o.c.OrpeConsultantsApplication - Starting OrpeConsultantsApplication using Java 21.0.5 with PID 18436 (F:\Orpe Softwares\Project\OrpeConsultants\target\classes started by Lenovo in F:\Orpe Softwares\Project\OrpeConsultants)
+2026-01-13 00:10:36 [restartedMain] DEBUG c.o.c.OrpeConsultantsApplication - Running with Spring Boot v3.5.5, Spring v6.2.10
+2026-01-13 00:10:36 [restartedMain] INFO  c.o.c.OrpeConsultantsApplication - No active profile set, falling back to 1 default profile: "default"
+2026-01-13 00:10:36 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-01-13 00:10:36 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-01-13 00:10:38 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-01-13 00:10:39 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 196 ms. Found 15 JPA repository interfaces.
+2026-01-13 00:10:41 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8083 (http)
+2026-01-13 00:10:42 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-01-13 00:10:42 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.44]
+2026-01-13 00:10:42 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-01-13 00:10:42 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 5343 ms
+2026-01-13 00:10:42 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-01-13 00:10:43 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@61940810
+2026-01-13 00:10:43 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-01-13 00:10:44 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-01-13 00:10:44 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.26.Final
+2026-01-13 00:10:44 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-01-13 00:10:45 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-01-13 00:10:45 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-01-13 00:10:45 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 8.0.39
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-01-13 00:10:49 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-01-13 00:10:49 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-01-13 00:10:50 [restartedMain] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-01-13 00:10:58 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-01-13 00:10:58 [restartedMain] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page template: index
+2026-01-13 00:10:58 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 69 mappings in 'requestMappingHandlerMapping'
+2026-01-13 00:10:58 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2026-01-13 00:10:59 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2026-01-13 00:10:59 [restartedMain] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2026-01-13 00:11:01 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2026-01-13 00:11:01 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8083 (http) with context path '/'
+2026-01-13 00:11:01 [restartedMain] INFO  c.o.c.OrpeConsultantsApplication - Started OrpeConsultantsApplication in 25.232 seconds (process running for 26.545)
+2026-01-13 00:11:38 [http-nio-8083-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-01-13 00:11:38 [http-nio-8083-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-01-13 00:11:38 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected StandardServletMultipartResolver
+2026-01-13 00:11:38 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected AcceptHeaderLocaleResolver
+2026-01-13 00:11:38 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected FixedThemeResolver
+2026-01-13 00:11:38 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@290252c2
+2026-01-13 00:11:38 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.support.SessionFlashMapManager@49be8df7
+2026-01-13 00:11:38 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2026-01-13 00:11:38 [http-nio-8083-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 10 ms
+2026-01-13 00:11:38 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/backup/download", parameters={}
+2026-01-13 00:11:38 [http-nio-8083-exec-1] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.orpe.consultants.controller.DatabaseBackupController#downloadBackup()
+2026-01-13 00:11:38 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Failed to complete request: java.lang.RuntimeException: Backup failed
+2026-01-13 00:11:39 [http-nio-8083-exec-1] ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: java.lang.RuntimeException: Backup failed] with root cause
+java.io.FileNotFoundException: C:\db-backups\db_backup_db_orpe_consultants?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true_20260113_001138.sql (The filename, directory name, or volume label syntax is incorrect)
+	at java.base/java.io.FileOutputStream.open0(Native Method)
+	at java.base/java.io.FileOutputStream.open(FileOutputStream.java:289)
+	at java.base/java.io.FileOutputStream.<init>(FileOutputStream.java:230)
+	at java.base/java.io.FileOutputStream.<init>(FileOutputStream.java:179)
+	at java.base/java.lang.ProcessImpl.newFileOutputStream(ProcessImpl.java:94)
+	at java.base/java.lang.ProcessImpl.start(ProcessImpl.java:141)
+	at java.base/java.lang.ProcessBuilder.start(ProcessBuilder.java:1126)
+	at java.base/java.lang.ProcessBuilder.start(ProcessBuilder.java:1089)
+	at com.orpe.consultants.utils.DatabaseBackupUtil.createBackup(DatabaseBackupUtil.java:43)
+	at com.orpe.consultants.service.impl.DatabaseBackupServiceImpl.backupDatabase(DatabaseBackupServiceImpl.java:34)
+	at com.orpe.consultants.controller.DatabaseBackupController.downloadBackup(DatabaseBackupController.java:34)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:258)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:191)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:991)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:896)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.session.web.http.SessionRepositoryFilter.doFilterInternal(SessionRepositoryFilter.java:142)
+	at org.springframework.session.web.http.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:82)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:362)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:278)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:116)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:398)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:903)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1769)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1189)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:658)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2026-01-13 00:11:39 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - "ERROR" dispatch for GET "/error", parameters={}
+2026-01-13 00:11:39 [http-nio-8083-exec-1] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController#errorHtml(HttpServletRequest, HttpServletResponse)
+2026-01-13 00:11:39 [http-nio-8083-exec-1] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, text/html;q=0.8]
+2026-01-13 00:11:39 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Exiting from "ERROR" dispatch, status 500
+2026-01-13 00:14:18 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2026-01-13 00:14:18 [Thread-5] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-01-13 00:14:18 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-01-13 00:14:18 [Thread-5] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-01-13 00:14:18 [Thread-5] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-01-13 00:14:18 [Thread-5] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-01-13 00:14:19 [restartedMain] INFO  c.o.c.OrpeConsultantsApplication - Starting OrpeConsultantsApplication using Java 21.0.5 with PID 18436 (F:\Orpe Softwares\Project\OrpeConsultants\target\classes started by Lenovo in F:\Orpe Softwares\Project\OrpeConsultants)
+2026-01-13 00:14:19 [restartedMain] DEBUG c.o.c.OrpeConsultantsApplication - Running with Spring Boot v3.5.5, Spring v6.2.10
+2026-01-13 00:14:19 [restartedMain] INFO  c.o.c.OrpeConsultantsApplication - No active profile set, falling back to 1 default profile: "default"
+2026-01-13 00:14:21 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-01-13 00:14:22 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 97 ms. Found 15 JPA repository interfaces.
+2026-01-13 00:14:22 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8083 (http)
+2026-01-13 00:14:22 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-01-13 00:14:22 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.44]
+2026-01-13 00:14:22 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-01-13 00:14:22 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2873 ms
+2026-01-13 00:14:22 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Starting...
+2026-01-13 00:14:22 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Added connection com.mysql.cj.jdbc.ConnectionImpl@4090fb37
+2026-01-13 00:14:22 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Start completed.
+2026-01-13 00:14:23 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-01-13 00:14:23 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-01-13 00:14:23 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-01-13 00:14:23 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-01-13 00:14:23 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-2)']
+	Database driver: undefined/unknown
+	Database version: 8.0.39
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-01-13 00:14:23 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-01-13 00:14:24 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-01-13 00:14:25 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-01-13 00:14:25 [restartedMain] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page template: index
+2026-01-13 00:14:26 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 69 mappings in 'requestMappingHandlerMapping'
+2026-01-13 00:14:26 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2026-01-13 00:14:26 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2026-01-13 00:14:26 [restartedMain] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2026-01-13 00:14:26 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2026-01-13 00:14:26 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8083 (http) with context path '/'
+2026-01-13 00:14:26 [restartedMain] INFO  c.o.c.OrpeConsultantsApplication - Started OrpeConsultantsApplication in 6.725 seconds (process running for 231.727)
+2026-01-13 00:14:26 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2026-01-13 00:14:36 [RMI TCP Connection(6)-127.0.0.1] INFO  o.s.b.a.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin - Application shutdown requested.
+2026-01-13 00:14:36 [RMI TCP Connection(6)-127.0.0.1] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-01-13 00:14:36 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-01-13 00:14:36 [RMI TCP Connection(6)-127.0.0.1] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-01-13 00:14:36 [RMI TCP Connection(6)-127.0.0.1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
+2026-01-13 00:14:36 [RMI TCP Connection(6)-127.0.0.1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.
+2026-01-13 00:14:54 [restartedMain] INFO  c.o.c.OrpeConsultantsApplication - Starting OrpeConsultantsApplication using Java 21.0.5 with PID 20552 (F:\Orpe Softwares\Project\OrpeConsultants\target\classes started by Lenovo in F:\Orpe Softwares\Project\OrpeConsultants)
+2026-01-13 00:14:54 [restartedMain] DEBUG c.o.c.OrpeConsultantsApplication - Running with Spring Boot v3.5.5, Spring v6.2.10
+2026-01-13 00:14:54 [restartedMain] INFO  c.o.c.OrpeConsultantsApplication - No active profile set, falling back to 1 default profile: "default"
+2026-01-13 00:14:55 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-01-13 00:14:55 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-01-13 00:14:58 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-01-13 00:14:58 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 252 ms. Found 15 JPA repository interfaces.
+2026-01-13 00:15:02 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8083 (http)
+2026-01-13 00:15:02 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-01-13 00:15:02 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.44]
+2026-01-13 00:15:02 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-01-13 00:15:02 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 7208 ms
+2026-01-13 00:15:02 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-01-13 00:15:03 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@fbd7908
+2026-01-13 00:15:03 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-01-13 00:15:04 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-01-13 00:15:04 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.26.Final
+2026-01-13 00:15:04 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-01-13 00:15:05 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-01-13 00:15:05 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-01-13 00:15:05 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 8.0.39
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-01-13 00:15:09 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-01-13 00:15:09 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-01-13 00:15:10 [restartedMain] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-01-13 00:15:18 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-01-13 00:15:18 [restartedMain] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page template: index
+2026-01-13 00:15:18 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 69 mappings in 'requestMappingHandlerMapping'
+2026-01-13 00:15:18 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2026-01-13 00:15:18 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2026-01-13 00:15:19 [restartedMain] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2026-01-13 00:15:21 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2026-01-13 00:15:21 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8083 (http) with context path '/'
+2026-01-13 00:15:21 [restartedMain] INFO  c.o.c.OrpeConsultantsApplication - Started OrpeConsultantsApplication in 27.835 seconds (process running for 30.217)
+2026-01-13 00:15:24 [http-nio-8083-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-01-13 00:15:24 [http-nio-8083-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-01-13 00:15:24 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected StandardServletMultipartResolver
+2026-01-13 00:15:24 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected AcceptHeaderLocaleResolver
+2026-01-13 00:15:24 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected FixedThemeResolver
+2026-01-13 00:15:24 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@1b2bc199
+2026-01-13 00:15:24 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.support.SessionFlashMapManager@4c66150a
+2026-01-13 00:15:24 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2026-01-13 00:15:24 [http-nio-8083-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 4 ms
+2026-01-13 00:15:24 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/backup/download", parameters={}
+2026-01-13 00:15:25 [http-nio-8083-exec-1] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.orpe.consultants.controller.DatabaseBackupController#downloadBackup()
+2026-01-13 00:15:31 [http-nio-8083-exec-1] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'text/html', given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7] and supported [*/*, application/json, application/*+json, application/xml;charset=UTF-8, text/xml;charset=UTF-8, application/*+xml;charset=UTF-8]
+2026-01-13 00:15:31 [http-nio-8083-exec-1] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [file [C:\db-backups\db_backup_db_orpe_consultants_20260113_001525.sql]]
+2026-01-13 00:15:31 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:15:43 [http-nio-8083-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/", parameters={}
+2026-01-13 00:15:43 [http-nio-8083-exec-2] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.orpe.consultants.controller.AuthController#index(HttpSession, Model, LocalDate, LocalDate)
+2026-01-13 00:15:43 [http-nio-8083-exec-2] DEBUG org.hibernate.SQL - 
     select
         count(ed1_0.sb_no),
         (select
@@ -189,7 +627,7 @@
             ? is null 
             or ed1_0.sb_date<=?
         )
-2025-12-21 15:25:37 [http-nio-8083-exec-9] DEBUG org.hibernate.SQL - 
+2026-01-13 00:15:43 [http-nio-8083-exec-2] DEBUG org.hibernate.SQL - 
     select
         count(id1_0.import_id) 
     from
@@ -203,7 +641,7 @@
             ? is null 
             or id1_0.be_date<=?
         )
-2025-12-21 15:25:37 [http-nio-8083-exec-9] DEBUG org.hibernate.SQL - 
+2026-01-13 00:15:43 [http-nio-8083-exec-2] DEBUG org.hibernate.SQL - 
     select
         count(ed1_0.export_id) 
     from
@@ -217,7 +655,7 @@
             ? is null 
             or ed1_0.sb_date<=?
         )
-2025-12-21 15:25:37 [http-nio-8083-exec-9] DEBUG org.hibernate.SQL - 
+2026-01-13 00:15:43 [http-nio-8083-exec-2] DEBUG org.hibernate.SQL - 
     select
         dw1_0.username,
         dw1_0.claim_ref_no,
@@ -231,7 +669,7 @@
         dw1_0.claim_year 
     order by
         max(dw1_0.created_at) desc
-2025-12-21 15:25:37 [http-nio-8083-exec-9] DEBUG org.hibernate.SQL - 
+2026-01-13 00:15:43 [http-nio-8083-exec-2] DEBUG org.hibernate.SQL - 
     select
         w1_0.username,
         w1_0.claim_ref_no,
@@ -245,102 +683,639 @@
         w1_0.claim_year 
     order by
         max(w1_0.created_at) desc
-2025-12-21 15:25:37 [http-nio-8083-exec-9] DEBUG c.o.c.controller.AuthController - User rohank accessed dashboard, fromDate=null, toDate=null
-2025-12-21 15:25:37 [http-nio-8083-exec-9] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
-2025-12-21 15:25:38 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
-2025-12-21 15:25:38 [http-nio-8083-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/bootstrap/dist/css/bootstrap.min.css", parameters={}
-2025-12-21 15:25:38 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/icon/icofont/css/icofont.css", parameters={}
-2025-12-21 15:25:38 [http-nio-8083-exec-7] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
-2025-12-21 15:25:38 [http-nio-8083-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/icon/themify-icons/themify-icons.css", parameters={}
-2025-12-21 15:25:38 [http-nio-8083-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/pages/menu-search/css/component.css", parameters={}
-2025-12-21 15:25:38 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/css/style.css", parameters={}
-2025-12-21 15:25:38 [http-nio-8083-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/pages/flag-icon/flag-icon.min.css", parameters={}
-2025-12-21 15:25:38 [http-nio-8083-exec-1] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
-2025-12-21 15:25:38 [http-nio-8083-exec-2] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
-2025-12-21 15:25:38 [http-nio-8083-exec-4] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
-2025-12-21 15:25:38 [http-nio-8083-exec-3] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
-2025-12-21 15:25:38 [http-nio-8083-exec-10] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
-2025-12-21 15:25:38 [http-nio-8083-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
-2025-12-21 15:25:38 [http-nio-8083-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
-2025-12-21 15:25:38 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/css/linearicons.css", parameters={}
-2025-12-21 15:25:38 [http-nio-8083-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/css/simple-line-icons.css", parameters={}
-2025-12-21 15:25:38 [http-nio-8083-exec-6] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
-2025-12-21 15:25:38 [http-nio-8083-exec-5] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
-2025-12-21 15:25:38 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
-2025-12-21 15:25:38 [http-nio-8083-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/css/jquery.mCustomScrollbar.css", parameters={}
-2025-12-21 15:25:38 [http-nio-8083-exec-8] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
-2025-12-21 15:25:38 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
-2025-12-21 15:25:38 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/jquery/dist/jquery.min.js", parameters={}
-2025-12-21 15:25:38 [http-nio-8083-exec-9] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
-2025-12-21 15:25:38 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
-2025-12-21 15:25:38 [http-nio-8083-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
-2025-12-21 15:25:38 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
-2025-12-21 15:25:38 [http-nio-8083-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
-2025-12-21 15:25:38 [http-nio-8083-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/images/user.png", parameters={}
-2025-12-21 15:25:38 [http-nio-8083-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/images/logo.png", parameters={}
-2025-12-21 15:25:39 [http-nio-8083-exec-2] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
-2025-12-21 15:25:39 [http-nio-8083-exec-7] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
-2025-12-21 15:25:39 [http-nio-8083-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
-2025-12-21 15:25:39 [http-nio-8083-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
-2025-12-21 15:25:39 [http-nio-8083-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
-2025-12-21 15:25:39 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/jquery-ui/jquery-ui.min.js", parameters={}
-2025-12-21 15:25:39 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/bootstrap/dist/js/bootstrap.min.js", parameters={}
-2025-12-21 15:25:39 [http-nio-8083-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/jquery-slimscroll/jquery.slimscroll.js", parameters={}
-2025-12-21 15:25:39 [http-nio-8083-exec-9] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
-2025-12-21 15:25:39 [http-nio-8083-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/modernizr/modernizr.js", parameters={}
-2025-12-21 15:25:39 [http-nio-8083-exec-1] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
-2025-12-21 15:25:39 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/tether/dist/js/tether.min.js", parameters={}
-2025-12-21 15:25:39 [http-nio-8083-exec-7] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
-2025-12-21 15:25:39 [http-nio-8083-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
-2025-12-21 15:25:39 [http-nio-8083-exec-3] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
-2025-12-21 15:25:39 [http-nio-8083-exec-4] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
-2025-12-21 15:25:39 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/modernizr/feature-detects/css-scrollbars.js", parameters={}
-2025-12-21 15:25:39 [http-nio-8083-exec-6] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
-2025-12-21 15:25:39 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
-2025-12-21 15:25:39 [http-nio-8083-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/raphael/raphael.min.js", parameters={}
-2025-12-21 15:25:39 [http-nio-8083-exec-5] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
-2025-12-21 15:25:39 [http-nio-8083-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
-2025-12-21 15:25:39 [http-nio-8083-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/morris.js/morris.js", parameters={}
-2025-12-21 15:25:39 [http-nio-8083-exec-8] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
-2025-12-21 15:25:39 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
-2025-12-21 15:25:39 [http-nio-8083-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/pages/chart/echarts/js/echarts-all.js", parameters={}
-2025-12-21 15:25:39 [http-nio-8083-exec-10] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
-2025-12-21 15:25:39 [http-nio-8083-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
-2025-12-21 15:25:39 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
-2025-12-21 15:25:39 [http-nio-8083-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/pages/dashboard/project-dashboard.js", parameters={}
-2025-12-21 15:25:39 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/js/script.js", parameters={}
-2025-12-21 15:25:39 [http-nio-8083-exec-2] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
-2025-12-21 15:25:39 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
-2025-12-21 15:25:39 [http-nio-8083-exec-9] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
-2025-12-21 15:25:39 [http-nio-8083-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/js/pcoded.min.js", parameters={}
-2025-12-21 15:25:39 [http-nio-8083-exec-7] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
-2025-12-21 15:25:39 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
-2025-12-21 15:25:39 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/js/demo-12.js", parameters={}
-2025-12-21 15:25:39 [http-nio-8083-exec-1] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
-2025-12-21 15:25:39 [http-nio-8083-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
-2025-12-21 15:25:39 [http-nio-8083-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/js/jquery.mCustomScrollbar.concat.min.js", parameters={}
-2025-12-21 15:25:39 [http-nio-8083-exec-4] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
-2025-12-21 15:25:39 [http-nio-8083-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
-2025-12-21 15:25:39 [http-nio-8083-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
-2025-12-21 15:25:39 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/fonts/Simple-Line-Icons.woff2?v=2.3.2", parameters={masked}
-2025-12-21 15:25:39 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/icon/themify-icons/fonts/themify.woff?-fvbane", parameters={masked}
-2025-12-21 15:25:39 [http-nio-8083-exec-3] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
-2025-12-21 15:25:39 [http-nio-8083-exec-6] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
-2025-12-21 15:25:39 [http-nio-8083-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
-2025-12-21 15:25:39 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/icon/icofont/fonts/icofont.ttf?v=1.0.0-beta", parameters={masked}
-2025-12-21 15:25:39 [http-nio-8083-exec-9] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
-2025-12-21 15:25:39 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
-2025-12-21 15:25:39 [http-nio-8083-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
-2025-12-21 15:25:39 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
-2025-12-21 15:25:39 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
-2025-12-21 15:25:39 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
-2025-12-21 15:25:40 [http-nio-8083-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
-2025-12-21 15:25:41 [http-nio-8083-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/images/pattern2.png", parameters={}
-2025-12-21 15:25:41 [http-nio-8083-exec-2] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
-2025-12-21 15:25:41 [http-nio-8083-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
-2025-12-21 15:25:58 [RMI TCP Connection(2)-127.0.0.1] INFO  o.s.b.a.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin - Application shutdown requested.
-2025-12-21 15:25:58 [RMI TCP Connection(2)-127.0.0.1] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
-2025-12-21 15:25:58 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
-2025-12-21 15:25:58 [RMI TCP Connection(2)-127.0.0.1] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2025-12-21 15:25:58 [RMI TCP Connection(2)-127.0.0.1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2025-12-21 15:25:58 [RMI TCP Connection(2)-127.0.0.1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-01-13 00:15:43 [http-nio-8083-exec-2] DEBUG c.o.c.controller.AuthController - User rohank accessed dashboard, fromDate=null, toDate=null
+2026-01-13 00:15:44 [http-nio-8083-exec-2] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2026-01-13 00:15:46 [http-nio-8083-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:15:47 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/bootstrap/dist/css/bootstrap.min.css", parameters={}
+2026-01-13 00:15:47 [http-nio-8083-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/icon/themify-icons/themify-icons.css", parameters={}
+2026-01-13 00:15:47 [http-nio-8083-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/icon/icofont/css/icofont.css", parameters={}
+2026-01-13 00:15:47 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/pages/flag-icon/flag-icon.min.css", parameters={}
+2026-01-13 00:15:47 [http-nio-8083-exec-6] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:15:47 [http-nio-8083-exec-4] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:15:47 [http-nio-8083-exec-3] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:15:47 [http-nio-8083-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/css/style.css", parameters={}
+2026-01-13 00:15:47 [http-nio-8083-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/pages/menu-search/css/component.css", parameters={}
+2026-01-13 00:15:47 [http-nio-8083-exec-8] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:15:47 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:15:47 [http-nio-8083-exec-7] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:15:47 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/css/linearicons.css", parameters={}
+2026-01-13 00:15:47 [http-nio-8083-exec-9] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:15:47 [http-nio-8083-exec-5] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:15:47 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:15:47 [http-nio-8083-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:15:47 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/css/jquery.mCustomScrollbar.css", parameters={}
+2026-01-13 00:15:47 [http-nio-8083-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/css/simple-line-icons.css", parameters={}
+2026-01-13 00:15:47 [http-nio-8083-exec-1] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:15:47 [http-nio-8083-exec-10] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:15:47 [http-nio-8083-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:15:47 [http-nio-8083-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/jquery/dist/jquery.min.js", parameters={}
+2026-01-13 00:15:47 [http-nio-8083-exec-2] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:15:47 [http-nio-8083-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:15:47 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/images/logo.png", parameters={}
+2026-01-13 00:15:47 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:15:47 [http-nio-8083-exec-3] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:15:47 [http-nio-8083-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:15:47 [http-nio-8083-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:15:47 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:15:47 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/jquery-ui/jquery-ui.min.js", parameters={}
+2026-01-13 00:15:47 [http-nio-8083-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/images/user.png", parameters={}
+2026-01-13 00:15:47 [http-nio-8083-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/tether/dist/js/tether.min.js", parameters={}
+2026-01-13 00:15:47 [http-nio-8083-exec-6] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:15:47 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:15:47 [http-nio-8083-exec-4] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:15:47 [http-nio-8083-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/bootstrap/dist/js/bootstrap.min.js", parameters={}
+2026-01-13 00:15:47 [http-nio-8083-exec-7] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:15:47 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/jquery-slimscroll/jquery.slimscroll.js", parameters={}
+2026-01-13 00:15:47 [http-nio-8083-exec-5] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:15:47 [http-nio-8083-exec-3] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:15:47 [http-nio-8083-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:15:47 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:15:47 [http-nio-8083-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:15:47 [http-nio-8083-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/modernizr/modernizr.js", parameters={}
+2026-01-13 00:15:47 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/modernizr/feature-detects/css-scrollbars.js", parameters={}
+2026-01-13 00:15:47 [http-nio-8083-exec-4] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:15:47 [http-nio-8083-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/raphael/raphael.min.js", parameters={}
+2026-01-13 00:15:47 [http-nio-8083-exec-9] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:15:47 [http-nio-8083-exec-8] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:15:47 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:15:47 [http-nio-8083-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/morris.js/morris.js", parameters={}
+2026-01-13 00:15:47 [http-nio-8083-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:15:47 [http-nio-8083-exec-10] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:15:47 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/pages/chart/echarts/js/echarts-all.js", parameters={}
+2026-01-13 00:15:47 [http-nio-8083-exec-1] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:15:47 [http-nio-8083-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:15:47 [http-nio-8083-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/pages/dashboard/project-dashboard.js", parameters={}
+2026-01-13 00:15:47 [http-nio-8083-exec-2] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:15:47 [http-nio-8083-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:15:47 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:15:47 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/js/script.js", parameters={}
+2026-01-13 00:15:47 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/js/pcoded.min.js", parameters={}
+2026-01-13 00:15:47 [http-nio-8083-exec-9] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:15:47 [http-nio-8083-exec-6] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:15:47 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:15:47 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/js/demo-12.js", parameters={}
+2026-01-13 00:15:47 [http-nio-8083-exec-3] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:15:48 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:15:48 [http-nio-8083-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/js/jquery.mCustomScrollbar.concat.min.js", parameters={}
+2026-01-13 00:15:48 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:15:48 [http-nio-8083-exec-5] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:15:48 [http-nio-8083-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:15:48 [http-nio-8083-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:15:48 [http-nio-8083-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:15:48 [http-nio-8083-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:15:48 [http-nio-8083-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/fonts/Simple-Line-Icons.woff2?v=2.3.2", parameters={masked}
+2026-01-13 00:15:48 [http-nio-8083-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/icon/themify-icons/fonts/themify.woff?-fvbane", parameters={masked}
+2026-01-13 00:15:48 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/icon/icofont/fonts/icofont.ttf?v=1.0.0-beta", parameters={masked}
+2026-01-13 00:15:48 [http-nio-8083-exec-7] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:15:48 [http-nio-8083-exec-9] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:15:48 [http-nio-8083-exec-4] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:15:48 [http-nio-8083-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:15:48 [http-nio-8083-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:15:48 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:15:49 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:15:49 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/images/pattern2.png", parameters={}
+2026-01-13 00:15:49 [http-nio-8083-exec-6] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:15:49 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:16:04 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/dbkcalculation/dataselect", parameters={}
+2026-01-13 00:16:04 [http-nio-8083-exec-3] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.orpe.consultants.controller.SbWiseDbkCalculationController#showDbkCalculationDataSelect(String, String, int, int, HttpSession, Model)
+2026-01-13 00:16:04 [http-nio-8083-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        ed1_0.export_id,
+        ed1_0.air_amount,
+        ed1_0.air_given_in_sb,
+        ed1_0.aro_date,
+        ed1_0.aro_file_date,
+        ed1_0.aro_file_no,
+        ed1_0.aro_no,
+        ed1_0.brc_no,
+        ed1_0.claim_ref_no,
+        ed1_0.claim_year,
+        ed1_0.clientname,
+        ed1_0.created_at,
+        ed1_0.currency_code,
+        ed1_0.customer_name,
+        ed1_0.dbk_applicability,
+        ed1_0.dbk_sno,
+        ed1_0.difference,
+        ed1_0.fob_inr,
+        ed1_0.hs_code,
+        ed1_0.invoice_date,
+        ed1_0.invoice_no,
+        ed1_0.invoice_value_fcc,
+        ed1_0.leo_date,
+        ed1_0.model_description,
+        ed1_0.model_no,
+        ed1_0.net_realised_currency,
+        ed1_0.net_realised_value,
+        ed1_0.pmv_actual,
+        ed1_0.pmv_per_qty,
+        ed1_0.port_code,
+        ed1_0.product_type,
+        ed1_0.quantity,
+        ed1_0.rate,
+        ed1_0.sb_date,
+        ed1_0.sb_no,
+        ed1_0.sb_utilization,
+        ed1_0.sbr,
+        ed1_0.scheme_description,
+        ed1_0.total_dbk,
+        ed1_0.unit,
+        ed1_0.updated_at 
+    from
+        tbl_export_data ed1_0 
+    where
+        1=1 
+    order by
+        ed1_0.sb_date desc 
+    limit
+        ?, ?
+2026-01-13 00:16:04 [http-nio-8083-exec-3] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2026-01-13 00:16:05 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:16:05 [http-nio-8083-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/bootstrap/dist/css/bootstrap.min.css", parameters={}
+2026-01-13 00:16:05 [http-nio-8083-exec-5] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:16:05 [http-nio-8083-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/pages/advance-elements/css/bootstrap-datetimepicker.css", parameters={}
+2026-01-13 00:16:05 [http-nio-8083-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/icon/themify-icons/themify-icons.css", parameters={}
+2026-01-13 00:16:05 [http-nio-8083-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/pages/menu-search/css/component.css", parameters={}
+2026-01-13 00:16:05 [http-nio-8083-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/pages/flag-icon/flag-icon.min.css", parameters={}
+2026-01-13 00:16:05 [http-nio-8083-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/icon/icofont/css/icofont.css", parameters={}
+2026-01-13 00:16:05 [http-nio-8083-exec-2] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:16:05 [http-nio-8083-exec-4] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:16:05 [http-nio-8083-exec-8] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:16:05 [http-nio-8083-exec-7] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:16:05 [http-nio-8083-exec-10] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:16:05 [http-nio-8083-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:16:05 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/css/style.css", parameters={}
+2026-01-13 00:16:05 [http-nio-8083-exec-9] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:16:05 [http-nio-8083-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:16:05 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/css/linearicons.css", parameters={}
+2026-01-13 00:16:05 [http-nio-8083-exec-1] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:16:05 [http-nio-8083-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:16:05 [http-nio-8083-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:16:05 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/css/simple-line-icons.css", parameters={}
+2026-01-13 00:16:05 [http-nio-8083-exec-6] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:16:05 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/css/ionicons.css", parameters={}
+2026-01-13 00:16:05 [http-nio-8083-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:16:05 [http-nio-8083-exec-3] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:16:05 [http-nio-8083-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/css/jquery.mCustomScrollbar.css", parameters={}
+2026-01-13 00:16:05 [http-nio-8083-exec-5] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:16:05 [http-nio-8083-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:16:05 [http-nio-8083-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/images/logo.png", parameters={}
+2026-01-13 00:16:05 [http-nio-8083-exec-10] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:16:05 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:16:05 [http-nio-8083-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/images/user.png", parameters={}
+2026-01-13 00:16:05 [http-nio-8083-exec-8] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:16:05 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:16:05 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:16:05 [http-nio-8083-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/jquery/dist/jquery.min.js", parameters={}
+2026-01-13 00:16:05 [http-nio-8083-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/jquery-ui/jquery-ui.min.js", parameters={}
+2026-01-13 00:16:05 [http-nio-8083-exec-7] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:16:05 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:16:05 [http-nio-8083-exec-4] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:16:05 [http-nio-8083-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/tether/dist/js/tether.min.js", parameters={}
+2026-01-13 00:16:05 [http-nio-8083-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:16:05 [http-nio-8083-exec-2] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:16:05 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/bootstrap/dist/js/bootstrap.min.js", parameters={}
+2026-01-13 00:16:05 [http-nio-8083-exec-1] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:16:05 [http-nio-8083-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:16:05 [http-nio-8083-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/jquery-slimscroll/jquery.slimscroll.js", parameters={}
+2026-01-13 00:16:05 [http-nio-8083-exec-10] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:16:05 [http-nio-8083-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:16:05 [http-nio-8083-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/modernizr/modernizr.js", parameters={}
+2026-01-13 00:16:05 [http-nio-8083-exec-8] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:16:05 [http-nio-8083-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:16:06 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/modernizr/feature-detects/css-scrollbars.js", parameters={}
+2026-01-13 00:16:06 [http-nio-8083-exec-6] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:16:06 [http-nio-8083-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:16:06 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/pages/advance-elements/moment-with-locales.min.js", parameters={}
+2026-01-13 00:16:06 [http-nio-8083-exec-9] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:16:06 [http-nio-8083-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:16:06 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/js/script.js", parameters={}
+2026-01-13 00:16:06 [http-nio-8083-exec-3] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:16:06 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:16:06 [http-nio-8083-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/pages/user-profile.js", parameters={}
+2026-01-13 00:16:06 [http-nio-8083-exec-5] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:16:06 [http-nio-8083-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:16:06 [http-nio-8083-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/js/pcoded.min.js", parameters={}
+2026-01-13 00:16:06 [http-nio-8083-exec-4] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:16:06 [http-nio-8083-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:16:06 [http-nio-8083-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/js/demo-12.js", parameters={}
+2026-01-13 00:16:06 [http-nio-8083-exec-7] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:16:06 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:16:06 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/js/jquery.mCustomScrollbar.concat.min.js", parameters={}
+2026-01-13 00:16:06 [http-nio-8083-exec-6] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:16:06 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:16:06 [http-nio-8083-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/js/jquery.mousewheel.min.js", parameters={}
+2026-01-13 00:16:06 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:16:06 [http-nio-8083-exec-2] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:16:06 [http-nio-8083-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:16:06 [http-nio-8083-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:16:06 [http-nio-8083-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:16:06 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:16:06 [http-nio-8083-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:16:06 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/icon/themify-icons/fonts/themify.woff?-fvbane", parameters={masked}
+2026-01-13 00:16:06 [http-nio-8083-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/fonts/Simple-Line-Icons.woff2?v=2.3.2", parameters={masked}
+2026-01-13 00:16:06 [http-nio-8083-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/icon/icofont/fonts/icofont.ttf?v=1.0.0-beta", parameters={masked}
+2026-01-13 00:16:06 [http-nio-8083-exec-1] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:16:06 [http-nio-8083-exec-8] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:16:06 [http-nio-8083-exec-10] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:16:06 [http-nio-8083-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:16:06 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:16:06 [http-nio-8083-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:16:06 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/images/pattern2.png", parameters={}
+2026-01-13 00:16:06 [http-nio-8083-exec-9] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:16:06 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:16:22 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/database/backup", parameters={}
+2026-01-13 00:16:22 [http-nio-8083-exec-3] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:16:22 [http-nio-8083-exec-3] DEBUG o.s.w.s.r.ResourceHttpRequestHandler - Resource not found
+2026-01-13 00:16:22 [http-nio-8083-exec-3] DEBUG o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource database/backup.]
+2026-01-13 00:16:22 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 404 NOT_FOUND
+2026-01-13 00:16:22 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - "ERROR" dispatch for GET "/error", parameters={}
+2026-01-13 00:16:22 [http-nio-8083-exec-3] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController#errorHtml(HttpServletRequest, HttpServletResponse)
+2026-01-13 00:16:22 [http-nio-8083-exec-3] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, text/html;q=0.8]
+2026-01-13 00:16:22 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Exiting from "ERROR" dispatch, status 404
+2026-01-13 00:17:38 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/backup/download", parameters={}
+2026-01-13 00:17:38 [http-nio-8083-exec-1] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.orpe.consultants.controller.DatabaseBackupController#downloadBackup()
+2026-01-13 00:17:39 [http-nio-8083-exec-1] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'text/html', given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7] and supported [*/*, application/json, application/*+json, application/xml;charset=UTF-8, text/xml;charset=UTF-8, application/*+xml;charset=UTF-8]
+2026-01-13 00:17:39 [http-nio-8083-exec-1] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [file [C:\db-backups\db_backup_db_orpe_consultants_20260113_001738.sql]]
+2026-01-13 00:17:39 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:17:51 [http-nio-8083-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - GET "/", parameters={}
+2026-01-13 00:17:51 [http-nio-8083-exec-8] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.orpe.consultants.controller.AuthController#index(HttpSession, Model, LocalDate, LocalDate)
+2026-01-13 00:17:51 [http-nio-8083-exec-8] DEBUG org.hibernate.SQL - 
+    select
+        count(ed1_0.sb_no),
+        (select
+            count(id1_0.alt_boe_part_no) 
+        from
+            tbl_import_data id1_0 
+        where
+            (
+                ? is null 
+                or id1_0.be_date>=?
+            ) 
+            and (
+                ? is null 
+                or id1_0.be_date<=?
+            )),
+        coalesce(sum(ed1_0.total_dbk), 0),
+        coalesce(sum(ed1_0.air_amount), 0),
+        coalesce(sum(ed1_0.sbr), 0),
+        (select
+            count(distinct w1_0.claim_year) 
+        from
+            tbl_worksheet w1_0 
+        where
+            (
+                ? is null 
+                or w1_0.be_date>=?
+            ) 
+            and (
+                ? is null 
+                or w1_0.be_date<=?
+            )) 
+    from
+        tbl_export_data ed1_0 
+    where
+        (
+            ? is null 
+            or ed1_0.sb_date>=?
+        ) 
+        and (
+            ? is null 
+            or ed1_0.sb_date<=?
+        )
+2026-01-13 00:17:51 [http-nio-8083-exec-8] DEBUG org.hibernate.SQL - 
+    select
+        count(id1_0.import_id) 
+    from
+        tbl_import_data id1_0 
+    where
+        (
+            ? is null 
+            or id1_0.be_date>=?
+        ) 
+        and (
+            ? is null 
+            or id1_0.be_date<=?
+        )
+2026-01-13 00:17:51 [http-nio-8083-exec-8] DEBUG org.hibernate.SQL - 
+    select
+        count(ed1_0.export_id) 
+    from
+        tbl_export_data ed1_0 
+    where
+        (
+            ? is null 
+            or ed1_0.sb_date>=?
+        ) 
+        and (
+            ? is null 
+            or ed1_0.sb_date<=?
+        )
+2026-01-13 00:17:51 [http-nio-8083-exec-8] DEBUG org.hibernate.SQL - 
+    select
+        dw1_0.username,
+        dw1_0.claim_ref_no,
+        dw1_0.claim_year,
+        count(dw1_0.draft_worksheet_id) 
+    from
+        tbl_draft_worksheet dw1_0 
+    group by
+        dw1_0.username,
+        dw1_0.claim_ref_no,
+        dw1_0.claim_year 
+    order by
+        max(dw1_0.created_at) desc
+2026-01-13 00:17:51 [http-nio-8083-exec-8] DEBUG org.hibernate.SQL - 
+    select
+        w1_0.username,
+        w1_0.claim_ref_no,
+        w1_0.claim_year,
+        count(w1_0.worksheet_id) 
+    from
+        tbl_worksheet w1_0 
+    group by
+        w1_0.username,
+        w1_0.claim_ref_no,
+        w1_0.claim_year 
+    order by
+        max(w1_0.created_at) desc
+2026-01-13 00:17:51 [http-nio-8083-exec-8] DEBUG c.o.c.controller.AuthController - User rohank accessed dashboard, fromDate=null, toDate=null
+2026-01-13 00:17:51 [http-nio-8083-exec-8] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2026-01-13 00:17:51 [http-nio-8083-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:17:51 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/icon/themify-icons/themify-icons.css", parameters={}
+2026-01-13 00:17:51 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/bootstrap/dist/css/bootstrap.min.css", parameters={}
+2026-01-13 00:17:51 [http-nio-8083-exec-3] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:17:51 [http-nio-8083-exec-9] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:17:51 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:17:51 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:17:51 [http-nio-8083-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/icon/icofont/css/icofont.css", parameters={}
+2026-01-13 00:17:51 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/pages/flag-icon/flag-icon.min.css", parameters={}
+2026-01-13 00:17:51 [http-nio-8083-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/pages/menu-search/css/component.css", parameters={}
+2026-01-13 00:17:51 [http-nio-8083-exec-2] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:17:51 [http-nio-8083-exec-6] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:17:51 [http-nio-8083-exec-7] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:17:51 [http-nio-8083-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:17:52 [http-nio-8083-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/css/style.css", parameters={}
+2026-01-13 00:17:52 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:17:52 [http-nio-8083-exec-4] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:17:52 [http-nio-8083-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/css/linearicons.css", parameters={}
+2026-01-13 00:17:52 [http-nio-8083-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:17:52 [http-nio-8083-exec-5] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:17:52 [http-nio-8083-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/css/simple-line-icons.css", parameters={}
+2026-01-13 00:17:52 [http-nio-8083-exec-10] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:17:52 [http-nio-8083-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:17:52 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/css/jquery.mCustomScrollbar.css", parameters={}
+2026-01-13 00:17:52 [http-nio-8083-exec-1] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:17:52 [http-nio-8083-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:17:52 [http-nio-8083-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/jquery/dist/jquery.min.js", parameters={}
+2026-01-13 00:17:52 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/images/user.png", parameters={}
+2026-01-13 00:17:52 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/images/logo.png", parameters={}
+2026-01-13 00:17:52 [http-nio-8083-exec-8] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:17:52 [http-nio-8083-exec-9] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:17:52 [http-nio-8083-exec-3] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:17:52 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:17:52 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:17:52 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:17:52 [http-nio-8083-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:17:52 [http-nio-8083-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/jquery-ui/jquery-ui.min.js", parameters={}
+2026-01-13 00:17:52 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/tether/dist/js/tether.min.js", parameters={}
+2026-01-13 00:17:52 [http-nio-8083-exec-2] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:17:52 [http-nio-8083-exec-6] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:17:52 [http-nio-8083-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:17:52 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:17:52 [http-nio-8083-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:17:52 [http-nio-8083-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/modernizr/modernizr.js", parameters={}
+2026-01-13 00:17:52 [http-nio-8083-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/jquery-slimscroll/jquery.slimscroll.js", parameters={}
+2026-01-13 00:17:52 [http-nio-8083-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/bootstrap/dist/js/bootstrap.min.js", parameters={}
+2026-01-13 00:17:52 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/raphael/raphael.min.js", parameters={}
+2026-01-13 00:17:52 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/modernizr/feature-detects/css-scrollbars.js", parameters={}
+2026-01-13 00:17:52 [http-nio-8083-exec-3] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:17:52 [http-nio-8083-exec-7] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:17:52 [http-nio-8083-exec-10] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:17:52 [http-nio-8083-exec-5] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:17:52 [http-nio-8083-exec-1] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:17:52 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/morris.js/morris.js", parameters={}
+2026-01-13 00:17:52 [http-nio-8083-exec-9] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:17:52 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:17:52 [http-nio-8083-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:17:52 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/pages/chart/echarts/js/echarts-all.js", parameters={}
+2026-01-13 00:17:52 [http-nio-8083-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/pages/dashboard/project-dashboard.js", parameters={}
+2026-01-13 00:17:52 [http-nio-8083-exec-1] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:17:52 [http-nio-8083-exec-4] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:17:52 [http-nio-8083-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:17:52 [http-nio-8083-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/icon/themify-icons/fonts/themify.woff?-fvbane", parameters={masked}
+2026-01-13 00:17:52 [http-nio-8083-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:17:52 [http-nio-8083-exec-8] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:17:52 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/fonts/Simple-Line-Icons.woff2?v=2.3.2", parameters={masked}
+2026-01-13 00:17:52 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:17:52 [http-nio-8083-exec-6] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:17:52 [http-nio-8083-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/icon/icofont/fonts/icofont.ttf?v=1.0.0-beta", parameters={masked}
+2026-01-13 00:17:52 [http-nio-8083-exec-2] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:17:52 [http-nio-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:17:52 [http-nio-8083-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:17:52 [http-nio-8083-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/js/script.js", parameters={}
+2026-01-13 00:17:52 [http-nio-8083-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/js/pcoded.min.js", parameters={}
+2026-01-13 00:17:52 [http-nio-8083-exec-5] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:17:52 [http-nio-8083-exec-10] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:17:52 [http-nio-8083-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:17:52 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:17:52 [http-nio-8083-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/js/demo-12.js", parameters={}
+2026-01-13 00:17:52 [http-nio-8083-exec-2] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:17:52 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/js/jquery.mCustomScrollbar.concat.min.js", parameters={}
+2026-01-13 00:17:52 [http-nio-8083-exec-6] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:17:52 [http-nio-8083-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:17:52 [http-nio-8083-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:17:52 [http-nio-8083-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:17:52 [http-nio-8083-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:17:52 [http-nio-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:17:52 [http-nio-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:17:52 [http-nio-8083-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/images/pattern2.png", parameters={}
+2026-01-13 00:17:52 [http-nio-8083-exec-7] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-13 00:17:53 [http-nio-8083-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:18:05 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/backup/download", parameters={}
+2026-01-13 00:18:05 [http-nio-8083-exec-3] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.orpe.consultants.controller.DatabaseBackupController#downloadBackup()
+2026-01-13 00:18:06 [http-nio-8083-exec-3] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'text/html', given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7] and supported [*/*, application/json, application/*+json, application/xml;charset=UTF-8, text/xml;charset=UTF-8, application/*+xml;charset=UTF-8]
+2026-01-13 00:18:06 [http-nio-8083-exec-3] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [file [C:\db-backups\db_backup_db_orpe_consultants_20260113_001805.sql]]
+2026-01-13 00:18:06 [http-nio-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-13 00:33:23 [HikariPool-1:housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=5m41s713ms477µs500ns).
+2026-01-13 00:34:58 [RMI TCP Connection(18)-127.0.0.1] INFO  o.s.b.a.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin - Application shutdown requested.
+2026-01-13 00:34:59 [RMI TCP Connection(18)-127.0.0.1] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-01-13 00:34:59 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-01-13 00:35:00 [RMI TCP Connection(18)-127.0.0.1] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-01-13 00:35:00 [RMI TCP Connection(18)-127.0.0.1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-01-13 00:35:00 [RMI TCP Connection(18)-127.0.0.1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-01-13 00:35:01 [spring-session-1] WARN  c.zaxxer.hikari.pool.ProxyConnection - HikariPool-1 - Connection com.mysql.cj.jdbc.ConnectionImpl@84d9d39 marked as broken because of SQLSTATE(08S01), ErrorCode(0)
+com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet successfully received from the server was 609 milliseconds ago. The last packet sent successfully to the server was 911 milliseconds ago.
+	at com.mysql.cj.jdbc.exceptions.SQLError.createCommunicationsException(SQLError.java:165)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:55)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:988)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeUpdateInternal(ClientPreparedStatement.java:1166)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeUpdateInternal(ClientPreparedStatement.java:1101)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeLargeUpdate(ClientPreparedStatement.java:1448)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeUpdate(ClientPreparedStatement.java:1084)
+	at com.zaxxer.hikari.pool.ProxyPreparedStatement.executeUpdate(ProxyPreparedStatement.java:61)
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.executeUpdate(HikariProxyPreparedStatement.java)
+	at org.springframework.jdbc.core.JdbcTemplate.lambda$update$2(JdbcTemplate.java:977)
+	at org.springframework.jdbc.core.JdbcTemplate.execute(JdbcTemplate.java:658)
+	at org.springframework.jdbc.core.JdbcTemplate.update(JdbcTemplate.java:972)
+	at org.springframework.jdbc.core.JdbcTemplate.update(JdbcTemplate.java:1016)
+	at org.springframework.jdbc.core.JdbcTemplate.update(JdbcTemplate.java:1026)
+	at org.springframework.session.jdbc.JdbcIndexedSessionRepository.lambda$cleanUpExpiredSessions$8(JdbcIndexedSessionRepository.java:649)
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:140)
+	at org.springframework.session.jdbc.JdbcIndexedSessionRepository.cleanUpExpiredSessions(JdbcIndexedSessionRepository.java:648)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:96)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: com.mysql.cj.exceptions.CJCommunicationsException: Communications link failure
+
+The last packet successfully received from the server was 609 milliseconds ago. The last packet sent successfully to the server was 911 milliseconds ago.
+	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:502)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:486)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:52)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:95)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:140)
+	at com.mysql.cj.exceptions.ExceptionFactory.createCommunicationsException(ExceptionFactory.java:156)
+	at com.mysql.cj.protocol.a.NativeProtocol.readMessage(NativeProtocol.java:592)
+	at com.mysql.cj.protocol.a.NativeProtocol.checkErrorMessage(NativeProtocol.java:769)
+	at com.mysql.cj.protocol.a.NativeProtocol.sendCommand(NativeProtocol.java:708)
+	at com.mysql.cj.protocol.a.NativeProtocol.sendQueryPacket(NativeProtocol.java:940)
+	at com.mysql.cj.NativeSession.execSQL(NativeSession.java:817)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:963)
+	... 22 common frames omitted
+Caused by: java.net.SocketException: Socket closed
+	at java.base/sun.nio.ch.NioSocketImpl.endRead(NioSocketImpl.java:243)
+	at java.base/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:323)
+	at java.base/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:346)
+	at java.base/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:796)
+	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:1099)
+	at com.mysql.cj.protocol.ReadAheadInputStream.fill(ReadAheadInputStream.java:91)
+	at com.mysql.cj.protocol.ReadAheadInputStream.readFromUnderlyingStreamIfNecessary(ReadAheadInputStream.java:130)
+	at com.mysql.cj.protocol.ReadAheadInputStream.read(ReadAheadInputStream.java:157)
+	at java.base/java.io.FilterInputStream.read(FilterInputStream.java:119)
+	at com.mysql.cj.protocol.FullReadInputStream.readFully(FullReadInputStream.java:55)
+	at com.mysql.cj.protocol.a.SimplePacketReader.readHeaderLocal(SimplePacketReader.java:72)
+	at com.mysql.cj.protocol.a.SimplePacketReader.readHeader(SimplePacketReader.java:54)
+	at com.mysql.cj.protocol.a.SimplePacketReader.readHeader(SimplePacketReader.java:36)
+	at com.mysql.cj.protocol.a.TimeTrackingPacketReader.readHeader(TimeTrackingPacketReader.java:43)
+	at com.mysql.cj.protocol.a.TimeTrackingPacketReader.readHeader(TimeTrackingPacketReader.java:32)
+	at com.mysql.cj.protocol.a.MultiPacketReader.readHeader(MultiPacketReader.java:45)
+	at com.mysql.cj.protocol.a.MultiPacketReader.readHeader(MultiPacketReader.java:35)
+	at com.mysql.cj.protocol.a.NativeProtocol.readMessage(NativeProtocol.java:586)
+	... 27 common frames omitted
+2026-01-13 00:35:01 [spring-session-1] ERROR o.s.t.support.TransactionTemplate - Application exception overridden by rollback exception
+org.springframework.dao.RecoverableDataAccessException: PreparedStatementCallback; SQL [DELETE FROM SPRING_SESSION
+WHERE EXPIRY_TIME < ?
+]; Communications link failure
+
+The last packet successfully received from the server was 609 milliseconds ago. The last packet sent successfully to the server was 911 milliseconds ago.
+	at org.springframework.jdbc.support.SQLExceptionSubclassTranslator.doTranslate(SQLExceptionSubclassTranslator.java:110)
+	at org.springframework.jdbc.support.AbstractFallbackSQLExceptionTranslator.translate(AbstractFallbackSQLExceptionTranslator.java:107)
+	at org.springframework.jdbc.support.AbstractFallbackSQLExceptionTranslator.translate(AbstractFallbackSQLExceptionTranslator.java:116)
+	at org.springframework.jdbc.core.JdbcTemplate.translateException(JdbcTemplate.java:1556)
+	at org.springframework.jdbc.core.JdbcTemplate.execute(JdbcTemplate.java:677)
+	at org.springframework.jdbc.core.JdbcTemplate.update(JdbcTemplate.java:972)
+	at org.springframework.jdbc.core.JdbcTemplate.update(JdbcTemplate.java:1016)
+	at org.springframework.jdbc.core.JdbcTemplate.update(JdbcTemplate.java:1026)
+	at org.springframework.session.jdbc.JdbcIndexedSessionRepository.lambda$cleanUpExpiredSessions$8(JdbcIndexedSessionRepository.java:649)
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:140)
+	at org.springframework.session.jdbc.JdbcIndexedSessionRepository.cleanUpExpiredSessions(JdbcIndexedSessionRepository.java:648)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:96)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet successfully received from the server was 609 milliseconds ago. The last packet sent successfully to the server was 911 milliseconds ago.
+	at com.mysql.cj.jdbc.exceptions.SQLError.createCommunicationsException(SQLError.java:165)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:55)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:988)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeUpdateInternal(ClientPreparedStatement.java:1166)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeUpdateInternal(ClientPreparedStatement.java:1101)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeLargeUpdate(ClientPreparedStatement.java:1448)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeUpdate(ClientPreparedStatement.java:1084)
+	at com.zaxxer.hikari.pool.ProxyPreparedStatement.executeUpdate(ProxyPreparedStatement.java:61)
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.executeUpdate(HikariProxyPreparedStatement.java)
+	at org.springframework.jdbc.core.JdbcTemplate.lambda$update$2(JdbcTemplate.java:977)
+	at org.springframework.jdbc.core.JdbcTemplate.execute(JdbcTemplate.java:658)
+	... 14 common frames omitted
+Caused by: com.mysql.cj.exceptions.CJCommunicationsException: Communications link failure
+
+The last packet successfully received from the server was 609 milliseconds ago. The last packet sent successfully to the server was 911 milliseconds ago.
+	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:502)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:486)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:52)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:95)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:140)
+	at com.mysql.cj.exceptions.ExceptionFactory.createCommunicationsException(ExceptionFactory.java:156)
+	at com.mysql.cj.protocol.a.NativeProtocol.readMessage(NativeProtocol.java:592)
+	at com.mysql.cj.protocol.a.NativeProtocol.checkErrorMessage(NativeProtocol.java:769)
+	at com.mysql.cj.protocol.a.NativeProtocol.sendCommand(NativeProtocol.java:708)
+	at com.mysql.cj.protocol.a.NativeProtocol.sendQueryPacket(NativeProtocol.java:940)
+	at com.mysql.cj.NativeSession.execSQL(NativeSession.java:817)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:963)
+	... 22 common frames omitted
+Caused by: java.net.SocketException: Socket closed
+	at java.base/sun.nio.ch.NioSocketImpl.endRead(NioSocketImpl.java:243)
+	at java.base/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:323)
+	at java.base/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:346)
+	at java.base/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:796)
+	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:1099)
+	at com.mysql.cj.protocol.ReadAheadInputStream.fill(ReadAheadInputStream.java:91)
+	at com.mysql.cj.protocol.ReadAheadInputStream.readFromUnderlyingStreamIfNecessary(ReadAheadInputStream.java:130)
+	at com.mysql.cj.protocol.ReadAheadInputStream.read(ReadAheadInputStream.java:157)
+	at java.base/java.io.FilterInputStream.read(FilterInputStream.java:119)
+	at com.mysql.cj.protocol.FullReadInputStream.readFully(FullReadInputStream.java:55)
+	at com.mysql.cj.protocol.a.SimplePacketReader.readHeaderLocal(SimplePacketReader.java:72)
+	at com.mysql.cj.protocol.a.SimplePacketReader.readHeader(SimplePacketReader.java:54)
+	at com.mysql.cj.protocol.a.SimplePacketReader.readHeader(SimplePacketReader.java:36)
+	at com.mysql.cj.protocol.a.TimeTrackingPacketReader.readHeader(TimeTrackingPacketReader.java:43)
+	at com.mysql.cj.protocol.a.TimeTrackingPacketReader.readHeader(TimeTrackingPacketReader.java:32)
+	at com.mysql.cj.protocol.a.MultiPacketReader.readHeader(MultiPacketReader.java:45)
+	at com.mysql.cj.protocol.a.MultiPacketReader.readHeader(MultiPacketReader.java:35)
+	at com.mysql.cj.protocol.a.NativeProtocol.readMessage(NativeProtocol.java:586)
+	... 27 common frames omitted
+2026-01-13 00:35:01 [spring-session-1] ERROR o.s.s.s.TaskUtils$LoggingErrorHandler - Unexpected error occurred in scheduled task
+org.springframework.orm.jpa.JpaSystemException: Unable to rollback against JDBC Connection
+	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.convertHibernateAccessException(HibernateJpaDialect.java:348)
+	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.convertHibernateAccessException(HibernateJpaDialect.java:256)
+	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.translateExceptionIfPossible(HibernateJpaDialect.java:241)
+	at org.springframework.orm.jpa.JpaTransactionManager.doRollback(JpaTransactionManager.java:593)
+	at org.springframework.transaction.support.AbstractPlatformTransactionManager.processRollback(AbstractPlatformTransactionManager.java:897)
+	at org.springframework.transaction.support.AbstractPlatformTransactionManager.rollback(AbstractPlatformTransactionManager.java:866)
+	at org.springframework.transaction.support.TransactionTemplate.rollbackOnException(TransactionTemplate.java:168)
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:144)
+	at org.springframework.session.jdbc.JdbcIndexedSessionRepository.cleanUpExpiredSessions(JdbcIndexedSessionRepository.java:648)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:96)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: org.hibernate.TransactionException: Unable to rollback against JDBC Connection
+	at org.hibernate.resource.jdbc.internal.AbstractLogicalConnectionImplementor.rollback(AbstractLogicalConnectionImplementor.java:137)
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcResourceLocalTransactionCoordinatorImpl$TransactionDriverControlImpl.rollback(JdbcResourceLocalTransactionCoordinatorImpl.java:289)
+	at org.hibernate.engine.transaction.internal.TransactionImpl.rollback(TransactionImpl.java:142)
+	at org.springframework.orm.jpa.JpaTransactionManager.doRollback(JpaTransactionManager.java:589)
+	... 13 common frames omitted
+Caused by: java.sql.SQLException: Connection is closed
+	at com.zaxxer.hikari.pool.ProxyConnection$ClosedConnection.lambda$getClosedConnection$0(ProxyConnection.java:562)
+	at jdk.proxy3/jdk.proxy3.$Proxy81.rollback(Unknown Source)
+	at com.zaxxer.hikari.pool.ProxyConnection.rollback(ProxyConnection.java:386)
+	at com.zaxxer.hikari.pool.HikariProxyConnection.rollback(HikariProxyConnection.java)
+	at org.hibernate.resource.jdbc.internal.AbstractLogicalConnectionImplementor.rollback(AbstractLogicalConnectionImplementor.java:127)
+	... 16 common frames omitted

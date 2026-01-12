@@ -16,13 +16,17 @@ import java.util.*;
 
 import org.springframework.stereotype.Service;
 
+import com.orpe.consultants.dto.SbWiseConsumptionDetailDTO;
 import com.orpe.consultants.dto.SbWiseDbkCalculationDTO;
 import com.orpe.consultants.model.ExportData;
+import com.orpe.consultants.model.ImportData;
 import com.orpe.consultants.model.SbWiseDbkCalculation;
+import com.orpe.consultants.model.SbWiseQuantityConsumption;
 import com.orpe.consultants.model.User;
 import com.orpe.consultants.model.Worksheet;
 import com.orpe.consultants.model.WorksheetExportModels;
 import com.orpe.consultants.repository.ExportDataRepository;
+import com.orpe.consultants.repository.ImportDataRepository;
 import com.orpe.consultants.repository.SbWiseDbkCalculationRepository;
 import com.orpe.consultants.repository.WorksheetRepository;
 import com.orpe.consultants.repository.SbWiseQuantityConsumptionRepository;
@@ -43,8 +47,10 @@ public class SbWiseDbkCalculationServiceImpl implements SbWiseDbkCalculationServ
 
 	    private final ExportDataRepository exportDataRepository;
 	    private final WorksheetRepository worksheetRepository;
+	    private final ImportDataRepository importDataRepository;
 	    private final SbWiseDbkCalculationRepository sbWiseDbkCalculationRepository;
 	    private final SbWiseQuantityConsumptionRepository sbUsageRepo;
+
 	    private final WorksheetService worksheetService; // your existing service for fetching worksheet meta if needed
 
 	    /**
@@ -52,55 +58,76 @@ public class SbWiseDbkCalculationServiceImpl implements SbWiseDbkCalculationServ
 	     */
 	    
 
-	    public List<SbWiseDbkCalculationDTO> calculateForExportIds(List<Long> exportIds, User performedBy) {
+	    private static final BigDecimal ONE = BigDecimal.ONE;
+	    private static final BigDecimal ZERO = BigDecimal.ZERO;
 
-	        if (exportIds == null || exportIds.isEmpty()) return Collections.emptyList();
+	    /**
+	     * =========================================================
+	     * MAIN TABLE (PARENT ROWS)
+	     * =========================================================
+	     */
+	    @Override
+	    public List<SbWiseDbkCalculationDTO> calculateForExportIds(
+	            List<Long> exportIds,
+	            User performedBy) {
 
-	        List<ExportData> exports = exportDataRepository.findAllByExportIdInOrderBySbDateAsc(exportIds);
-	        if (exports == null || exports.isEmpty()) return Collections.emptyList();
+	        if (exportIds == null || exportIds.isEmpty())
+	            return Collections.emptyList();
+
+	        // FIFO order by SB Date
+	        List<ExportData> exports =
+	                exportDataRepository.findAllByExportIdInOrderBySbDateAsc(exportIds);
+
+	        if (exports.isEmpty())
+	            return Collections.emptyList();
 
 	        log.info("=== DBK CALCULATION STARTED ===");
 
-	        // 2) SB-wise consumption totals
-	        Set<String> sbNos = exports.stream()
-	                .map(ExportData::getSbNo)
-	                .filter(Objects::nonNull)
+	        Map<String, BigDecimal> claimImportQtyMap = new HashMap<>();
+	        Map<String, BigDecimal> claimTotalDutyMap = new HashMap<>();
+	        Map<String, BigDecimal> claimTotalCifMap = new HashMap<>();
+
+	        Set<String> claimKeys = exports.stream()
+	                .filter(e -> e.getClaimRefNo() != null && e.getClaimYear() != null)
+	                .map(e -> e.getClaimRefNo() + "||" + e.getClaimYear())
 	                .collect(Collectors.toSet());
 
-	        Map<String, BigDecimal> sbConsumptionMap = new HashMap<>();
-	        if (!sbNos.isEmpty()) {
-	            List<SbWiseQuantityConsumptionRepository.SbUsageProjection> usages =
-	                    sbUsageRepo.sumUsedQtyBySbNoIn(new ArrayList<>(sbNos));
+	        for (String key : claimKeys) {
 
-	            if (usages != null) {
-	                for (var p : usages) {
-	                    BigDecimal used = p.getUsedTotal() == null ? BigDecimal.ZERO : p.getUsedTotal();
-	                    sbConsumptionMap.put(p.getSbNo(), used);
-	                    log.info("SB {} → Total Used Qty = {}", p.getSbNo(), used);
-	                }
+	            String[] parts = key.split("\\|\\|");
+	            String claimRef = parts[0];
+	            String claimYear = parts[1];
+
+	            List<ImportData> imports =
+	                    importDataRepository.findByClaimRefNoAndClaimYear(claimRef, claimYear);
+
+	            BigDecimal importQty = ZERO;
+	            BigDecimal totalDuty = ZERO;
+	            BigDecimal cif = ZERO;
+
+	            for (ImportData imp : imports) {
+
+	                importQty = importQty.add(safe(imp.getQuantity()));
+
+	                totalDuty = totalDuty
+	                        .add(safe(imp.getBcd()))
+	                        .add(safe(imp.getSws()))
+	                        .add(safe(imp.getAddDuty()));
+
+	                cif = cif.add(safe(imp.getAssessableValue()));
 	            }
+
+	            claimImportQtyMap.put(key, importQty);
+	            claimTotalDutyMap.put(key, totalDuty);
+	            claimTotalCifMap.put(key, cif);
 	        }
-
-	        // Rows per SB
-	        Map<String, Long> sbSelectedCounts = exports.stream()
-	                .map(ExportData::getSbNo)
-	                .filter(Objects::nonNull)
-	                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
-
-	        // Worksheet cache
-	        Map<String, List<Worksheet>> worksheetCache = new HashMap<>();
 
 	        List<SbWiseDbkCalculationDTO> rows = new ArrayList<>();
 
 	        for (ExportData ed : exports) {
 
-	            log.info("\n---- Processing ExportID {} | SB {} | Model {} ----",
-	                    ed.getExportId(),
-	                    ed.getSbNo(),
-	                    (ed.getModels() != null ? ed.getModels().getModelNo() : "NULL")
-	            );
-
 	            SbWiseDbkCalculationDTO dto = new SbWiseDbkCalculationDTO();
+
 	            dto.setExportId(ed.getExportId());
 	            dto.setPortCode(ed.getPortCode());
 	            dto.setShippingBillNo(ed.getSbNo());
@@ -112,96 +139,232 @@ public class SbWiseDbkCalculationServiceImpl implements SbWiseDbkCalculationServ
 	            dto.setDbkSno(ed.getDbkSno());
 	            dto.setFobValue(ed.getFobInr());
 	            dto.setPmvValue(ed.getPmvPerQty());
-	         // NEW: populate claim info (you added these columns to the entity)
+	            dto.setAirRate(ed.getRate());
+	            dto.setAirAmount(ed.getAirAmount());
 	            dto.setClaimRefNo(ed.getClaimRefNo());
 	            dto.setClaimYear(ed.getClaimYear());
 
-	            BigDecimal sumImportQty = BigDecimal.ZERO;
-	            BigDecimal sumTotalDuty = BigDecimal.ZERO;
-	            BigDecimal sumTotalCif = BigDecimal.ZERO;
+	            String claimKey =
+	                    ed.getClaimRefNo() != null && ed.getClaimYear() != null
+	                            ? ed.getClaimRefNo() + "||" + ed.getClaimYear()
+	                            : null;
 
-	            String claimRef = ed.getClaimRefNo();
-	            String claimYear = ed.getClaimYear();
+	            dto.setImportQuantity(
+	                    claimKey == null ? ZERO :
+	                            claimImportQtyMap.getOrDefault(claimKey, ZERO));
 
-	            String modelNo = (ed.getModels() != null ? ed.getModels().getModelNo() : null);
+	            dto.setTotalDuty(
+	                    claimKey == null ? ZERO :
+	                            claimTotalDutyMap.getOrDefault(claimKey, ZERO));
 
-	            if (claimRef != null && claimYear != null && modelNo != null) {
+	            dto.setTotalCifValue(
+	                    claimKey == null ? ZERO :
+	                            claimTotalCifMap.getOrDefault(claimKey, ZERO));
 
-	                String cacheKey = claimRef + "||" + claimYear;
-
-	                List<Worksheet> worksheets = worksheetCache.computeIfAbsent(cacheKey, k -> {
-	                    log.info("Loading Worksheets for Claim {} | Year {}", claimRef, claimYear);
-	                    return worksheetRepository.findByClaimRefNoAndClaimYear(claimRef, claimYear);
-	                });
-
-	                log.info("Found {} Worksheets for Claim {}", worksheets.size(), claimRef);
-
-	                final String modelKey = modelNo;
-
-	                for (Worksheet ws : worksheets) {
-
-	                    List<WorksheetExportModels> ems = ws.getExportModels();
-	                    if (ems == null || ems.isEmpty()) continue;
-
-	                    boolean modelPresent = ems.stream()
-	                            .anyMatch(em -> em != null
-	                                    && em.getModel() != null
-	                                    && modelKey.equalsIgnoreCase(em.getModel().getModelNo()));
-
-	                    if (modelPresent) {
-
-	                        // ✅ PRINT ONLY THE RECORDS THAT ARE TAKEN
-	                        log.info("✔ USED WorksheetID={} | BE No={} | Model={} | ImportQty={} | TotalDuty={} | CIF={}",
-	                                ws.getWorksheetId(),
-	                                ws.getBeNo(),
-	                                modelKey,
-	                                ws.getImportQty(),
-	                                ws.getTotalDuty(),
-	                                ws.getCifClaimedTotal()
-	                        );
-
-	                        if (ws.getImportQty() != null)
-	                            sumImportQty = sumImportQty.add(ws.getImportQty());
-
-	                        if (ws.getTotalDuty() != null)
-	                            sumTotalDuty = sumTotalDuty.add(ws.getTotalDuty());
-
-	                        if (ws.getCifClaimedTotal() != null)
-	                            sumTotalCif = sumTotalCif.add(ws.getCifClaimedTotal());
-	                    }
-	                }
-	            }
-
-	            log.info("→ FINAL Worksheet Totals for ExportID {}: ImportQty={} | TotalDuty={} | CIF={}",
-	                    ed.getExportId(), sumImportQty, sumTotalDuty, sumTotalCif);
-
-	            dto.setImportQuantity(sumImportQty);
-	            dto.setTotalDuty(sumTotalDuty);
-	            dto.setTotalCifValue(sumTotalCif);
-
-	            // SB equal split
-	            BigDecimal totalUsedForSb = sbConsumptionMap.getOrDefault(ed.getSbNo(), BigDecimal.ZERO);
-	            Long occurrences = sbSelectedCounts.get(ed.getSbNo());
-	            BigDecimal perRow = BigDecimal.ZERO;
-
-	            if (occurrences != null && occurrences > 0) {
-	                perRow = totalUsedForSb.divide(BigDecimal.valueOf(occurrences), 6, RoundingMode.HALF_UP);
-	            }
-
-	            log.info("SB {} | TotalUsed={} | Rows={} | PerRow={}",
-	                    ed.getSbNo(), totalUsedForSb, occurrences, perRow);
-
-	            dto.setConsumptionPerExportQty(perRow);
-
-	            dto.setAirRate(ed.getRate());
-	            dto.setAirAmount(ed.getAirAmount());
+	            // 🔒 Parent consumption handled on UI
+	            dto.setConsumptionPerExportQty(ZERO);
 
 	            rows.add(dto);
 	        }
 
-	        log.info("\n=== DBK CALCULATION COMPLETED. Rows generated = {} ===", rows.size());
+	        log.info("=== DBK CALCULATION COMPLETED. Rows Generated = {} ===", rows.size());
 	        return rows;
 	    }
+
+
+	    /**
+	     * =========================================================
+	     * TOGGLE ROWS (CHILD DATA – EXCEL MATCH)
+	     * =========================================================
+	     */
+	    @Override
+	    public List<SbWiseConsumptionDetailDTO> getConsumptionDetailsForExport(Long exportId) {
+
+	        ExportData export = exportDataRepository.findById(exportId)
+	                .orElseThrow(() -> new IllegalArgumentException("Export not found"));
+
+	        // All Import rows of same claim year
+	        List<ImportData> imports =
+	                importDataRepository.findByClaimRefNoAndClaimYear(
+	                        export.getClaimRefNo(),
+	                        export.getClaimYear()
+	                );
+
+	        // ✅ ORDER BY BOM PART NO
+	        imports.sort(
+	                Comparator.comparing(
+	                        (ImportData i) ->
+	                                i.getMaterial() != null
+	                                        ? i.getMaterial().getBomPartNo()
+	                                        : "",
+	                        String.CASE_INSENSITIVE_ORDER
+	                )
+	        );
+
+	        // All SB-wise consumption rows
+	        List<SbWiseQuantityConsumption> usages =
+	                sbUsageRepo.findBySbNoAndClaimRefNoAndClaimYear(
+	                        export.getSbNo(),
+	                        export.getClaimRefNo(),
+	                        export.getClaimYear()
+	                );
+
+	        List<SbWiseConsumptionDetailDTO> details = new ArrayList<>();
+
+	        // 🔒 Prevent duplicate usedQty
+	        Set<String> consumptionAssigned = new HashSet<>();
+
+	        for (ImportData imp : imports) {
+
+	            String bomPartNo =
+	                    imp.getMaterial() != null
+	                            ? imp.getMaterial().getBomPartNo()
+	                            : null;
+
+	            String key = importKey(imp.getBeNo(), bomPartNo);
+
+	            BigDecimal usedQty = ZERO;
+
+	            // ✅ Assign only ONCE per (BE + BOM)
+	            if (!consumptionAssigned.contains(key)) {
+
+	                usedQty =
+	                        usages.stream()
+	                                .filter(u ->
+	                                        equals(u.getSbNo(), export.getSbNo()) &&
+	                                        equals(u.getBoeNo(), imp.getBeNo()) &&
+	                                        bomLikeMatch(u.getBomPartNo(), bomPartNo)
+	                                )
+	                                .map(SbWiseQuantityConsumption::getUsedQty)
+	                                .reduce(ZERO, BigDecimal::add);
+
+	                consumptionAssigned.add(key);
+	            }
+
+	            details.add(
+	                    SbWiseConsumptionDetailDTO.builder()
+	                            .exportId(exportId)
+	                            .sbNo(export.getSbNo())
+	                            .dbkPartNo(imp.getDbkPartNo())
+	                            .bomPartNo(bomPartNo)
+	                            .boeNo(imp.getBeNo())
+	                            .consumptionForOneExportQty(usedQty)
+	                            .importQuantity(imp.getQuantity())
+	                            .assessableValue(imp.getAssessableValue())
+	                            .cifValue(imp.getAssessableValue())
+	                            .bcd(safe(imp.getBcd()))
+	                            .sws(safe(imp.getSws()))
+	                            .addDuty(safe(imp.getAddDuty()))
+	                            .totalDuty(
+	                                    safe(imp.getBcd())
+	                                            .add(safe(imp.getSws()))
+	                                            .add(safe(imp.getAddDuty()))
+	                            )
+	                            .build()
+	            );
+	        }
+
+	        return details;
+	    }
+
+	    
+	    private boolean bomLikeMatch(String a, String b) {
+	        if (a == null || b == null) return false;
+
+	        String x = a.trim().toUpperCase();
+	        String y = b.trim().toUpperCase();
+
+	        return x.contains(y) || y.contains(x);
+	    }
+
+	    private String importKey(String beNo, String bomPartNo) {
+	        return normalize(beNo) + "|" + normalize(bomPartNo);
+	    }
+
+	    private String normalize(String v) {
+	        return v == null ? "" : v.trim().toUpperCase();
+	    }
+
+	    private BigDecimal safe(BigDecimal v) {
+	        return v != null ? v : BigDecimal.ZERO;
+	    }
+
+	    private boolean equals(String a, String b) {
+	        if (a == null || b == null) return false;
+	        return a.trim().equalsIgnoreCase(b.trim());
+	    }
+
+
+
+
+
+
+	    /**
+	     * =========================================================
+	     * TRUE FIFO – EXACT EXCEL BEHAVIOUR
+	     * SB + BE NO + DBK PART NO
+	     * =========================================================
+	     */
+	    private Map<String, Map<Long, BigDecimal>> buildFifoConsumptionMap(
+	            List<ExportData> sbExports,
+	            List<SbWiseQuantityConsumption> usages) {
+
+	        Map<String, Map<Long, BigDecimal>> result = new HashMap<>();
+
+	        // Group usages by (SB + BE + DBK PART)
+	        Map<String, BigDecimal> totalUsedMap =
+	                usages.stream().collect(
+	                    Collectors.groupingBy(
+	                        u -> key(u.getSbNo(), u.getBoeNo(), u.getDbkPartNo()),
+	                        Collectors.reducing(
+	                            ZERO,
+	                            SbWiseQuantityConsumption::getUsedQty,
+	                            BigDecimal::add
+	                        )
+	                    )
+	                );
+
+	        // FIFO allocation
+	        for (Map.Entry<String, BigDecimal> entry : totalUsedMap.entrySet()) {
+
+	            BigDecimal remaining = entry.getValue();
+	            Map<Long, BigDecimal> perExport = new LinkedHashMap<>();
+
+	            for (ExportData ed : sbExports) {
+
+	                if (remaining.compareTo(ZERO) <= 0) {
+	                    perExport.put(ed.getExportId(), ZERO);
+	                    continue;
+	                }
+
+	                // FIFO → 1 unit per export
+	                BigDecimal alloc = ONE.min(remaining);
+	                perExport.put(ed.getExportId(), alloc);
+	                remaining = remaining.subtract(alloc);
+	            }
+
+	            result.put(entry.getKey(), perExport);
+	        }
+
+	        return result;
+	    }
+
+
+
+
+	    
+
+	    private String key(String sbNo, String beNo, String dbkPartNo) {
+	        return normalize(sbNo) + "|" +
+	               normalize(beNo) + "|" +
+	               normalize(dbkPartNo);
+	    }
+
+	    
+
+	
+
+
 	    
 	    
 	    @Transactional

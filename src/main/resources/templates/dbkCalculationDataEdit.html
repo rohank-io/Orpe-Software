@@ -42,6 +42,7 @@
 	<link rel="stylesheet" type="text/css" href="/assets/css/ionicons.css">
 	<link rel="stylesheet" type="text/css" href="/assets/css/jquery.mCustomScrollbar.css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" />
 	<style>
 		.row-select {
 			transform: scale(1.1);
@@ -267,7 +268,7 @@
 								</li>
 
 							</ul>
-							<div class="pcoded-navigatio-lavel">Data Import </div>
+							<div class="pcoded-navigatio-lavel">Data Backup </div>
 
 
 
@@ -279,6 +280,14 @@
 										<span class="pcoded-mcaret"></span>
 									</a>
 								</li>
+								
+								<li>
+																	<a th:href="@{/backup/download}">
+																		<span class="pcoded-micon"><i class="ti-receipt"></i></span>
+																		<span class="pcoded-mtext">SQL</span>
+																		<span class="pcoded-mcaret"></span>
+																	</a>
+																</li>
 							</ul>
 							<div class="pcoded-navigatio-lavel">Chart And Reports</div>
 							<ul class="pcoded-item pcoded-left-item">
@@ -419,10 +428,12 @@
 
 															<table id="calculationTable"
 																class="table table-hover table-sm table-bordered">
+
+																<!-- ===================== HEADER ===================== -->
 																<thead class="table-light sticky-top"
 																	style="background-color:#fff; z-index:1020;">
 																	<tr>
-																		<th>SL NO</th>
+																		<th style="width:60px">Sr No.</th>
 																		<th>Port Code</th>
 																		<th>Shipping Bill No</th>
 																		<th>Date</th>
@@ -438,7 +449,7 @@
 																		<th>Total Duty</th>
 																		<th>Total CIF Value</th>
 																		<th>DBK Amt</th>
-																		<th>CIF Value</th>
+																		<th>CIF Value(Calculated)</th>
 																		<th>AIR Rate</th>
 																		<th>Air Amount</th>
 																		<th>SBR</th>
@@ -450,142 +461,192 @@
 																	</tr>
 																</thead>
 
+																<!-- ===================== BODY ===================== -->
 																<tbody>
+
+																	<!-- No records -->
 																	<tr
 																		th:if="${calculationRows == null || #lists.isEmpty(calculationRows)}">
-																		<td colspan="23" class="text-center text-muted">
-																			No records found.</td>
+																		<td colspan="25" class="text-center text-muted">
+																			No records found.
+																		</td>
 																	</tr>
 
-																	<tr th:each="row, stat : ${calculationRows}"
-																		th:attr="data-export-id=${row.exportId}">
-																		<!-- SL NO -->
-																		<td class="text-center"
-																			th:text="${stat.index + 1}">1</td>
+																	<!-- ===================== PARENT ROW ===================== -->
+																	<th:block th:each="row, stat : ${calculationRows}">
 
-																		<td data-col="portCode" contenteditable="true"
-																			th:text="${row.portCode}">Port Code</td>
-																		<td data-col="sbNo" contenteditable="true"
-																			th:text="${row.shippingBillNo}">SB No</td>
-																		<td data-col="sbDate" contenteditable="true"
-																			th:text="${row.shippingBillDate != null ? #temporals.format(row.shippingBillDate, 'dd-MM-yyyy') : ''}">
-																			Date</td>
-																		<td data-col="leoDate" contenteditable="true"
-																			th:text="${row.leoDate != null ? #temporals.format(row.leoDate, 'dd-MM-yyyy') : ''}">
-																			LEO</td>
-																		<td data-col="description"
-																			contenteditable="true"
-																			th:text="${row.exportDescription}">
-																			Description</td>
+																		<tr th:attr="data-export-id=${row.exportId}">
 
-																		<td class="text-end" data-col="quantity"
-																			contenteditable="true"
-																			th:text="${#numbers.formatDecimal(row.quantity, 1, 'COMMA', 2, 'POINT')}">
-																			Qty</td>
+																			<!-- Toggle + SL NO -->
+																			<td class="text-center">
+																			    <button type="button"
+																			        class="btn btn-sm btn-link p-0"
+																			        th:data-export-id="${row.exportId}"
+																			        onclick="toggleConsumptionDetails(this)">
+																			        <i class="bi bi-caret-right"></i>
+																			    </button>
+																			    <span th:text="${stat.index + 1}"></span>
+																			</td>
 
-																		<td data-col="unit" contenteditable="true"
-																			th:text="${row.unit}">Unit</td>
-																		<td data-col="dbkSno" contenteditable="true"
-																			th:text="${row.dbkSno}">DBK SNO</td>
+																			<td data-col="portCode"
+																			    th:text="${row.portCode}"
+																			    contenteditable="true"></td>
 
-																		<!-- J: FOB Value -->
-																		<td class="text-end" data-col="fob"
-																			contenteditable="true"
-																			th:text="${#numbers.formatDecimal(row.fobValue, 2, 'COMMA', 2, 'POINT')}">
-																			FOB</td>
+																			<td data-col="sbNo"
+																			    th:text="${row.shippingBillNo}"
+																			    contenteditable="true"></td>
 
-																		<!-- K: PMV Value -->
-																		<td class="text-end" data-col="pmv"
-																			contenteditable="true"
-																			th:text="${#numbers.formatDecimal(row.pmvValue, 2, 'COMMA', 2, 'POINT')}">
-																			PMV</td>
+																			<td data-col="sbDate"
+																			    th:text="${row.shippingBillDate != null ?
+																			        #temporals.format(row.shippingBillDate,'dd-MM-yyyy') : ''}"
+																			    contenteditable="true"></td>
 
-																		<!-- L: Imp Quantity -->
-																		<td class="text-end" data-col="impQty"
-																			contenteditable="true"
-																			th:text="${#numbers.formatDecimal(row.importQuantity, 2, 'COMMA', 2, 'POINT')}">
-																			Imp Qty</td>
+																			<td data-col="leoDate"
+																			    th:text="${row.leoDate != null ?
+																			        #temporals.format(row.leoDate,'dd-MM-yyyy') : ''}"
+																			    contenteditable="true"></td>
 
-																		<!-- M: Consumption per Export Qty -->
-																		<td class="text-end" data-col="consumption"
-																			contenteditable="true"
-																			th:text="${#numbers.formatDecimal(row.consumptionPerExportQty, 2, 'COMMA', 2, 'POINT')}">
-																			Consumption</td>
+																			<td data-col="description"
+																			    th:text="${row.exportDescription}"
+																			    contenteditable="true"></td>
 
-																		<!-- N: Total Duty -->
-																		<td class="text-end" data-col="totalDuty"
-																			contenteditable="true"
-																			th:text="${#numbers.formatDecimal(row.totalDuty, 2, 'COMMA', 2, 'POINT')}">
-																			Total Duty</td>
+																			<td data-col="quantity"
+																			    class="text-end"
+																			    th:text="${#numbers.formatDecimal(row.quantity,1,'COMMA',2,'POINT')}"
+																			    contenteditable="true"></td>
 
-																		<!-- O: Total CIF -->
-																		<td class="text-end" data-col="totalCif"
-																			contenteditable="true"
-																			th:text="${#numbers.formatDecimal(row.totalCifValue, 2, 'COMMA', 2, 'POINT')}">
-																			Total CIF</td>
+																			<td data-col="unit"
+																			    th:text="${row.unit}"
+																			    contenteditable="true"></td>
 
-																		<!-- P: DBK Amt (computed) -->
-																		<td class="text-end" data-col="dbkAmt"
-																			contenteditable="true"
-																			th:text="${#numbers.formatDecimal(row.dbkAmount, 2, 'COMMA', 2, 'POINT')}">
-																			DBK Amt</td>
+																			<td data-col="dbkSno"
+																			    th:text="${row.dbkSno}"
+																			    contenteditable="true"></td>
 
-																		<!-- Q: CIF Value (computed) -->
-																		<td class="text-end" data-col="cifValue"
-																			contenteditable="true"
-																			th:text="${#numbers.formatDecimal(row.cifValue, 2, 'COMMA', 2, 'POINT')}">
-																			CIF Value</td>
+																			<td data-col="fob"
+																			    class="text-end"
+																			    th:text="${#numbers.formatDecimal(row.fobValue,2,'COMMA',2,'POINT')}"
+																			    contenteditable="true"></td>
 
-																		<!-- R: AIR Rate -->
-																		<td class="text-end" data-col="airRate"
-																			contenteditable="true"
-																			th:text="${#numbers.formatDecimal(row.airRate, 4, 'COMMA', 4, 'POINT')}">
-																			AIR Rate</td>
+																			<td data-col="pmv"
+																			    class="text-end"
+																			    th:text="${#numbers.formatDecimal(row.pmvValue,2,'COMMA',2,'POINT')}"
+																			    contenteditable="true"></td>
 
-																		<!-- S: Air Amount -->
-																		<td class="text-end" data-col="airAmount"
-																			contenteditable="true"
-																			th:text="${#numbers.formatDecimal(row.airAmount, 2, 'COMMA', 2, 'POINT')}">
-																			Air Amount</td>
+																			<td data-col="impQty"
+																			    class="text-end"
+																			    th:text="${#numbers.formatDecimal(row.importQuantity,2,'COMMA',2,'POINT')}"
+																			    contenteditable="true"></td>
 
-																		<!-- T: SBR (computed) -->
-																		<td class="text-end" data-col="sbr"
-																			contenteditable="true"
-																			th:text="${#numbers.formatDecimal(row.sbr, 6, 'COMMA', 6, 'POINT')}">
-																			SBR</td>
+																			<td data-col="consumption"
+																			    class="text-end parent-consumption"
+																			    th:text="${#numbers.formatDecimal(row.consumptionPerExportQty,2,'COMMA',2,'POINT')}"
+																			    contenteditable="true"></td>
 
-																		<!-- U: 4/5 of BRoD (computed) -->
-																		<td class="text-end" data-col="brodFourFifth"
-																			contenteditable="true"
-																			th:text="${#numbers.formatDecimal(row.fourFifthOfBrodMainClaim, 2, 'COMMA', 2, 'POINT')}">
-																			4/5 BRoD</td>
+																			<td data-col="totalDuty"
+																			    class="text-end"
+																			    th:text="${#numbers.formatDecimal(row.totalDuty,2,'COMMA',2,'POINT')}"
+																			    contenteditable="true"></td>
 
-																		<!-- V: Diff BRoD - AIR (computed) -->
-																		<td class="text-end" data-col="diffBrodAir"
-																			contenteditable="true"
-																			th:text="${#numbers.formatDecimal(row.diffBrodAndAir, 2, 'COMMA', 2, 'POINT')}">
-																			Diff</td>
+																			<td data-col="totalCif"
+																			    class="text-end"
+																			    th:text="${#numbers.formatDecimal(row.totalCifValue,2,'COMMA',2,'POINT')}"
+																			    contenteditable="true"></td>
 
-																		<!-- W: Value Addition (computed % or amount as your formula) -->
-																		<td class="text-end" data-col="valueAddition"
-																			contenteditable="true"
-																			th:text="${#numbers.formatDecimal(row.valueAddition, 2, 'COMMA', 2, 'POINT')}">
-																			Value Addition</td>
+																			<td data-col="dbkAmt"
+																			    class="text-end"
+																			    contenteditable="true"></td>
+
+																			<td data-col="cifValue"
+																			    class="text-end"
+																			    contenteditable="true"></td>
+
+																			<td data-col="airRate"
+																			    class="text-end"
+																			    th:text="${#numbers.formatDecimal(row.airRate,4,'COMMA',4,'POINT')}"
+																			    contenteditable="true"></td>
+
+																			<td data-col="airAmount"
+																			    class="text-end"
+																			    th:text="${#numbers.formatDecimal(row.airAmount,2,'COMMA',2,'POINT')}"
+																			    contenteditable="true"></td>
+
+																			<td data-col="sbr"
+																			    class="text-end"
+																			    contenteditable="true"></td>
+
+																			<td data-col="brodFourFifth"
+																			    class="text-end"
+																			    contenteditable="true"></td>
+
+																			<td data-col="diffBrodAir"
+																			    class="text-end"
+																			    contenteditable="true"></td>
+
+																			<td data-col="valueAddition"
+																			    class="text-end"
+																			    contenteditable="true"></td>
+
+																			<td data-col="claimRefNo"
+																			    th:text="${row.claimRefNo}"
+																			    contenteditable="true"></td>
+
+																			<td data-col="claimYear"
+																			    th:text="${row.claimYear}"
+																			    contenteditable="true"></td>
+
+																		</tr>
+
+																		<!-- ===================== CHILD ROW ===================== -->
+																		<tr class="child-row d-none"
+																			th:id="'child-row-' + ${row.exportId}">
+																			<td colspan="25" class="p-2">
+
+																				<table
+																					class="table table-sm table-bordered mb-0">
+																					<thead
+																						class="table-secondary sticky-top"
+																						style="background-color:#fff;">
+																						<tr>
+																							<th>Sr</th>
+																							<th>BOM Part No</th>
+																							<th>DBK Part No</th>
+																							<th>Consumption / Exp Qty
+																							</th>
+																							<th>BOE No</th>
+																							<th>Import Qty</th>
+																							<th>Assessable Value</th>
+																							<th>CIF Value</th>
+																							<th>BCD</th>
+																							<th>SWS</th>
+																							<th>Add Duty</th>
+																							<th>Total Duty</th>
+																							<th>DBK Amount</th>
+																							<th>CIF Value</th>
+																						</tr>
+																					</thead>
 
 
-																		<td data-col="claimRefNo" contenteditable="true"
-																			th:text="${row.claimRefNo}">Claim Ref No
-																		</td>
+																					<tbody
+																						th:id="'child-body-' + ${row.exportId}">
+																						<tr>
+																							<td colspan="10"
+																								class="text-muted text-center">
+																								Click toggle to load
+																								data
+																							</td>
+																						</tr>
+																					</tbody>
+																				</table>
 
-																		<td data-col="claimYear" contenteditable="true"
-																			th:text="${row.claimYear}">Claim Year
-																		</td>
+																			</td>
+																		</tr>
 
-
-																	</tr>
+																	</th:block>
 
 																</tbody>
 															</table>
+
 														</div>
 
 													</div>
@@ -634,6 +695,190 @@
 		<a th:href="@{/index}" class="btn btn-primary" aria-hidden="true">Home</a>
 	</div>
 	</div>
+
+	<script>
+		function num(v) {
+			if (!v) return 0;
+			return parseFloat(String(v).replace(/,/g, '').trim()) || 0;
+		}
+
+		function fmt(v, d = 2) {
+			return num(v).toLocaleString('en-IN', {
+				minimumFractionDigits: d,
+				maximumFractionDigits: d
+			});
+		}
+	</script>
+
+	<script>
+		function recalcChildAndParent(exportId) {
+
+		    const tbody = document.getElementById("child-body-" + exportId);
+		    const parentRow = document.querySelector(
+		        `tr[data-export-id="${exportId}"]`
+		    );
+
+		    // ✅ FIX: define ptds
+		    const ptds = parentRow.querySelectorAll("td");
+
+		    let sumImportQty = 0;
+		    let sumConsumption = 0;
+		    let sumTotalDuty = 0;
+		    let sumDbkAmt = 0;
+		    let sumImportCif = 0;
+		    let sumCalculatedCif = 0;
+
+		    tbody.querySelectorAll("tr").forEach(row => {
+
+		        const tds = row.querySelectorAll("td");
+		        if (tds.length < 14) return;
+
+		        const consumption = num(tds[3].innerText);
+		        const importQty   = num(tds[5].innerText);
+		        const cifBase     = num(tds[7].innerText);
+		        const bcd         = num(tds[8].innerText);
+		        const sws         = num(tds[9].innerText);
+		        const addDuty     = num(tds[10].innerText);
+
+		        const totalDuty = bcd + sws + addDuty;
+		        tds[11].innerText = fmt(totalDuty);
+
+		        const dbkAmt = importQty > 0 ? (totalDuty / importQty) * consumption : 0;
+		        tds[12].innerText = fmt(dbkAmt);
+
+		        const cifCalc = importQty > 0 ? (cifBase / importQty) * consumption : 0;
+		        tds[13].innerText = fmt(cifCalc);
+
+		        sumImportQty += importQty;
+		        sumConsumption += consumption;
+		        sumTotalDuty += totalDuty;
+		        sumDbkAmt += dbkAmt;
+		        sumImportCif += cifBase;
+		        sumCalculatedCif += cifCalc;
+		    });
+
+		    // ✅ Parent update (now ptds exists)
+		    const fobValue = num(ptds[9].innerText);
+		    const airAmount = num(ptds[18].innerText);
+
+		    ptds[11].innerText = fmt(sumImportQty);
+		    ptds[12].innerText = fmt(sumConsumption);
+		    ptds[13].innerText = fmt(sumTotalDuty);
+		    ptds[14].innerText = fmt(sumImportCif);        // backend CIF
+		    ptds[15].innerText = fmt(sumDbkAmt);
+		    ptds[16].innerText = fmt(sumCalculatedCif);    // calculated CIF
+
+		    const sbr = sumDbkAmt - airAmount;
+		    ptds[19].innerText = fmt(sbr);
+
+		    const brod45 = sumDbkAmt * 0.8;
+		    ptds[20].innerText = fmt(brod45);
+		    ptds[21].innerText = fmt(brod45 - airAmount);
+
+		    const valAdd = sumCalculatedCif > 0
+		        ? ((fobValue - sumCalculatedCif) / sumCalculatedCif) * 100
+		        : 0;
+
+		    ptds[22].innerText = fmt(valAdd, 2);
+		}
+
+
+
+	</script>
+
+
+
+	<script>
+		function toggleConsumptionDetails(button) {
+
+			const exportId = button.dataset.exportId;
+			const childRow = document.getElementById("child-row-" + exportId);
+			const icon = button.querySelector("i");
+			const tbody = document.getElementById("child-body-" + exportId);
+
+			// 🔁 CLOSE
+			if (!childRow.classList.contains("d-none")) {
+				childRow.classList.add("d-none");
+				icon.classList.remove("bi-caret-down");
+				icon.classList.add("bi-caret-right");
+				return;
+			}
+
+			// 🔽 OPEN
+			childRow.classList.remove("d-none");
+			icon.classList.remove("bi-caret-right");
+			icon.classList.add("bi-caret-down");
+
+			// ✅ Already loaded → just RECALC
+			if (tbody.dataset.loaded === "true") {
+				recalcChildAndParent(exportId); // 🔥 SAFETY CALL
+				return;
+			}
+
+			// ⬇️ FIRST LOAD
+			fetch(`/dbk/export/${exportId}/consumption-details`)
+				.then(r => r.json())
+				.then(data => {
+
+					tbody.innerHTML = "";
+
+					if (!data || data.length === 0) {
+						tbody.innerHTML = `
+	                    <tr>
+	                        <td colspan="14" class="text-center text-muted">
+	                            No data found
+	                        </td>
+	                    </tr>`;
+						return;
+					}
+
+					data.forEach((r, index) => {
+						tbody.insertAdjacentHTML("beforeend", `
+	                    <tr>
+	                        <td class="text-center">${index + 1}</td>
+	                        <td>${r.bomPartNo ?? ""}</td>
+	                        <td>${r.dbkPartNo ?? ""}</td>
+
+	                        <td class="text-end consumption-cell"
+	                            contenteditable="true"
+	                            oninput="recalcChildAndParent(${exportId})">
+	                            ${r.consumptionForOneExportQty ?? 0}
+	                        </td>
+
+	                        <td>${r.boeNo ?? ""}</td>
+	                        <td class="text-end import-qty">${r.importQuantity ?? 0}</td>
+	                        <td class="text-end assessable">${r.assessableValue ?? 0}</td>
+	                        <td class="text-end cif-base">${r.cifValue ?? 0}</td>
+
+	                        <td class="text-end bcd">${r.bcd ?? 0}</td>
+	                        <td class="text-end sws">${r.sws ?? 0}</td>
+	                        <td class="text-end add-duty">${r.addDuty ?? 0}</td>
+
+	                        <td class="text-end total-duty">0</td>
+	                        <td class="text-end dbk-amt">0</td>
+	                        <td class="text-end cif-calc">0</td>
+	                    </tr>
+	                `);
+					});
+
+					tbody.dataset.loaded = "true";
+
+					// 🔥🔥 IMPORTANT SAFETY RECALC 🔥🔥
+					recalcChildAndParent(exportId);
+				})
+				.catch(err => {
+					console.error(err);
+					tbody.innerHTML = `
+	                <tr>
+	                    <td colspan="14" class="text-danger text-center">
+	                        Error loading data
+	                    </td>
+	                </tr>`;
+				});
+		}
+	</script>
+
+
 
 	<script>
 		document.addEventListener('DOMContentLoaded', function () {

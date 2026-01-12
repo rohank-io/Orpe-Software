@@ -20,6 +20,8 @@ public class SbWiseQuantityConsumptionDTO {
     private String claimYear;
 
     private String dbkPartNo;
+    
+    private String bomPartNo;
 
     private String boeNo;
 

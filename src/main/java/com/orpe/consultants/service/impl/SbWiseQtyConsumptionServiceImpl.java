@@ -47,6 +47,7 @@ public class SbWiseQtyConsumptionServiceImpl implements SbWiseQtyConsumptionServ
                 .sbQtyConsumptionId(dto.getSbQtyConsumptionId())
                 .claimRefNo(dto.getClaimRefNo())
                 .claimYear(dto.getClaimYear())
+                .bomPartNo(dto.getBomPartNo())
                 .dbkPartNo(dto.getDbkPartNo())
                 .boeNo(dto.getBoeNo())
                 .usedQty(dto.getUsedQty())

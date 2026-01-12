@@ -90,6 +90,42 @@ public class WorksheetController {
 
 		return "worksheetDataSelect";
 	}
+	
+	
+	@GetMapping("/worksheet/importdata/ommited-records")
+	public String worksheetdataOmmitedRecords(@RequestParam(required = false) String filterField,
+			@RequestParam(required = false) String filterValue,
+			@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fromDate,
+			@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate toDate,
+			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "1000") int size,
+			HttpSession session, Model model) {
+
+		// Authentication check omitted for brevity
+		User loggedInUser = (User) session.getAttribute("loggedInUser");
+		if (loggedInUser == null) {
+			return "redirect:/login";
+		}
+		model.addAttribute("user", loggedInUser);
+
+		ImportDataFilter filter = new ImportDataFilter();
+		filter.setFilterField(filterField);
+		filter.setFilterValue(filterValue);
+		filter.setFromDate(fromDate);
+		filter.setToDate(toDate);
+
+		Pageable pageable = PageRequest.of(page, size, Sort.by("beDate").descending());
+		Page<ImportDataDTO> resultPage = importDataService.findOmittedImportRecords(filter, pageable);
+
+		model.addAttribute("importDataPage", resultPage);
+		model.addAttribute("filterField", filterField);
+		model.addAttribute("filterValue", filterValue);
+		model.addAttribute("fromDate", fromDate);
+		model.addAttribute("toDate", toDate);
+		model.addAttribute("currentPage", page);
+		model.addAttribute("pageSize", size);
+
+		return "worksheetDataOmmitedRecords";
+	}
 
 	@PostMapping("/worksheet/importdata/export")
 	public void exportImportDataToExcel(@RequestParam("importIds") List<Long> importIds, HttpServletResponse response,

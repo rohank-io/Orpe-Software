@@ -107,7 +107,7 @@ public class ImportData {
  @NotBlank @Size(max = 100)
  private String uom;
 
- @Column(name = "assessable_value", precision = 18, scale = 2, nullable = false)
+ @Column(name = "assessable_value", precision = 18, scale = 6, nullable = false)
  @NotNull
  private BigDecimal assessableValue;
 
@@ -115,28 +115,28 @@ public class ImportData {
  @Column(name = "bcd_rate", precision = 10, scale = 6)
  private BigDecimal bcdRate;
 
- @Column(name = "bcd", precision = 18, scale = 2)
+ @Column(name = "bcd", precision = 18, scale = 6)
  private BigDecimal bcd;
 
  @Column(name = "sws_rate", precision = 10, scale = 6)
  private BigDecimal swsRate;
 
- @Column(name = "sws", precision = 18, scale = 2)
+ @Column(name = "sws", precision = 18, scale = 6)
  private BigDecimal sws;
 
  @Column(name = "add_rate", precision = 10, scale = 6)
  private BigDecimal addRate;
 
- @Column(name = "add_duty", precision = 18, scale = 2)
+ @Column(name = "add_duty", precision = 18, scale = 6)
  private BigDecimal addDuty;
 
  @Column(name = "igst_rate", precision = 10, scale = 6)
  private BigDecimal igstRate;
 
- @Column(name = "igst", precision = 18, scale = 2)
+ @Column(name = "igst", precision = 18, scale = 6)
  private BigDecimal igst;
 
- @Column(name = "total_duty", precision = 18, scale = 2)
+ @Column(name = "total_duty", precision = 18, scale = 6)
  private BigDecimal totalDuty;
 
  // Notification & eligibility

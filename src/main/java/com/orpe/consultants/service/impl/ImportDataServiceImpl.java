@@ -394,6 +394,121 @@ public class ImportDataServiceImpl implements ImportDataService {
 
 	    return result;
 	}
+	
+	
+	//Records who are ommited
+	@Override
+	public Page<ImportDataDTO> findOmittedImportRecords(
+	        ImportDataFilter filter,
+	        Pageable pageable) {
+
+	    /* =========================================================
+	       1) Base + Positive Closing Balance FILTER
+	       ========================================================= */
+	    Specification<ImportData> baseSpec = buildSpecification(filter);
+
+	    Specification<ImportData> positiveClosingSpec = (root, query, cb) ->
+	            cb.greaterThan(root.get("closingBalance"), BigDecimal.ZERO);
+
+	    Specification<ImportData> finalSpec =
+	            Specification.allOf(baseSpec, positiveClosingSpec);
+
+	    // Same FIFO sort for consistency
+	    Sort sort = Sort.by(
+	            Sort.Order.asc("beDate"),
+	            Sort.Order.asc("closingBalance"),
+	            Sort.Order.asc("importId")
+	    );
+
+	    Pageable sortedPageable =
+	            PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), sort);
+
+	    // Fetch ALL candidates for this page
+	    Page<ImportData> page =
+	            importRepo.findAll(finalSpec, sortedPageable);
+
+	    List<ImportData> pageContent = page.getContent();
+
+	    /* =========================================================
+	       2) BOM Requirements
+	       ========================================================= */
+	    Map<String, BigDecimal> requiredByBomPartNo =
+	            computeRequiredBomQuantities();
+
+	    /* =========================================================
+	       3) FIFO PASS LIST (reuse your existing logic)
+	       ========================================================= */
+	    List<ImportData> fifoAccepted =
+	            applyFifoSelection(pageContent, requiredByBomPartNo);
+
+	    Set<Long> acceptedIds = fifoAccepted.stream()
+	            .map(ImportData::getImportId)
+	            .collect(Collectors.toSet());
+
+	    /* =========================================================
+	       4) FIFO-REJECTED RECORDS
+	       ========================================================= */
+	    List<ImportData> fifoRejected = pageContent.stream()
+	            .filter(imp -> !acceptedIds.contains(imp.getImportId()))
+	            .toList();
+
+	    /* =========================================================
+	       5) Claim-wise Invoice Date Rule
+	       ========================================================= */
+	    Map<String, LocalDate> lastInvoiceByClaim =
+	            computeLastInvoiceDatePerClaim();
+
+	    List<ImportData> dateRejected = new ArrayList<>();
+
+	    for (ImportData imp : fifoRejected) {
+
+	        String key = buildClaimKey(
+	                imp.getClaimRefNo(),
+	                imp.getClaimYear()
+	        );
+
+	        LocalDate maxInvoiceDate = lastInvoiceByClaim.get(key);
+
+	        // Reject if export exists AND beDate > last invoice date
+	        if (maxInvoiceDate != null &&
+	            imp.getBeDate() != null &&
+	            imp.getBeDate().isAfter(maxInvoiceDate)) {
+
+	            dateRejected.add(imp);
+	        }
+	    }
+
+	    /* =========================================================
+	       6) Combine ALL OMITTED RECORDS
+	       ========================================================= */
+	    Set<Long> omittedIds = new HashSet<>();
+	    List<ImportData> omittedFinal = new ArrayList<>();
+
+	    for (ImportData imp : fifoRejected) {
+	        omittedIds.add(imp.getImportId());
+	        omittedFinal.add(imp);
+	    }
+
+	    for (ImportData imp : dateRejected) {
+	        if (!omittedIds.contains(imp.getImportId())) {
+	            omittedFinal.add(imp);
+	        }
+	    }
+
+	    /* =========================================================
+	       7) Map to DTO
+	       ========================================================= */
+	    List<ImportDataDTO> dtoList = omittedFinal.stream()
+	            .map(this::entityToDto)
+	            .toList();
+
+	    return new PageImpl<>(
+	            dtoList,
+	            sortedPageable,
+	            omittedFinal.size()
+	    );
+	}
+
 
 
 

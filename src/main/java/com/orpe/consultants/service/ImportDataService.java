@@ -59,6 +59,9 @@ public interface ImportDataService {
     
     Page<ImportDataDTO> findWithPositiveClosingBalance(ImportDataFilter filter,Pageable pageable);
 
+    Page<ImportDataDTO> findOmittedImportRecords(
+            ImportDataFilter filter,
+            Pageable pageable);
 
     /**
      * Export filtered ImportData rows in CSV or Excel format.

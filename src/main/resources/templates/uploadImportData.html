@@ -43,11 +43,11 @@
 	<link rel="stylesheet" type="text/css" href="/assets/css/jquery.mCustomScrollbar.css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 	<style>
-			.row-select {
-				transform: scale(1.1);
-				cursor: pointer;
-			}
-		</style>
+		.row-select {
+			transform: scale(1.1);
+			cursor: pointer;
+		}
+	</style>
 </head>
 
 <body>
@@ -220,14 +220,14 @@
 												<span class="pcoded-mcaret"></span>
 											</a>
 										</li>
-										
+
 										<li class=" ">
-																					<a th:href="@{/dbkcalculation/list/claimwise}">
-																						<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-																						<span class="pcoded-mtext">SB DBK Consumption</span>
-																						<span class="pcoded-mcaret"></span>
-																					</a>
-																				</li>
+											<a th:href="@{/dbkcalculation/list/claimwise}">
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">SB DBK Consumption</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+										</li>
 
 
 
@@ -573,51 +573,51 @@
 																				<!-- Quantity + Value -->
 																				<td contenteditable="true"
 																					class="text-end"
-																					th:text="${#numbers.formatDecimal(r.quantity, 0, 'COMMA', 2, 'POINT')}">
+																					th:text="${r.quantity}">
 																				</td>
 																				<td contenteditable="true"
 																					th:text="${r.uom}"></td>
 																				<td contenteditable="true"
 																					class="text-end"
-																					th:text="${#numbers.formatDecimal(r.assessableValue, 0, 'COMMA', 2, 'POINT')}">
+																					th:text="${r.assessableValue}">
 																				</td>
 
 																				<!-- Duties -->
 																				<td contenteditable="true"
 																					class="text-end"
-																					th:text="${#numbers.formatDecimal(r.bcdRate, 0, 'COMMA', 2, 'POINT')}">
+																					th:text="${r.bcdRate}">
 																				</td>
 																				<td contenteditable="true"
 																					class="text-end"
-																					th:text="${#numbers.formatDecimal(r.bcd, 0, 'COMMA', 2, 'POINT')}">
+																					th:text="${r.bcd}">
 																				</td>
 																				<td contenteditable="true"
 																					class="text-end"
-																					th:text="${#numbers.formatDecimal(r.swsRate, 0, 'COMMA', 2, 'POINT')}">
+																					th:text="${r.swsRate}">
 																				</td>
 																				<td contenteditable="true"
 																					class="text-end"
-																					th:text="${#numbers.formatDecimal(r.sws, 0, 'COMMA', 2, 'POINT')}">
+																					th:text="${r.sws}">
 																				</td>
 																				<td contenteditable="true"
 																					class="text-end"
-																					th:text="${#numbers.formatDecimal(r.addRate, 0, 'COMMA', 2, 'POINT')}">
+																					th:text="${r.addRate}">
 																				</td>
 																				<td contenteditable="true"
 																					class="text-end"
-																					th:text="${#numbers.formatDecimal(r.addDuty, 0, 'COMMA', 2, 'POINT')}">
+																					th:text="${r.addDuty}">
 																				</td>
 																				<td contenteditable="true"
 																					class="text-end"
-																					th:text="${#numbers.formatDecimal(r.igstRate, 0, 'COMMA', 2, 'POINT')}">
+																					th:text="${r.igstRate}">
 																				</td>
 																				<td contenteditable="true"
 																					class="text-end"
-																					th:text="${#numbers.formatDecimal(r.igst, 0, 'COMMA', 2, 'POINT')}">
+																					th:text="${r.igst}">
 																				</td>
 																				<td contenteditable="true"
 																					class="text-end"
-																					th:text="${#numbers.formatDecimal(r.totalDuty, 0, 'COMMA', 2, 'POINT')}">
+																					th:text="${r.totalDuty}">
 																				</td>
 
 																				<!-- Notifications -->
@@ -629,15 +629,15 @@
 																				<!-- Stock -->
 																				<td contenteditable="true"
 																					class="text-end"
-																					th:text="${#numbers.formatDecimal(r.qtyOpeningBalance, 0, 'COMMA', 2, 'POINT')}">
+																					th:text="${r.qtyOpeningBalance}">
 																				</td>
 																				<td contenteditable="true"
 																					class="text-end"
-																					th:text="${#numbers.formatDecimal(r.qtyUsed, 0, 'COMMA', 2, 'POINT')}">
+																					th:text="${r.qtyUsed}">
 																				</td>
 																				<td contenteditable="true"
 																					class="text-end"
-																					th:text="${#numbers.formatDecimal(r.closingBalance, 0, 'COMMA', 2, 'POINT')}">
+																					th:text="${r.closingBalance}">
 																				</td>
 																				<td contenteditable="true"
 																					th:text="${r.stockWiseEligibility}">
@@ -646,7 +646,7 @@
 																				<!-- Claims -->
 																				<td contenteditable="true"
 																					class="text-end"
-																					th:text="${#numbers.formatDecimal(r.dutyClaimedAmt, 0, 'COMMA', 2, 'POINT')}">
+																					th:text="${r.dutyClaimedAmt}">
 																				</td>
 
 																				<td contenteditable="true"
@@ -827,23 +827,22 @@
 																	return isNaN(num) ? 0 : num / 100;
 																}
 
-																// Format number according to Indian locale with fixed decimals
-																function formatDecimal(num, decimals = 2) {
+																// Format number according to Indian locale
+																function formatDecimal(num, decimals = 6) {
 																	return num.toLocaleString('en-IN', {
 																		minimumFractionDigits: decimals,
 																		maximumFractionDigits: decimals
 																	});
 																}
 
-																// Calculate and update duty columns for a single row
+																// Recalculate duty values for a row
 																function recalcRow(row) {
 																	const assessableCell = row.querySelector('td:nth-child(18)');
 																	const bcdRateCell = row.querySelector('td:nth-child(19)');
 																	const bcdCell = row.querySelector('td:nth-child(20)');
 																	const swsRateCell = row.querySelector('td:nth-child(21)');
 																	const swsCell = row.querySelector('td:nth-child(22)');
-																	const addRateCell = row.querySelector('td:nth-child(23)');
-																	const addDutyCell = row.querySelector('td:nth-child(24)');
+																	const addDutyCell = row.querySelector('td:nth-child(24)'); // READ ONLY
 																	const igstRateCell = row.querySelector('td:nth-child(25)');
 																	const igstCell = row.querySelector('td:nth-child(26)');
 																	const totalDutyCell = row.querySelector('td:nth-child(27)');
@@ -851,28 +850,36 @@
 																	let assessableValue = parseNumber(assessableCell.innerText);
 																	let bcdRate = parseRate(bcdRateCell.innerText);
 																	let swsRate = parseRate(swsRateCell.innerText);
-																	let addRate = parseRate(addRateCell.innerText);
 																	let igstRate = parseRate(igstRateCell.innerText);
 
+																	// BCD
 																	let bcd = assessableValue * bcdRate;
 																	bcdCell.innerText = formatDecimal(bcd);
 
+																	// SWS
 																	let sws = bcd * swsRate;
 																	swsCell.innerText = formatDecimal(sws);
 
-																	let addDuty = assessableValue * addRate;
-																	addDutyCell.innerText = formatDecimal(addDuty);
+																	// ADD DUTY (NO CALCULATION – TAKE AS IS)
+																	let addDuty = parseNumber(addDutyCell.innerText);
 
+																	// IGST
 																	let igst = (assessableValue + bcd + sws + addDuty) * igstRate;
 																	igstCell.innerText = formatDecimal(igst);
 
+																	// TOTAL DUTY
 																	let totalDuty = bcd + sws + addDuty + igst;
 																	totalDutyCell.innerText = formatDecimal(totalDuty);
 																}
 
-																// Bind recalculation events to all inputs affecting calculations
+																// Bind recalculation events (REMOVED ADD RATE)
 																function bindRecalculation(row) {
-																	['td:nth-child(18)', 'td:nth-child(19)', 'td:nth-child(21)', 'td:nth-child(23)', 'td:nth-child(25)'].forEach(selector => {
+																	[
+																		'td:nth-child(18)', // Assessable Value
+																		'td:nth-child(19)', // BCD Rate
+																		'td:nth-child(21)', // SWS Rate
+																		'td:nth-child(25)'  // IGST Rate
+																	].forEach(selector => {
 																		const cell = row.querySelector(selector);
 																		if (cell) {
 																			['input', 'keyup', 'blur'].forEach(event => {
@@ -882,16 +889,15 @@
 																	});
 																}
 
-																// Initial calculation on all rows and bind listeners
+																// Initial calculation
 																const rows = table.querySelectorAll('tbody tr');
 																rows.forEach(row => {
 																	recalcRow(row);
 																	bindRecalculation(row);
 																});
 															});
-
-
 														</script>
+
 
 														<script>
 															document.addEventListener('DOMContentLoaded', () => {

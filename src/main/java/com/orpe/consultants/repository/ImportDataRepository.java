@@ -1,6 +1,7 @@
 package com.orpe.consultants.repository;
 
 import com.orpe.consultants.model.ImportData;
+import com.orpe.consultants.model.Worksheet;
 import com.orpe.consultants.dto.StockWiseEligibility;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,6 +17,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ImportDataRepository extends JpaRepository<ImportData, Long>, JpaSpecificationExecutor<ImportData> {
@@ -74,5 +76,18 @@ public interface ImportDataRepository extends JpaRepository<ImportData, Long>, J
     	      AND (:toDate   IS NULL OR i.beDate <= :toDate)
     	""")
     	Long countImportsInRange(LocalDate fromDate, LocalDate toDate);
+    
+    
+    List<ImportData> findByClaimRefNoAndClaimYear(String claimRefNo, String claimYear);
+    
+    List<ImportData> findByBeNoAndDbkPartNoAndClaimYear(
+            String beNo,
+            String dbkPartNo,
+            String claimYear
+    );
+
+
+
+
 
 }

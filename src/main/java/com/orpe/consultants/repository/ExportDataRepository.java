@@ -111,5 +111,7 @@ public interface ExportDataRepository extends JpaRepository<ExportData, Long>, J
 
     // fallback if you prefer unsorted
     List<ExportData> findAllByExportIdIn(List<Long> exportIds);
+    
+    List<ExportData> findBySbNoOrderBySbDateAsc(String sbNo);
 
 }

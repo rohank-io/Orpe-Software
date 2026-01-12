@@ -36,6 +36,13 @@ public interface SbWiseQuantityConsumptionRepository extends JpaRepository<SbWis
 	            String claimYear
 	    );
 	    
+	    List<SbWiseQuantityConsumption> findBySbNoAndClaimRefNoAndClaimYearAndExportModelNo(
+	            String sbNo,
+	            String claimRefNo,
+	            String claimYear,
+	            String exportModelNo
+	    );
+	    
 	    
 	    // Projection interface
 	    interface SbUsageProjection {
@@ -49,6 +56,13 @@ public interface SbWiseQuantityConsumptionRepository extends JpaRepository<SbWis
 	         + "WHERE s.sbNo IN :sbNos "
 	         + "GROUP BY s.sbNo")
 	    List<SbUsageProjection> sumUsedQtyBySbNoIn(@Param("sbNos") List<String> sbNos);
+
+
+		List<SbWiseQuantityConsumption> findBySbNoAndClaimRefNoAndClaimYear(String sbNo, String claimRefNo,
+				String claimYear);
+
+
+		List<SbWiseQuantityConsumption> findBySbNo(String sbNo);
 
 	  
 }

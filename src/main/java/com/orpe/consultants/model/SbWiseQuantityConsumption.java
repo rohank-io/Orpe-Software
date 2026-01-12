@@ -47,6 +47,9 @@ public class SbWiseQuantityConsumption {
 	    
     @Column(name = "dbk_part_no", length = 100)
     private String dbkPartNo;
+    
+    @Column(name = "bom_part_no", length = 100)
+    private String bomPartNo;
 
     @Column(name = "boe_no", length = 100)
     @Size(max = 100)

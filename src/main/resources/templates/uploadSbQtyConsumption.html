@@ -691,6 +691,7 @@
 
 				const claimRefNo = (cells[1] && cells[1].innerText.trim()) || '';
 				const claimYear = (cells[2] && cells[2].innerText.trim()) || '';
+				const bomPartNo = cells[4]?.innerText.trim() || ''; 
 				const dbkPartNo = (cells[6] && cells[6].innerText.trim()) || '';
 				const boeNo = (cells[9] && cells[9].innerText.trim()) || '';
 				const exportModelNo = (cells[11] && cells[11].innerText.trim()) || '';
@@ -701,6 +702,7 @@
 					claimId: claimId,
 					claimRefNo: claimRefNo,
 					claimYear: claimYear,
+					bomPartNo: bomPartNo,
 					dbkPartNo: dbkPartNo,
 					boeNo: boeNo,
 					usedQty: cleanUsedQtyForBackend(usedQtyRaw), // send as string for BigDecimal
