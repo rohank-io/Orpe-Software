@@ -273,7 +273,7 @@ public class ExportDataController {
 	    response.setContentType(
 	        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
 	    response.setHeader(
-	        "Content-Disposition", "attachment; filename=Export_Data.xlsx");
+	        "Content-Disposition", "attachment; filename=All_DBK_Statements.xlsx");
 
 	    exportDataService.writeExportExcel(ids, response.getOutputStream());
 	}

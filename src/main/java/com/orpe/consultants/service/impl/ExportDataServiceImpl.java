@@ -2,10 +2,12 @@
 
 import com.orpe.consultants.dto.ExportDataDTO;
 import com.orpe.consultants.dto.ExportDataFilter;
+import com.orpe.consultants.model.BomData;
 import com.orpe.consultants.model.ExportData;
 import com.orpe.consultants.model.ImportData;
 import com.orpe.consultants.model.Material;
 import com.orpe.consultants.model.Models;
+import com.orpe.consultants.repository.BomDataRepository;
 import com.orpe.consultants.repository.ExportDataRepository;
 import com.orpe.consultants.repository.ImportDataRepository;
 import com.orpe.consultants.repository.ModelsRepository; // if you have one
@@ -19,6 +21,7 @@ import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Service;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -42,6 +45,9 @@ public class ExportDataServiceImpl implements ExportDataService {
     private final ImportDataRepository importRepo;
     private final ModelsRepository modelsRepo; // optional if model management needed
     private final ModelMapper modelMapper;
+    @Autowired
+    private BomDataRepository bomRepo;
+
 
     @Override
     public int saveBulk(List<ExportDataDTO> dtos) {
@@ -217,6 +223,10 @@ public class ExportDataServiceImpl implements ExportDataService {
 	                .collect(Collectors.toSet());
 
 	        writeExportSheet(wb, exports);
+	        
+	     // DBK-I (BOM Format)
+	        writeDbkISheetFormatted(wb, claimRefNos);
+
 
 	        /* ================= DBK SHEETS ================= */
 
@@ -348,29 +358,38 @@ public class ExportDataServiceImpl implements ExportDataService {
 	            LocalDate anchorSbDate,
 	            Set<String> claimRefNos) {
 
-	        LocalDate end = anchorSbDate.minusDays(1);
-	        int dbkIndex = 1;
+	        // DBK-1 range (Last 3 months)
+	        LocalDate endDate = anchorSbDate.minusDays(1);
+	        LocalDate startDate = endDate.minusMonths(3).plusDays(1);
 
-	        while (true) {
-	            LocalDate start = end.minusMonths(3).plusDays(1);
+	        // ================= DBK-1 =================
 
-	            List<ImportData> imports =
-	                    importRepo.findByBeDateBetweenAndClaimRefNoInOrderByBeDateAsc(
-	                            start, end, claimRefNos);
+	        List<ImportData> last3MonthsImports =
+	                importRepo.findByBeDateBetweenAndClaimRefNoInOrderByBeDateAsc(
+	                        startDate, endDate, claimRefNos);
 
-	            if (imports.isEmpty()) break;
+	        if (!last3MonthsImports.isEmpty()) {
+	            writeSingleDbkSheetWithName(wb, last3MonthsImports, "DBK-2");
+	        }
 
-	            writeSingleDbkSheet(wb, imports, dbkIndex++);
-	            end = start.minusDays(1);
+	        // ================= DBK-1A (PAST DATA) =================
+
+	        List<ImportData> olderImports =
+	                importRepo.findByBeDateBeforeAndClaimRefNoInOrderByBeDateAsc(
+	                        startDate, claimRefNos);
+
+	        if (!olderImports.isEmpty()) {
+	            writeSingleDbkSheetWithName(wb, olderImports, "DBK-2A");
 	        }
 	    }
 
-	    private void writeSingleDbkSheet(
+
+	    private void writeSingleDbkSheetWithName(
 	            Workbook wb,
 	            List<ImportData> data,
-	            int idx) {
+	            String sheetName) {
 
-	        Sheet sheet = wb.createSheet("DBK " + idx);
+	        Sheet sheet = wb.createSheet(sheetName);
 	        CellStyle header = headerStyle(wb);
 
 	        int r = 0;
@@ -408,6 +427,7 @@ public class ExportDataServiceImpl implements ExportDataService {
 	        sheet.addMergedRegion(new CellRangeAddress(0, 1, 21, 21));
 
 	        int sr = 1;
+
 	        for (ImportData d : data) {
 
 	            BigDecimal basic = n(d.getBcd());
@@ -459,6 +479,142 @@ public class ExportDataServiceImpl implements ExportDataService {
 
 	        for (int i = 0; i <= 21; i++) sheet.autoSizeColumn(i);
 	    }
+	    
+	    private void writeDbkISheetFormatted(Workbook wb, Set<String> claimRefNos) {
+
+	        List<BomData> bomList = bomRepo.findByClaimRefNoIn(claimRefNos);
+
+	        if (bomList == null || bomList.isEmpty()) return;
+
+	        Sheet sheet = wb.createSheet("DBK-I");
+
+	        CellStyle header = headerStyle(wb);
+	        CellStyle center = wb.createCellStyle();
+	        center.setAlignment(HorizontalAlignment.CENTER);
+	        center.setVerticalAlignment(VerticalAlignment.CENTER);
+
+	        int r = 0;
+
+	     // ================= HEADER ROWS =================
+
+	        Row h1 = sheet.createRow(r++);
+	        Row h2 = sheet.createRow(r++);
+	        Row h3 = sheet.createRow(r++);
+
+	        createMerged(sheet, h1, h3, 0, "Sl. No.", header);
+	        createMerged(sheet, h1, h3, 1, "Name of the Material / Component", header);
+	        createMerged(sheet, h1, h3, 2, "Technical Characteristics\n(Material No.)", header);
+	        createMerged(sheet, h1, h3, 3, "Whether Imported / Indigenous", header);
+	        createMerged(sheet, h1, h3, 4, "Unit of Measurement", header);
+
+	        // ===== GEARBOX COLUMN =====
+
+	        String gearboxTitle =
+	                "Used Qty";
+
+	        createMerged(sheet, h1, h3, 5, gearboxTitle, header);
+
+	        // ===== TOTAL COLUMN =====
+
+	        createMerged(sheet, h1, h3, 6, "TOTAL", header);
+
+	        // ===== WASTAGE =====
+
+	        merge(sheet, h1, 7, 8, "Wastage", header);
+	        createMerged(sheet, h2, h3, 7, "Irrecoverable", header);
+	        createMerged(sheet, h2, h3, 8, "Recoverable", header);
+
+	        // ===== BY PRODUCT =====
+
+	        merge(sheet, h1, 9, 12, "By-product / Co-product", header);
+	        createMerged(sheet, h2, h3, 9, "Sale price of waste per unit of qty.", header);
+	        createMerged(sheet, h2, h3, 10, "Qty", header);
+	        createMerged(sheet, h2, h3, 11, "Sale value per unit", header);
+	        createMerged(sheet, h2, h3, 12, "", header);
+
+	        // ===== NET WEIGHT =====
+
+	        createMerged(sheet, h1, h3, 13, "Net Weight of the Material", header);
+
+	        // ===== REMARKS =====
+
+	        createMerged(sheet, h1, h3, 14, "Remarks", header);
+
+
+	        // ================= SERIAL NUMBER ROW =================
+
+	        Row indexRow = sheet.createRow(r++);
+
+	        for (int i = 0; i <= 14; i++) {
+	            indexRow.createCell(i).setCellValue(i + 1);
+	            indexRow.getCell(i).setCellStyle(center);
+	        }
+
+	        // ================= DATA ROWS =================
+
+	        int sr = 1;
+
+	        BigDecimal totalQty = BigDecimal.ZERO;
+
+	        for (BomData b : bomList) {
+
+	            Row row = sheet.createRow(r++);
+
+	            BigDecimal qty = n(b.getGrandTotal());
+
+	            row.createCell(0).setCellValue(sr++);
+	            row.createCell(1).setCellValue(b.getMaterialDesc());
+	            row.createCell(2).setCellValue(
+	                    b.getMaterial() != null
+	                            ? b.getMaterial().getBomPartNo()
+	                            : "");
+
+	            row.createCell(3).setCellValue(b.getImportedIndigenous());
+	            row.createCell(4).setCellValue(b.getUnit());
+
+	            // Gearbox Qty
+	            row.createCell(5).setCellValue(qty.doubleValue());
+
+	            // TOTAL Qty
+	            row.createCell(6).setCellValue(qty.doubleValue());
+
+	            // Wastage
+	            row.createCell(7).setCellValue("NIL");
+	            row.createCell(8).setCellValue("NIL");
+
+	            // By product
+	            row.createCell(9).setCellValue("NIL");
+	            row.createCell(10).setCellValue("NIL");
+	            row.createCell(11).setCellValue("NIL");
+	            row.createCell(12).setCellValue("NIL");
+
+	            // Net Weight
+	            row.createCell(13).setCellValue(n(b.getNetWeightKg()).doubleValue());
+
+	            // Remarks
+	            row.createCell(14).setCellValue("NIL");
+
+	            totalQty = totalQty.add(qty);
+	        }
+
+	        // ================= TOTAL ROW =================
+
+	        Row totalRow = sheet.createRow(r);
+
+	        totalRow.createCell(4).setCellValue("Total");
+
+	        totalRow.createCell(5).setCellValue(totalQty.doubleValue());
+	        totalRow.createCell(6).setCellValue(totalQty.doubleValue());
+
+	        // ================= AUTO SIZE =================
+
+	        for (int i = 0; i <= 14; i++) {
+	            sheet.autoSizeColumn(i);
+	        }
+	    }
+
+
+
 
 	    /* ============================================================
 	                               HELPERS

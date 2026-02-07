@@ -18,6 +18,7 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Repository
 public interface ImportDataRepository extends JpaRepository<ImportData, Long>, JpaSpecificationExecutor<ImportData> {
@@ -85,6 +86,12 @@ public interface ImportDataRepository extends JpaRepository<ImportData, Long>, J
             String dbkPartNo,
             String claimYear
     );
+    
+    List<ImportData> findByBeDateBeforeAndClaimRefNoInOrderByBeDateAsc(
+            LocalDate date,
+            Set<String> claimRefNos
+    );
+
 
 
 

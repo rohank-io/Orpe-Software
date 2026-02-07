@@ -215,14 +215,14 @@
 												<span class="pcoded-mcaret"></span>
 											</a>
 										</li>
-										
+
 										<li class=" ">
-																					<a th:href="@{/dbkcalculation/list/claimwise}">
-																						<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-																						<span class="pcoded-mtext">SB DBK Consumption</span>
-																						<span class="pcoded-mcaret"></span>
-																					</a>
-																				</li>
+											<a th:href="@{/dbkcalculation/list/claimwise}">
+												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+												<span class="pcoded-mtext">SB DBK Consumption</span>
+												<span class="pcoded-mcaret"></span>
+											</a>
+										</li>
 
 
 
@@ -274,8 +274,10 @@
 										<span class="pcoded-mcaret"></span>
 									</a>
 								</li>
+
+
 							</ul>
-							<div class="pcoded-navigatio-lavel">Chart And Reports</div>
+							<div class="pcoded-navigatio-lavel">Data Backup</div>
 							<ul class="pcoded-item pcoded-left-item">
 								<li>
 									<a th:href="@{/export/all-zip}">
@@ -284,44 +286,22 @@
 										<span class="pcoded-mcaret"></span>
 									</a>
 								</li>
-							</ul>
-
-
-							<ul class="pcoded-item pcoded-left-item">
-								<li class="pcoded-hasmenu ">
-									<a href="javascript:void(0)">
-										<span class="pcoded-micon"><i class="icofont icofont-cloud-download"></i></span>
-										<span class="pcoded-mtext">Reports</span>
+								<li>
+									<a th:href="@{/backup/download}">
+										<span class="pcoded-micon"><i class="ti-receipt"></i></span>
+										<span class="pcoded-mtext">SQL</span>
 										<span class="pcoded-mcaret"></span>
 									</a>
-									<ul class="pcoded-submenu">
-
-										<li class="">
-											<a href="auth-sign-in-social.html" target="_blank">
-												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-												<span class="pcoded-mtext">Report 1</span>
-												<span class="pcoded-mcaret"></span>
-											</a>
-										</li>
-
-										<li class="">
-											<a href="auth-sign-up-social.html" target="_blank">
-												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-												<span class="pcoded-mtext">Report 2</span>
-												<span class="pcoded-mcaret"></span>
-											</a>
-										</li>
-										<li class="">
-											<a href="auth-reset-password.html" target="_blank">
-												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-												<span class="pcoded-mtext">Report 3</span>
-												<span class="pcoded-mcaret"></span>
-											</a>
-										</li>
-
-
-									</ul>
 								</li>
+
+								<li>
+									<a th:href="@{/exportdata/excel/download}">
+										<span class="pcoded-micon"><i class="icofont icofont-file-excel"></i></span>
+										<span class="pcoded-mtext">Export to Excel</span>
+										<span class="pcoded-mcaret"></span>
+									</a>
+								</li>
+
 							</ul>
 							<div class="pcoded-navigatio-lavel">Other</div>
 							<ul class="pcoded-item pcoded-left-item">
@@ -797,188 +777,188 @@
 	<script>
 
 		function generateExcelFile() {
-		    const baseColumns = [
-		        'Sr No.', 'BE No', 'BE Date', 'Claim Ref', 'Claim Year',
-		        'Item Description', 'BOM Part No', 'BOE Part No', 'DBK Part No',
-		        'Import Qty', 'UOM', 'Assessable Value', 'CIF Value', 'Per Qty CIF', 'BCD',
-		        'SWS', 'Add Duty', 'Total Duty', 'Duty Per Qty'
-		    ];
+			const baseColumns = [
+				'Sr No.', 'BE No', 'BE Date', 'Claim Ref', 'Claim Year',
+				'Item Description', 'BOM Part No', 'BOE Part No', 'DBK Part No',
+				'Import Qty', 'UOM', 'Assessable Value', 'CIF Value', 'Per Qty CIF', 'BCD',
+				'SWS', 'Add Duty', 'Total Duty', 'Duty Per Qty'
+			];
 
-		    const summaryColumns = [
-		        'Used Qty(Total)', 'Duty Claimed(Total)', 'CIF Claimed(Total)',
-		        'BCD Claimed(DGFT)', 'SWS Claimed(DGFT)', 'ADD Claimed(DGFT)',
-		        'Opening', 'Used', 'Closing', 'Remark'
-		    ];
+			const summaryColumns = [
+				'Used Qty(Total)', 'Duty Claimed(Total)', 'CIF Claimed(Total)',
+				'BCD Claimed(DGFT)', 'SWS Claimed(DGFT)', 'ADD Claimed(DGFT)',
+				'Opening', 'Used', 'Closing', 'Remark'
+			];
 
-		    const importRows = document.querySelectorAll('table tbody > tr[id^="wsRow"]');
+			const importRows = document.querySelectorAll('table tbody > tr[id^="wsRow"]');
 
-		    const exportModelsSet = new Set();
-		    importRows.forEach(row => {
-		        const exportModelsRow = row.nextElementSibling;
-		        if (exportModelsRow && exportModelsRow.classList.contains('export-models-row')) {
-		            exportModelsRow.querySelectorAll('tbody tr').forEach(emRow => {
-		                const modelNo = emRow.querySelector('td:first-child')?.textContent.trim();
-		                if (modelNo) exportModelsSet.add(modelNo);
-		            });
-		        }
-		    });
-		    const exportModelNames = Array.from(exportModelsSet);
+			const exportModelsSet = new Set();
+			importRows.forEach(row => {
+				const exportModelsRow = row.nextElementSibling;
+				if (exportModelsRow && exportModelsRow.classList.contains('export-models-row')) {
+					exportModelsRow.querySelectorAll('tbody tr').forEach(emRow => {
+						const modelNo = emRow.querySelector('td:first-child')?.textContent.trim();
+						if (modelNo) exportModelsSet.add(modelNo);
+					});
+				}
+			});
+			const exportModelNames = Array.from(exportModelsSet);
 
-		    const firstHeaderRow = new Array(baseColumns.length).fill('');
-		    exportModelNames.forEach(model => {
-		        firstHeaderRow.push(model, '', '');
-		    });
-		    firstHeaderRow.push(...new Array(summaryColumns.length).fill(''));
+			const firstHeaderRow = new Array(baseColumns.length).fill('');
+			exportModelNames.forEach(model => {
+				firstHeaderRow.push(model, '', '');
+			});
+			firstHeaderRow.push(...new Array(summaryColumns.length).fill(''));
 
-		    const secondHeaderRow = baseColumns.slice();
-		    exportModelNames.forEach(() => {
-		        secondHeaderRow.push('Used Qty', 'Duty Claimed', 'CIF Claimed');
-		    });
-		    secondHeaderRow.push(...summaryColumns);
+			const secondHeaderRow = baseColumns.slice();
+			exportModelNames.forEach(() => {
+				secondHeaderRow.push('Used Qty', 'Duty Claimed', 'CIF Claimed');
+			});
+			secondHeaderRow.push(...summaryColumns);
 
-		    const rowsData = [];
-		    const totals = {
-		        assessableValue: 0,
-		        cifValue: 0,
-		        bcd: 0,
-		        sws: 0,
-		        addDuty: 0,
-		        emUsedQtyTotals: {},
-		        emDutyClaimedTotals: {},
-		        emCifClaimedTotals: {},
-		        usedQtyTotal: 0,
-		        dutyClaimedTotal: 0,
-		        cifClaimedTotal: 0,
-		        bcdClaimed: 0,
-		        swsClaimed: 0,
-		        addClaimed: 0
-		    };
+			const rowsData = [];
+			const totals = {
+				assessableValue: 0,
+				cifValue: 0,
+				bcd: 0,
+				sws: 0,
+				addDuty: 0,
+				emUsedQtyTotals: {},
+				emDutyClaimedTotals: {},
+				emCifClaimedTotals: {},
+				usedQtyTotal: 0,
+				dutyClaimedTotal: 0,
+				cifClaimedTotal: 0,
+				bcdClaimed: 0,
+				swsClaimed: 0,
+				addClaimed: 0
+			};
 
-		    importRows.forEach(row => {
-		        const rowData = [];
-		        const cells = row.querySelectorAll('td');
+			importRows.forEach(row => {
+				const rowData = [];
+				const cells = row.querySelectorAll('td');
 
-		        const getCellValue = (idx) => {
-		            if (idx < 4) return cells[idx]?.textContent.trim() || '';
-		            else return cells[idx + 1]?.textContent.trim() || '';
-		        }
+				const getCellValue = (idx) => {
+					if (idx < 4) return cells[idx]?.textContent.trim() || '';
+					else return cells[idx + 1]?.textContent.trim() || '';
+				}
 
-		        // Add base columns with totals tracking
-		        baseColumns.forEach((col, i) => {
-		            const value = getCellValue(i + 1);
-		            rowData.push(value);
-		            
-		            if (col === 'Assessable Value') totals.assessableValue += parseFloat(value.replace(/,/g, '')) || 0;
-		            if (col === 'CIF Value') totals.cifValue += parseFloat(value.replace(/,/g, '')) || 0;
-		            if (col === 'BCD') totals.bcd += parseFloat(value.replace(/,/g, '')) || 0;
-		            if (col === 'SWS') totals.sws += parseFloat(value.replace(/,/g, '')) || 0;
-		            if (col === 'Add Duty') totals.addDuty += parseFloat(value.replace(/,/g, '')) || 0;
-		        });
+				// Add base columns with totals tracking
+				baseColumns.forEach((col, i) => {
+					const value = getCellValue(i + 1);
+					rowData.push(value);
 
-		        // Add export models
-		        const exportModelsRow = row.nextElementSibling;
-		        const usageMap = {};
-		        if (exportModelsRow && exportModelsRow.classList.contains('export-models-row')) {
-		            exportModelsRow.querySelectorAll('tbody tr').forEach(emRow => {
-		                const emCells = emRow.querySelectorAll('td');
-		                const modelNo = emCells[0]?.textContent.trim();
-		                const usedQty = parseFloat(emCells[1]?.textContent.replace(/,/g, '')) || 0;
-		                const dutyClaimed = parseFloat(emCells[2]?.textContent.replace(/,/g, '')) || 0;
-		                const cifClaimed = parseFloat(emCells[3]?.textContent.replace(/,/g, '')) || 0;
-		                
-		                usageMap[modelNo] = {
-		                    usedQty: emCells[1]?.textContent.trim() || '0',
-		                    dutyClaimed: emCells[2]?.textContent.trim() || '0',
-		                    cifClaimed: emCells[3]?.textContent.trim() || '0'
-		                };
-		                
-		                if (!totals.emUsedQtyTotals[modelNo]) totals.emUsedQtyTotals[modelNo] = 0;
-		                if (!totals.emDutyClaimedTotals[modelNo]) totals.emDutyClaimedTotals[modelNo] = 0;
-		                if (!totals.emCifClaimedTotals[modelNo]) totals.emCifClaimedTotals[modelNo] = 0;
-		                
-		                totals.emUsedQtyTotals[modelNo] += usedQty;
-		                totals.emDutyClaimedTotals[modelNo] += dutyClaimed;
-		                totals.emCifClaimedTotals[modelNo] += cifClaimed;
-		            });
-		        }
-		        
-		        exportModelNames.forEach(model => {
-		            if (usageMap[model]) {
-		                rowData.push(usageMap[model].usedQty, usageMap[model].dutyClaimed, usageMap[model].cifClaimed);
-		            } else {
-		                rowData.push('0', '0', '0');
-		            }
-		        });
+					if (col === 'Assessable Value') totals.assessableValue += parseFloat(value.replace(/,/g, '')) || 0;
+					if (col === 'CIF Value') totals.cifValue += parseFloat(value.replace(/,/g, '')) || 0;
+					if (col === 'BCD') totals.bcd += parseFloat(value.replace(/,/g, '')) || 0;
+					if (col === 'SWS') totals.sws += parseFloat(value.replace(/,/g, '')) || 0;
+					if (col === 'Add Duty') totals.addDuty += parseFloat(value.replace(/,/g, '')) || 0;
+				});
 
-		        // Add summary columns
-		        const summaryStartIndex = 21;
-		        summaryColumns.forEach((col, i) => {
-		            let value = '';
-		            if (col === 'Remark') {
-		                value = cells[30]?.textContent.trim() || '';
-		            } else {
-		                value = cells[summaryStartIndex + i]?.textContent.trim() || '0';
-		            }
-		            rowData.push(value);
-		            
-		            if (col === 'Used Qty(Total)') totals.usedQtyTotal += parseFloat(value.replace(/,/g, '')) || 0;
-		            if (col === 'Duty Claimed(Total)') totals.dutyClaimedTotal += parseFloat(value.replace(/,/g, '')) || 0;
-		            if (col === 'CIF Claimed(Total)') totals.cifClaimedTotal += parseFloat(value.replace(/,/g, '')) || 0;
-		            if (col === 'BCD Claimed(DGFT)') totals.bcdClaimed += parseFloat(value.replace(/,/g, '')) || 0;
-		            if (col === 'SWS Claimed(DGFT)') totals.swsClaimed += parseFloat(value.replace(/,/g, '')) || 0;
-		            if (col === 'ADD Claimed(DGFT)') totals.addClaimed += parseFloat(value.replace(/,/g, '')) || 0;
-		        });
+				// Add export models
+				const exportModelsRow = row.nextElementSibling;
+				const usageMap = {};
+				if (exportModelsRow && exportModelsRow.classList.contains('export-models-row')) {
+					exportModelsRow.querySelectorAll('tbody tr').forEach(emRow => {
+						const emCells = emRow.querySelectorAll('td');
+						const modelNo = emCells[0]?.textContent.trim();
+						const usedQty = parseFloat(emCells[1]?.textContent.replace(/,/g, '')) || 0;
+						const dutyClaimed = parseFloat(emCells[2]?.textContent.replace(/,/g, '')) || 0;
+						const cifClaimed = parseFloat(emCells[3]?.textContent.replace(/,/g, '')) || 0;
 
-		        rowsData.push(rowData);
-		    });
+						usageMap[modelNo] = {
+							usedQty: emCells[1]?.textContent.trim() || '0',
+							dutyClaimed: emCells[2]?.textContent.trim() || '0',
+							cifClaimed: emCells[3]?.textContent.trim() || '0'
+						};
 
-		    // Build totals row - matching exact column structure
-		    const totalsRow = [];
-		    totalsRow.push('TOTAL');
-		    
-		    // Columns 1-10: empty
-		    for (let i = 1; i < 11; i++) totalsRow.push('');
-		    
-		    // Columns 11-18: base totals
-		    totalsRow.push(totals.assessableValue.toFixed(2));  // Assessable Value
-		    totalsRow.push(totals.cifValue.toFixed(2));         // CIF Value
-		    totalsRow.push('');                                  // Per Qty CIF
-		    totalsRow.push(totals.bcd.toFixed(2));              // BCD
-		    totalsRow.push(totals.sws.toFixed(2));              // SWS
-		    totalsRow.push(totals.addDuty.toFixed(2));          // Add Duty
-		    totalsRow.push('');                                  // Total Duty
-		    totalsRow.push('');                                  // Duty Per Qty
-		    
-		    // Export model totals (3 cols per model)
-		    exportModelNames.forEach(model => {
-		        totalsRow.push((totals.emUsedQtyTotals[model] || 0).toFixed(6));
-		        totalsRow.push((totals.emDutyClaimedTotals[model] || 0).toFixed(2));
-		        totalsRow.push((totals.emCifClaimedTotals[model] || 0).toFixed(2));
-		    });
-		    
-		    // Summary totals
-		    totalsRow.push(totals.usedQtyTotal.toFixed(6));     // Used Qty(Total)
-		    totalsRow.push(totals.dutyClaimedTotal.toFixed(2)); // Duty Claimed(Total)
-		    totalsRow.push(totals.cifClaimedTotal.toFixed(2));  // CIF Claimed(Total)
-		    totalsRow.push(totals.bcdClaimed.toFixed(2));       // BCD Claimed
-		    totalsRow.push(totals.swsClaimed.toFixed(2));       // SWS Claimed
-		    totalsRow.push(totals.addClaimed.toFixed(2));       // ADD Claimed
-		    totalsRow.push('');                                  // Opening
-		    totalsRow.push('');                                  // Used
-		    totalsRow.push('');                                  // Closing
-		    totalsRow.push('');                                  // Remark
+						if (!totals.emUsedQtyTotals[modelNo]) totals.emUsedQtyTotals[modelNo] = 0;
+						if (!totals.emDutyClaimedTotals[modelNo]) totals.emDutyClaimedTotals[modelNo] = 0;
+						if (!totals.emCifClaimedTotals[modelNo]) totals.emCifClaimedTotals[modelNo] = 0;
 
-		    // Verify totals row has same length as data rows
-		    console.log('Data row length:', rowsData[0]?.length);
-		    console.log('Totals row length:', totalsRow.length);
+						totals.emUsedQtyTotals[modelNo] += usedQty;
+						totals.emDutyClaimedTotals[modelNo] += dutyClaimed;
+						totals.emCifClaimedTotals[modelNo] += cifClaimed;
+					});
+				}
 
-		    const sheetData = [firstHeaderRow, secondHeaderRow, ...rowsData, totalsRow];
+				exportModelNames.forEach(model => {
+					if (usageMap[model]) {
+						rowData.push(usageMap[model].usedQty, usageMap[model].dutyClaimed, usageMap[model].cifClaimed);
+					} else {
+						rowData.push('0', '0', '0');
+					}
+				});
 
-		    const worksheet = XLSX.utils.aoa_to_sheet(sheetData);
-		    const workbook = XLSX.utils.book_new();
-		    XLSX.utils.book_append_sheet(workbook, worksheet, 'Worksheet');
+				// Add summary columns
+				const summaryStartIndex = 21;
+				summaryColumns.forEach((col, i) => {
+					let value = '';
+					if (col === 'Remark') {
+						value = cells[30]?.textContent.trim() || '';
+					} else {
+						value = cells[summaryStartIndex + i]?.textContent.trim() || '0';
+					}
+					rowData.push(value);
 
-		    XLSX.writeFile(workbook, 'WorksheetExport.xlsx');
+					if (col === 'Used Qty(Total)') totals.usedQtyTotal += parseFloat(value.replace(/,/g, '')) || 0;
+					if (col === 'Duty Claimed(Total)') totals.dutyClaimedTotal += parseFloat(value.replace(/,/g, '')) || 0;
+					if (col === 'CIF Claimed(Total)') totals.cifClaimedTotal += parseFloat(value.replace(/,/g, '')) || 0;
+					if (col === 'BCD Claimed(DGFT)') totals.bcdClaimed += parseFloat(value.replace(/,/g, '')) || 0;
+					if (col === 'SWS Claimed(DGFT)') totals.swsClaimed += parseFloat(value.replace(/,/g, '')) || 0;
+					if (col === 'ADD Claimed(DGFT)') totals.addClaimed += parseFloat(value.replace(/,/g, '')) || 0;
+				});
+
+				rowsData.push(rowData);
+			});
+
+			// Build totals row - matching exact column structure
+			const totalsRow = [];
+			totalsRow.push('TOTAL');
+
+			// Columns 1-10: empty
+			for (let i = 1; i < 11; i++) totalsRow.push('');
+
+			// Columns 11-18: base totals
+			totalsRow.push(totals.assessableValue.toFixed(2));  // Assessable Value
+			totalsRow.push(totals.cifValue.toFixed(2));         // CIF Value
+			totalsRow.push('');                                  // Per Qty CIF
+			totalsRow.push(totals.bcd.toFixed(2));              // BCD
+			totalsRow.push(totals.sws.toFixed(2));              // SWS
+			totalsRow.push(totals.addDuty.toFixed(2));          // Add Duty
+			totalsRow.push('');                                  // Total Duty
+			totalsRow.push('');                                  // Duty Per Qty
+
+			// Export model totals (3 cols per model)
+			exportModelNames.forEach(model => {
+				totalsRow.push((totals.emUsedQtyTotals[model] || 0).toFixed(6));
+				totalsRow.push((totals.emDutyClaimedTotals[model] || 0).toFixed(2));
+				totalsRow.push((totals.emCifClaimedTotals[model] || 0).toFixed(2));
+			});
+
+			// Summary totals
+			totalsRow.push(totals.usedQtyTotal.toFixed(6));     // Used Qty(Total)
+			totalsRow.push(totals.dutyClaimedTotal.toFixed(2)); // Duty Claimed(Total)
+			totalsRow.push(totals.cifClaimedTotal.toFixed(2));  // CIF Claimed(Total)
+			totalsRow.push(totals.bcdClaimed.toFixed(2));       // BCD Claimed
+			totalsRow.push(totals.swsClaimed.toFixed(2));       // SWS Claimed
+			totalsRow.push(totals.addClaimed.toFixed(2));       // ADD Claimed
+			totalsRow.push('');                                  // Opening
+			totalsRow.push('');                                  // Used
+			totalsRow.push('');                                  // Closing
+			totalsRow.push('');                                  // Remark
+
+			// Verify totals row has same length as data rows
+			console.log('Data row length:', rowsData[0]?.length);
+			console.log('Totals row length:', totalsRow.length);
+
+			const sheetData = [firstHeaderRow, secondHeaderRow, ...rowsData, totalsRow];
+
+			const worksheet = XLSX.utils.aoa_to_sheet(sheetData);
+			const workbook = XLSX.utils.book_new();
+			XLSX.utils.book_append_sheet(workbook, worksheet, 'Worksheet');
+
+			XLSX.writeFile(workbook, 'WorksheetExport.xlsx');
 		}
 
 

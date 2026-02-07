@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,4 +27,5 @@ public interface BomDataRepository extends JpaRepository<BomData, Long>, JpaSpec
 	List<BomData> findAllByMaterial_BomPartNoIn(Collection<String> partNos);
 	
 	 List<BomData> findByClaimRefNoAndClaimYear(String claimRefNo, String claimYear);
+	 List<BomData> findByClaimRefNoIn(Set<String> claimRefNos);
 }
