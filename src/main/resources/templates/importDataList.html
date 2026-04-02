@@ -399,7 +399,9 @@
 																	<option th:selected="${filterField == null}"
 																		value="" disabled>Sort By</option>
 
-																	<!-- Existing fields -->
+																	<!-- Existing fields  -->
+																	<option th:selected="${filterField == 'assessableValue'}"
+																		value="assessableValue">Assessable Value</option>
 																	<option th:selected="${filterField == 'beNo'}"
 																		value="beNo">BE No</option>
 

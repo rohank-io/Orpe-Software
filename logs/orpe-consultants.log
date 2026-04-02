@@ -1,24 +1,24 @@
-2026-02-07 11:46:22 [restartedMain] INFO  c.o.c.OrpeConsultantsApplication - Starting OrpeConsultantsApplication using Java 21.0.5 with PID 13664 (F:\Orpe Softwares\Project\OrpeConsultants\target\classes started by Lenovo in F:\Orpe Softwares\Project\OrpeConsultants)
-2026-02-07 11:46:22 [restartedMain] DEBUG c.o.c.OrpeConsultantsApplication - Running with Spring Boot v3.5.5, Spring v6.2.10
-2026-02-07 11:46:22 [restartedMain] INFO  c.o.c.OrpeConsultantsApplication - No active profile set, falling back to 1 default profile: "default"
-2026-02-07 11:46:22 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-2026-02-07 11:46:22 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-2026-02-07 11:46:24 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2026-02-07 11:46:25 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 302 ms. Found 15 JPA repository interfaces.
-2026-02-07 11:46:29 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8083 (http)
-2026-02-07 11:46:29 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2026-02-07 11:46:29 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.44]
-2026-02-07 11:46:29 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2026-02-07 11:46:29 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 7031 ms
-2026-02-07 11:46:30 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2026-02-07 11:46:31 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6e9a024f
-2026-02-07 11:46:31 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2026-02-07 11:46:33 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2026-02-07 11:46:33 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.26.Final
-2026-02-07 11:46:33 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2026-02-07 11:46:34 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2026-02-07 11:46:34 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2026-02-07 11:46:34 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+2026-02-20 12:44:50 [restartedMain] INFO  c.o.c.OrpeConsultantsApplication - Starting OrpeConsultantsApplication using Java 21.0.5 with PID 11928 (F:\Orpe Softwares\Project\OrpeConsultants\target\classes started by Lenovo in F:\Orpe Softwares\Project\OrpeConsultants)
+2026-02-20 12:44:50 [restartedMain] DEBUG c.o.c.OrpeConsultantsApplication - Running with Spring Boot v3.5.5, Spring v6.2.10
+2026-02-20 12:44:50 [restartedMain] INFO  c.o.c.OrpeConsultantsApplication - No active profile set, falling back to 1 default profile: "default"
+2026-02-20 12:44:50 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-02-20 12:44:51 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-02-20 12:44:53 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-20 12:44:54 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 184 ms. Found 15 JPA repository interfaces.
+2026-02-20 12:44:57 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8083 (http)
+2026-02-20 12:44:57 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-02-20 12:44:57 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.44]
+2026-02-20 12:44:57 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-02-20 12:44:57 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 6861 ms
+2026-02-20 12:44:58 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-02-20 12:44:59 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6ae50d90
+2026-02-20 12:44:59 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-02-20 12:45:01 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-02-20 12:45:01 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.26.Final
+2026-02-20 12:45:01 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-02-20 12:45:02 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-20 12:45:02 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-20 12:45:02 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
 	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
 	Database driver: undefined/unknown
 	Database version: 8.0.39
@@ -26,85 +26,16 @@
 	Isolation level: undefined/unknown
 	Minimum pool size: undefined/unknown
 	Maximum pool size: undefined/unknown
-2026-02-07 11:46:39 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2026-02-07 11:46:40 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2026-02-07 11:46:42 [restartedMain] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
-2026-02-07 11:46:48 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2026-02-07 11:46:48 [restartedMain] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page template: index
-2026-02-07 11:46:49 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 69 mappings in 'requestMappingHandlerMapping'
-2026-02-07 11:46:49 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
-2026-02-07 11:46:49 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
-2026-02-07 11:46:49 [restartedMain] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
-2026-02-07 11:46:54 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
-2026-02-07 11:46:54 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8083 (http) with context path '/'
-2026-02-07 11:46:54 [restartedMain] INFO  c.o.c.OrpeConsultantsApplication - Started OrpeConsultantsApplication in 35.772 seconds (process running for 38.082)
-2026-02-07 14:13:26 [HikariPool-1:housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=2h15m54s579ms695µs300ns).
-2026-02-07 14:17:16 [http-nio-0.0.0.0-8083-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2026-02-07 14:17:16 [http-nio-0.0.0.0-8083-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2026-02-07 14:17:16 [http-nio-0.0.0.0-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected StandardServletMultipartResolver
-2026-02-07 14:17:16 [http-nio-0.0.0.0-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected AcceptHeaderLocaleResolver
-2026-02-07 14:17:16 [http-nio-0.0.0.0-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected FixedThemeResolver
-2026-02-07 14:17:16 [http-nio-0.0.0.0-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@3f0ca48c
-2026-02-07 14:17:16 [http-nio-0.0.0.0-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.support.SessionFlashMapManager@38e253cd
-2026-02-07 14:17:16 [http-nio-0.0.0.0-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
-2026-02-07 14:17:16 [http-nio-0.0.0.0-8083-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 29 ms
-2026-02-07 14:17:16 [http-nio-0.0.0.0-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/", parameters={}
-2026-02-07 14:17:16 [http-nio-0.0.0.0-8083-exec-1] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.orpe.consultants.controller.AuthController#index(HttpSession, Model, LocalDate, LocalDate)
-2026-02-07 14:17:16 [http-nio-0.0.0.0-8083-exec-1] INFO  c.o.c.controller.AuthController - User not authenticated, redirecting to login page
-2026-02-07 14:17:16 [http-nio-0.0.0.0-8083-exec-1] DEBUG o.s.web.servlet.view.RedirectView - View name [redirect:], model {}
-2026-02-07 14:17:17 [http-nio-0.0.0.0-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 302 FOUND
-2026-02-07 14:17:17 [http-nio-0.0.0.0-8083-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/login", parameters={}
-2026-02-07 14:17:17 [http-nio-0.0.0.0-8083-exec-2] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.orpe.consultants.controller.AuthController#showLoginPage(Model, String, String, String)
-2026-02-07 14:17:17 [http-nio-0.0.0.0-8083-exec-2] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
-2026-02-07 14:17:18 [http-nio-0.0.0.0-8083-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
-2026-02-07 14:17:18 [http-nio-0.0.0.0-8083-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/icon/icofont/css/icofont.css", parameters={}
-2026-02-07 14:17:18 [http-nio-0.0.0.0-8083-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/icon/themify-icons/themify-icons.css", parameters={}
-2026-02-07 14:17:18 [http-nio-0.0.0.0-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/bootstrap/dist/css/bootstrap.min.css", parameters={}
-2026-02-07 14:17:18 [http-nio-0.0.0.0-8083-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/jquery/dist/jquery.min.js", parameters={}
-2026-02-07 14:17:18 [http-nio-0.0.0.0-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/css/style.css", parameters={}
-2026-02-07 14:17:18 [http-nio-0.0.0.0-8083-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/images/logo.png", parameters={}
-2026-02-07 14:17:18 [http-nio-0.0.0.0-8083-exec-6] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
-2026-02-07 14:17:18 [http-nio-0.0.0.0-8083-exec-8] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
-2026-02-07 14:17:18 [http-nio-0.0.0.0-8083-exec-3] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
-2026-02-07 14:17:18 [http-nio-0.0.0.0-8083-exec-5] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
-2026-02-07 14:17:18 [http-nio-0.0.0.0-8083-exec-4] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
-2026-02-07 14:17:18 [http-nio-0.0.0.0-8083-exec-7] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
-2026-02-07 14:17:19 [http-nio-0.0.0.0-8083-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
-2026-02-07 14:17:19 [http-nio-0.0.0.0-8083-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/jquery-ui/jquery-ui.min.js", parameters={}
-2026-02-07 14:17:19 [http-nio-0.0.0.0-8083-exec-7] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
-2026-02-07 14:17:19 [http-nio-0.0.0.0-8083-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
-2026-02-07 14:17:19 [http-nio-0.0.0.0-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/tether/dist/js/tether.min.js", parameters={}
-2026-02-07 14:17:19 [http-nio-0.0.0.0-8083-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
-2026-02-07 14:17:19 [http-nio-0.0.0.0-8083-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/bootstrap/dist/js/bootstrap.min.js", parameters={}
-2026-02-07 14:17:19 [http-nio-0.0.0.0-8083-exec-9] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
-2026-02-07 14:17:19 [http-nio-0.0.0.0-8083-exec-10] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
-2026-02-07 14:17:19 [http-nio-0.0.0.0-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
-2026-02-07 14:17:19 [http-nio-0.0.0.0-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/jquery-slimscroll/jquery.slimscroll.js", parameters={}
-2026-02-07 14:17:19 [http-nio-0.0.0.0-8083-exec-1] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
-2026-02-07 14:17:19 [http-nio-0.0.0.0-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
-2026-02-07 14:17:19 [http-nio-0.0.0.0-8083-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/modernizr/modernizr.js", parameters={}
-2026-02-07 14:17:19 [http-nio-0.0.0.0-8083-exec-2] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
-2026-02-07 14:17:19 [http-nio-0.0.0.0-8083-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
-2026-02-07 14:17:19 [http-nio-0.0.0.0-8083-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/plugins/modernizr/feature-detects/css-scrollbars.js", parameters={}
-2026-02-07 14:17:19 [http-nio-0.0.0.0-8083-exec-5] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
-2026-02-07 14:17:19 [http-nio-0.0.0.0-8083-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
-2026-02-07 14:17:19 [http-nio-0.0.0.0-8083-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/js/script.js", parameters={}
-2026-02-07 14:17:19 [http-nio-0.0.0.0-8083-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
-2026-02-07 14:17:19 [http-nio-0.0.0.0-8083-exec-4] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
-2026-02-07 14:17:19 [http-nio-0.0.0.0-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/js/common-pages.js", parameters={}
-2026-02-07 14:17:19 [http-nio-0.0.0.0-8083-exec-3] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
-2026-02-07 14:17:19 [http-nio-0.0.0.0-8083-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
-2026-02-07 14:17:19 [http-nio-0.0.0.0-8083-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
-2026-02-07 14:17:19 [http-nio-0.0.0.0-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - GET "/assets/images/bg.jpg", parameters={}
-2026-02-07 14:17:19 [http-nio-0.0.0.0-8083-exec-6] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
-2026-02-07 14:17:19 [http-nio-0.0.0.0-8083-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
-2026-02-07 14:17:19 [http-nio-0.0.0.0-8083-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
-2026-02-07 14:17:19 [http-nio-0.0.0.0-8083-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
-2026-02-07 14:17:19 [http-nio-0.0.0.0-8083-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
-2026-02-07 14:17:19 [http-nio-0.0.0.0-8083-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
-2026-02-07 14:17:25 [RMI TCP Connection(19)-127.0.0.1] INFO  o.s.b.a.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin - Application shutdown requested.
-2026-02-07 14:17:25 [RMI TCP Connection(19)-127.0.0.1] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
-2026-02-07 14:17:25 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
-2026-02-07 14:17:25 [RMI TCP Connection(19)-127.0.0.1] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2026-02-07 14:17:25 [RMI TCP Connection(19)-127.0.0.1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2026-02-07 14:17:25 [RMI TCP Connection(19)-127.0.0.1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-02-20 12:45:06 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-20 12:45:08 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-20 12:45:08 [restartedMain] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-02-20 12:45:18 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-02-20 12:45:18 [restartedMain] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page template: index
+2026-02-20 12:45:18 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 69 mappings in 'requestMappingHandlerMapping'
+2026-02-20 12:45:18 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2026-02-20 12:45:18 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2026-02-20 12:45:18 [restartedMain] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2026-02-20 12:45:20 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2026-02-20 12:45:20 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8083 (http) with context path '/'
+2026-02-20 12:45:20 [restartedMain] INFO  c.o.c.OrpeConsultantsApplication - Started OrpeConsultantsApplication in 31.736 seconds (process running for 35.385)
+2026-02-20 14:24:57 [HikariPool-1:housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m56s438ms862µs800ns).

@@ -28,10 +28,10 @@ public class NavigationController {
             return "redirect:/login";
         }
      // Role check: only ADMIN can access
-        if (loggedInUser.getRole() != User.Role.ADMIN) {
-            model.addAttribute("user", loggedInUser);
-            return "error/unauthorisedaccess";
-        }
+        //   if (loggedInUser.getRole() != User.Role.ADMIN) {
+        //       model.addAttribute("user", loggedInUser);
+        //      return "error/unauthorisedaccess";
+        //  }
         
         // User is authenticated, add to model and show index page
         model.addAttribute("user", loggedInUser);

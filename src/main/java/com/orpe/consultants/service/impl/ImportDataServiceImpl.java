@@ -560,40 +560,78 @@ public class ImportDataServiceImpl implements ImportDataService {
 	}
 
 	private Specification<ImportData> buildSpecification(ImportDataFilter filter) {
-		return (root, query, cb) -> {
-			List<Predicate> predicates = new ArrayList<>();
+	    return (root, query, cb) -> {
+	        List<Predicate> predicates = new ArrayList<>();
 
-			String field = filter.getFilterField();
-			String value = filter.getFilterValue();
+	        String field = filter.getFilterField();
+	        String value = filter.getFilterValue();
 
-			if (field != null && !field.isBlank() && value != null && !value.isBlank()) {
-				List<String> stringFields = List.of("beNo", "claimYear", "clientName", "supplierNameAddress",
-						"countryOfOrigin",
-						// ⚠️ REMOVE "bomPartNo" from here
-						"dbkPartNo", "itchsCode", "portCode", "claimRefNo", "altBoePartNo");
+	        if (field != null && !field.isBlank() && value != null && !value.isBlank()) {
 
-				if ("bomPartNo".equals(field)) {
-					// join with material and filter on its bomPartNo
-					Join<ImportData, Material> materialJoin = root.join("material", JoinType.LEFT);
-					predicates.add(cb.like(cb.lower(materialJoin.get("bomPartNo")), "%" + value.toLowerCase() + "%"));
-				} else if (stringFields.contains(field)) {
-					predicates.add(cb.like(cb.lower(root.get(field)), "%" + value.toLowerCase() + "%"));
-				} else if ("stockWiseEligibility".equals(field)) {
-					predicates.add(cb.equal(root.get(field), value));
-				}
-			}
+	            List<String> stringFields = List.of(
+	                "beNo",
+	                "claimRefNo",
+	                "claimYear",
+	                "clientName",
+	                "supplierNameAddress",
+	                "countryOfOrigin",
+	                "dbkPartNo",
+	                "itchsCode",
+	                "portCode",
+	                "altBoePartNo"
+	            );
 
-			// Date range on beDate
-			if (filter.getFromDate() != null) {
-				predicates.add(cb.greaterThanOrEqualTo(root.get("beDate"), filter.getFromDate()));
-			}
-			if (filter.getToDate() != null) {
-				predicates.add(cb.lessThanOrEqualTo(root.get("beDate"), filter.getToDate()));
-			}
+	            if ("bomPartNo".equals(field)) {
+	                Join<ImportData, Material> materialJoin =
+	                        root.join("material", JoinType.LEFT);
+	                predicates.add(
+	                    cb.like(
+	                        cb.lower(materialJoin.get("bomPartNo")),
+	                        "%" + value.toLowerCase() + "%"
+	                    )
+	                );
 
-			return cb.and(predicates.toArray(new Predicate[0]));
-		};
+	            } else if (stringFields.contains(field)) {
+
+	                predicates.add(
+	                    cb.like(
+	                        cb.lower(root.get(field)),
+	                        "%" + value.toLowerCase() + "%"
+	                    )
+	                );
+
+	            } else if ("assessableValue".equals(field)) {
+
+	                try {
+	                    BigDecimal assessableValue = new BigDecimal(value);
+	                    predicates.add(cb.equal(root.get(field), assessableValue));
+	                } catch (NumberFormatException e) {
+	                    predicates.add(cb.disjunction());
+	                }
+
+	            } else if ("stockWiseEligibility".equals(field)) {
+
+	                predicates.add(cb.equal(root.get(field), value));
+	            }
+	        }
+
+	        // Date range filter
+	        if (filter.getFromDate() != null) {
+	            predicates.add(
+	                cb.greaterThanOrEqualTo(root.get("beDate"), filter.getFromDate())
+	            );
+	        }
+
+	        if (filter.getToDate() != null) {
+	            predicates.add(
+	                cb.lessThanOrEqualTo(root.get("beDate"), filter.getToDate())
+	            );
+	        }
+
+	        return cb.and(predicates.toArray(new Predicate[0]));
+	    };
 	}
+
 
 	private static String trim(String s) {
 		return s == null ? null : s.trim();
